@@ -15,13 +15,13 @@ public class SaleDetail {
     private static final String FIELD_IDPRODUCT = "IdProduct";
     private static final String FIELD_SUBTOTAL = "SubTotal";
     private Connection Conn;
-    private Integer Id;
-    private Integer IdSale;
-    public Integer Amount;
+    private int Id;
+    private int IdSale;
+    public int Amount;
     public Product Product;
-    public Float SubTotal;
+    public float SubTotal;
     
-    public Integer getId(){
+    public int getId(){
         return this.Id;
     }
     
@@ -42,7 +42,7 @@ public class SaleDetail {
         this.SubTotal = Float.parseFloat("0");
     }
 
-    public Boolean Load(Integer id) throws SQLException {
+    public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -70,7 +70,7 @@ public class SaleDetail {
         }
     }
 
-    public Boolean Save() throws SQLException {
+    public boolean Save() throws SQLException {
         if (this.Id == -1) {
             return InsertSaleDetail();
         } else {
@@ -78,7 +78,7 @@ public class SaleDetail {
         }
     }
 
-    private Boolean InsertSaleDetail() throws SQLException {
+    private boolean InsertSaleDetail() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_IDSALE + "," + this.FIELD_AMOUNT + ","
                 + this.FIELD_IDPRODUCT + "," + this.FIELD_SUBTOTAL
@@ -95,7 +95,7 @@ public class SaleDetail {
         }
     }
 
-    private Boolean UpdateSaleDetail() throws SQLException {
+    private boolean UpdateSaleDetail() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_IDSALE + " = ?," + this.FIELD_AMOUNT + " = ?,"
                 + this.FIELD_IDPRODUCT + " = ?," + this.FIELD_SUBTOTAL + " = ?"

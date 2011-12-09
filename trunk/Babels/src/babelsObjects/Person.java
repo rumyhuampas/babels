@@ -16,7 +16,7 @@ public class Person {
     protected final String FIELD_IDCITY = "IdCity";
     protected final String FIELD_EMAIL = "Email";
     protected Connection Conn;
-    protected Integer Id;
+    protected int Id;
     public String Dni;
     public String Name;
     public String LastName;
@@ -27,7 +27,7 @@ public class Person {
     public City City;
     public String Email;
     
-    public Integer getId(){
+    public int getId(){
         return this.Id;
     }
 

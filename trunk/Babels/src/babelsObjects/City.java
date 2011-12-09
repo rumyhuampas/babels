@@ -14,10 +14,10 @@ public class City {
     private static final String FIELD_IDCITY = "IdCity";
     private static final String FIELD_IDSTATE = "IdState";
     private Connection Conn;
-    private Integer Id;
+    private int Id;
     public String Name;
 
-    public Integer getId() {
+    public int getId() {
         return this.Id;
     }
 
@@ -31,7 +31,7 @@ public class City {
         this.Name = "";
     }
 
-    public Boolean Load(Integer id) throws SQLException {
+    public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -43,7 +43,7 @@ public class City {
         }
     }
 
-    public Boolean Load(String name) throws SQLException {
+    public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -55,7 +55,7 @@ public class City {
         }
     }
 
-    private Boolean SelectCity(PreparedStatement qry) throws SQLException {
+    private boolean SelectCity(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
             if (results.next()) {
