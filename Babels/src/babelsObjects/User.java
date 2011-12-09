@@ -17,8 +17,8 @@ public class User {
     private Integer Id;
     public String Name;
     public String Pass;
-    public Boolean IsAdmin;
-    public Boolean Active;
+    public boolean IsAdmin;
+    public boolean Active;
     
     public User(Connection conn) throws SQLException {
         this.Conn = conn;
@@ -33,7 +33,7 @@ public class User {
         this.Active = true;
     }
     
-    public Boolean Load(Integer id) throws SQLException {
+    public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -45,7 +45,7 @@ public class User {
         }
     }
     
-    public Boolean Load(String name) throws SQLException {
+    public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -57,7 +57,7 @@ public class User {
         }
     }
     
-    private Boolean SelectUser(PreparedStatement qry) throws SQLException {
+    private boolean SelectUser(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
             if (results.next()) {
@@ -75,7 +75,7 @@ public class User {
         }
     }
     
-    public Boolean Save() throws SQLException {
+    public boolean Save() throws SQLException {
         if (this.Id == -1) {
             if (!Exists()) {
                 return InsertUser();
@@ -87,7 +87,7 @@ public class User {
         }
     }
     
-    private Boolean InsertUser() throws SQLException {
+    private boolean InsertUser() throws SQLException {
         Integer isAdmin = this.IsAdmin == false ? 0 : 1;
         Integer isActive = this.Active == false ? 0 : 1;
         String sql = "INSERT INTO " + this.TABLENAME + " ("
@@ -106,7 +106,7 @@ public class User {
         }
     }
     
-    private Boolean UpdateUser() throws SQLException {
+    private boolean UpdateUser() throws SQLException {
         Integer isAdmin = this.IsAdmin == false ? 0 : 1;
         Integer isActive = this.Active == false ? 0 : 1;
         String sql = "UPDATE " + this.TABLENAME + " SET "
@@ -128,7 +128,7 @@ public class User {
         }
     }
     
-    public Boolean Exists() throws SQLException {
+    public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -149,7 +149,7 @@ public class User {
         }
     }
     
-    public Boolean Delete(Integer id) throws SQLException {
+    public boolean Delete(Integer id) throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_ACTIVE + " = ? "
                 + "WHERE "
@@ -165,7 +165,7 @@ public class User {
         }
     }
     
-    public Boolean Delete(String name) throws SQLException {
+    public boolean Delete(String name) throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_ACTIVE + " = ? "
                 + "WHERE "

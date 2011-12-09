@@ -1,19 +1,26 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package babels;
 
-/**
- *
- * @author Javier
- */
+import babelsForms.Login;
+import babelsObjects.MySQL;
+import babelsObjects.Session;
+import java.sql.SQLException;
+
 public class Babels {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static MySQL mysql = new MySQL();
+    public static Session session = null;
+
+    public static void main(String[] args) throws SQLException {
+        LaunchLoginFrame();
+    }
+    
+    static void LaunchLoginFrame(){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new Login().setVisible(true);
+            }
+        });
     }
 }
