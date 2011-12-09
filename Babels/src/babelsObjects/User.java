@@ -14,7 +14,7 @@ public class User {
     private final String FIELD_ISADMIN = "IsAdmin";
     private final String FIELD_ACTIVE = "Active";
     private Connection Conn;
-    private Integer Id;
+    private int Id;
     public String Name;
     public String Pass;
     public boolean IsAdmin;

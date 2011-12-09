@@ -13,7 +13,7 @@ public class Client extends Person {
         super(conn);
     }
 
-    public Boolean Load(Integer id) throws SQLException {
+    public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -25,7 +25,7 @@ public class Client extends Person {
         }
     }
 
-    public Boolean Load(String name) throws SQLException {
+    public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -37,7 +37,7 @@ public class Client extends Person {
         }
     }
 
-    private Boolean SelectClient(PreparedStatement qry) throws SQLException {
+    private boolean SelectClient(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
             if (results.next()) {
@@ -63,7 +63,7 @@ public class Client extends Person {
         }
     }
 
-    public Boolean Save() throws SQLException {
+    public boolean Save() throws SQLException {
         if (this.Id == -1) {
             if (!Exists()) {
                 return InsertClient();
@@ -75,7 +75,7 @@ public class Client extends Person {
         }
     }
 
-    private Boolean InsertClient() throws SQLException {
+    private boolean InsertClient() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_DNI + "," + this.FIELD_NAME + ","
                 + this.FIELD_LASTNAME + "," + this.FIELD_PHONE + ","
@@ -99,7 +99,7 @@ public class Client extends Person {
         }
     }
 
-    private Boolean UpdateClient() throws SQLException {
+    private boolean UpdateClient() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_DNI + " = ?," + this.FIELD_NAME + " = ?,"
                 + this.FIELD_LASTNAME + " = ?," + this.FIELD_PHONE + " = ?,"
@@ -125,7 +125,7 @@ public class Client extends Person {
         }
     }
 
-    public Boolean Exists() throws SQLException {
+    public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_DNI + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);

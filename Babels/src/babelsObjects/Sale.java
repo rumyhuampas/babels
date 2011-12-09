@@ -16,14 +16,14 @@ public class Sale {
     private final String FIELD_IDCLIENT = "IdClient";
     private final String FIELD_TOTAL = "Total";
     private Connection Conn;
-    private Integer Id;
+    private int Id;
     private String Code;
     private Date Date;
     public Client Client;
     public ArrayList SaleDtl;
-    public Float Total;
+    public float Total;
 
-    public Integer getId() {
+    public int getId() {
         return this.Id;
     }
 
@@ -41,7 +41,7 @@ public class Sale {
         this.Total = Float.parseFloat("0");
     }
 
-    public Boolean Load(Integer id) throws SQLException {
+    public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -53,7 +53,7 @@ public class Sale {
         }
     }
 
-    public Boolean Load(String code) throws SQLException {
+    public boolean Load(String code) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_CODE + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class Sale {
         }
     }
 
-    private Boolean SelectSale(PreparedStatement qry) throws SQLException {
+    private boolean SelectSale(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
             if (results.next()) {
@@ -86,7 +86,7 @@ public class Sale {
         }
     }
 
-    public Boolean Save() throws SQLException {
+    public boolean Save() throws SQLException {
         if (this.Id == -1) {
             if (!Exists()) {
                 if (SaveSaleDetails() == true) {
@@ -106,8 +106,8 @@ public class Sale {
         }
     }
 
-    private Boolean SaveSaleDetails() throws SQLException {
-        Boolean result = false;
+    private boolean SaveSaleDetails() throws SQLException {
+        boolean result = false;
         this.Conn.setAutoCommit(false);
         try {
             PreparedStatement qryIns = null;
@@ -147,7 +147,7 @@ public class Sale {
         return result;
     }
 
-    private Boolean InsertSale() throws SQLException {
+    private boolean InsertSale() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_CODE + "," + this.FIELD_DATE + ","
                 + this.FIELD_IDCLIENT + "," + this.FIELD_TOTAL
@@ -164,7 +164,7 @@ public class Sale {
         }
     }
 
-    private Boolean UpdateSale() throws SQLException {
+    private boolean UpdateSale() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_CODE + " = ?," + this.FIELD_DATE + " = ?,"
                 + this.FIELD_IDCLIENT + " = ?," + this.FIELD_TOTAL + " = ? "
@@ -182,7 +182,7 @@ public class Sale {
         }
     }
 
-    public Boolean Exists() throws SQLException {
+    public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_CODE + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
