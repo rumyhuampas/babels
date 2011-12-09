@@ -1,16 +1,16 @@
 package babelsForms;
 
 import babels.Babels;
-import babelsObjects.MySQL;
 import babelsObjects.Session;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JDialog {
 
-    public Login() {
+    public Login(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -25,7 +25,7 @@ public class Login extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("frmLogin"); // NOI18N
 
         btnAcept.setText("Aceptar");
@@ -134,7 +134,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnCancelActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcept;

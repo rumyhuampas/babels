@@ -1,0 +1,205 @@
+package babelsObjects;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.sql.Date;
+
+public class Sale {
+
+    private final String TABLENAME = "Sales";
+    private final String FIELD_ID = "Id";
+    private final String FIELD_CODE = "Code";
+    private final String FIELD_DATE = "Date";
+    private final String FIELD_IDCLIENT = "IdClient";
+    private final String FIELD_TOTAL = "Total";
+    private Connection Conn;
+    private Integer Id;
+    private String Code;
+    private Date Date;
+    public Client Client;
+    public ArrayList SaleDtl;
+    public Float Total;
+
+    public Integer getId() {
+        return this.Id;
+    }
+
+    public Sale(Connection conn) throws SQLException {
+        this.Conn = conn;
+        Clear();
+    }
+
+    public void Clear() {
+        this.Id = -1;
+        this.Code = "";
+        this.Date = null;
+        this.Client = null;
+        this.SaleDtl.clear();
+        this.Total = Float.parseFloat("0");
+    }
+
+    public Boolean Load(Integer id) throws SQLException {
+        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_ID + " = ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setInt(1, id);
+            return SelectSale(qry);
+        } finally {
+            qry.close();
+        }
+    }
+
+    public Boolean Load(String code) throws SQLException {
+        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_CODE + " = ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setString(1, code);
+            return SelectSale(qry);
+        } finally {
+            qry.close();
+        }
+    }
+
+    private Boolean SelectSale(PreparedStatement qry) throws SQLException {
+        ResultSet results = qry.executeQuery();
+        try {
+            if (results.next()) {
+                this.Id = results.getInt(this.FIELD_ID);
+                this.Code = results.getString(this.FIELD_CODE);
+                this.Date = results.getDate(this.FIELD_DATE);
+                this.Client = new Client(this.Conn);
+                this.Client.Load(results.getInt(this.FIELD_IDCLIENT));
+                this.Total = results.getFloat(this.FIELD_TOTAL);
+                this.SaleDtl = SaleDetail.GetSaleDetails(this.Conn, this);
+
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            results.close();
+        }
+    }
+
+    public Boolean Save() throws SQLException {
+        if (this.Id == -1) {
+            if (!Exists()) {
+                if (SaveSaleDetails() == true) {
+                    return InsertSale();
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            if (SaveSaleDetails() == true) {
+                return UpdateSale();
+            } else {
+                return false;
+            }
+        }
+    }
+
+    private Boolean SaveSaleDetails() throws SQLException {
+        Boolean result = false;
+        this.Conn.setAutoCommit(false);
+        try {
+            PreparedStatement qryIns = null;
+            PreparedStatement qryUpd = null;
+            for (int i = 0; i > this.SaleDtl.size(); i++) {
+                SaleDetail sd = ((SaleDetail) this.SaleDtl.get(i));
+                if (sd.getId() == -1) {
+                    qryIns = this.Conn.prepareStatement(SaleDetail.GetInsertSql());
+                    qryIns.setInt(1, sd.getIdSale());
+                    qryIns.setInt(2, sd.Amount);
+                    qryIns.setInt(3, sd.Product.getId());
+                    qryIns.setFloat(4, sd.SubTotal);
+                    
+                    qryIns.addBatch();
+                } else {
+                    qryUpd = this.Conn.prepareStatement(SaleDetail.GetUpdateSql());
+                    qryUpd.setInt(1, sd.getIdSale());
+                    qryUpd.setInt(2, sd.Amount);
+                    qryUpd.setInt(3, sd.Product.getId());
+                    qryUpd.setFloat(4, sd.SubTotal);
+                    qryUpd.setInt(5, sd.getId());
+                    
+                    qryUpd.addBatch();
+                }
+            }
+            qryIns.executeBatch();
+            qryUpd.executeBatch();
+            this.Conn.commit();
+            
+            result = true;
+        } catch (Exception ex) {
+            this.Conn.rollback();
+            result = false;
+        } finally {
+            this.Conn.setAutoCommit(true);
+        }
+        return result;
+    }
+
+    private Boolean InsertSale() throws SQLException {
+        String sql = "INSERT INTO " + this.TABLENAME + " ("
+                + this.FIELD_CODE + "," + this.FIELD_DATE + ","
+                + this.FIELD_IDCLIENT + "," + this.FIELD_TOTAL
+                + ") VALUES (?,?,?,?,?,?,?,?,?)";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setString(1, this.Code);
+            qry.setDate(2, this.Date);
+            qry.setInt(3, this.Client.getId());
+            qry.setFloat(4, this.Total);
+            return qry.execute();
+        } finally {
+            qry.close();
+        }
+    }
+
+    private Boolean UpdateSale() throws SQLException {
+        String sql = "UPDATE " + this.TABLENAME + " SET "
+                + this.FIELD_CODE + " = ?," + this.FIELD_DATE + " = ?,"
+                + this.FIELD_IDCLIENT + " = ?," + this.FIELD_TOTAL + " = ? "
+                + "WHERE " + this.FIELD_ID + " = ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setString(1, this.Code);
+            qry.setDate(2, this.Date);
+            qry.setInt(3, this.Client.getId());
+            qry.setFloat(4, this.Total);
+            qry.setInt(5, this.Id);
+            return qry.execute();
+        } finally {
+            qry.close();
+        }
+    }
+
+    public Boolean Exists() throws SQLException {
+        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_CODE + " = ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setString(1, this.Code);
+            ResultSet results = qry.executeQuery();
+            try {
+                if (results.next()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } finally {
+                results.close();
+            }
+        } finally {
+            qry.close();
+        }
+    }
+}
