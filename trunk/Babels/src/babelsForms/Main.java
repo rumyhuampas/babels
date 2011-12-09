@@ -1,5 +1,7 @@
 package babelsForms;
 
+import babelsObjects.FormsFactory;
+
 public class Main extends javax.swing.JFrame {
 
     public Main() {
@@ -12,19 +14,30 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain = new javax.swing.JMenuBar();
         mitemFile = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mitemFileExit = new javax.swing.JMenuItem();
         mitemUsers = new javax.swing.JMenu();
+        mitemUsersAdmin = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("frmMain"); // NOI18N
 
         mitemFile.setText("Archivo");
 
-        jMenuItem1.setText("jMenuItem1");
-        mitemFile.add(jMenuItem1);
+        mitemFileExit.setText("Salir");
+        mitemFile.add(mitemFileExit);
 
         mbarMain.add(mitemFile);
 
         mitemUsers.setText("Usuarios");
+
+        mitemUsersAdmin.setText("Administrar usuarios");
+        mitemUsersAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemUsersAdminActionPerformed(evt);
+            }
+        });
+        mitemUsers.add(mitemUsersAdmin);
+
         mbarMain.add(mitemUsers);
 
         setJMenuBar(mbarMain);
@@ -42,10 +55,16 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mitemUsersAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemUsersAdminActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.Users", true);
+    }//GEN-LAST:event_mitemUsersAdminActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemFile;
+    private javax.swing.JMenuItem mitemFileExit;
     private javax.swing.JMenu mitemUsers;
+    private javax.swing.JMenuItem mitemUsersAdmin;
     // End of variables declaration//GEN-END:variables
 }
