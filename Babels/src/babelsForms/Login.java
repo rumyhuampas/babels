@@ -1,17 +1,18 @@
 package babelsForms;
 
-import babels.Babels;
-import babelsObjects.Session;
+import babelsManagers.LoginManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JDialog {
+
+    private LoginManager Manager;
 
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.Manager = new LoginManager();
     }
 
     @SuppressWarnings("unchecked")
@@ -89,39 +90,18 @@ public class Login extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptActionPerformed
-        if (CheckFields() == true) {
-            DoLogin();
+        if (this.Manager.CheckFields(txtName, txtPass) == true) {
+            try {
+                if (this.Manager.DoLogin(txtName.getText(), txtPass.getText()) == true) {
+                    this.setVisible(false);
+                    LaunchMainFrame();
+                    this.dispose();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnAceptActionPerformed
-
-    private boolean CheckFields() {
-        if (!txtName.getText().equals("") && !txtPass.getText().equals("")) {
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Debe completar ambos campos",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }
-    
-    private void DoLogin(){
-        Babels.mysql.Open();
-        try {
-            Babels.session = new Session(Babels.mysql.Conn);
-            if (Babels.session.Login(txtName.getText(), txtPass.getText()) == true) {
-                this.setVisible(false);
-                LaunchMainFrame();                
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Usuario/password incorrecto",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            Babels.mysql.Close();
-        }
-    }
 
     private void LaunchMainFrame() {
         java.awt.EventQueue.invokeLater(new Runnable() {

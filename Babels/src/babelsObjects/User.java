@@ -100,7 +100,7 @@ public class User {
             qry.setString(2, this.Pass);
             qry.setInt(3, isAdmin);
             qry.setInt(4, isActive);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }
@@ -122,7 +122,7 @@ public class User {
             qry.setInt(3, isAdmin);
             qry.setInt(4, isActive);
             qry.setInt(5, this.Id);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }
@@ -158,7 +158,7 @@ public class User {
         try {
             qry.setInt(1, 0);
             qry.setInt(2, id);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
             this.Active = false;
@@ -174,7 +174,7 @@ public class User {
         try {
             qry.setInt(1, 0);
             qry.setString(2, name);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
             this.Active = false;
