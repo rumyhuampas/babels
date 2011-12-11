@@ -33,6 +33,7 @@ public class FormsFactory {
                         co = cl.getConstructor(classParam);
                         try {
                             final JDialog dialog = (JDialog) co.newInstance(objectParam);
+                            dialog.setLocationRelativeTo(null);
                             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                                 @Override
@@ -41,7 +42,6 @@ public class FormsFactory {
                                         dialog.dispose();
                                     } else {
                                         System.exit(0);
-
                                     }
                                 }
                             });

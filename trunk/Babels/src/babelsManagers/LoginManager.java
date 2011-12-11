@@ -1,12 +1,20 @@
 package babelsManagers;
 
 import babels.Babels;
+import babelsInterfaces.IBabelsDialog;
+import babelsListeners.KeyListenerType;
+import babelsListeners.txtFieldListener;
 import babelsObjects.Session;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class LoginManager {
+    
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPass, IBabelsDialog dialog){
+        txtName.addKeyListener(new txtFieldListener(KeyListenerType.NO_SPACES, dialog));
+        txtPass.addKeyListener(new txtFieldListener(KeyListenerType.NO_SPACES, dialog));
+    }
 
     public boolean CheckFields(JTextField txtName, JTextField txtPass) {
         if (!txtName.getText().equals("") && !txtPass.getText().equals("")) {
