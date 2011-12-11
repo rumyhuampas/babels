@@ -20,12 +20,12 @@ public class SaleDetail {
     public int Amount;
     public Product Product;
     public float SubTotal;
-    
-    public int getId(){
+
+    public int getId() {
         return this.Id;
     }
-    
-    public Integer getIdSale(){
+
+    public Integer getIdSale() {
         return this.IdSale;
     }
 
@@ -33,13 +33,17 @@ public class SaleDetail {
         this.Conn = conn;
         Clear();
     }
-    
-    public void Clear(){
+
+    public void Clear() {
         this.Id = -1;
         this.IdSale = -1;
         this.Amount = 0;;
         this.Product = null;
         this.SubTotal = Float.parseFloat("0");
+    }
+
+    public void ResetId() {
+        this.Id = -1;
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -89,7 +93,14 @@ public class SaleDetail {
             qry.setInt(2, this.Amount);
             qry.setInt(3, this.Product.getId());
             qry.setFloat(4, this.SubTotal);
-            return qry.executeUpdate() > 0;
+            if (qry.executeUpdate() > 0) {
+                ResultSet result = qry.getGeneratedKeys();
+                result.next();
+                this.Id = result.getInt(this.FIELD_ID);
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             qry.close();
         }
@@ -135,18 +146,28 @@ public class SaleDetail {
             qry.close();
         }
     }
-    
-    static String GetInsertSql(){
+
+    static String GetInsertSql() {
         return "INSERT INTO " + TABLENAME + " ("
                 + FIELD_IDSALE + "," + FIELD_AMOUNT + ","
                 + FIELD_IDPRODUCT + "," + FIELD_SUBTOTAL
                 + ") VALUES (?,?,?,?,?,?,?,?,?)";
     }
-    
-    static String GetUpdateSql(){
+
+    static String GetUpdateSql() {
         return "UPDATE " + TABLENAME + " SET "
                 + FIELD_IDSALE + " = ?," + FIELD_AMOUNT + " = ?,"
                 + FIELD_IDPRODUCT + " = ?," + FIELD_SUBTOTAL + " = ?"
                 + "WHERE " + FIELD_ID + " = ?";
+    }
+
+    static String GetDeleteSql() {
+        return "DELETE FROM " + TABLENAME + " "
+                + "WHERE " + FIELD_ID + " = ?";
+    }
+
+    static String GetDeleteFromSaleSql() {
+        return "DELETE FROM " + TABLENAME + " "
+                + "WHERE " + FIELD_IDSALE + " = ?";
     }
 }
