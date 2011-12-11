@@ -23,6 +23,12 @@ public class tblUsersManager {
         this.Model = this.Table.getModel();
         this.Listener = new tblUsersListener(this);
     }
+    
+    public void SetPreferredColumnWidth(){
+        this.Table.getColumnModel().getColumn(0).setPreferredWidth(15);
+        this.Table.getColumnModel().getColumn(2).setPreferredWidth(15);
+        this.Table.getColumnModel().getColumn(3).setPreferredWidth(15);
+    }
 
     public void RefreshTable() throws SQLException {
         this.RefreshingTable = true;

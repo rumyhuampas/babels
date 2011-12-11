@@ -1,11 +1,12 @@
 package babelsForms;
 
+import babelsInterfaces.IBabelsDialog;
 import babelsManagers.NewUserManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NewUser extends javax.swing.JDialog {
+public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
 
     private NewUserManager Manager;
 
@@ -13,6 +14,7 @@ public class NewUser extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new NewUserManager();
+        this.Manager.SetFieldsListeners(txtName, txtPass, txtRePass, this);
     }
     
     public NewUser(java.awt.Frame parent, boolean modal, boolean firstUser) {
@@ -24,6 +26,16 @@ public class NewUser extends javax.swing.JDialog {
             this.chbIsAdmin.setEnabled(false);
             this.btnCancel.setEnabled(false);
         }
+    }
+    
+    @Override
+    public void ClickOKButton() {
+        this.btnOK.doClick();
+    }
+
+    @Override
+    public void ClickCancelButton() {
+        this.btnCancel.doClick();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,6 +53,7 @@ public class NewUser extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Babels - Nuevo usuario");
         setName("frmNewUser"); // NOI18N
 
         lblName.setText("Nombre:");

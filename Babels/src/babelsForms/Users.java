@@ -15,6 +15,7 @@ public class Users extends javax.swing.JDialog {
         initComponents();
         this.Manager = new tblUsersManager(tblUsers);
         tblUsers.getModel().addTableModelListener(this.Manager.Listener);
+        this.Manager.SetPreferredColumnWidth();
     }
 
     @SuppressWarnings("unchecked")
@@ -26,6 +27,7 @@ public class Users extends javax.swing.JDialog {
         btnNew = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Babels - Usuarios");
         setName("frmUsers"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
