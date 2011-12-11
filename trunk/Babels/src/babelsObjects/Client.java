@@ -93,7 +93,15 @@ public class Client extends Person {
             qry.setInt(7, this.State.getId());
             qry.setInt(8, this.City.getId());
             qry.setString(9, this.Email);
-            return qry.executeUpdate() > 0;
+            if (qry.executeUpdate() > 0){
+                ResultSet result = qry.getGeneratedKeys();
+                result.next();
+                this.Id = result.getInt(this.FIELD_ID);
+                return true;
+            }
+            else{
+                return false;
+            }
         } finally {
             qry.close();
         }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
 public class User {
-    
+
     private final String TABLENAME = "Users";
     private final String FIELD_ID = "Id";
     private final String FIELD_NAME = "Name";
@@ -19,12 +19,12 @@ public class User {
     public String Pass;
     public boolean IsAdmin;
     public boolean Active;
-    
+
     public User(Connection conn) throws SQLException {
         this.Conn = conn;
         Clear();
     }
-    
+
     public final void Clear() {
         this.Id = -1;
         this.Name = "";
@@ -32,7 +32,7 @@ public class User {
         this.IsAdmin = false;
         this.Active = true;
     }
-    
+
     public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
@@ -44,7 +44,7 @@ public class User {
             qry.close();
         }
     }
-    
+
     public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
@@ -56,7 +56,7 @@ public class User {
             qry.close();
         }
     }
-    
+
     private boolean SelectUser(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
@@ -74,7 +74,7 @@ public class User {
             results.close();
         }
     }
-    
+
     public boolean Save() throws SQLException {
         if (this.Id == -1) {
             if (!Exists()) {
@@ -86,7 +86,7 @@ public class User {
             return UpdateUser();
         }
     }
-    
+
     private boolean InsertUser() throws SQLException {
         Integer isAdmin = this.IsAdmin == false ? 0 : 1;
         Integer isActive = this.Active == false ? 0 : 1;
@@ -100,12 +100,19 @@ public class User {
             qry.setString(2, this.Pass);
             qry.setInt(3, isAdmin);
             qry.setInt(4, isActive);
-            return qry.executeUpdate() > 0;
+            if (qry.executeUpdate() > 0) {
+                ResultSet result = qry.getGeneratedKeys();
+                result.next();
+                this.Id = result.getInt(this.FIELD_ID);
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             qry.close();
         }
     }
-    
+
     private boolean UpdateUser() throws SQLException {
         Integer isAdmin = this.IsAdmin == false ? 0 : 1;
         Integer isActive = this.Active == false ? 0 : 1;
@@ -127,7 +134,7 @@ public class User {
             qry.close();
         }
     }
-    
+
     public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
@@ -148,8 +155,8 @@ public class User {
             qry.close();
         }
     }
-    
-    public boolean Delete(Integer id) throws SQLException {
+
+    public boolean Delete() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_ACTIVE + " = ? "
                 + "WHERE "
@@ -157,27 +164,15 @@ public class User {
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setInt(1, 0);
-            qry.setInt(2, id);
-            return qry.executeUpdate() > 0;
+            qry.setInt(2, this.Id);
+            if (qry.executeUpdate() > 0) {
+                this.Active = false;
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             qry.close();
-            this.Active = false;
-        }
-    }
-    
-    public boolean Delete(String name) throws SQLException {
-        String sql = "UPDATE " + this.TABLENAME + " SET "
-                + this.FIELD_ACTIVE + " = ? "
-                + "WHERE "
-                + this.FIELD_NAME + " = ?";
-        PreparedStatement qry = this.Conn.prepareStatement(sql);
-        try {
-            qry.setInt(1, 0);
-            qry.setString(2, name);
-            return qry.executeUpdate() > 0;
-        } finally {
-            qry.close();
-            this.Active = false;
         }
     }
 }

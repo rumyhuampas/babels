@@ -29,6 +29,7 @@ public class Sale {
 
     public Sale(Connection conn) throws SQLException {
         this.Conn = conn;
+        this.SaleDtl = new ArrayList();
         Clear();
     }
 
@@ -89,8 +90,13 @@ public class Sale {
     public boolean Save() throws SQLException {
         if (this.Id == -1) {
             if (!Exists()) {
-                if (SaveSaleDetails() == true) {
-                    return InsertSale();
+                if (InsertSale() == true) {
+                    if (SaveSaleDetails() == true) {
+                        return true;
+                    } else {
+                        Delete();
+                        return false;
+                    }
                 } else {
                     return false;
                 }
@@ -120,7 +126,7 @@ public class Sale {
                     qryIns.setInt(2, sd.Amount);
                     qryIns.setInt(3, sd.Product.getId());
                     qryIns.setFloat(4, sd.SubTotal);
-                    
+
                     qryIns.addBatch();
                 } else {
                     qryUpd = this.Conn.prepareStatement(SaleDetail.GetUpdateSql());
@@ -129,14 +135,14 @@ public class Sale {
                     qryUpd.setInt(3, sd.Product.getId());
                     qryUpd.setFloat(4, sd.SubTotal);
                     qryUpd.setInt(5, sd.getId());
-                    
+
                     qryUpd.addBatch();
                 }
             }
             qryIns.executeBatch();
             qryUpd.executeBatch();
             this.Conn.commit();
-            
+
             result = true;
         } catch (Exception ex) {
             this.Conn.rollback();
@@ -158,7 +164,14 @@ public class Sale {
             qry.setDate(2, this.Date);
             qry.setInt(3, this.Client.getId());
             qry.setFloat(4, this.Total);
-            return qry.executeUpdate() > 0;
+            if (qry.executeUpdate() > 0) {
+                ResultSet result = qry.getGeneratedKeys();
+                result.next();
+                this.Id = result.getInt(this.FIELD_ID);
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             qry.close();
         }
@@ -197,6 +210,51 @@ public class Sale {
                 }
             } finally {
                 results.close();
+            }
+        } finally {
+            qry.close();
+        }
+    }
+
+    public boolean Delete() throws SQLException {
+        DeleteSaleDetails();
+        if (DeleteSale() == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean DeleteSale() throws SQLException {
+        String sql = "DELETE FROM " + this.TABLENAME + " "
+                + "WHERE "
+                + this.FIELD_ID + " = ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setInt(1, this.Id);
+            if (qry.executeUpdate() > 0) {
+                this.Id = -1;
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            qry.close();
+        }
+    }
+
+    private boolean DeleteSaleDetails() throws SQLException {
+        PreparedStatement qry = this.Conn.prepareStatement(SaleDetail.GetDeleteFromSaleSql());
+        try {
+            qry.setInt(1, this.Id);
+            if (qry.executeUpdate() > 0) {
+                for (int i = 0; i < this.SaleDtl.size(); i++) {
+                    SaleDetail sd = ((SaleDetail) this.SaleDtl.get(i));
+                    sd.ResetId();
+                }
+                return true;
+            } else {
+                return false;
             }
         } finally {
             qry.close();
