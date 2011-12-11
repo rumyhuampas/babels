@@ -93,7 +93,7 @@ public class Client extends Person {
             qry.setInt(7, this.State.getId());
             qry.setInt(8, this.City.getId());
             qry.setString(9, this.Email);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }
@@ -119,7 +119,7 @@ public class Client extends Person {
             qry.setInt(8, this.City.getId());
             qry.setString(9, this.Email);
             qry.setInt(10, this.Id);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }

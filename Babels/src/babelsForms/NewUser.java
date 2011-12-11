@@ -1,10 +1,29 @@
 package babelsForms;
 
+import babelsManagers.NewUserManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class NewUser extends javax.swing.JDialog {
+
+    private NewUserManager Manager;
 
     public NewUser(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.Manager = new NewUserManager();
+    }
+    
+    public NewUser(java.awt.Frame parent, boolean modal, boolean firstUser) {
+        super(parent, modal);
+        initComponents();
+        this.Manager = new NewUserManager();
+        if (firstUser == true){
+            this.chbIsAdmin.setSelected(true);
+            this.chbIsAdmin.setEnabled(false);
+            this.btnCancel.setEnabled(false);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -33,8 +52,18 @@ public class NewUser extends javax.swing.JDialog {
         chbIsAdmin.setText("Administrador");
 
         btnOK.setText("Aceptar");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,13 +82,12 @@ public class NewUser extends javax.swing.JDialog {
                             .addComponent(txtRePass, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                             .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                             .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(chbIsAdmin, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap())
+                            .addComponent(chbIsAdmin, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel)
-                        .addContainerGap())))
+                        .addComponent(btnCancel)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,8 +116,23 @@ public class NewUser extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        if (this.Manager.CheckFields(this.txtName, this.txtPass, this.txtRePass)) {
+            try {
+                if (this.Manager.SaveNewUser(this.txtName.getText(), this.txtPass.getText(),
+                        this.chbIsAdmin.isSelected()) == true) {
+                    this.dispose();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnOKActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;

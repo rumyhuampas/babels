@@ -7,13 +7,24 @@ import javax.swing.JDialog;
 
 public class FormsFactory {
 
-    public static void GetDialogForm(final String formName, final boolean disposeOnExit) {
+    public static void GetDialogForm(final String formName, final boolean disposeOnExit,
+            final Class[] classPrm, final Object[] objectPrm) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                Class[] classParam = {java.awt.Frame.class, boolean.class};
-                Object[] objectParam = {new javax.swing.JFrame(), true};
+                Class[] classParam = classPrm;
+                if (classParam == null) {
+                    classParam = new Class[2];
+                    classParam[0] = java.awt.Frame.class;
+                    classParam[1] = boolean.class;
+                }
+                Object[] objectParam = objectPrm;
+                if (objectParam == null) {
+                    objectParam = new Object[2];
+                    objectParam[0] = new javax.swing.JFrame();
+                    objectParam[1] = true;
+                }
                 Class cl;
                 try {
                     cl = Class.forName(formName);
