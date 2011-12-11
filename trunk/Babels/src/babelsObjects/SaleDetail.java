@@ -89,7 +89,7 @@ public class SaleDetail {
             qry.setInt(2, this.Amount);
             qry.setInt(3, this.Product.getId());
             qry.setFloat(4, this.SubTotal);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }
@@ -107,7 +107,7 @@ public class SaleDetail {
             qry.setInt(3, this.Product.getId());
             qry.setFloat(4, this.SubTotal);
             qry.setInt(5, this.Id);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }

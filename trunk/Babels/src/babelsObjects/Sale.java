@@ -158,7 +158,7 @@ public class Sale {
             qry.setDate(2, this.Date);
             qry.setInt(3, this.Client.getId());
             qry.setFloat(4, this.Total);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }
@@ -176,7 +176,7 @@ public class Sale {
             qry.setInt(3, this.Client.getId());
             qry.setFloat(4, this.Total);
             qry.setInt(5, this.Id);
-            return qry.execute();
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }

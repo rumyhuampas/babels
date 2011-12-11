@@ -57,9 +57,8 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mitemUsersAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemUsersAdminActionPerformed
-        FormsFactory.GetDialogForm("babelsForms.Users", true);
+        FormsFactory.GetDialogForm("babelsForms.Users", true, null, null);
     }//GEN-LAST:event_mitemUsersAdminActionPerformed
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemFile;

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class Users extends javax.swing.JDialog {
 
     private tblUsersManager Manager;
-    
+
     public Users(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -98,10 +98,13 @@ public class Users extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        FormsFactory.GetDialogForm("babelsForms.NewUser", true);
+        FormsFactory.GetDialogForm("babelsForms.NewUser", true, null, null);
+        try {
+            this.Manager.RefreshTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnNewActionPerformed
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNew;
     private javax.swing.JScrollPane jScrollPane1;
