@@ -21,6 +21,7 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
         super(parent, modal);
         initComponents();
         this.Manager = new NewUserManager();
+        this.Manager.SetFieldsListeners(txtName, txtPass, txtRePass, this);
         if (firstUser == true){
             this.chbIsAdmin.setSelected(true);
             this.chbIsAdmin.setEnabled(false);
