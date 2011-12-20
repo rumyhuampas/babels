@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class SaleDetail {
@@ -88,7 +89,7 @@ public class SaleDetail {
                 + this.FIELD_IDSALE + "," + this.FIELD_AMOUNT + ","
                 + this.FIELD_IDPRODUCT + "," + this.FIELD_SUBTOTAL
                 + ") VALUES (?,?,?,?,?,?,?,?,?)";
-        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setInt(1, this.IdSale);
             qry.setInt(2, this.Amount);
@@ -97,7 +98,7 @@ public class SaleDetail {
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
-                this.Id = result.getInt(this.FIELD_ID);
+                this.Id = result.getInt("GENERATED_KEY");
                 return true;
             } else {
                 return false;

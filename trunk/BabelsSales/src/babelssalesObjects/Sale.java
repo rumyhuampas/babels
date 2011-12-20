@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.sql.Statement;
 
 public class Sale {
 
@@ -159,7 +160,7 @@ public class Sale {
                 + this.FIELD_CODE + "," + this.FIELD_DATE + ","
                 + this.FIELD_IDCLIENT + "," + this.FIELD_TOTAL
                 + ") VALUES (?,?,?,?,?,?,?,?,?)";
-        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setString(1, this.Code);
             qry.setDate(2, this.Date);
@@ -168,7 +169,7 @@ public class Sale {
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
-                this.Id = result.getInt(this.FIELD_ID);
+                this.Id = result.getInt("GENERATED_KEY");
                 return true;
             } else {
                 return false;
