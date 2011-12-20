@@ -25,7 +25,7 @@ public class tblUsersManager {
     }
     
     public void SetPreferredColumnWidth(){
-        this.Table.getColumnModel().getColumn(0).setPreferredWidth(15);
+        this.Table.getColumnModel().getColumn(0).setPreferredWidth(0);
         this.Table.getColumnModel().getColumn(2).setPreferredWidth(15);
         this.Table.getColumnModel().getColumn(3).setPreferredWidth(15);
     }
