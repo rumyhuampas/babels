@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 public class User {
 
@@ -94,7 +95,7 @@ public class User {
                 + this.FIELD_NAME + ", " + this.FIELD_PASS + ", "
                 + this.FIELD_ISADMIN + ", " + this.FIELD_ACTIVE
                 + ") VALUES (?,?,?,?)";
-        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Pass);
@@ -103,7 +104,7 @@ public class User {
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
-                this.Id = result.getInt(this.FIELD_ID);
+                this.Id = result.getInt("GENERATED_KEY");
                 return true;
             } else {
                 return false;
