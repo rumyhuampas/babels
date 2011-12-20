@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 public class Client extends Person {
 
@@ -84,7 +85,7 @@ public class Client extends Person {
                 + this.FIELD_PHONE2 + "," + this.FIELD_ADDRESS + ","
                 + this.FIELD_IDSTATE + "," + this.FIELD_IDCITY + ","
                 + this.FIELD_EMAIL + ") VALUES (?,?,?,?,?,?,?,?,?)";
-        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setString(1, this.Dni);
             qry.setString(2, this.Name);
@@ -98,7 +99,7 @@ public class Client extends Person {
             if (qry.executeUpdate() > 0){
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
-                this.Id = result.getInt(this.FIELD_ID);
+                this.Id = result.getInt("GENERATED_KEY");
                 return true;
             }
             else{
