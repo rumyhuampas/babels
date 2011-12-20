@@ -20,6 +20,8 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain = new javax.swing.JMenuBar();
         mitemFile = new javax.swing.JMenu();
+        mitemFileNew = new javax.swing.JMenu();
+        mitemFileNewProd = new javax.swing.JMenuItem();
         mitemFileExit = new javax.swing.JMenuItem();
         mitemUsers = new javax.swing.JMenu();
         mitemUsersAdmin = new javax.swing.JMenuItem();
@@ -29,6 +31,18 @@ public class Main extends javax.swing.JFrame {
         setName("frmMain"); // NOI18N
 
         mitemFile.setText("Archivo");
+
+        mitemFileNew.setText("Nuevo");
+
+        mitemFileNewProd.setText("Producto");
+        mitemFileNewProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemFileNewProdActionPerformed(evt);
+            }
+        });
+        mitemFileNew.add(mitemFileNewProd);
+
+        mitemFile.add(mitemFileNew);
 
         mitemFileExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/exit.png"))); // NOI18N
         mitemFileExit.setText("Salir");
@@ -78,10 +92,16 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_mitemFileExitActionPerformed
 
+    private void mitemFileNewProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemFileNewProdActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
+    }//GEN-LAST:event_mitemFileNewProdActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemFile;
     private javax.swing.JMenuItem mitemFileExit;
+    private javax.swing.JMenu mitemFileNew;
+    private javax.swing.JMenuItem mitemFileNewProd;
     private javax.swing.JMenu mitemUsers;
     private javax.swing.JMenuItem mitemUsersAdmin;
     // End of variables declaration//GEN-END:variables
