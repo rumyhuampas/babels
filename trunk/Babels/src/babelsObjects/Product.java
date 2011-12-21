@@ -1,11 +1,19 @@
 package babelsObjects;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 public class Product {
 
@@ -19,11 +27,28 @@ public class Product {
     private int Id;
     public String Name;
     public String Desc;
-    public InputStream Image;
+    private Image Img;
+    private File ImageFile;
+    private FileInputStream ImageStream;
     public float Price;
 
     public int getId() {
         return this.Id;
+    }
+    
+    public void SetImage(String imagePath){
+        this.ImageFile = new File(imagePath);
+        if (this.ImageFile.exists()){
+            try {
+                this.ImageStream = new FileInputStream(this.ImageFile);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public Image GetImage(){
+        return this.Img;
     }
 
     public Product(Connection conn) throws SQLException {
@@ -36,6 +61,9 @@ public class Product {
         this.Name = "";
         this.Desc = "";
         this.Price = Float.parseFloat("0");
+        this.Img = null;
+        this.ImageFile = null;
+        this.ImageStream = null;
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -69,7 +97,13 @@ public class Product {
                 this.Id = results.getInt(this.FIELD_ID);
                 this.Name = results.getString(this.FIELD_NAME);
                 this.Desc = results.getString(this.FIELD_DESC);
-                this.Image = results.getBinaryStream(this.FIELD_IMAGE);
+                this.ImageStream = (FileInputStream) results.getBinaryStream(this.FIELD_IMAGE);
+                try {
+                    this.Img = ImageIO.read(this.ImageStream);
+                    this.ImageStream.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 this.Price = results.getFloat(this.FIELD_PRICE);
                 return true;
             } else {
@@ -101,7 +135,16 @@ public class Product {
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
-            qry.setBinaryStream(3, this.Image);
+                
+            File f = new File("C:\\fondo1.jpg");
+            try {
+                qry.setBlob(3, new FileInputStream(f), f.length());
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+            //qry.setBinaryStream(3, (InputStream)this.ImageStream, (int)(this.ImageFile.length()));
+            //qry.setBinaryStream(3, this.Image);
             qry.setFloat(4, this.Price);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
@@ -127,7 +170,8 @@ public class Product {
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
-            qry.setBinaryStream(3, this.Image);
+            qry.setBinaryStream(3, (InputStream)this.ImageStream, (int)this.ImageFile.length());
+            //qry.setBinaryStream(3, this.Image);
             qry.setFloat(4, this.Price);
             qry.setInt(5, this.Id);
             return qry.executeUpdate() > 0;

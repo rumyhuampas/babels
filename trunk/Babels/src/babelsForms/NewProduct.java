@@ -2,7 +2,12 @@ package babelsForms;
 
 import babelsInterfaces.IBabelsDialog;
 import babelsManagers.NewProductManager;
+import java.io.File;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
@@ -12,6 +17,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new NewProductManager();
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
     }
 
     @Override
@@ -32,8 +38,8 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         lblName = new javax.swing.JLabel();
         lblDesc = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        spnlDesc = new javax.swing.JScrollPane();
+        txtaDesc = new javax.swing.JTextArea();
         txtPrice = new javax.swing.JTextField();
         lblPrice = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
@@ -55,13 +61,18 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
         lblDesc.setText("Descripción:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtaDesc.setColumns(20);
+        txtaDesc.setRows(5);
+        spnlDesc.setViewportView(txtaDesc);
 
         lblPrice.setText("Precio:");
 
         btnOK.setText("Aceptar");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +93,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
                     .addComponent(lblPrice))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                    .addComponent(spnlDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -105,7 +116,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spnlDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblDesc))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -127,21 +138,38 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void lblImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImgMouseClicked
-        Icon icon = this.Manager.ChooseProductImage(this);
+        File image = this.Manager.ChooseProductImage(this);
+        Icon icon = new ImageIcon(image.getPath());
         if (icon != null) {
             this.lblImg.setIcon(icon);
+            this.lblImg.setToolTipText(image.getPath());
         }
     }//GEN-LAST:event_lblImgMouseClicked
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        if (this.Manager.CheckFields(this.txtName, this.txtPrice) == true) {
+            try {
+                if (this.Manager.SaveProduct(this.txtName.getText(), this.txtaDesc.getText(),
+                        this.txtPrice.getText(), this.lblImg.getToolTipText()) == true) {
+                    this.dispose();
+                }
+            } 
+            catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnOKActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblImg;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
+    private javax.swing.JScrollPane spnlDesc;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextArea txtaDesc;
     // End of variables declaration//GEN-END:variables
 }

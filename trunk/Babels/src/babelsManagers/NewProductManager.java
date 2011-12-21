@@ -1,27 +1,72 @@
 package babelsManagers;
 
+import babels.Babels;
 import babelsFilters.ImagesFilter;
 import babelsForms.NewProduct;
+import babelsInterfaces.IBabelsDialog;
+import babelsListeners.KeyListenerType;
+import babelsListeners.txtFieldListener;
+import babelsObjects.Product;
 import java.io.File;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.sql.SQLException;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class NewProductManager {
 
-    public Icon ChooseProductImage(NewProduct newProductWindow) {
+    public File ChooseProductImage(NewProduct newProductWindow) {
         JFileChooser fc = new JFileChooser();
         fc.setDialogTitle("Elija la imagen del producto");
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fc.addChoosableFileFilter(new ImagesFilter());
         if (fc.showOpenDialog(newProductWindow) == JFileChooser.APPROVE_OPTION) {
-            return createImageIcon(fc.getSelectedFile());
+            return fc.getSelectedFile();
         } else {
             return null;
         }
     }
+    
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, IBabelsDialog dialog){
+        txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
+        txtPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+    }
 
-    private Icon createImageIcon(File chosenFile) {
-        return new ImageIcon(chosenFile.getPath());
+    public boolean CheckFields(JTextField txtName, JTextField txtPrice) {
+        if (!txtName.getText().equals("") && !txtPrice.getText().equals("")) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe completar Nombre y Precio",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+    public boolean SaveProduct(String name, String desc, String price, String imagePath) throws SQLException {
+        Babels.mysql.Open();
+        try {
+            Product prod = new Product(Babels.mysql.Conn);
+            prod.Name = name;
+            prod.Desc = desc;
+            prod.Price = Float.parseFloat(price);
+            prod.SetImage(imagePath);
+            if (prod.Exists() == false){
+                if (prod.Save() == true){
+                    return true;
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No se pudo guardar el producto",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "El producto ya existe",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } finally {
+            Babels.mysql.Close();
+        }
     }
 }
