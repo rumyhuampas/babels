@@ -14,7 +14,7 @@ public class Login extends javax.swing.JDialog implements IBabelsDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new LoginManager();
-        this.Manager.SetFieldsListeners(txtName, txtPass, this);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPass, this);
     }
 
     @SuppressWarnings("unchecked")
@@ -113,9 +113,9 @@ public class Login extends javax.swing.JDialog implements IBabelsDialog {
     }
     
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if (this.Manager.CheckFields(txtName, txtPass) == true) {
+        if (this.Manager.CheckFields(this.txtName, this.txtPass) == true) {
             try {
-                if (this.Manager.DoLogin(txtName.getText(), txtPass.getText()) == true) {
+                if (this.Manager.DoLogin(this.txtName.getText(), this.txtPass.getText()) == true) {
                     this.setVisible(false);
                     LaunchMainFrame();
                     this.dispose();

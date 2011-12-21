@@ -1,6 +1,8 @@
 package babelsInterfaces;
 
+import java.sql.SQLException;
+
 public interface IConn {
-    public boolean Open();
+    public boolean Open() throws SQLException;
     public boolean Close();
 }
