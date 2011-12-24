@@ -20,7 +20,7 @@ public class Product {
     private final String TABLENAME = "Products";
     private final String FIELD_ID = "Id";
     private final String FIELD_NAME = "Name";
-    private final String FIELD_DESC = "Desc";
+    private final String FIELD_DESC = "Description";
     private final String FIELD_IMAGE = "Image";
     private final String FIELD_PRICE = "Price";
     private Connection Conn;
@@ -135,16 +135,7 @@ public class Product {
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
-                
-            File f = new File("C:\\fondo1.jpg");
-            try {
-                qry.setBlob(3, new FileInputStream(f), f.length());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                
-            //qry.setBinaryStream(3, (InputStream)this.ImageStream, (int)(this.ImageFile.length()));
-            //qry.setBinaryStream(3, this.Image);
+            qry.setBinaryStream(3, (InputStream)this.ImageStream, (int)(this.ImageFile.length()));
             qry.setFloat(4, this.Price);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
@@ -171,7 +162,6 @@ public class Product {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
             qry.setBinaryStream(3, (InputStream)this.ImageStream, (int)this.ImageFile.length());
-            //qry.setBinaryStream(3, this.Image);
             qry.setFloat(4, this.Price);
             qry.setInt(5, this.Id);
             return qry.executeUpdate() > 0;

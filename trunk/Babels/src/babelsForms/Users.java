@@ -1,6 +1,6 @@
 package babelsForms;
 
-import babelsManagers.tblUsersManager;
+import babelsManagers.UsersManager;
 import babelsObjects.FormsFactory;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -8,14 +8,13 @@ import java.util.logging.Logger;
 
 public class Users extends javax.swing.JDialog{
 
-    private tblUsersManager Manager;
+    private UsersManager Manager;
 
     public Users(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.Manager = new tblUsersManager(tblUsers);
+        this.Manager = new UsersManager(tblUsers);
         tblUsers.getModel().addTableModelListener(this.Manager.Listener);
-        this.Manager.SetPreferredColumnWidth();
     }
 
     @SuppressWarnings("unchecked")
@@ -63,6 +62,15 @@ public class Users extends javax.swing.JDialog{
             }
         });
         jScrollPane1.setViewportView(tblUsers);
+        tblUsers.getColumnModel().getColumn(0).setMinWidth(0);
+        tblUsers.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tblUsers.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblUsers.getColumnModel().getColumn(2).setMinWidth(50);
+        tblUsers.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tblUsers.getColumnModel().getColumn(2).setMaxWidth(50);
+        tblUsers.getColumnModel().getColumn(3).setMinWidth(50);
+        tblUsers.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tblUsers.getColumnModel().getColumn(3).setMaxWidth(50);
 
         btnNew.setText("Nuevo usuario");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
