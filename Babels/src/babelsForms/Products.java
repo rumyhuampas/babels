@@ -1,10 +1,20 @@
 package babelsForms;
 
+import babelsManagers.ProductsManager;
+import babelsObjects.FormsFactory;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Products extends javax.swing.JDialog {
 
+    private ProductsManager Manager;
+    
     public Products(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.Manager = new ProductsManager(tblProducts);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,6 +28,14 @@ public class Products extends javax.swing.JDialog {
         btnNewproduct = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -28,7 +46,7 @@ public class Products extends javax.swing.JDialog {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -42,6 +60,11 @@ public class Products extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProducts);
         tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
         tblProducts.getColumnModel().getColumn(0).setPreferredWidth(0);
@@ -50,11 +73,22 @@ public class Products extends javax.swing.JDialog {
         tblProducts.getColumnModel().getColumn(2).setPreferredWidth(100);
         tblProducts.getColumnModel().getColumn(2).setMaxWidth(100);
 
+        lblImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnClose.setText("Cerrar");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
         btnNewproduct.setText("Nuevo Producto");
+        btnNewproduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewproductActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,7 +105,7 @@ public class Products extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNewproduct)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClose)
                         .addContainerGap())))
         );
@@ -92,6 +126,45 @@ public class Products extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        try {
+            this.Manager.RefreshTable();
+            if (this.tblProducts.getRowCount() > 0){
+                //this.tblProducts.setRowSelectionInterval(0, 0);
+                this.tblProducts.changeSelection(0, 0, false, false);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON1){
+            if (evt.getClickCount() == 1){
+                try {
+                    this.lblImg.setIcon(this.Manager.GetProductImage());
+                } catch (SQLException ex) {
+                    Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
+            }
+        }
+    }//GEN-LAST:event_tblProductsMouseClicked
+
+    private void btnNewproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewproductActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
+    }//GEN-LAST:event_btnNewproductActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

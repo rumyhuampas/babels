@@ -23,6 +23,8 @@ public class Main extends javax.swing.JFrame {
         mitemFileNew = new javax.swing.JMenu();
         mitemFileNewProd = new javax.swing.JMenuItem();
         mitemFileExit = new javax.swing.JMenuItem();
+        mitemAdmin = new javax.swing.JMenu();
+        mitemAdminProducts = new javax.swing.JMenuItem();
         mitemUsers = new javax.swing.JMenu();
         mitemUsersAdmin = new javax.swing.JMenuItem();
 
@@ -32,9 +34,10 @@ public class Main extends javax.swing.JFrame {
 
         mitemFile.setText("Archivo");
 
+        mitemFileNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/new.png"))); // NOI18N
         mitemFileNew.setText("Nuevo");
 
-        mitemFileNewProd.setText("Producto");
+        mitemFileNewProd.setText("Producto...");
         mitemFileNewProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemFileNewProdActionPerformed(evt);
@@ -55,10 +58,23 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemFile);
 
+        mitemAdmin.setText("Administrar");
+
+        mitemAdminProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/food.png"))); // NOI18N
+        mitemAdminProducts.setText("Productos...");
+        mitemAdminProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAdminProductsActionPerformed(evt);
+            }
+        });
+        mitemAdmin.add(mitemAdminProducts);
+
+        mbarMain.add(mitemAdmin);
+
         mitemUsers.setText("Usuarios");
 
         mitemUsersAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/users.png"))); // NOI18N
-        mitemUsersAdmin.setText("Administrar usuarios");
+        mitemUsersAdmin.setText("Administrar usuarios...");
         mitemUsersAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemUsersAdminActionPerformed(evt);
@@ -96,8 +112,14 @@ public class Main extends javax.swing.JFrame {
         FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
     }//GEN-LAST:event_mitemFileNewProdActionPerformed
 
+    private void mitemAdminProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAdminProductsActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.Products", true, null, null);
+    }//GEN-LAST:event_mitemAdminProductsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbarMain;
+    private javax.swing.JMenu mitemAdmin;
+    private javax.swing.JMenuItem mitemAdminProducts;
     private javax.swing.JMenu mitemFile;
     private javax.swing.JMenuItem mitemFileExit;
     private javax.swing.JMenu mitemFileNew;

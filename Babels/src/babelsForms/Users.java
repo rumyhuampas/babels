@@ -33,9 +33,6 @@ public class Users extends javax.swing.JDialog{
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
         });
 
         tblUsers.setModel(new javax.swing.table.DefaultTableModel(
@@ -114,14 +111,6 @@ public class Users extends javax.swing.JDialog{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        try {
-            this.Manager.RefreshTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_formWindowOpened
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         FormsFactory.GetDialogForm("babelsForms.NewUser", true, null, null);
