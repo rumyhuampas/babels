@@ -32,9 +32,6 @@ public class Products extends javax.swing.JDialog {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
         });
 
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
@@ -127,10 +124,6 @@ public class Products extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowOpened
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try {
             this.Manager.RefreshTable();
@@ -156,8 +149,8 @@ public class Products extends javax.swing.JDialog {
                     Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            else{
-                FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
+            else{                        
+                this.Manager.EditProduct();
             }
         }
     }//GEN-LAST:event_tblProductsMouseClicked

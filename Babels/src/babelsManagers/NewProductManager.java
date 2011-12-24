@@ -10,7 +10,9 @@ import babelsObjects.Product;
 import java.io.File;
 import java.sql.SQLException;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class NewProductManager {
@@ -66,6 +68,22 @@ public class NewProductManager {
                 return false;
             }
         } finally {
+            Babels.mysql.Close();
+        }
+    }
+    
+    public void LoadProduct(int prodId, JTextField txtName, 
+            JTextArea txtDesc, JTextField txtPrice, JLabel lblImage) throws SQLException{
+        Babels.mysql.Open();
+        try{
+            Product prod = new Product(Babels.mysql.Conn);
+            prod.Load(prodId);
+            txtName.setText(prod.Name);
+            txtDesc.setText(prod.Desc);
+            txtPrice.setText(String.valueOf(prod.Price));
+            lblImage.setIcon(prod.GetImageIcon());
+        }
+        finally{
             Babels.mysql.Close();
         }
     }
