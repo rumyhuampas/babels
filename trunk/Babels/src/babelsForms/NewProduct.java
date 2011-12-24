@@ -20,6 +20,20 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         this.Manager = new NewProductManager();
         this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
     }
+    
+    public NewProduct(java.awt.Frame parent, boolean modal, int prodId) {
+        super(parent, modal);
+        initComponents();
+        this.Manager = new NewProductManager();
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
+        if (prodId != -1){
+            try {
+                this.Manager.LoadProduct(prodId, this.txtName, this.txtaDesc, this.txtPrice, this.lblImg);
+            } catch (SQLException ex) {
+                Logger.getLogger(NewProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     @Override
     public void ClickOKButton() {

@@ -1,6 +1,7 @@
 package babelsManagers;
 
 import babels.Babels;
+import babelsObjects.FormsFactory;
 import babelsObjects.Product;
 import babelsObjects.ProductsAdmin;
 import java.sql.SQLException;
@@ -58,5 +59,19 @@ public class ProductsManager {
         finally{
             Babels.mysql.Close();
         }
+    }
+    
+    public void EditProduct(){
+        int row = this.Table.getSelectedRow();
+        int prodId = (Integer)this.Model.getValueAt(row, 0);
+        Class[] classParam = new Class[3];
+            classParam[0] = java.awt.Frame.class;
+            classParam[1] = boolean.class;
+            classParam[2] = int.class;
+        Object[] objectParam = new Object[3];
+            objectParam[0] = new javax.swing.JFrame();
+            objectParam[1] = true;
+            objectParam[2] = prodId;
+        FormsFactory.GetDialogForm("babelsForms.NewProduct", true, classParam, objectParam);
     }
 }
