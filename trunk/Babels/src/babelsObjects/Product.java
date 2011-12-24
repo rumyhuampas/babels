@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Product {
 
@@ -29,7 +30,7 @@ public class Product {
     public String Desc;
     private Image Img;
     private File ImageFile;
-    private FileInputStream ImageStream;
+    private InputStream ImageStream;
     public float Price;
 
     public int getId() {
@@ -49,6 +50,10 @@ public class Product {
     
     public Image GetImage(){
         return this.Img;
+    }
+    
+    public ImageIcon GetImageIcon(){
+        return new ImageIcon(this.Img);
     }
 
     public Product(Connection conn) throws SQLException {
@@ -97,7 +102,7 @@ public class Product {
                 this.Id = results.getInt(this.FIELD_ID);
                 this.Name = results.getString(this.FIELD_NAME);
                 this.Desc = results.getString(this.FIELD_DESC);
-                this.ImageStream = (FileInputStream) results.getBinaryStream(this.FIELD_IMAGE);
+                this.ImageStream = results.getBinaryStream(this.FIELD_IMAGE);
                 try {
                     this.Img = ImageIO.read(this.ImageStream);
                     this.ImageStream.close();
@@ -135,7 +140,7 @@ public class Product {
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
-            qry.setBinaryStream(3, (InputStream)this.ImageStream, (int)(this.ImageFile.length()));
+            qry.setBinaryStream(3, this.ImageStream, (int)(this.ImageFile.length()));
             qry.setFloat(4, this.Price);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
@@ -161,7 +166,7 @@ public class Product {
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
-            qry.setBinaryStream(3, (InputStream)this.ImageStream, (int)this.ImageFile.length());
+            qry.setBinaryStream(3, this.ImageStream, (int)this.ImageFile.length());
             qry.setFloat(4, this.Price);
             qry.setInt(5, this.Id);
             return qry.executeUpdate() > 0;

@@ -38,14 +38,18 @@ public class UsersManager {
 
     private void LoadUsers() throws SQLException {
         Babels.mysql.Open();
-        Object[] rows = UsersAdmin.GetAllUsers(Babels.mysql.Conn);
-        Object[] row = null;
-        DefaultTableModel tm = (DefaultTableModel) this.Model;
-        for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
-            row = (Object[]) rows[rowIdx];
-            tm.addRow(row);
+        try{
+            Object[] rows = UsersAdmin.GetAllUsers(Babels.mysql.Conn);
+            Object[] row = null;
+            DefaultTableModel tm = (DefaultTableModel) this.Model;
+            for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
+                row = (Object[]) rows[rowIdx];
+                tm.addRow(row);
+            }
         }
-        Babels.mysql.Close();
+        finally{
+            Babels.mysql.Close();
+        }
     }
 
     public boolean RunValidations() throws SQLException {
