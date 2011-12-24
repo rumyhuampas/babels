@@ -1,6 +1,6 @@
 package babelsListeners;
 
-import babelsManagers.tblUsersManager;
+import babelsManagers.UsersManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,9 +9,9 @@ import javax.swing.event.TableModelListener;
 
 public class tblUsersListener implements TableModelListener {
 
-    private tblUsersManager Manager;
+    private UsersManager Manager;
 
-    public tblUsersListener(tblUsersManager manager) {
+    public tblUsersListener(UsersManager manager) {
         Manager = manager;
     }
 

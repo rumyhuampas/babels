@@ -11,25 +11,17 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class tblUsersManager {
+public class UsersManager {
 
     private JTable Table;
     private TableModel Model;
     public TableModelListener Listener;
     public boolean RefreshingTable;
 
-    public tblUsersManager(JTable table) {
+    public UsersManager(JTable table) {
         this.Table = table;
         this.Model = this.Table.getModel();
         this.Listener = new tblUsersListener(this);
-    }
-    
-    public void SetPreferredColumnWidth(){
-        this.Table.getColumnModel().getColumn(0).setMaxWidth(0);
-        this.Table.getColumnModel().getColumn(0).setMinWidth(0);
-        this.Table.getColumnModel().getColumn(0).setPreferredWidth(0);
-        this.Table.getColumnModel().getColumn(2).setPreferredWidth(15);
-        this.Table.getColumnModel().getColumn(3).setPreferredWidth(15);
     }
 
     public void RefreshTable() throws SQLException {
