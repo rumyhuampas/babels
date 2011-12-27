@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
     private NewProductManager Manager;
+    private int ProdId = -1;
 
     public NewProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -27,6 +28,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
         if (prodId != -1) {
             try {
+                this.ProdId = prodId;
                 this.Manager.LoadProduct(prodId, this.txtName, this.txtaDesc, this.txtPrice, this.lblImg);
             } catch (SQLException ex) {
                 Logger.getLogger(NewProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -168,7 +170,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         if (this.Manager.CheckFields(this.txtName, this.txtPrice) == true) {
             try {
-                if (this.Manager.SaveProduct(this.txtName.getText(), this.txtaDesc.getText(),
+                if (this.Manager.SaveProduct(this.ProdId, this.txtName.getText(), this.txtaDesc.getText(),
                         this.txtPrice.getText(), this.lblImg.getToolTipText()) == true) {
                     this.dispose();
                 }
