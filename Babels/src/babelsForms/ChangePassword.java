@@ -1,32 +1,20 @@
 package babelsForms;
 
 import babelsInterfaces.IBabelsDialog;
-import babelsManagers.NewUserManager;
+import babelsManagers.ChangePasswordManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NewUser extends javax.swing.JDialog implements IBabelsDialog {
+public class ChangePassword extends javax.swing.JDialog implements IBabelsDialog {
 
-    private NewUserManager Manager;
+    private ChangePasswordManager Manager;
 
-    public NewUser(java.awt.Frame parent, boolean modal) {
+    public ChangePassword(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.Manager = new NewUserManager();
-        this.Manager.SetFieldsListeners(txtName, txtPass, txtRePass, this);
-    }
-
-    public NewUser(java.awt.Frame parent, boolean modal, boolean firstUser) {
-        super(parent, modal);
-        initComponents();
-        this.Manager = new NewUserManager();
-        this.Manager.SetFieldsListeners(txtName, txtPass, txtRePass, this);
-        if (firstUser == true) {
-            this.chbIsAdmin.setSelected(true);
-            this.chbIsAdmin.setEnabled(false);
-            this.btnCancel.setEnabled(false);
-        }
+        this.Manager = new ChangePasswordManager();
+        this.Manager.SetFieldsListeners(txtPass, txtNewPass, txtReNewPass, this);
     }
 
     @Override
@@ -43,28 +31,23 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblName = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
-        lblRePass = new javax.swing.JLabel();
-        chbIsAdmin = new javax.swing.JCheckBox();
-        txtName = new javax.swing.JTextField();
+        txtPass = new javax.swing.JPasswordField();
+        lblNewPass = new javax.swing.JLabel();
+        txtNewPass = new javax.swing.JPasswordField();
+        txtReNewPass = new javax.swing.JPasswordField();
+        lblReNewPass = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        txtPass = new javax.swing.JPasswordField();
-        txtRePass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Babels - Nuevo usuario");
-        setName("frmNewUser"); // NOI18N
-        setResizable(false);
-
-        lblName.setText("Nombre:");
+        setTitle("Babels - Cambiar Password");
 
         lblPass.setText("Password:");
 
-        lblRePass.setText("Reescribir password:");
+        lblNewPass.setText("Nuevo password:");
 
-        chbIsAdmin.setText("Administrador");
+        lblReNewPass.setText("Reescribir nuevo password:");
 
         btnOK.setText("Aceptar");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -88,16 +71,15 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblRePass, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPass, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(chbIsAdmin)
-                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(txtRePass, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)))
+                            .addComponent(lblPass)
+                            .addComponent(lblNewPass)
+                            .addComponent(lblReNewPass))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                            .addComponent(txtReNewPass, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,37 +91,30 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPass)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRePass)
-                    .addComponent(txtRePass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chbIsAdmin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                    .addComponent(lblNewPass)
+                    .addComponent(txtNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblReNewPass)
+                    .addComponent(txtReNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnOK))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCancelActionPerformed
-
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
-        if (this.Manager.CheckFields(this.txtName, this.txtPass, this.txtRePass)) {
+        if (this.Manager.CheckFields(this.txtPass, this.txtNewPass, this.txtReNewPass)) {
             try {
-                if (this.Manager.SaveNewUser(this.txtName.getText(), new String(this.txtPass.getPassword()),
-                        this.chbIsAdmin.isSelected()) == true) {
+                if (this.Manager.ChangeUserPassword(new String(this.txtNewPass.getPassword())) == true) {
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -147,15 +122,18 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog {
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
-    private javax.swing.JCheckBox chbIsAdmin;
-    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNewPass;
     private javax.swing.JLabel lblPass;
-    private javax.swing.JLabel lblRePass;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JLabel lblReNewPass;
+    private javax.swing.JPasswordField txtNewPass;
     private javax.swing.JPasswordField txtPass;
-    private javax.swing.JPasswordField txtRePass;
+    private javax.swing.JPasswordField txtReNewPass;
     // End of variables declaration//GEN-END:variables
 }

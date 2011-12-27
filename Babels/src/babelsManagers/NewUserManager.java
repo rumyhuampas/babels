@@ -19,11 +19,11 @@ public class NewUserManager {
 
     public boolean CheckFields(JTextField txtName, JTextField txtPass, JTextField txtRePass) {
         if (!txtName.getText().equals("") && !txtPass.getText().equals("")
-                && !txtPass.getText().equals("")) {
+                && !txtRePass.getText().equals("")) {
             if (txtPass.getText().equals(txtRePass.getText())) {
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "Los password no son iguales",
+                JOptionPane.showMessageDialog(null, "Los passwords no son iguales",
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }

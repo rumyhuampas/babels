@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
@@ -171,8 +170,6 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
             try {
                 if (this.Manager.SaveProduct(this.txtName.getText(), this.txtaDesc.getText(),
                         this.txtPrice.getText(), this.lblImg.getToolTipText()) == true) {
-                    JOptionPane.showMessageDialog(null, "Producto guardado",
-                            "Exito", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
             } catch (SQLException ex) {

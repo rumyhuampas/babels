@@ -25,6 +25,8 @@ public class Main extends javax.swing.JFrame {
         mitemFileExit = new javax.swing.JMenuItem();
         mitemAdmin = new javax.swing.JMenu();
         mitemAdminProducts = new javax.swing.JMenuItem();
+        mitemAdminUser = new javax.swing.JMenu();
+        mitemAdminUserChangePass = new javax.swing.JMenuItem();
         mitemUsers = new javax.swing.JMenu();
         mitemUsersAdmin = new javax.swing.JMenuItem();
 
@@ -38,6 +40,7 @@ public class Main extends javax.swing.JFrame {
         mitemFileNew.setText("Nuevo");
 
         mitemFileNewProd.setText("Producto...");
+        mitemFileNewProd.setPreferredSize(new java.awt.Dimension(101, 38));
         mitemFileNewProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemFileNewProdActionPerformed(evt);
@@ -68,6 +71,20 @@ public class Main extends javax.swing.JFrame {
             }
         });
         mitemAdmin.add(mitemAdminProducts);
+
+        mitemAdminUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/user.png"))); // NOI18N
+        mitemAdminUser.setText("Cuenta de usuario");
+
+        mitemAdminUserChangePass.setText("Cambiar password...");
+        mitemAdminUserChangePass.setPreferredSize(new java.awt.Dimension(151, 38));
+        mitemAdminUserChangePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAdminUserChangePassActionPerformed(evt);
+            }
+        });
+        mitemAdminUser.add(mitemAdminUserChangePass);
+
+        mitemAdmin.add(mitemAdminUser);
 
         mbarMain.add(mitemAdmin);
 
@@ -115,10 +132,16 @@ public class Main extends javax.swing.JFrame {
     private void mitemAdminProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAdminProductsActionPerformed
         FormsFactory.GetDialogForm("babelsForms.Products", true, null, null);
     }//GEN-LAST:event_mitemAdminProductsActionPerformed
+
+    private void mitemAdminUserChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAdminUserChangePassActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.ChangePassword", true, null, null);
+    }//GEN-LAST:event_mitemAdminUserChangePassActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemAdmin;
     private javax.swing.JMenuItem mitemAdminProducts;
+    private javax.swing.JMenu mitemAdminUser;
+    private javax.swing.JMenuItem mitemAdminUserChangePass;
     private javax.swing.JMenu mitemFile;
     private javax.swing.JMenuItem mitemFileExit;
     private javax.swing.JMenu mitemFileNew;

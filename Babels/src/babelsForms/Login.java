@@ -116,7 +116,7 @@ public class Login extends javax.swing.JDialog implements IBabelsDialog {
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         if (this.Manager.CheckFields(this.txtName, this.txtPass) == true) {
             try {
-                if (this.Manager.DoLogin(this.txtName.getText(), this.txtPass.getText()) == true) {
+                if (this.Manager.DoLogin(this.txtName.getText(), new String(this.txtPass.getPassword())) == true) {
                     this.setVisible(false);
                     LaunchMainFrame();
                     this.dispose();

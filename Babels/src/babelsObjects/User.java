@@ -34,6 +34,19 @@ public class User {
         this.Active = true;
     }
 
+    public boolean Load(User user) {
+        try {
+            this.Id = user.Id;
+            this.Name = user.Name;
+            this.Pass = user.Pass;
+            this.IsAdmin = user.IsAdmin;
+            this.Active = user.Active;
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
     public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
@@ -77,14 +90,14 @@ public class User {
     }
 
     public boolean Save() throws SQLException {
-        if (this.Id == -1) {
-            if (!Exists()) {
+        if (!Exists()) {
+            if (this.Id == -1) {
                 return InsertUser();
             } else {
-                return false;
+                return UpdateUser();
             }
         } else {
-            return UpdateUser();
+            return false;
         }
     }
 
@@ -138,10 +151,12 @@ public class User {
 
     public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_NAME + " = ?";
+                + this.FIELD_NAME + " = ? AND "
+                + this.FIELD_ID + " <> ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setString(1, this.Name);
+            qry.setInt(2, this.Id);
             ResultSet results = qry.executeQuery();
             try {
                 if (results.next()) {
