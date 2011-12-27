@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
+public class NewUser extends javax.swing.JDialog implements IBabelsDialog {
 
     private NewUserManager Manager;
 
@@ -16,19 +16,19 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
         this.Manager = new NewUserManager();
         this.Manager.SetFieldsListeners(txtName, txtPass, txtRePass, this);
     }
-    
+
     public NewUser(java.awt.Frame parent, boolean modal, boolean firstUser) {
         super(parent, modal);
         initComponents();
         this.Manager = new NewUserManager();
         this.Manager.SetFieldsListeners(txtName, txtPass, txtRePass, this);
-        if (firstUser == true){
+        if (firstUser == true) {
             this.chbIsAdmin.setSelected(true);
             this.chbIsAdmin.setEnabled(false);
             this.btnCancel.setEnabled(false);
         }
     }
-    
+
     @Override
     public void ClickOKButton() {
         this.btnOK.doClick();
@@ -147,7 +147,6 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;

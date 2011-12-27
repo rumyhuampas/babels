@@ -112,7 +112,7 @@ public class Login extends javax.swing.JDialog implements IBabelsDialog {
     public void ClickCancelButton() {
         this.btnCancel.doClick();
     }
-    
+
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         if (this.Manager.CheckFields(this.txtName, this.txtPass) == true) {
             try {

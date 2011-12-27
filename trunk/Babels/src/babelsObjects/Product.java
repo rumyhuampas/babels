@@ -36,37 +36,35 @@ public class Product {
     public int getId() {
         return this.Id;
     }
-    
-    public void SetImage(String imagePath){
-        if (imagePath != null){
+
+    public void SetImage(String imagePath) {
+        if (imagePath != null) {
             this.ImageFile = new File(imagePath);
-            if (this.ImageFile.exists()){
+            if (this.ImageFile.exists()) {
                 try {
                     this.ImageStream = new FileInputStream(this.ImageFile);
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            else{
+            } else {
                 this.ImageFile = null;
             }
         }
     }
-    
-    public Image GetImage(){
+
+    public Image GetImage() {
         return this.Img;
     }
-    
-    public ImageIcon GetImageIcon(){
-        if (this.Img != null){
+
+    public ImageIcon GetImageIcon() {
+        if (this.Img != null) {
             return new ImageIcon(this.Img);
-        }
-        else{
+        } else {
             return null;
         }
     }
-    
-    public void ClearImage(){
+
+    public void ClearImage() {
         this.Img = null;
         this.ImageFile = null;
         this.ImageStream = null;
@@ -117,7 +115,7 @@ public class Product {
                 this.Name = results.getString(this.FIELD_NAME);
                 this.Desc = results.getString(this.FIELD_DESC);
                 this.ImageStream = results.getBinaryStream(this.FIELD_IMAGE);
-                if (this.ImageStream != null){
+                if (this.ImageStream != null) {
                     try {
                         this.Img = ImageIO.read(this.ImageStream);
                         this.ImageStream.close();
@@ -134,7 +132,7 @@ public class Product {
             results.close();
         }
     }
-    
+
     public boolean Save() throws SQLException {
         if (this.Id == -1) {
             if (!Exists()) {
@@ -156,10 +154,9 @@ public class Product {
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
-            if (this.ImageFile != null){
-                qry.setBinaryStream(3, this.ImageStream, (int)(this.ImageFile.length()));
-            }
-            else{
+            if (this.ImageFile != null) {
+                qry.setBinaryStream(3, this.ImageStream, (int) (this.ImageFile.length()));
+            } else {
                 qry.setBinaryStream(3, null);
             }
             qry.setFloat(4, this.Price);
@@ -187,10 +184,9 @@ public class Product {
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
-            if (this.ImageFile != null){
-                qry.setBinaryStream(3, this.ImageStream, (int)(this.ImageFile.length()));
-            }
-            else{
+            if (this.ImageFile != null) {
+                qry.setBinaryStream(3, this.ImageStream, (int) (this.ImageFile.length()));
+            } else {
                 qry.setBinaryStream(3, null);
             }
             qry.setFloat(4, this.Price);
@@ -216,6 +212,23 @@ public class Product {
                 }
             } finally {
                 results.close();
+            }
+        } finally {
+            qry.close();
+        }
+    }
+
+    public boolean Delete() throws SQLException {
+        String sql = "DELETE FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_ID + " = ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setInt(1, this.Id);
+            if (qry.executeUpdate() > 0) {
+                this.Id = -1;
+                return true;
+            } else {
+                return false;
             }
         } finally {
             qry.close();

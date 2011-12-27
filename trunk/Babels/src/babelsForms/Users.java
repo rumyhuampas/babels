@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Users extends javax.swing.JDialog{
+public class Users extends javax.swing.JDialog {
 
     private UsersManager Manager;
     public boolean Refresh = true;
@@ -124,7 +124,7 @@ public class Users extends javax.swing.JDialog{
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if (Refresh == true){
+        if (Refresh == true) {
             try {
                 this.Manager.RefreshTable();
                 Refresh = false;
@@ -133,7 +133,6 @@ public class Users extends javax.swing.JDialog{
             }
         }
     }//GEN-LAST:event_formWindowActivated
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnNew;
