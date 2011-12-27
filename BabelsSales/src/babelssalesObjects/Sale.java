@@ -90,8 +90,8 @@ public class Sale {
     }
 
     public boolean Save() throws SQLException {
-        if (this.Id == -1) {
-            if (!Exists()) {
+        if (!Exists()) {
+           if (this.Id == -1) {
                 if (InsertSale() == true) {
                     if (SaveSaleDetails() == true) {
                         return true;
@@ -103,14 +103,14 @@ public class Sale {
                     return false;
                 }
             } else {
-                return false;
+                if (SaveSaleDetails() == true) {
+                    return UpdateSale();
+                } else {
+                    return false;
+                }
             }
         } else {
-            if (SaveSaleDetails() == true) {
-                return UpdateSale();
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 
@@ -199,10 +199,12 @@ public class Sale {
 
     public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_CODE + " = ?";
+                + this.FIELD_CODE + " = ? AND "
+                + this.FIELD_ID + " <> ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setString(1, this.Code);
+            qry.setInt(2, this.Id);
             ResultSet results = qry.executeQuery();
             try {
                 if (results.next()) {
