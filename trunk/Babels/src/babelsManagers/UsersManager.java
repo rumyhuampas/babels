@@ -53,7 +53,7 @@ public class UsersManager {
 
     public boolean RunValidations() throws SQLException {
         if (CheckOneAdmin() == true) {
-            if (CheckOneActive()) {
+            if (CheckOneActive() == true) {
                 return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Debe existir al menos un usuario activo",
@@ -62,7 +62,7 @@ public class UsersManager {
                 return false;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debe existir al menos un usuario administrador",
+            JOptionPane.showMessageDialog(null, "Debe existir al menos un usuario administrador activo",
                     "Error", JOptionPane.ERROR_MESSAGE);
             RefreshTable();
             return false;
@@ -70,7 +70,13 @@ public class UsersManager {
     }
 
     private boolean CheckOneAdmin() {
-        return (CheckIfColumnHasOneTrue(2));
+        for (int i = 0; i < this.Model.getRowCount(); i++) {
+            if ((Boolean) this.Model.getValueAt(i, 2) == true
+                    && (Boolean) this.Model.getValueAt(i, 3) == true) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean CheckOneActive() {

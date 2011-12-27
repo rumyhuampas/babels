@@ -38,4 +38,20 @@ public class UsersAdmin {
             qry.close();
         }
     }
+    
+    public static boolean NoAdminUser(Connection conn) throws SQLException{
+        String sql = "SELECT COUNT(IsAdmin) FROM " + TABLENAME;
+        PreparedStatement qry = conn.prepareStatement(sql);
+        try {
+            ResultSet results = qry.executeQuery(sql);
+            try {
+                results.next();
+                return results.getInt(1) == 0;
+            } finally {
+                results.close();
+            }
+        } finally {
+            qry.close();
+        }
+    }
 }
