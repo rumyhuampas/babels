@@ -9,6 +9,7 @@ import babelsListeners.txtFieldListener;
 import babelsObjects.Product;
 import java.io.File;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -81,7 +82,11 @@ public class NewProductManager {
             txtName.setText(prod.Name);
             txtDesc.setText(prod.Desc);
             txtPrice.setText(String.valueOf(prod.Price));
-            lblImage.setIcon(prod.GetImageIcon());
+            ImageIcon img = prod.GetImageIcon();
+            if (img != null){
+                lblImage.setIcon(img);
+                lblImage.setText("");
+            }
         }
         finally{
             Babels.mysql.Close();

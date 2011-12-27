@@ -5,6 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Babels - Login"/>
     <Property name="name" type="java.lang.String" value="frmLogin" noResource="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -36,8 +37,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtName" pref="154" max="32767" attributes="1"/>
-                          <Component id="txtPass" alignment="0" pref="154" max="32767" attributes="1"/>
+                          <Component id="txtPass" pref="154" max="32767" attributes="0"/>
+                          <Component id="txtName" alignment="0" pref="154" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -64,8 +65,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtPass" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblPass" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPass" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -81,8 +82,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtName">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtPass">
     </Component>
     <Component class="javax.swing.JButton" name="btnOK">
       <Properties>
@@ -117,6 +116,8 @@
           <Image iconType="3" name="/babelsImages/lock.png"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="txtPass">
     </Component>
   </SubComponents>
 </Form>

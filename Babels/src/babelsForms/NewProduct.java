@@ -63,8 +63,10 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Babels - Nuevo Producto");
         setName("frmNewProduct"); // NOI18N
+        setResizable(false);
 
         lblImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImg.setText("Click para cargar imágen");
         lblImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblImg.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -154,10 +156,13 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
     private void lblImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImgMouseClicked
         File image = this.Manager.ChooseProductImage(this);
-        Icon icon = new ImageIcon(image.getPath());
-        if (icon != null) {
-            this.lblImg.setIcon(icon);
-            this.lblImg.setToolTipText(image.getPath());
+        if (image != null){
+            Icon icon = new ImageIcon(image.getPath());
+            if (icon != null) {
+                this.lblImg.setText("");
+                this.lblImg.setIcon(icon);
+                this.lblImg.setToolTipText(image.getPath());
+            }
         }
     }//GEN-LAST:event_lblImgMouseClicked
 

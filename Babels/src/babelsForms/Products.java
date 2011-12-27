@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 public class Products extends javax.swing.JDialog {
 
     private ProductsManager Manager;
+    public boolean Refresh = true;
     
     public Products(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -21,13 +22,27 @@ public class Products extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pmenuTblProducts = new javax.swing.JPopupMenu();
+        pmitemEdit = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProducts = new javax.swing.JTable();
         lblImg = new javax.swing.JLabel();
         btnClose = new javax.swing.JButton();
         btnNewproduct = new javax.swing.JButton();
 
+        pmenuTblProducts.setToolTipText("");
+
+        pmitemEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        pmitemEdit.setText("Editar");
+        pmitemEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pmitemEditActionPerformed(evt);
+            }
+        });
+        pmenuTblProducts.add(pmitemEdit);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -125,14 +140,17 @@ public class Products extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        try {
-            this.Manager.RefreshTable();
-            if (this.tblProducts.getRowCount() > 0){
-                //this.tblProducts.setRowSelectionInterval(0, 0);
-                this.tblProducts.changeSelection(0, 0, false, false);
+        if (Refresh == true){
+            try {
+                this.Manager.RefreshTable();
+                if (this.tblProducts.getRowCount() > 0){
+                    //this.tblProducts.setRowSelectionInterval(0, 0);
+                    this.tblProducts.changeSelection(0, 0, false, false);
+                }
+                Refresh = false;
+            } catch (SQLException ex) {
+                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowActivated
 
@@ -151,19 +169,35 @@ public class Products extends javax.swing.JDialog {
             }
             else{                        
                 this.Manager.EditProduct();
+                this.Refresh = true;
+            }
+        }
+        else{
+            if (evt.getButton() == MouseEvent.BUTTON3){
+                int row = this.tblProducts.rowAtPoint( evt.getPoint() );
+                this.tblProducts.changeSelection(row, 0, false, false);
+                this.pmenuTblProducts.show(this.tblProducts, evt.getX(), evt.getY());
             }
         }
     }//GEN-LAST:event_tblProductsMouseClicked
 
     private void btnNewproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewproductActionPerformed
         FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
+        this.Refresh = true;
     }//GEN-LAST:event_btnNewproductActionPerformed
+
+    private void pmitemEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pmitemEditActionPerformed
+        this.Manager.EditProduct();
+        this.Refresh = true;
+    }//GEN-LAST:event_pmitemEditActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnNewproduct;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImg;
+    private javax.swing.JPopupMenu pmenuTblProducts;
+    private javax.swing.JMenuItem pmitemEdit;
     private javax.swing.JTable tblProducts;
     // End of variables declaration//GEN-END:variables
 }
