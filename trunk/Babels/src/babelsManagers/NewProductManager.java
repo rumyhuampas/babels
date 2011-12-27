@@ -55,6 +55,8 @@ public class NewProductManager {
             prod.SetImage(imagePath);
             if (prod.Exists() == false) {
                 if (prod.Save() == true) {
+                    JOptionPane.showMessageDialog(null, "Producto guardado",
+                            "Exito", JOptionPane.INFORMATION_MESSAGE);
                     return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar el producto",

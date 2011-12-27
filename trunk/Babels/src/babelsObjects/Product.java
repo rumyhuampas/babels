@@ -134,14 +134,14 @@ public class Product {
     }
 
     public boolean Save() throws SQLException {
-        if (this.Id == -1) {
-            if (!Exists()) {
+        if (!Exists()) {
+            if (this.Id == -1) {
                 return InsertProduct();
             } else {
-                return false;
+                return UpdateProduct();
             }
         } else {
-            return UpdateProduct();
+            return false;
         }
     }
 
@@ -199,10 +199,12 @@ public class Product {
 
     public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_NAME + " = ?";
+                + this.FIELD_NAME + " = ? AND "
+                + this.FIELD_ID + " <> ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setString(1, this.Name);
+            qry.setInt(2, this.Id);
             ResultSet results = qry.executeQuery();
             try {
                 if (results.next()) {
