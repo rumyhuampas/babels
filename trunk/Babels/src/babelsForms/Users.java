@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 public class Users extends javax.swing.JDialog{
 
     private UsersManager Manager;
+    public boolean Refresh = true;
 
     public Users(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -29,6 +30,7 @@ public class Users extends javax.swing.JDialog{
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Babels - Usuarios");
         setName("frmUsers"); // NOI18N
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -114,6 +116,7 @@ public class Users extends javax.swing.JDialog{
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         FormsFactory.GetDialogForm("babelsForms.NewUser", true, null, null);
+        this.Refresh = true;
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -121,10 +124,13 @@ public class Users extends javax.swing.JDialog{
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        try {
-            this.Manager.RefreshTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+        if (Refresh == true){
+            try {
+                this.Manager.RefreshTable();
+                Refresh = false;
+            } catch (SQLException ex) {
+                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_formWindowActivated
 

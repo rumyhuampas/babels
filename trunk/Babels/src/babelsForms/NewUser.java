@@ -48,14 +48,15 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
         lblRePass = new javax.swing.JLabel();
         chbIsAdmin = new javax.swing.JCheckBox();
         txtName = new javax.swing.JTextField();
-        txtPass = new javax.swing.JTextField();
-        txtRePass = new javax.swing.JTextField();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        txtPass = new javax.swing.JPasswordField();
+        txtRePass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Babels - Nuevo usuario");
         setName("frmNewUser"); // NOI18N
+        setResizable(false);
 
         lblName.setText("Nombre:");
 
@@ -92,11 +93,11 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
                             .addComponent(lblPass, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtRePass, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                            .addComponent(chbIsAdmin)
                             .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(chbIsAdmin, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(txtRePass, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnOK)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,7 +156,7 @@ public class NewUser extends javax.swing.JDialog implements IBabelsDialog{
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblRePass;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPass;
-    private javax.swing.JTextField txtRePass;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JPasswordField txtRePass;
     // End of variables declaration//GEN-END:variables
 }
