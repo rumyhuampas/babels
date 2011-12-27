@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class LoginManager {
-    
-    public void SetFieldsListeners(JTextField txtName, JTextField txtPass, IBabelsDialog dialog){
+
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPass, IBabelsDialog dialog) {
         txtName.addKeyListener(new txtFieldListener(KeyListenerType.NO_SPACES, dialog));
         txtPass.addKeyListener(new txtFieldListener(KeyListenerType.NO_SPACES, dialog));
     }
@@ -32,8 +32,7 @@ public class LoginManager {
             Babels.session = new Session(Babels.mysql.Conn);
             if (Babels.session.Login(name, pass) == true) {
                 return true;
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Usuario/password incorrecto",
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return false;

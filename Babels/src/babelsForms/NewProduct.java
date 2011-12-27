@@ -20,13 +20,13 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         this.Manager = new NewProductManager();
         this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
     }
-    
+
     public NewProduct(java.awt.Frame parent, boolean modal, int prodId) {
         super(parent, modal);
         initComponents();
         this.Manager = new NewProductManager();
         this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
-        if (prodId != -1){
+        if (prodId != -1) {
             try {
                 this.Manager.LoadProduct(prodId, this.txtName, this.txtaDesc, this.txtPrice, this.lblImg);
             } catch (SQLException ex) {
@@ -156,7 +156,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
     private void lblImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImgMouseClicked
         File image = this.Manager.ChooseProductImage(this);
-        if (image != null){
+        if (image != null) {
             Icon icon = new ImageIcon(image.getPath());
             if (icon != null) {
                 this.lblImg.setText("");
@@ -172,16 +172,14 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
                 if (this.Manager.SaveProduct(this.txtName.getText(), this.txtaDesc.getText(),
                         this.txtPrice.getText(), this.lblImg.getToolTipText()) == true) {
                     JOptionPane.showMessageDialog(null, "Producto guardado",
-                        "Exito", JOptionPane.INFORMATION_MESSAGE);
+                            "Exito", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
-            } 
-            catch (SQLException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;

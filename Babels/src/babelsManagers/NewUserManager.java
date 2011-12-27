@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class NewUserManager {
-    
-    public void SetFieldsListeners(JTextField txtName, JTextField txtPass, JTextField txtRePass, IBabelsDialog dialog){
+
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPass, JTextField txtRePass, IBabelsDialog dialog) {
         txtName.addKeyListener(new txtFieldListener(KeyListenerType.NO_SPACES, dialog));
         txtPass.addKeyListener(new txtFieldListener(KeyListenerType.NO_SPACES, dialog));
         txtRePass.addKeyListener(new txtFieldListener(KeyListenerType.NO_SPACES, dialog));

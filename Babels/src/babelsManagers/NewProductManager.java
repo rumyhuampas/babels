@@ -29,8 +29,8 @@ public class NewProductManager {
             return null;
         }
     }
-    
-    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, IBabelsDialog dialog){
+
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, IBabelsDialog dialog) {
         txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
         txtPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
     }
@@ -53,42 +53,39 @@ public class NewProductManager {
             prod.Desc = desc;
             prod.Price = Float.parseFloat(price);
             prod.SetImage(imagePath);
-            if (prod.Exists() == false){
-                if (prod.Save() == true){
+            if (prod.Exists() == false) {
+                if (prod.Save() == true) {
                     return true;
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "No se pudo guardar el producto",
                             "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "El producto ya existe",
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } finally {
             Babels.mysql.Close();
         }
     }
-    
-    public void LoadProduct(int prodId, JTextField txtName, 
-            JTextArea txtDesc, JTextField txtPrice, JLabel lblImage) throws SQLException{
+
+    public void LoadProduct(int prodId, JTextField txtName,
+            JTextArea txtDesc, JTextField txtPrice, JLabel lblImage) throws SQLException {
         Babels.mysql.Open();
-        try{
+        try {
             Product prod = new Product(Babels.mysql.Conn);
             prod.Load(prodId);
             txtName.setText(prod.Name);
             txtDesc.setText(prod.Desc);
             txtPrice.setText(String.valueOf(prod.Price));
             ImageIcon img = prod.GetImageIcon();
-            if (img != null){
+            if (img != null) {
                 lblImage.setIcon(img);
                 lblImage.setText("");
             }
-        }
-        finally{
+        } finally {
             Babels.mysql.Close();
         }
     }

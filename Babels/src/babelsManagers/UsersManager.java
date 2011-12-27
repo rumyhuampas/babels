@@ -38,7 +38,7 @@ public class UsersManager {
 
     private void LoadUsers() throws SQLException {
         Babels.mysql.Open();
-        try{
+        try {
             Object[] rows = UsersAdmin.GetAllUsers(Babels.mysql.Conn);
             Object[] row = null;
             DefaultTableModel tm = (DefaultTableModel) this.Model;
@@ -46,8 +46,7 @@ public class UsersManager {
                 row = (Object[]) rows[rowIdx];
                 tm.addRow(row);
             }
-        }
-        finally{
+        } finally {
             Babels.mysql.Close();
         }
     }

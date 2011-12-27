@@ -4,7 +4,7 @@ import babelsManagers.MainManager;
 import babelsObjects.FormsFactory;
 
 public class Main extends javax.swing.JFrame {
-    
+
     private MainManager Manager;
 
     public Main() {
@@ -115,7 +115,6 @@ public class Main extends javax.swing.JFrame {
     private void mitemAdminProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAdminProductsActionPerformed
         FormsFactory.GetDialogForm("babelsForms.Products", true, null, null);
     }//GEN-LAST:event_mitemAdminProductsActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemAdmin;

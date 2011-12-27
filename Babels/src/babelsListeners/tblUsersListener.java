@@ -17,7 +17,7 @@ public class tblUsersListener implements TableModelListener {
 
     @Override
     public void tableChanged(TableModelEvent e) {
-        if (this.Manager.RefreshingTable == false){
+        if (this.Manager.RefreshingTable == false) {
             int row = e.getFirstRow();
             int column = e.getColumn();
             try {
