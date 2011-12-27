@@ -26,7 +26,7 @@ public class Babels {
             mysql.Open();
             try {
                 FormsFactory.GetDialogForm("babelsForms.Login", false, null, null);
-                if (UsersAdmin.GetAllUsers(mysql.Conn).length == 0) {
+                if (UsersAdmin.NoAdminUser(mysql.Conn) == true) {
                     Class[] classPrm = {java.awt.Frame.class, boolean.class, boolean.class};
                     Object[] objectPrm = {new javax.swing.JFrame(), true, true};
                     FormsFactory.GetDialogForm("babelsForms.NewUser", false,
