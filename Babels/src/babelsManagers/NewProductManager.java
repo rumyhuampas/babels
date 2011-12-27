@@ -45,10 +45,13 @@ public class NewProductManager {
         }
     }
 
-    public boolean SaveProduct(String name, String desc, String price, String imagePath) throws SQLException {
+    public boolean SaveProduct(int ProdId, String name, String desc, String price, String imagePath) throws SQLException {
         Babels.mysql.Open();
         try {
             Product prod = new Product(Babels.mysql.Conn);
+            if (ProdId != -1) {
+                prod.Load(ProdId);
+            }
             prod.Name = name;
             prod.Desc = desc;
             prod.Price = Float.parseFloat(price);

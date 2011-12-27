@@ -22,6 +22,7 @@ public class Main extends javax.swing.JFrame {
         mitemFile = new javax.swing.JMenu();
         mitemFileNew = new javax.swing.JMenu();
         mitemFileNewProd = new javax.swing.JMenuItem();
+        mitemFileNewCombo = new javax.swing.JMenuItem();
         mitemFileExit = new javax.swing.JMenuItem();
         mitemAdmin = new javax.swing.JMenu();
         mitemAdminProducts = new javax.swing.JMenuItem();
@@ -33,6 +34,8 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Babels");
         setName("frmMain"); // NOI18N
+
+        mbarMain.setPreferredSize(new java.awt.Dimension(173, 38));
 
         mitemFile.setText("Archivo");
 
@@ -47,6 +50,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
         mitemFileNew.add(mitemFileNewProd);
+
+        mitemFileNewCombo.setLabel("Combo...");
+        mitemFileNewCombo.setPreferredSize(new java.awt.Dimension(107, 38));
+        mitemFileNewCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemFileNewComboActionPerformed(evt);
+            }
+        });
+        mitemFileNew.add(mitemFileNewCombo);
 
         mitemFile.add(mitemFileNew);
 
@@ -111,7 +123,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
+            .addGap(0, 340, Short.MAX_VALUE)
         );
 
         pack();
@@ -136,6 +148,11 @@ public class Main extends javax.swing.JFrame {
     private void mitemAdminUserChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAdminUserChangePassActionPerformed
         FormsFactory.GetDialogForm("babelsForms.ChangePassword", true, null, null);
     }//GEN-LAST:event_mitemAdminUserChangePassActionPerformed
+
+    private void mitemFileNewComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemFileNewComboActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.NewCombo", true, null, null);
+    }//GEN-LAST:event_mitemFileNewComboActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemAdmin;
@@ -145,6 +162,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu mitemFile;
     private javax.swing.JMenuItem mitemFileExit;
     private javax.swing.JMenu mitemFileNew;
+    private javax.swing.JMenuItem mitemFileNewCombo;
     private javax.swing.JMenuItem mitemFileNewProd;
     private javax.swing.JMenu mitemUsers;
     private javax.swing.JMenuItem mitemUsersAdmin;
