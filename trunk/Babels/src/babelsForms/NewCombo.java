@@ -36,6 +36,13 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         pnlCombo = new javax.swing.JPanel();
         btnCancel = new javax.swing.JButton();
         btlOK = new javax.swing.JButton();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblDesc = new javax.swing.JLabel();
+        spnlDesc = new javax.swing.JScrollPane();
+        txtaDesc = new javax.swing.JTextArea();
+        lblPrice = new javax.swing.JLabel();
+        txtPrice = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -67,6 +74,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblProducts.setDragEnabled(true);
         jScrollPane1.setViewportView(tblProducts);
         tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
         tblProducts.getColumnModel().getColumn(0).setPreferredWidth(0);
@@ -74,6 +82,8 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         tblProducts.getColumnModel().getColumn(2).setMinWidth(50);
         tblProducts.getColumnModel().getColumn(2).setPreferredWidth(50);
         tblProducts.getColumnModel().getColumn(2).setMaxWidth(50);
+
+        pnlCombo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout pnlComboLayout = new javax.swing.GroupLayout(pnlCombo);
         pnlCombo.setLayout(pnlComboLayout);
@@ -83,7 +93,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         );
         pnlComboLayout.setVerticalGroup(
             pnlComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
 
         btnCancel.setText("Cancelar");
@@ -95,6 +105,16 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
 
         btlOK.setText("Aceptar");
 
+        lblName.setText("Nombre:");
+
+        lblDesc.setText("Descripción:");
+
+        txtaDesc.setColumns(20);
+        txtaDesc.setRows(5);
+        spnlDesc.setViewportView(txtaDesc);
+
+        lblPrice.setText("Precio:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,9 +122,20 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblDesc)
+                                    .addComponent(lblName)
+                                    .addComponent(lblPrice))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(spnlDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pnlCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btlOK)
@@ -117,13 +148,25 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlCombo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(33, 33, 33)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCancel)
-                            .addComponent(btlOK))))
+                            .addComponent(lblName)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spnlDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDesc))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrice)))
+                    .addComponent(pnlCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btlOK))
                 .addContainerGap())
         );
 
@@ -152,7 +195,14 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
     private javax.swing.JButton btlOK;
     private javax.swing.JButton btnCancel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDesc;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPrice;
     private javax.swing.JPanel pnlCombo;
+    private javax.swing.JScrollPane spnlDesc;
     private javax.swing.JTable tblProducts;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextArea txtaDesc;
     // End of variables declaration//GEN-END:variables
 }
