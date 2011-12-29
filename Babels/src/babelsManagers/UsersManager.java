@@ -22,6 +22,7 @@ public class UsersManager {
         this.Table = table;
         this.Model = this.Table.getModel();
         this.Listener = new tblUsersListener(this);
+        this.Model.addTableModelListener(this.Listener);
     }
 
     public void RefreshTable() throws SQLException {

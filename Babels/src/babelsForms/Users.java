@@ -15,7 +15,6 @@ public class Users extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new UsersManager(tblUsers);
-        tblUsers.getModel().addTableModelListener(this.Manager.Listener);
     }
 
     @SuppressWarnings("unchecked")

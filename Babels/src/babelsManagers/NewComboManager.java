@@ -1,6 +1,7 @@
 package babelsManagers;
 
 import babels.Babels;
+import babelsListeners.tblProductsListener;
 import babelsObjects.ProductsAdmin;
 import babelsRenderers.JLabelCell;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ public class NewComboManager {
     private JTable Table;
     private TableModel Model;
     private boolean RefreshingTable;
+    private tblProductsListener Listener;
 
     public NewComboManager(JTable table) {
         this.Table = table;
@@ -22,6 +24,8 @@ public class NewComboManager {
         JLabelCell labelCell = new JLabelCell();
         this.Table.getColumnModel().getColumn(3).setCellRenderer(labelCell);
         this.Table.setRowHeight(100);
+        this.Listener = new tblProductsListener();
+        
     }
 
     public void RefreshTable() throws SQLException {
