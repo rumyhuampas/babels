@@ -5,6 +5,7 @@ import babelsManagers.NewComboManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DropMode;
 
 public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
 
@@ -14,7 +15,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
     public NewCombo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.Manager = new NewComboManager(this.tblProducts);
+        this.Manager = new NewComboManager(this.tblProducts, this.pnlCombo);
     }
 
     @Override
@@ -74,6 +75,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblProducts.setDragEnabled(true);
         jScrollPane1.setViewportView(tblProducts);
         tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
         tblProducts.getColumnModel().getColumn(0).setPreferredWidth(0);
