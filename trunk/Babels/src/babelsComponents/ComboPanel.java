@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 public class ComboPanel implements DropTargetListener {
-    
+
     private JPanel panel;
     public DropTarget dropTarget;
     private boolean acceptableType; // Indicates whether data is acceptable
@@ -29,37 +29,42 @@ public class ComboPanel implements DropTargetListener {
                 this, true, null);
     }
 
+    @Override
     public void dragEnter(DropTargetDragEvent dtde) {
         Logger.getLogger(ComboPanel.class.getName()).log(Level.INFO, "dragEnter");
         /*DnDUtils.debugPrintln("dragEnter, drop action = "
-                + DnDUtils.showActions(dtde.getDropAction()));*/
+        + DnDUtils.showActions(dtde.getDropAction()));*/
         checkTransferType(dtde);
         acceptOrRejectDrag(dtde);
     }
 
+    @Override
     public void dragExit(DropTargetEvent dte) {
         Logger.getLogger(ComboPanel.class.getName()).log(Level.INFO, "dragExit");
         //DnDUtils.debugPrintln("DropTarget dragExit");
     }
 
+    @Override
     public void dragOver(DropTargetDragEvent dtde) {
         Logger.getLogger(ComboPanel.class.getName()).log(Level.INFO, "dragOver");
         /*DnDUtils.debugPrintln("DropTarget dragOver, drop action = "
-                + DnDUtils.showActions(dtde.getDropAction()));*/
+        + DnDUtils.showActions(dtde.getDropAction()));*/
         acceptOrRejectDrag(dtde);
     }
 
+    @Override
     public void dropActionChanged(DropTargetDragEvent dtde) {
         Logger.getLogger(ComboPanel.class.getName()).log(Level.INFO, "dropActionChanged");
         /*DnDUtils.debugPrintln("DropTarget dropActionChanged, drop action = "
-                + DnDUtils.showActions(dtde.getDropAction()));*/
+        + DnDUtils.showActions(dtde.getDropAction()));*/
         acceptOrRejectDrag(dtde);
     }
 
+    @Override
     public void drop(DropTargetDropEvent dtde) {
         Logger.getLogger(ComboPanel.class.getName()).log(Level.INFO, "drop");
         /*DnDUtils.debugPrintln("DropTarget drop, drop action = "
-                + DnDUtils.showActions(dtde.getDropAction()));*/
+        + DnDUtils.showActions(dtde.getDropAction()));*/
         if ((dtde.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) != 0) {
             dtde.acceptDrop(dtde.getDropAction());
             Transferable transferable = dtde.getTransferable();
@@ -85,8 +90,8 @@ public class ComboPanel implements DropTargetListener {
 
         Logger.getLogger(ComboPanel.class.getName()).log(Level.INFO, "acceptOrRejectDrag");
         /*DnDUtils.debugPrintln("\tSource actions are "
-                + DnDUtils.showActions(sourceActions) + ", drop action is "
-                + DnDUtils.showActions(dropAction));*/
+        + DnDUtils.showActions(sourceActions) + ", drop action is "
+        + DnDUtils.showActions(dropAction));*/
 
         if (!acceptableType
                 || (sourceActions & DnDConstants.ACTION_COPY_OR_MOVE) == 0) {
@@ -127,7 +132,7 @@ public class ComboPanel implements DropTargetListener {
         Object o = transferable.getTransferData(targetFlavor);
         if (o instanceof Component) {
             /*DnDUtils.debugPrintln("Dragged component class is "
-                    + o.getClass().getName());*/
+            + o.getClass().getName());*/
             panel.add((Component) o);
             panel.validate();
             return true;

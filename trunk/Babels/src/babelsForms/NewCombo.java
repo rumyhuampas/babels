@@ -5,7 +5,6 @@ import babelsManagers.NewComboManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DropMode;
 
 public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
 
