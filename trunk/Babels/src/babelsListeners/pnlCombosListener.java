@@ -5,7 +5,7 @@ import java.awt.dnd.DragSourceDropEvent;
 import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
 
-public class tblProductsListener implements DragSourceListener {
+public class pnlCombosListener implements DragSourceListener {
 
     @Override
     public void dragEnter(DragSourceDragEvent dsde) {
