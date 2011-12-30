@@ -74,7 +74,6 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblProducts.setDragEnabled(true);
         jScrollPane1.setViewportView(tblProducts);
         tblProducts.getColumnModel().getColumn(0).setMinWidth(0);
         tblProducts.getColumnModel().getColumn(0).setPreferredWidth(0);
