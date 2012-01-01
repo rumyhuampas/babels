@@ -7,6 +7,7 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class pnlComboListener extends DropTargetAdapter {
@@ -36,6 +37,8 @@ public class pnlComboListener extends DropTargetAdapter {
                     dtde.dropComplete(true);
                 } else {
                     dtde.rejectDrop();
+                    JOptionPane.showMessageDialog(null, "El producto ya esta en la lista",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 dtde.rejectDrop();
@@ -47,12 +50,10 @@ public class pnlComboListener extends DropTargetAdapter {
     }
 
     private boolean ProductIsListed(TransferableProductPanel prodPanel) {
-        for (int i=0; i<prodList.size();i++){
-            TransferableProductPanel pnl = (TransferableProductPanel)prodList.get(i);
-            if (pnl.prod.getId() == prodPanel.prod.getId()) {
+        for (int i = 0; i < prodList.size(); i++) {
+            TransferableProductPanel pnl = (TransferableProductPanel) prodList.get(i);
+            if (pnl.prodId == prodPanel.prodId) {
                 return true;
-            } else {
-                return false;
             }
         }
         return false;
