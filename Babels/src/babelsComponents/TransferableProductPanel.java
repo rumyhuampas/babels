@@ -12,13 +12,13 @@ import javax.swing.JPanel;
 
 public class TransferableProductPanel extends JPanel implements Transferable {
 
-    public Product prod;
+    public int prodId;
     public static DataFlavor productPanelFlavor =
             new DataFlavor(TransferableProductPanel.class, "A Product Panel");
     public static DataFlavor[] supportedFlavors = {productPanelFlavor};
 
     public TransferableProductPanel(Product prod) {
-        this.prod = prod;
+        this.prodId = prod.getId();
         this.setBorder(BorderFactory.createLineBorder(Color.black));
         JLabel label = new JLabel(prod.Name, prod.GetImageIcon(), JLabel.CENTER);
         this.add(label);
