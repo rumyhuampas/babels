@@ -111,7 +111,7 @@ public class SaleDetail {
     private boolean UpdateSaleDetail() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_IDSALE + " = ?," + this.FIELD_AMOUNT + " = ?,"
-                + this.FIELD_IDPRODUCT + " = ?," + this.FIELD_SUBTOTAL + " = ?"
+                + this.FIELD_IDPRODUCT + " = ?," + this.FIELD_SUBTOTAL + " = ? "
                 + "WHERE " + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
@@ -159,7 +159,7 @@ public class SaleDetail {
     static String GetUpdateSql() {
         return "UPDATE " + TABLENAME + " SET "
                 + FIELD_IDSALE + " = ?," + FIELD_AMOUNT + " = ?,"
-                + FIELD_IDPRODUCT + " = ?," + FIELD_SUBTOTAL + " = ?"
+                + FIELD_IDPRODUCT + " = ?," + FIELD_SUBTOTAL + " = ? "
                 + "WHERE " + FIELD_ID + " = ?";
     }
 
