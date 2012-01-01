@@ -1,10 +1,12 @@
 package babelsManagers;
 
 import babels.Babels;
-import babelsComponents.ComboPanel;
+import babelsListeners.pnlComboListener;
+import babelsListeners.tblProductsListener;
 import babelsObjects.ProductsAdmin;
 import babelsRenderers.JLabelCell;
 import java.sql.SQLException;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,8 +16,7 @@ public class NewComboManager {
 
     private JTable Table;
     private TableModel Model;
-    private boolean RefreshingTable;
-    private ComboPanel pnlCombo;
+    public boolean RefreshingTable;
 
     public NewComboManager(JTable table, JPanel comboPanel) {
         this.Table = table;
@@ -23,8 +24,10 @@ public class NewComboManager {
         JLabelCell labelCell = new JLabelCell();
         this.Table.getColumnModel().getColumn(3).setCellRenderer(labelCell);
         this.Table.setRowHeight(50);
-        this.pnlCombo = new ComboPanel(comboPanel);
-        this.Table.setDropTarget(this.pnlCombo.dropTarget);
+
+        tblProductsListener TableListener = new tblProductsListener(table);
+        comboPanel.setLayout(new BoxLayout(comboPanel, BoxLayout.PAGE_AXIS));
+        pnlComboListener pnlCombo = new pnlComboListener(comboPanel);
     }
 
     public void RefreshTable() throws SQLException {
