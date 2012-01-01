@@ -10,20 +10,18 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class TransferableProduct implements Transferable {
+public class TransferableProductPanel extends JPanel implements Transferable {
 
-    private JPanel panel;
+    public Product prod;
     public static DataFlavor productPanelFlavor =
-            new DataFlavor(TransferableProduct.class, "A Product Panel");
+            new DataFlavor(TransferableProductPanel.class, "A Product Panel");
     public static DataFlavor[] supportedFlavors = {productPanelFlavor};
 
-    public TransferableProduct(Product prod) {
-        this.panel = new JPanel();
-        this.panel.setBorder(BorderFactory.createLineBorder(Color.black));
+    public TransferableProductPanel(Product prod) {
+        this.prod = prod;
+        this.setBorder(BorderFactory.createLineBorder(Color.black));
         JLabel label = new JLabel(prod.Name, prod.GetImageIcon(), JLabel.CENTER);
-        //label.setSize(50, 40);
-        label.setVisible(true);
-        this.panel.add(label);
+        this.add(label);
     }
 
     @Override
@@ -42,7 +40,7 @@ public class TransferableProduct implements Transferable {
     @Override
     public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
         if (flavor.equals(productPanelFlavor)) {
-            return panel;
+            return this;
         } else {
             throw new UnsupportedFlavorException(flavor);
         }

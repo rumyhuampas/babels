@@ -1,6 +1,6 @@
 package babelsListeners;
 
-import babelsComponents.TransferableProduct;
+import babelsComponents.TransferableProductPanel;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -25,22 +25,19 @@ public class pnlComboListener extends DropTargetAdapter {
     public void drop(DropTargetDropEvent dtde) {
         try {
             Transferable tr = dtde.getTransferable();
-            JPanel pnlProd = (JPanel) tr.getTransferData(TransferableProduct.productPanelFlavor);
-            if (dtde.isDataFlavorSupported(TransferableProduct.productPanelFlavor)) {
-                if (!ProductIsListed(pnlProd)){
+            TransferableProductPanel pnlProd = (TransferableProductPanel) tr.getTransferData(TransferableProductPanel.productPanelFlavor);
+            if (dtde.isDataFlavorSupported(TransferableProductPanel.productPanelFlavor)) {
+                if (!ProductIsListed(pnlProd)) {
                     dtde.acceptDrop(DnDConstants.ACTION_COPY);
                     this.prodList.add(pnlProd);
-                    SetProductBounds(pnlProd);
                     this.panel.add(pnlProd);
                     this.panel.revalidate();
-                    this.panel.repaint(); 
-                    //this.panel.setSize(this.panel.getWidth(), (50 * this.prodList.size()) + 10);
+                    this.panel.repaint();
                     dtde.dropComplete(true);
-                }
-                else{
+                } else {
                     dtde.rejectDrop();
                 }
-            }else{
+            } else {
                 dtde.rejectDrop();
             }
         } catch (Exception e) {
@@ -48,19 +45,16 @@ public class pnlComboListener extends DropTargetAdapter {
             dtde.rejectDrop();
         }
     }
-    
-    private boolean ProductIsListed(JPanel prodPanel){
-        if(prodList.contains(prodPanel)){
-            return true;
+
+    private boolean ProductIsListed(TransferableProductPanel prodPanel) {
+        for (int i=0; i<prodList.size();i++){
+            TransferableProductPanel pnl = (TransferableProductPanel)prodList.get(i);
+            if (pnl.prod.getId() == prodPanel.prod.getId()) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        else{
-            return false;
-        }
-    }
-    
-    private void SetProductBounds(JPanel prodPanel){
-        prodPanel.setBounds(5, 
-                5 + (50 * (this.prodList.size() - 1) + 5),
-                this.panel.getWidth() - 10, 50);
+        return false;
     }
 }
