@@ -1,7 +1,7 @@
 package babelsListeners;
 
 import babels.Babels;
-import babelsComponents.TransferableProduct;
+import babelsComponents.TransferableProductPanel;
 import babelsObjects.Product;
 import java.awt.Cursor;
 import java.awt.dnd.DnDConstants;
@@ -43,6 +43,6 @@ public class tblProductsListener implements DragGestureListener {
             Logger.getLogger(tblProductsListener.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        dge.startDrag(cursor, new TransferableProduct(prod));
+        dge.startDrag(cursor, new TransferableProductPanel(prod));
     }
 }
