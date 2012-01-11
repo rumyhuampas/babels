@@ -10,16 +10,18 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
 
     private NewComboManager Manager;
     public boolean Refresh = true;
+    private int ComboId = -1;
 
     public NewCombo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.Manager = new NewComboManager(this.tblProducts, this.pnlCombo);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
     }
 
     @Override
     public void ClickOKButton() {
-        this.btlOK.doClick();
+        this.btnOK.doClick();
     }
 
     @Override
@@ -34,7 +36,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProducts = new javax.swing.JTable();
         btnCancel = new javax.swing.JButton();
-        btlOK = new javax.swing.JButton();
+        btnOK = new javax.swing.JButton();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lblDesc = new javax.swing.JLabel();
@@ -92,7 +94,12 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
             }
         });
 
-        btlOK.setText("Aceptar");
+        btnOK.setText("Aceptar");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         lblName.setText("Nombre:");
 
@@ -147,9 +154,9 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblHelp)
                                 .addGap(30, 30, 30))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane2)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btlOK)
+                        .addComponent(btnOK)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel)))
                 .addContainerGap())
@@ -160,7 +167,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblName)
@@ -176,11 +183,11 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblHelp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
-                    .addComponent(btlOK))
+                    .addComponent(btnOK))
                 .addContainerGap())
         );
 
@@ -205,9 +212,23 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        if (this.Manager.CheckFields(this.txtName, this.txtPrice) == true) {
+            try {
+                if (this.Manager.SaveCombo(this.ComboId, this.txtName.getText(), this.txtaDesc.getText(),
+                        this.txtPrice.getText(), this.Manager.GetComboProducts()) == true) {
+                    this.dispose();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnOKActionPerformed
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btlOK;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnOK;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDesc;
