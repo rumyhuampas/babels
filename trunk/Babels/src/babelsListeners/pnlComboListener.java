@@ -32,6 +32,10 @@ public class pnlComboListener extends DropTargetAdapter {
                     dtde.acceptDrop(DnDConstants.ACTION_COPY);
                     this.prodList.add(pnlProd);
                     this.panel.add(pnlProd);
+                    ProdPnlMouseListener prodPnlML = new ProdPnlMouseListener(pnlProd);
+                    prodPnlML.ProdList = this.prodList;
+                    prodPnlML.ComboPanel = this.panel;
+                    pnlProd.addMouseListener(prodPnlML);
                     this.panel.revalidate();
                     this.panel.repaint();
                     dtde.dropComplete(true);
