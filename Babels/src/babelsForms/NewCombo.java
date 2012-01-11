@@ -36,8 +36,6 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pmenuPnlCombo = new javax.swing.JPopupMenu();
-        mitemRemove = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProducts = new javax.swing.JTable();
         btnCancel = new javax.swing.JButton();
@@ -52,10 +50,6 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         pnlCombo = new javax.swing.JPanel();
         lblHelp = new javax.swing.JLabel();
-
-        mitemRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/delete.png"))); // NOI18N
-        mitemRemove.setText("Remove Product");
-        pmenuPnlCombo.add(mitemRemove);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -121,11 +115,6 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         lblPrice.setText("Precio:");
 
         pnlCombo.setAutoscrolls(true);
-        pnlCombo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlComboMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlComboLayout = new javax.swing.GroupLayout(pnlCombo);
         pnlCombo.setLayout(pnlComboLayout);
@@ -239,26 +228,6 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
-
-    private void pnlComboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlComboMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3) {
-            try {
-                if (this.Manager.GetComboProducts().size() > 0){
-                    JPanel prod = (JPanel)evt.getComponent();
-                    
-                    //int row = this.tblProducts.rowAtPoint(evt.getPoint());
-                    //this.tblProducts.changeSelection(row, 0, false, false);
-                    this.mitemRemove.setEnabled(true);
-                }
-                else{
-                    this.mitemRemove.setEnabled(false);
-                }
-                this.pmenuPnlCombo.show(this.pnlCombo, evt.getX(), evt.getY());
-            } catch (SQLException ex) {
-                Logger.getLogger(NewCombo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }//GEN-LAST:event_pnlComboMouseClicked
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -269,8 +238,6 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
     private javax.swing.JLabel lblHelp;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
-    private javax.swing.JMenuItem mitemRemove;
-    private javax.swing.JPopupMenu pmenuPnlCombo;
     private javax.swing.JPanel pnlCombo;
     private javax.swing.JScrollPane spnlDesc;
     private javax.swing.JTable tblProducts;
