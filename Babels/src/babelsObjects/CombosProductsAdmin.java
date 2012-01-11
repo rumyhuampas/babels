@@ -34,4 +34,33 @@ public class CombosProductsAdmin {
             qry.close();
         }
     }
+    
+    public static boolean DeleteComboProducts(Connection conn, Combo combo) throws SQLException{
+        String sql = "DELETE FROM " + TABLENAME + " WHERE "
+                + FIELD_IDCOMBO + "=? ";
+        PreparedStatement qry = conn.prepareStatement(sql);
+        try {
+            qry.setInt(1, combo.getId());
+            try{
+                qry.executeUpdate();
+                return true;
+            } 
+            catch(Exception ex){
+                return false;
+            }
+        } finally {
+            qry.close();
+        }
+    } 
+    
+    static String GetInsertSql() {
+        return "INSERT INTO " + TABLENAME + " ("
+                + FIELD_IDCOMBO + "," + FIELD_IDPROD
+                + ") VALUES (?,?)";
+    }
+    
+    static String GetDeleteFromComboSql() {
+        return "DELETE FROM " + TABLENAME + " WHERE "
+                + FIELD_IDCOMBO + " = ?";
+    }
 }

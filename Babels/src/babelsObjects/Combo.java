@@ -27,6 +27,7 @@ public class Combo {
 
     public Combo(Connection conn) throws SQLException {
         this.Conn = conn;
+        Products = new ArrayList();
         this.Clear();
     }
 
@@ -83,13 +84,56 @@ public class Combo {
     public boolean Save() throws SQLException {
         if (!Exists()) {
             if (this.Id == -1) {
-                return InsertCombo();
+                if(InsertCombo() == true){
+                    if (SaveComboProducts() == true) {
+                        return true;
+                    } else {
+                        Delete();
+                        return false;
+                    }
+                }
+                else{
+                    return false;
+                }
             } else {
-                return UpdateCombo();
+                if (SaveComboProducts() == true) {
+                    return UpdateCombo();
+                }
+                else{
+                    return false;
+                }
             }
         } else {
             return false;
         }
+    }
+    
+    private boolean SaveComboProducts() throws SQLException {
+        boolean result = false;
+        if (CombosProductsAdmin.DeleteComboProducts(this.Conn, this) == true){
+            this.Conn.setAutoCommit(false);
+            try {
+                PreparedStatement qry = null;
+                for (int i = 0; i < this.Products.size(); i++) {
+                    Product prod = ((Product) this.Products.get(i));
+                    qry = this.Conn.prepareStatement(CombosProductsAdmin.GetInsertSql());
+                    qry.setInt(1, this.Id);
+                    qry.setInt(2, prod.getId());
+
+                    qry.addBatch();
+                }
+                qry.executeBatch();
+                this.Conn.commit();
+
+                result = true;
+            } catch (Exception ex) {
+                this.Conn.rollback();
+                result = false;
+            } finally {
+                this.Conn.setAutoCommit(true);
+            }
+        }
+        return result;
     }
 
     private boolean InsertCombo() throws SQLException {
@@ -119,7 +163,7 @@ public class Combo {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_NAME + " = ?,"
                 + this.FIELD_DESC + " = ?,"
-                + this.FIELD_PRICE + " = ?"
+                + this.FIELD_PRICE + " = ? "
                 + "WHERE " + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
@@ -155,8 +199,37 @@ public class Combo {
             qry.close();
         }
     }
-
+    
     public boolean Delete() throws SQLException {
+        if (DeleteComboProducts()){
+            if (DeleteCombo() == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    
+    private boolean DeleteComboProducts() throws SQLException {
+        PreparedStatement qry = this.Conn.prepareStatement(CombosProductsAdmin.GetDeleteFromComboSql());
+        try {
+            qry.setInt(1, this.Id);
+            try{
+                qry.executeUpdate();
+                return true;
+            } 
+            catch(Exception ex){
+                return false;
+            }
+        } finally {
+            qry.close();
+        }
+    }
+
+    private boolean DeleteCombo() throws SQLException {
         String sql = "DELETE FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 public class pnlComboListener extends DropTargetAdapter {
 
     private JPanel panel;
-    private ArrayList prodList;
+    public ArrayList prodList;
 
     public pnlComboListener(JPanel panel) {
         this.panel = panel;

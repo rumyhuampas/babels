@@ -1,14 +1,19 @@
 package babelsManagers;
 
 import babels.Babels;
+import babelsComponents.TransferableProductPanel;
+import babelsInterfaces.IBabelsDialog;
+import babelsListeners.KeyListenerType;
 import babelsListeners.pnlComboListener;
 import babelsListeners.tblProductsListener;
+import babelsListeners.txtFieldListener;
+import babelsObjects.Combo;
+import babelsObjects.Product;
 import babelsObjects.ProductsAdmin;
 import babelsRenderers.JLabelCell;
 import java.sql.SQLException;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JTable;
+import java.util.ArrayList;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -17,6 +22,7 @@ public class NewComboManager {
     private JTable Table;
     private TableModel Model;
     public boolean RefreshingTable;
+    private pnlComboListener pnlCombo;
 
     public NewComboManager(JTable table, JPanel comboPanel) {
         this.Table = table;
@@ -27,7 +33,78 @@ public class NewComboManager {
 
         tblProductsListener TableListener = new tblProductsListener(table);
         comboPanel.setLayout(new BoxLayout(comboPanel, BoxLayout.PAGE_AXIS));
-        pnlComboListener pnlCombo = new pnlComboListener(comboPanel);
+        pnlCombo = new pnlComboListener(comboPanel);
+    }
+    
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, IBabelsDialog dialog) {
+        txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
+        txtPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+    }
+    
+    public boolean CheckFields(JTextField txtName, JTextField txtPrice) {
+        if (!txtName.getText().equals("") && !txtPrice.getText().equals("")) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe completar Nombre y Precio",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+    
+    public ArrayList GetComboProducts() throws SQLException{
+        Babels.mysql.Open();
+        try{
+            ArrayList prodList = new ArrayList();
+            TransferableProductPanel tprod;
+            for (int i=0;i<pnlCombo.prodList.size(); i++){
+                tprod = (TransferableProductPanel)pnlCombo.prodList.get(i);
+                Product prod = new Product(Babels.mysql.Conn);
+                prod.Load(tprod.prodId);
+                prodList.add(prod);
+            }
+            return prodList;
+        }
+        finally{
+            Babels.mysql.Close();
+        }
+    } 
+    
+    public boolean SaveCombo(int ComboId, String name, String desc, String price, ArrayList products) throws SQLException {
+        Babels.mysql.Open();
+        try {
+            if (products.size() > 0){
+                Combo combo = new Combo(Babels.mysql.Conn);
+                if (ComboId != -1) {
+                    combo.Load(ComboId);
+                }
+                combo.Name = name;
+                combo.Desc = desc;
+                combo.Price = Float.parseFloat(price);
+                combo.Products = products;
+                if (combo.Exists() == false) {
+                    if (combo.Save() == true) {
+                        JOptionPane.showMessageDialog(null, "Combo guardado",
+                                "Exito", JOptionPane.INFORMATION_MESSAGE);
+                        return true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pudo guardar el combo",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "El combo ya existe",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Debe elegir al menos un producto",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } finally {
+            Babels.mysql.Close();
+        }
     }
 
     public void RefreshTable() throws SQLException {
