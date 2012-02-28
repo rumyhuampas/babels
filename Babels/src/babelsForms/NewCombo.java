@@ -22,6 +22,10 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
     }
 
+    private NewCombo() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     @Override
     public void ClickOKButton() {
         this.btnOK.doClick();
@@ -227,8 +231,17 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+    
     }//GEN-LAST:event_btnOKActionPerformed
-  
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new NewCombo().setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;

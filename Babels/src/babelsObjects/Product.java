@@ -1,6 +1,11 @@
 package babelsObjects;
 
+import babelsComponents.ImageManagement;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,6 +19,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class Product {
@@ -63,6 +69,25 @@ public class Product {
             return null;
         }
     }
+    public ImageIcon GetImageIconResized(int width, int height){
+
+        if (this.Img != null) {
+            Image image2 =this.Img;
+            ImageManagement gImg = new ImageManagement(image2);
+            image2 = gImg.getImage();
+            BufferedImage tnsImg = new BufferedImage(width ,height, BufferedImage.TYPE_INT_RGB); 
+            Graphics2D graphics2D = tnsImg.createGraphics(); 
+            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
+            graphics2D.drawImage(image2, 0, 0, width, height, null);
+          //  Icon icon = new ImageIcon(tnsImg);
+
+            
+            return new ImageIcon(tnsImg);
+        } else {
+            return null;
+        }
+
+}
 
     public void ClearImage() {
         this.Img = null;
