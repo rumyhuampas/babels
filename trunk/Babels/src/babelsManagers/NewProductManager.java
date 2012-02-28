@@ -1,14 +1,21 @@
 package babelsManagers;
 
 import babels.Babels;
+import babelsComponents.ImageManagement;
 import babelsFilters.ImagesFilter;
 import babelsForms.NewProduct;
 import babelsInterfaces.IBabelsDialog;
 import babelsListeners.KeyListenerType;
 import babelsListeners.txtFieldListener;
 import babelsObjects.Product;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.SQLException;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;

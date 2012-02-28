@@ -174,7 +174,7 @@ public class Products extends javax.swing.JDialog {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             if (evt.getClickCount() == 1) {
                 try {
-                    this.lblImg.setIcon(this.Manager.GetProductImage());
+                    this.lblImg.setIcon(this.Manager.GetProductImage(lblImg.getWidth(),lblImg.getHeight()));
                 } catch (SQLException ex) {
                     Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
                 }

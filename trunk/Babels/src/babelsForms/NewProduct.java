@@ -1,7 +1,13 @@
 package babelsForms;
 
+import babelsComponents.ImageManagement;
 import babelsInterfaces.IBabelsDialog;
 import babelsManagers.NewProductManager;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -158,7 +164,15 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
     private void lblImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImgMouseClicked
         File image = this.Manager.ChooseProductImage(this);
         if (image != null) {
-            Icon icon = new ImageIcon(image.getPath());
+       
+            Image image2 = Toolkit.getDefaultToolkit().getImage(image.getPath());
+            ImageManagement gImg = new ImageManagement(image2);
+            image2 = gImg.getImage();
+            BufferedImage tnsImg = new BufferedImage(lblImg.getWidth(),lblImg.getHeight(), BufferedImage.TYPE_INT_RGB); 
+            Graphics2D graphics2D = tnsImg.createGraphics(); 
+            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
+            graphics2D.drawImage(image2, 0, 0,lblImg.getWidth(),lblImg.getHeight(), null);
+            Icon icon = new ImageIcon(tnsImg);
             if (icon != null) {
                 this.lblImg.setText("");
                 this.lblImg.setIcon(icon);
@@ -166,7 +180,8 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
             }
         }
     }//GEN-LAST:event_lblImgMouseClicked
-
+  
+    
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         if (this.Manager.CheckFields(this.txtName, this.txtPrice) == true) {
             try {

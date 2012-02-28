@@ -49,13 +49,13 @@ public class ProductsManager {
         }
     }
 
-    public ImageIcon GetProductImage() throws SQLException {
+    public ImageIcon GetProductImage(int width, int height) throws SQLException {
         Babels.mysql.Open();
         try {
             int row = this.Table.getSelectedRow();
             Product prod = new Product(Babels.mysql.Conn);
             prod.Load((Integer) this.Model.getValueAt(row, 0));
-            return prod.GetImageIcon();
+            return prod.GetImageIconResized(width,height);
         } finally {
             Babels.mysql.Close();
         }
