@@ -210,6 +210,7 @@ public class Product {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
             if (this.ImageFile != null) {
+          // DE DONDE VIENE IMAGEFILE (EL PATH)SI NO ESTA EN LA BASE DE DATOS Y EL MODIFICAR OBTIENE LOS DATOS D AHI
                 qry.setBinaryStream(3, this.ImageStream, (int) (this.ImageFile.length()));
             } else {
                 qry.setBinaryStream(3, null);
