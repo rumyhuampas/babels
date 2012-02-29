@@ -52,7 +52,7 @@ public class NewProductManager {
         }
     }
 
-    public boolean SaveProduct(int ProdId, String name, String desc, String price, String imagePath) throws SQLException {
+    public boolean SaveProduct(int ProdId, String name, String desc, String price, String imagePath, boolean ImageChanged) throws SQLException {
         Babels.mysql.Open();
         try {
             Product prod = new Product(Babels.mysql.Conn);
@@ -63,6 +63,7 @@ public class NewProductManager {
             prod.Desc = desc;
             prod.Price = Float.parseFloat(price);
             prod.SetImage(imagePath);
+            prod.ImageChanged=ImageChanged;
             if (prod.Exists() == false) {
                 if (prod.Save() == true) {
                     JOptionPane.showMessageDialog(null, "Producto guardado",

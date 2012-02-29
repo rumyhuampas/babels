@@ -36,6 +36,7 @@ public class Product {
     public String Desc;
     private Image Img;
     private File ImageFile;
+    public boolean ImageChanged;
     private InputStream ImageStream;
     public float Price;
 
@@ -205,7 +206,14 @@ public class Product {
                 + this.FIELD_IMAGE + " = ?,"
                 + this.FIELD_PRICE + " = ?"
                 + "WHERE " + this.FIELD_ID + " = ?";
-        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        
+        String sql2 = "UPDATE " + this.TABLENAME + " SET "
+                + this.FIELD_NAME + " = ?,"
+                + this.FIELD_DESC + " = ?,"
+                + this.FIELD_PRICE + " = ?"
+                + "WHERE " + this.FIELD_ID + " = ?";
+        if (ImageChanged==true){
+             PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
@@ -220,7 +228,22 @@ public class Product {
             return qry.executeUpdate() > 0;
         } finally {
             qry.close();
+       }
+     }
+        else{
+             PreparedStatement qry = this.Conn.prepareStatement(sql2);
+        try {
+            qry.setString(1, this.Name);
+            qry.setString(2, this.Desc);
+          
+            qry.setFloat(3, this.Price);
+            qry.setInt(4, this.Id);
+            return qry.executeUpdate() > 0;
+        } finally {
+            qry.close();
         }
+        }
+       
     }
 
     public boolean Exists() throws SQLException {
