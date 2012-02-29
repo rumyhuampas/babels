@@ -108,8 +108,13 @@ public class User {
                 + this.FIELD_NAME + ", " + this.FIELD_PASS + ", "
                 + this.FIELD_ISADMIN + ", " + this.FIELD_ACTIVE
                 + ") VALUES (?,?,?,?)";
+
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        
+
+       
         try {
+            
             qry.setString(1, this.Name);
             qry.setString(2, this.Pass);
             qry.setInt(3, isAdmin);

@@ -19,7 +19,8 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
     private NewProductManager Manager;
     private int ProdId = -1;
-
+    private boolean ImageChanged = false;
+    
     public NewProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -177,6 +178,8 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
                 this.lblImg.setText("");
                 this.lblImg.setIcon(icon);
                 this.lblImg.setToolTipText(image.getPath());
+                
+               this.ImageChanged = true;
             }
         }
     }//GEN-LAST:event_lblImgMouseClicked
@@ -186,7 +189,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         if (this.Manager.CheckFields(this.txtName, this.txtPrice) == true) {
             try {
                 if (this.Manager.SaveProduct(this.ProdId, this.txtName.getText(), this.txtaDesc.getText(),
-                        this.txtPrice.getText(), this.lblImg.getToolTipText()) == true) {
+                        this.txtPrice.getText(), this.lblImg.getToolTipText(), this.ImageChanged) == true) {
                     this.dispose();
                 }
             } catch (SQLException ex) {
