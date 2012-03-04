@@ -1,7 +1,7 @@
 package andro.babels.controllers;
 
 import babelsObjects.MySQL;
-import babelsObjects.User;
+import babelsObjects.CombosAdmin;
 import java.sql.SQLException;
 
 public class Welcome extends andro.babels.controllers.Base {
@@ -16,17 +16,17 @@ public class Welcome extends andro.babels.controllers.Base {
         //ConnectDB();
     }
     
-    private void ConnectDB() {
-        /*try {
+    private void GetInfo() {
+        try {
             mysql.Open();
             try {
-                User user = new User(null);
+                CombosAdmin.GetAllCombos(mysql.Conn);
             } finally {
                 mysql.Close();
             }
-        } catch (SQLException ex) {*/
+        } catch (SQLException ex) {
             /*JOptionPane.showMessageDialog(null, ex.getMessage(),
                     "Error " + ex.getErrorCode(), JOptionPane.ERROR_MESSAGE);*/
-        //}
+        }
     }
 }
