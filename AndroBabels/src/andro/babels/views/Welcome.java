@@ -4,7 +4,6 @@ import andro.babels.R;
 import andro.babels.wrappers.GifImageView;
 import android.view.Gravity;
 import android.widget.LinearLayout;
-import java.io.InputStream;
 
 public class Welcome extends andro.babels.views.Base {
     private andro.babels.Welcome Activity;
