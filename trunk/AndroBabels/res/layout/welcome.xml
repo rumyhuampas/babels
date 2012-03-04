@@ -13,16 +13,12 @@
         android:src="@drawable/title"
             />
     <LinearLayout 
-        android:orientation="vertical"
+        android:id="@+id/wl_llLoading"
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:gravity="center"
         android:layout_weight="1"
     >
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/loading"
-            />
     </LinearLayout>
 </LinearLayout>
