@@ -46,8 +46,7 @@ public class Welcome extends andro.babels.controllers.Base {
                 super.handleMessage(msg);
                 Object[] result = (Object[])msg.obj;
                 Bundle extras = new Bundle();
-                ExtraObjects objects = new ExtraObjects();
-                objects.Objects = result;
+                ExtraObjects objects = new ExtraObjects(result);
                 extras.putParcelable("combos", objects);
                 andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Pos.class, extras);
             }
