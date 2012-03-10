@@ -2,7 +2,7 @@ package andro.babels.controllers;
 
 import andro.babels.Combos;
 import andro.babels.R;
-import andro.babels.wrappers.ExtraObjects;
+import andro.babels.wrappers.ExtraObject;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,10 +26,10 @@ public class Pos extends andro.babels.controllers.Base {
     
     private void LoadInfo(){
         Bundle extras = Activity.getIntent().getExtras();
-        ExtraObjects extraObj = (ExtraObjects) extras.getParcelable("combos");
-        for (int i = 0; i< extraObj.Objects.length; i++){
+        ExtraObject extraObj = (ExtraObject) extras.getParcelable("combos");
+        for (int i = 0; i< extraObj.Obj.length; i++){
             ImageDialog d = new ImageDialog();
-            d.show(Activity, "TEST", ((Object[])extraObj.Objects[i])[1].toString(), R.drawable.error, null);
+            d.show(Activity, "TEST", ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error, null);
         }
     }
 }
