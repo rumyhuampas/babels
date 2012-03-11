@@ -25,7 +25,7 @@ public class Combos extends andro.babels.views.Base {
             llRow.setBackgroundResource(R.drawable.border);
             llRow.addView(GetComboView(combo));
             LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            params.setMargins(5, 5, 5, 5);
+            params.setMargins(2, 2, 2, 2);
             llRow.setLayoutParams(params);
             
             ll.addView(llRow);

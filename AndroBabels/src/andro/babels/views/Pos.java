@@ -31,4 +31,10 @@ public class Pos extends andro.babels.views.Base {
         tv.setText(title);
         return view;
     }
+    
+    public void InitTabHost(){
+        TabHost tabHost = (TabHost) Activity.findViewById(android.R.id.tabhost);
+        tabHost.setup();
+        tabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
+    }
 }
