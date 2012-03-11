@@ -1,12 +1,27 @@
 package andro.babels.wrappers.dialogs;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 
 public class Base {
     
     public Dialog dialog;
+    
+    public Base(Context context, String title, View.OnClickListener callback){
+        dialog = new Dialog(context);
+        dialog.setTitle(title);
+        dialog.setCancelable(callback == null);
+    }
+    
+    public void show(){
+        dialog.show();
+    }
+    
+    public void hide(){
+        dialog.dismiss();
+    }
 
     public static DialogInterface.OnClickListener closeAppCallback = new DialogInterface.OnClickListener() {
 

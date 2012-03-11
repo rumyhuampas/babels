@@ -60,7 +60,7 @@ public class Welcome extends andro.babels.controllers.Base {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            view.ShowToast(Activity, ((SQLException)msg.obj).getMessage());
+            view.ShowError(Activity, ((SQLException)msg.obj).getMessage(), andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
         }
     };
 }

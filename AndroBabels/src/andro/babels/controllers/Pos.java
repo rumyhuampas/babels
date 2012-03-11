@@ -22,14 +22,15 @@ public class Pos extends andro.babels.controllers.Base {
     private void CreateTabs(){
         Intent intent = new Intent().setClass(Activity, Combos.class);
         view.CreateTab(intent, "tabCombos", "Combos");
+        view.CreateTab(intent, "tabProducts", "Products");
     }
     
     private void LoadInfo(){
         Bundle extras = Activity.getIntent().getExtras();
         ExtraObject extraObj = (ExtraObject) extras.getParcelable("combos");
-        for (int i = 0; i< extraObj.Obj.length; i++){
-            ImageDialog d = new ImageDialog();
-            d.show(Activity, "TEST", ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error, null);
-        }
+        /*for (int i = 0; i< extraObj.Obj.length; i++){
+            ImageDialog d = new ImageDialog(Activity, "TEST", ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error, null);
+            d.show();
+        }*/
     }
 }
