@@ -2,8 +2,8 @@ package andro.babels.views;
 
 import andro.babels.R;
 import andro.babels.wrappers.dialogs.ImageDialog;
+import andro.babels.wrappers.dialogs.YesNoDialog;
 import android.content.Context;
-import android.view.View;
 import android.widget.Toast;
 
 public class Base {
@@ -11,8 +11,11 @@ public class Base {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
     
-    public void ShowError(Context context, String msg, View.OnClickListener callback){
-        ImageDialog dialog = new ImageDialog(context, "Error", msg, R.drawable.error, callback); 
-        dialog.show();
+    public andro.babels.wrappers.dialogs.ImageDialog CreateErrorMessage(Context context, String msg){
+        return new ImageDialog(context, "Error", msg, R.drawable.error);
+    }
+    
+    public andro.babels.wrappers.dialogs.YesNoDialog CreateYesNoMessage(Context context, String title, String msg){
+        return new YesNoDialog(context, title, msg, R.drawable.error);
     }
 }

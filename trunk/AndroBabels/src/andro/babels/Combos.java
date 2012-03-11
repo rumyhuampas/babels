@@ -14,4 +14,10 @@ public class Combos extends Activity {
         
         controller = new andro.babels.controllers.Combos(this);
     }
+    
+    @Override
+    public void onBackPressed(){
+        controller.Exit();
+        return;
+    }
 }

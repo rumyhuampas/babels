@@ -3,8 +3,12 @@ package andro.babels.controllers;
 import andro.babels.Combos;
 import andro.babels.Products;
 import andro.babels.wrappers.ExtraObject;
+import andro.babels.wrappers.dialogs.YesNoDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class Pos extends andro.babels.controllers.Base {
     

@@ -10,7 +10,7 @@ public class BabelsSettings {
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
     public static final String URLKEY = "URLPref";
-    public static final String URLDEFAULT = "localhost:3306";
+    public static final String URLDEFAULT = "10.0.2.2:3306";
     public static final String DBKEY = "DBPref";
     public static final String DBDEFAULT = "babels";
     public static final String USERKEY = "USERPref";
