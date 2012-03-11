@@ -3,6 +3,7 @@ package andro.babels.controllers;
 import andro.babels.R;
 import andro.babels.wrappers.BabelsSettings;
 import andro.babels.wrappers.ExtraObject;
+import andro.babels.wrappers.dialogs.ImageDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -85,9 +86,9 @@ public class Welcome extends andro.babels.controllers.Base {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            view.ShowError(Activity, ((SQLException)msg.obj).getMessage(), 
+            ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException)msg.obj).getMessage());
                     //andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
-                    null);
+            dialog.show();
         }
     };
     

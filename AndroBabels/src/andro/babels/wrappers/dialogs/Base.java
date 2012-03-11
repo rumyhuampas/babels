@@ -9,10 +9,9 @@ public class Base {
     
     public Dialog dialog;
     
-    public Base(Context context, String title, View.OnClickListener callback){
+    public Base(Context context, String title){
         dialog = new Dialog(context);
         dialog.setTitle(title);
-        dialog.setCancelable(callback == null);
     }
     
     public void show(){
