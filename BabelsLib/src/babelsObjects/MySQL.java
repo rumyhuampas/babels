@@ -9,12 +9,19 @@ import java.util.logging.Logger;
 
 public class MySQL implements IConn {
 
-    private final String BD = "babels";
-    private final String LOGIN = "root";
-    private final String PASS = "";
+    private String BD;// = "babels";
+    private String LOGIN;// = "root";
+    private String PASS;// = "";
     //private final String URL = "jdbc:mysql://localhost/" + BD;
-    private final String URL = "jdbc:mysql://localhost:3306/" + BD;
+    private String URL;// = "jdbc:mysql://localhost:3306/" + BD;
     public Connection Conn;
+    
+    public MySQL(String url, String bd, String user, String pass){
+        URL = "jdbc:mysql://" + url + "/" + bd;
+        BD = bd;
+        LOGIN = user;
+        PASS = pass;
+    }
 
     @Override
     public boolean Open() throws SQLException {
