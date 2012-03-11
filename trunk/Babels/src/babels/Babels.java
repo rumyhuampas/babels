@@ -12,7 +12,7 @@ import javax.swing.UIManager;
 
 public class Babels {
 
-    public static MySQL mysql = new MySQL();
+    public static MySQL mysql = new MySQL("localhost", "babels", "root", "");
     public static Session session = null;
 
     public static void main(String[] args) {
