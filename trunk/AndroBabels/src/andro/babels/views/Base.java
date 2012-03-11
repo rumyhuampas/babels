@@ -11,8 +11,8 @@ public class Base {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
     
-    public void ShowError(Context context, String title, String msg, View.OnClickListener callback){
-        ImageDialog dialog = new ImageDialog();
-        dialog.show(context, title, msg, R.drawable.error, callback);
+    public void ShowError(Context context, String msg, View.OnClickListener callback){
+        ImageDialog dialog = new ImageDialog(context, "Error", msg, R.drawable.error, callback); 
+        dialog.show();
     }
 }
