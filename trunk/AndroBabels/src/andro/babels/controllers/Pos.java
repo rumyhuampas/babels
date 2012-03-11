@@ -1,6 +1,7 @@
 package andro.babels.controllers;
 
 import andro.babels.Combos;
+import andro.babels.Products;
 import andro.babels.wrappers.ExtraObject;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +18,15 @@ public class Pos extends andro.babels.controllers.Base {
     }
     
     private void CreateTabs(){
+        view.InitTabHost();
+        
         Bundle extras = Activity.getIntent().getExtras();
         Intent combosIntent = new Intent().setClass(Activity, Combos.class);
         combosIntent.putExtras(extras);
         view.CreateTab(combosIntent, "tabCombos", "Combos");
+        
+        Intent productsIntent = new Intent().setClass(Activity, Products.class);
+        view.CreateTab(productsIntent, "tabProducts", "Products");
     }
     
     private void LoadInfo(){
