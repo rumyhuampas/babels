@@ -45,7 +45,7 @@ public class ChangePasswordManager {
         try {
             User user = new User(Babels.mysql.Conn);
             user.Load(Babels.session.CurrentUser);
-            user.Pass = newPass;
+             user.Pass = newPass;
             if (user.Save()) {
                 Babels.session.CurrentUser = user;
                 JOptionPane.showMessageDialog(null, "Password cambiado",

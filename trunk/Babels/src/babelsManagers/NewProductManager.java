@@ -93,7 +93,7 @@ public class NewProductManager {
             txtName.setText(prod.Name);
             txtDesc.setText(prod.Desc);
             txtPrice.setText(String.valueOf(prod.Price));
-            ImageIcon img = prod.GetImageIcon();
+            ImageIcon img = prod.GetImageIconResized(lblImage.getWidth(),lblImage.getHeight());
             if (img != null) {
                 lblImage.setIcon(img);
                 lblImage.setText("");

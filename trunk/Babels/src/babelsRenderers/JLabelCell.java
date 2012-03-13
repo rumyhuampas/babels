@@ -16,6 +16,7 @@ public class JLabelCell extends DefaultTableCellRenderer {
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setText(null);
         if (value instanceof Icon) {
+            
             label.setIcon((Icon) value);
         } else {
             label.setIcon(null);
