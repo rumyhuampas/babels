@@ -21,7 +21,7 @@ public class Combos extends andro.babels.controllers.Base {
         Bundle extras = Activity.getIntent().getExtras();
         ExtraObject extraObj = (ExtraObject) extras.getParcelable("combos");
         for (int i = 0; i < extraObj.Obj.length; i++) {
-            view.DrawCombo((Object[]) extraObj.Obj[i]);
+            view.DrawCombo((Object[]) extraObj.Obj[i], i);
             /*
              * ImageDialog d = new ImageDialog(Activity, "TEST",
              * ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error,
