@@ -9,12 +9,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
     >
-        <TableLayout 
-            android:id="@+id/cmb_tlMain"
-            android:orientation="horizontal"
+        <LinearLayout 
+            android:id="@+id/cmb_llMain"
+            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
         >
-        </TableLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -2,9 +2,14 @@ package andro.babels.controllers;
 
 import andro.babels.Combos;
 import andro.babels.Products;
+import andro.babels.R;
 import andro.babels.wrappers.ExtraObject;
+import andro.babels.wrappers.dialogs.ImageDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class Pos extends andro.babels.controllers.Base {
     
@@ -21,6 +26,10 @@ public class Pos extends andro.babels.controllers.Base {
         view.InitTabHost();
         
         Bundle extras = Activity.getIntent().getExtras();
+        Object[] posController = new Object[1];
+        posController[0] = this;
+        ExtraObject objects = new ExtraObject(posController);
+        extras.putParcelable("posController", objects);
         Intent combosIntent = new Intent().setClass(Activity, Combos.class);
         combosIntent.putExtras(extras);
         view.CreateTab(combosIntent, "tabCombos", "Combos");
@@ -29,12 +38,19 @@ public class Pos extends andro.babels.controllers.Base {
         view.CreateTab(productsIntent, "tabProducts", "Products");
     }
     
-    private void LoadInfo(){
+    public OnClickListener ComboOnClickHandler = new OnClickListener(){
+
+        public void onClick(View v) {
+            view.AddSaleItem(((Button)v).getText().toString());
+        }        
+    };
+    
+    /*private void LoadInfo(){
         Bundle extras = Activity.getIntent().getExtras();
         ExtraObject extraObj = (ExtraObject) extras.getParcelable("combos");
-        /*for (int i = 0; i< extraObj.Obj.length; i++){
-            ImageDialog d = new ImageDialog(Activity, "TEST", ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error, null);
-            d.show();
-        }*/
-    }
+        //for (int i = 0; i< extraObj.Obj.length; i++){
+        //    ImageDialog d = new ImageDialog(Activity, "TEST", ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error, null);
+        //    d.show();
+        //}
+    }*/
 }
