@@ -29,7 +29,7 @@ public class Welcome extends andro.babels.controllers.Base {
         String pass = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.PASSKEY, andro.babels.wrappers.BabelsSettings.PASSDEFAULT);
         mysql = new MySQL(url, db, user, pass);
         LoadAppSettings();
-        GetInfo();
+        LoadCombos();
     }
     
     public void LoadAppSettings() {
@@ -47,7 +47,7 @@ public class Welcome extends andro.babels.controllers.Base {
         }
     }
 
-    private void GetInfo() {
+    private void LoadCombos() {
         Thread thread = new Thread(new Runnable() {
 
             public void run() {
@@ -55,20 +55,20 @@ public class Welcome extends andro.babels.controllers.Base {
                     mysql.Open();
                     try {
                         Object[] result = CombosAdmin.GetAllCombos(mysql.Conn);
-                        Message msg = getInfoHandler.obtainMessage(1, result);
-                        getInfoHandler.sendMessage(msg);
+                        Message msg = LoadCombosHandler.obtainMessage(1, result);
+                        LoadCombosHandler.sendMessage(msg);
                     } finally {
                         mysql.Close();
                     }
                 } catch (SQLException ex) {
-                    Message msg = getInfoExceptionHandler.obtainMessage(1, ex);
-                    getInfoExceptionHandler.sendMessage(msg);
+                    Message msg = ExceptionHandler.obtainMessage(1, ex);
+                    ExceptionHandler.sendMessage(msg);
                 }
             }
         });
         thread.start();
     }
-    private Handler getInfoHandler = new Handler() {
+    private Handler LoadCombosHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
@@ -81,7 +81,7 @@ public class Welcome extends andro.babels.controllers.Base {
         }
     };
     
-    private Handler getInfoExceptionHandler = new Handler() {
+    private Handler ExceptionHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
