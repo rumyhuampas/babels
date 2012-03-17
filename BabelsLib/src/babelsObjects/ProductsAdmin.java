@@ -1,6 +1,10 @@
 package babelsObjects;
 
+import babelsComponents.ImageManagement;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -60,8 +64,16 @@ public class ProductsAdmin {
                     InputStream ImageStream = results.getBinaryStream(FIELD_IMAGE);
                     if (ImageStream != null) {
                         try {
-                            Image Img = ImageIO.read(ImageStream);
-                            row.add(new ImageIcon(Img));
+                           Image image2 = ImageIO.read(ImageStream);
+                                
+            ImageManagement gImg = new ImageManagement(image2);
+            image2 = gImg.getImage();
+            BufferedImage tnsImg = new BufferedImage(85 ,45, BufferedImage.TYPE_INT_RGB); 
+            Graphics2D graphics2D = tnsImg.createGraphics(); 
+            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
+            graphics2D.drawImage(image2, 0, 0, 85, 45, null);
+       
+                            row.add(new ImageIcon(tnsImg));
                             ImageStream.close();
                         } catch (IOException ex) {
                             Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
