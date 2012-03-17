@@ -26,6 +26,7 @@ public class Main extends javax.swing.JFrame {
         mitemFileExit = new javax.swing.JMenuItem();
         mitemAdmin = new javax.swing.JMenu();
         mitemAdminProducts = new javax.swing.JMenuItem();
+        mitemAdminCombos = new javax.swing.JMenuItem();
         mitemAdminUser = new javax.swing.JMenu();
         mitemAdminUserChangePass = new javax.swing.JMenuItem();
         mitemUsers = new javax.swing.JMenu();
@@ -38,6 +39,7 @@ public class Main extends javax.swing.JFrame {
         mbarMain.setPreferredSize(new java.awt.Dimension(173, 38));
 
         mitemFile.setText("Archivo");
+        mitemFile.setPreferredSize(new java.awt.Dimension(59, 19));
 
         mitemFileNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/new.png"))); // NOI18N
         mitemFileNew.setText("Nuevo");
@@ -74,6 +76,7 @@ public class Main extends javax.swing.JFrame {
         mbarMain.add(mitemFile);
 
         mitemAdmin.setText("Administrar");
+        mitemAdmin.setPreferredSize(new java.awt.Dimension(81, 19));
 
         mitemAdminProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/food.png"))); // NOI18N
         mitemAdminProducts.setText("Productos...");
@@ -83,6 +86,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
         mitemAdmin.add(mitemAdminProducts);
+
+        mitemAdminCombos.setText("Combos");
+        mitemAdminCombos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAdminCombosActionPerformed(evt);
+            }
+        });
+        mitemAdmin.add(mitemAdminCombos);
 
         mitemAdminUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/user.png"))); // NOI18N
         mitemAdminUser.setText("Cuenta de usuario");
@@ -101,6 +112,7 @@ public class Main extends javax.swing.JFrame {
         mbarMain.add(mitemAdmin);
 
         mitemUsers.setText("Usuarios");
+        mitemUsers.setPreferredSize(new java.awt.Dimension(63, 19));
 
         mitemUsersAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/users.png"))); // NOI18N
         mitemUsersAdmin.setText("Administrar usuarios...");
@@ -153,9 +165,16 @@ public class Main extends javax.swing.JFrame {
         FormsFactory.GetDialogForm("babelsForms.NewCombo", true, null, null);
     }//GEN-LAST:event_mitemFileNewComboActionPerformed
 
+private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAdminCombosActionPerformed
+         FormsFactory.GetDialogForm("babelsForms.Combos", true, null, null);
+    
+    // TODO add your handling code here:
+}//GEN-LAST:event_mitemAdminCombosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemAdmin;
+    private javax.swing.JMenuItem mitemAdminCombos;
     private javax.swing.JMenuItem mitemAdminProducts;
     private javax.swing.JMenu mitemAdminUser;
     private javax.swing.JMenuItem mitemAdminUserChangePass;
