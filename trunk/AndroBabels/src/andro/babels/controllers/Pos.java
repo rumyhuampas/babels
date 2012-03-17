@@ -22,7 +22,9 @@ public class Pos extends andro.babels.controllers.Base {
     public Pos(andro.babels.Pos activity){
         Activity = activity;
         view = new andro.babels.views.Pos(activity);
+        model = new andro.babels.models.Pos();
         CreateTabs();
+        SetListeners();
     }
     
     private void CreateTabs(){
@@ -41,11 +43,38 @@ public class Pos extends andro.babels.controllers.Base {
         view.CreateTab(productsIntent, "tabProducts", "Products");
     }
     
+    public void SetListeners(){
+        SetDoneButtonListener();
+    }
+    
+    private void SetDoneButtonListener(){
+        view.GetDoneButton().setOnClickListener(new OnClickListener() {
+
+            public void onClick(View v) {
+                String test = "";
+                for (int i=0; i<model.GetSaleList().size();i++){
+                    test = test.concat(model.GetSaleList().get(i).name.toString());
+                }
+                view.ShowToast(Activity, test);
+            }
+        });
+    }
+    
     public OnClickListener ComboOnClickHandler = new OnClickListener(){
 
         public void onClick(View comboView) {
-            model.AddSaleItem(view.GetComboId(comboView), view.GetComboName(comboView), view.GetComboPrice(comboView));
-            view.RefreshSaleList(model.GetSaleList());
+            model.AddSaleItem(view.GetComboId(comboView), view.GetComboName(comboView), Float.parseFloat(view.GetComboPrice(comboView).replace("$", "")));
+            view.RefreshSaleList(model.GetSaleList(), SaleItemOnClickHandler);
+            view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
+        }        
+    };
+    
+    public OnClickListener SaleItemOnClickHandler = new OnClickListener(){
+
+        public void onClick(View saleItemView) {
+            model.RemoveSaleItem(view.GetSaleItemId(saleItemView));
+            view.RefreshSaleList(model.GetSaleList(), SaleItemOnClickHandler);
+            view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }        
     };
     

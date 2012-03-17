@@ -9,17 +9,19 @@ public class Pos extends andro.babels.models.Base {
 
         public int id;
         public String name;
-        public String price;
+        public float price;
     }
+    
     private List<SaleItem> saleList;
     public List<SaleItem> GetSaleList(){
         return saleList;
     }
+    
+    public Pos(){
+        saleList = new ArrayList();
+    }
 
-    public void AddSaleItem(int id, String name, String price) {
-        if (saleList == null) {
-            saleList = new ArrayList();
-        }
+    public void AddSaleItem(int id, String name, float price) {
         SaleItem item = new SaleItem();
         item.id = id;
         item.name = name;
@@ -28,10 +30,23 @@ public class Pos extends andro.babels.models.Base {
     }
     
     public void RemoveSaleItem(int saleItemId){
-        saleList.remove(saleItemId);
+        for(int i=0;i<saleList.size();i++){
+            if (saleList.get(i).id == saleItemId){
+                saleList.remove(i);
+                break;
+            }
+        }
     }
     
     public void ClearSalelist(){
         saleList.clear();
+    }
+    
+    public float GetSaleTotal(){
+        float total = 0;
+        for (int i=0;i<saleList.size();i++){
+            total = total + saleList.get(i).price;
+        }
+        return total;
     }
 }
