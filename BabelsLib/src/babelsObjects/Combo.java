@@ -114,12 +114,12 @@ public class Combo {
             this.Conn.setAutoCommit(false);
             try {
                 PreparedStatement qry = null;
+                qry = this.Conn.prepareStatement(CombosProductsAdmin.GetInsertSql());
                 for (int i = 0; i < this.Products.size(); i++) {
                     Product prod = ((Product) this.Products.get(i));
-                    qry = this.Conn.prepareStatement(CombosProductsAdmin.GetInsertSql());
                     qry.setInt(1, this.Id);
                     qry.setInt(2, prod.getId());
-
+                   // qry.executeUpdate();
                     qry.addBatch();
                 }
                 qry.executeBatch();
