@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel;
 
 public class Babels {
 
@@ -18,7 +19,7 @@ public class Babels {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(
-                    "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                    "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel");
         } catch (Exception ex) {
             Logger.getLogger(Babels.class.getName()).log(Level.SEVERE, null, ex);
         }
