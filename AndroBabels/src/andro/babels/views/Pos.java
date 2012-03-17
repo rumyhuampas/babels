@@ -1,13 +1,18 @@
 package andro.babels.views;
 
 import andro.babels.R;
+import andro.babels.models.Pos.SaleItem;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import java.util.List;
 
 public class Pos extends andro.babels.views.Base {
 
@@ -40,11 +45,43 @@ public class Pos extends andro.babels.views.Base {
         tabHost.getTabWidget().setDividerDrawable(R.drawable.tab_divider);
     }
     
-    public void AddSaleItem(String itemTitle){
+    public int GetComboId(View comboView){
+        TextView itemId = (TextView)((LinearLayout)comboView).getChildAt(1);
+        return Integer.parseInt(itemId.getText().toString());
+    }
+    
+    public String GetComboName(View comboView){
+        TextView itemName = (TextView)((LinearLayout)comboView).getChildAt(2);
+        return itemName.getText().toString();
+    }
+    
+    public String GetComboPrice(View comboView){
+        TextView itemPrice = (TextView)((LinearLayout)comboView).getChildAt(3);
+        return itemPrice.getText().toString();
+    }
+    
+    public void RefreshSaleList(List<SaleItem> saleList){
+        LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
+        llMain.removeAllViews();
+        for (int i=0;i<saleList.size();i++){
+           AddSaleItem(saleList.get(i)); 
+        }
+    }
+    
+    private void AddSaleItem(SaleItem item){
         LinearLayout ll = new LinearLayout(Activity);
-        TextView txt = new TextView(Activity);
-        txt.setText(itemTitle);
-        ll.addView(txt);
+        ll.setOrientation(LinearLayout.HORIZONTAL);
+        TextView saleTitle = new TextView(Activity);
+        LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+        params.weight = 1;
+        saleTitle.setLayoutParams(params);
+        saleTitle.setText(item.name);
+        TextView salePrice = new TextView(Activity);
+        salePrice.setLayoutParams(params);
+        salePrice.setGravity(Gravity.RIGHT);
+        salePrice.setText(item.price);
+        ll.addView(saleTitle);
+        ll.addView(salePrice);
         LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
         llMain.addView(ll);
     }

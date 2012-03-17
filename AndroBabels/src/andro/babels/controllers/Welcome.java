@@ -18,7 +18,7 @@ public class Welcome extends andro.babels.controllers.Base {
     private andro.babels.views.Welcome view;
     public static MySQL mysql;
     public static andro.babels.wrappers.BabelsSettings settings;
-    
+
     public Welcome(andro.babels.Welcome activity) {
         Activity = activity;
         view = new andro.babels.views.Welcome(activity);
@@ -31,7 +31,7 @@ public class Welcome extends andro.babels.controllers.Base {
         LoadAppSettings();
         LoadCombos();
     }
-    
+
     public void LoadAppSettings() {
         if (settings.GetAppSetting(BabelsSettings.URLKEY, "").equals("")) {
             settings.SaveAppSetting(BabelsSettings.URLKEY, BabelsSettings.URLDEFAULT);
@@ -55,12 +55,16 @@ public class Welcome extends andro.babels.controllers.Base {
                     mysql.Open();
                     try {
                         Object[] result = CombosAdmin.GetAllCombos(mysql.Conn);
-                        Message msg = LoadCombosHandler.obtainMessage(1, result);
-                        LoadCombosHandler.sendMessage(msg);
+                        if (result != null) {
+                            Message msg = LoadCombosHandler.obtainMessage(1, result);
+                            LoadCombosHandler.sendMessage(msg);
+                        } else {
+                            throw new Exception("Could not get combos from database");
+                        }
                     } finally {
                         mysql.Close();
                     }
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     Message msg = ExceptionHandler.obtainMessage(1, ex);
                     ExceptionHandler.sendMessage(msg);
                 }
@@ -80,18 +84,17 @@ public class Welcome extends andro.babels.controllers.Base {
             andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Pos.class, extras);
         }
     };
-    
     private Handler ExceptionHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException)msg.obj).getMessage());
-                    //andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
+            ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException) msg.obj).getMessage());
+            //andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
             dialog.show();
         }
     };
-    
+
     public boolean HandleMenuSelection(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mm_miSett:

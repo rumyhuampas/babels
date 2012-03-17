@@ -10,11 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class Pos extends andro.babels.controllers.Base {
     
     private andro.babels.Pos Activity;
     private andro.babels.views.Pos view;
+    private andro.babels.models.Pos model;
     
     public Pos(andro.babels.Pos activity){
         Activity = activity;
@@ -40,8 +43,9 @@ public class Pos extends andro.babels.controllers.Base {
     
     public OnClickListener ComboOnClickHandler = new OnClickListener(){
 
-        public void onClick(View v) {
-            view.AddSaleItem(((Button)v).getText().toString());
+        public void onClick(View comboView) {
+            model.AddSaleItem(view.GetComboId(comboView), view.GetComboName(comboView), view.GetComboPrice(comboView));
+            view.RefreshSaleList(model.GetSaleList());
         }        
     };
     
