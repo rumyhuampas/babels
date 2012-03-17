@@ -7,6 +7,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -20,7 +21,11 @@ public class TransferableProductPanel extends JPanel implements Transferable {
     public TransferableProductPanel(Product prod) {
         this.prodId = prod.getId();
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        JLabel label = new JLabel(prod.Name, prod.GetImageIcon(), JLabel.CENTER);
+        JLabel label = new JLabel(prod.Name, JLabel.CENTER);
+        label.setBounds(0,0,120,90);
+        ImageIcon img = prod.GetImageIconResized(label.getWidth(),label.getHeight()); 
+        label.setIcon(img);
+       
         this.add(label);
     }
 
