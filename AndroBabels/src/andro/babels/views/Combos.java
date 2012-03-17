@@ -82,7 +82,7 @@ public class Combos extends andro.babels.views.Base {
         lblPrice.setTextSize(8);
         lblPrice.setGravity(Gravity.CENTER);
         lblPrice.setEllipsize(TextUtils.TruncateAt.END);
-        lblPrice.setText(combo[3].toString());
+        lblPrice.setText("$ " + combo[3].toString());
         return lblPrice;
     }
 }
