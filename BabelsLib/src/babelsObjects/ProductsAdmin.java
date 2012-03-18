@@ -22,6 +22,7 @@ public class ProductsAdmin {
     private static final String TABLENAME = "Products";
     private static final String FIELD_ID = "Id";
     private static final String FIELD_NAME = "Name";
+    private static final String FIELD_DESC = "Description";
     private static final String FIELD_PRICE = "Price";
     private static final String FIELD_IMAGE = "Image";
 
@@ -36,6 +37,7 @@ public class ProductsAdmin {
                 while (results.next()) {
                     row.add(results.getInt(FIELD_ID));
                     row.add(results.getString(FIELD_NAME));
+                    row.add(results.getString(FIELD_DESC));
                     row.add(results.getFloat(FIELD_PRICE));
                     rows.add(row.toArray());
                     row.clear();
@@ -60,19 +62,20 @@ public class ProductsAdmin {
                 while (results.next()) {
                     row.add(results.getInt(FIELD_ID));
                     row.add(results.getString(FIELD_NAME));
+                    row.add(results.getString(FIELD_DESC));
                     row.add(results.getFloat(FIELD_PRICE));
                     InputStream ImageStream = results.getBinaryStream(FIELD_IMAGE);
                     if (ImageStream != null) {
                         try {
-                           Image image2 = ImageIO.read(ImageStream);
-                                
-            ImageManagement gImg = new ImageManagement(image2);
-            image2 = gImg.getImage();
-            BufferedImage tnsImg = new BufferedImage(85 ,45, BufferedImage.TYPE_INT_RGB); 
-            Graphics2D graphics2D = tnsImg.createGraphics(); 
-            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
-            graphics2D.drawImage(image2, 0, 0, 85, 45, null);
-       
+                            Image image2 = ImageIO.read(ImageStream);
+
+                            ImageManagement gImg = new ImageManagement(image2);
+                            image2 = gImg.getImage();
+                            BufferedImage tnsImg = new BufferedImage(85, 45, BufferedImage.TYPE_INT_RGB);
+                            Graphics2D graphics2D = tnsImg.createGraphics();
+                            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                            graphics2D.drawImage(image2, 0, 0, 85, 45, null);
+
                             row.add(new ImageIcon(tnsImg));
                             ImageStream.close();
                         } catch (IOException ex) {
