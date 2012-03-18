@@ -22,7 +22,7 @@ public class Combos extends andro.babels.controllers.Tab {
     private void LoadInfo() {
         ExtraObject extraObj = (ExtraObject) extras.getParcelable("combos");
         for (int i = 0; i < extraObj.Obj.length; i++) {
-            view.DrawObject((Object[]) extraObj.Obj[i], i, posController.ComboOnClickHandler);
+            view.DrawObject((Object[]) extraObj.Obj[i], i, "COMBO", posController.ObjectOnClickHandler);
         }
     }
 }

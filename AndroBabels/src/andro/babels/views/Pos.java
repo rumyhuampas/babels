@@ -64,6 +64,7 @@ public class Pos extends andro.babels.views.Base {
         ll.addView(CreateSaleValueView(String.valueOf(number) + ". ", false));
         ll.addView(CreateSaleValueView(item.name, true));
         ll.addView(CreateSaleValueView("$" + String.valueOf(item.price), false));
+        ll.addView(CreateSaleType(item));
         ll.setOnClickListener(SaleItemOnClickHandler);
         LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
         llMain.addView(ll);
@@ -72,6 +73,7 @@ public class Pos extends andro.babels.views.Base {
     private TextView CreateSaleId(SaleItem item){
         TextView saleId = new TextView(Activity);
         saleId.setText(String.valueOf(item.id));
+        //saleId.setHeight(0);
         saleId.setWidth(0);
         return saleId;
     }
@@ -89,28 +91,46 @@ public class Pos extends andro.babels.views.Base {
         return ll;
     }
     
+    private TextView CreateSaleType(SaleItem item){
+        TextView saleType = new TextView(Activity);
+        saleType.setText(item.type);
+        saleType.setHeight(0);
+        saleType.setWidth(0);
+        return saleType;
+    }
+    
     public void SetSaleTotal(String value){
         TextView txtTotal = (TextView) Activity.findViewById(R.id.pos_txtTotal);
         txtTotal.setText("Total: $" + value);
     }
     
-    public int GetComboId(View comboView){
-        TextView itemId = (TextView)((LinearLayout)comboView).getChildAt(1);
+    public int GetObjectId(View objView){
+        TextView itemId = (TextView)((LinearLayout)objView).getChildAt(1);
         return Integer.parseInt(itemId.getText().toString());
     }
     
-    public String GetComboName(View comboView){
-        TextView itemName = (TextView)((LinearLayout)comboView).getChildAt(2);
+    public String GetObjectName(View objView){
+        TextView itemName = (TextView)((LinearLayout)objView).getChildAt(2);
         return itemName.getText().toString();
     }
     
-    public String GetComboPrice(View comboView){
-        TextView itemPrice = (TextView)((LinearLayout)comboView).getChildAt(3);
+    public String GetObjectPrice(View objView){
+        TextView itemPrice = (TextView)((LinearLayout)objView).getChildAt(3);
         return itemPrice.getText().toString();
+    }
+    
+    public String GetObjectType(View objView){
+        TextView itemType = (TextView)((LinearLayout)objView).getChildAt(4);
+        return itemType.getText().toString();
     }
     
     public int GetSaleItemId(View saleItemView){
         TextView itemId = (TextView)((LinearLayout)saleItemView).getChildAt(0);
         return Integer.parseInt(itemId.getText().toString());
+    }
+    
+    public String GetSaleItemType(View saleItemView){
+        TextView itemId = (TextView)((LinearLayout)saleItemView).getChildAt(4);
+        return itemId.getText().toString();
     }
 }
