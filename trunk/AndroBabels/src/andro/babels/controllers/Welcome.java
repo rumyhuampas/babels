@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
-import babelsObjects.MySQL;
 import babelsObjects.CombosAdmin;
+import babelsObjects.MySQL;
+import babelsObjects.ProductsAdmin;
 import java.sql.SQLException;
 
 public class Welcome extends andro.babels.controllers.Base {
@@ -29,7 +30,7 @@ public class Welcome extends andro.babels.controllers.Base {
         String pass = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.PASSKEY, andro.babels.wrappers.BabelsSettings.PASSDEFAULT);
         mysql = new MySQL(url, db, user, pass);
         LoadAppSettings();
-        LoadCombos();
+        LoadInfo();
     }
 
     public void LoadAppSettings() {
@@ -47,19 +48,23 @@ public class Welcome extends andro.babels.controllers.Base {
         }
     }
 
-    private void LoadCombos() {
+    private void LoadInfo() {
         Thread thread = new Thread(new Runnable() {
 
             public void run() {
                 try {
                     mysql.Open();
                     try {
-                        Object[] result = CombosAdmin.GetAllCombos(mysql.Conn);
-                        if (result != null) {
-                            Message msg = LoadCombosHandler.obtainMessage(1, result);
-                            LoadCombosHandler.sendMessage(msg);
+                        Object[] info = new Object[2];
+                        Object[] combos = CombosAdmin.GetAllCombos(mysql.Conn);
+                        Object[] products = ProductsAdmin.GetAllProducts(mysql.Conn);
+                        if (combos != null && products != null) {
+                            info[0] = combos;
+                            info[1] = products;
+                            Message msg = LoadInfoHandler.obtainMessage(1, info);
+                            LoadInfoHandler.sendMessage(msg);
                         } else {
-                            throw new Exception("Could not get combos from database");
+                            throw new Exception("Could not get info from database");
                         }
                     } finally {
                         mysql.Close();
@@ -72,25 +77,31 @@ public class Welcome extends andro.babels.controllers.Base {
         });
         thread.start();
     }
-    private Handler LoadCombosHandler = new Handler() {
+    
+    private Handler LoadInfoHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Object[] result = (Object[]) msg.obj;
+            Object[] info = (Object[]) msg.obj;
+            Object[] combos = (Object[])info[0];
+            Object[] products = (Object[])info[1];
+            ExtraObject extraCombos = new ExtraObject(combos);
+            ExtraObject extraProducts = new ExtraObject(products);
             Bundle extras = new Bundle();
-            ExtraObject objects = new ExtraObject(result);
-            extras.putParcelable("combos", objects);
+            extras.putParcelable("combos", extraCombos);
+            extras.putParcelable("products", extraProducts);
             andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Pos.class, extras);
         }
     };
+    
     private Handler ExceptionHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException) msg.obj).getMessage());
-            //andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
+            dialog.SetCallback(andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
             dialog.show();
         }
     };
