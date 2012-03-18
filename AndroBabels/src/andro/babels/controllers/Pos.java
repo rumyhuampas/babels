@@ -35,11 +35,13 @@ public class Pos extends andro.babels.controllers.Base {
         posController[0] = this;
         ExtraObject objects = new ExtraObject(posController);
         extras.putParcelable("posController", objects);
+        
         Intent combosIntent = new Intent().setClass(Activity, Combos.class);
         combosIntent.putExtras(extras);
         view.CreateTab(combosIntent, "tabCombos", "Combos");
         
         Intent productsIntent = new Intent().setClass(Activity, Products.class);
+        productsIntent.putExtras(extras);
         view.CreateTab(productsIntent, "tabProducts", "Products");
     }
     
@@ -63,8 +65,10 @@ public class Pos extends andro.babels.controllers.Base {
     public OnClickListener ComboOnClickHandler = new OnClickListener(){
 
         public void onClick(View comboView) {
-            model.AddSaleItem(view.GetComboId(comboView), view.GetComboName(comboView), Float.parseFloat(view.GetComboPrice(comboView).replace("$", "")));
-            view.RefreshSaleList(model.GetSaleList(), SaleItemOnClickHandler);
+            model.AddSaleItem(model.GetComboList(),
+                    view.GetComboId(comboView), view.GetComboName(comboView), 
+                    Float.parseFloat(view.GetComboPrice(comboView).replace("$", "")));
+            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }        
     };
@@ -73,7 +77,7 @@ public class Pos extends andro.babels.controllers.Base {
 
         public void onClick(View saleItemView) {
             model.RemoveSaleItem(view.GetSaleItemId(saleItemView));
-            view.RefreshSaleList(model.GetSaleList(), SaleItemOnClickHandler);
+            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }        
     };

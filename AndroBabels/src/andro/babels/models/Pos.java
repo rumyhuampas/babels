@@ -12,40 +12,54 @@ public class Pos extends andro.babels.models.Base {
         public float price;
     }
     
-    private List<SaleItem> saleList;
-    public List<SaleItem> GetSaleList(){
-        return saleList;
+    private List<SaleItem> combos;
+    private List<SaleItem> products;
+    public List<SaleItem> GetComboList(){
+        return combos;
+    }
+    public List<SaleItem> GetProductList(){
+        return products;
+    }
+    public List GetGeneralList(){
+        ArrayList general = new ArrayList();
+        general.addAll(combos);
+        general.addAll(products);
+        return general;
     }
     
     public Pos(){
-        saleList = new ArrayList();
+        combos = new ArrayList();
+        products = new ArrayList();
     }
 
-    public void AddSaleItem(int id, String name, float price) {
+    public void AddSaleItem(List<SaleItem> list, int id, String name, float price) {
         SaleItem item = new SaleItem();
         item.id = id;
         item.name = name;
         item.price = price;
-        saleList.add(item);
+        list.add(item);
     }
     
-    public void RemoveSaleItem(int saleItemId){
-        for(int i=0;i<saleList.size();i++){
-            if (saleList.get(i).id == saleItemId){
-                saleList.remove(i);
+    public void RemoveSaleItem(List<SaleItem> list, int saleItemId){
+        for(int i=0;i<list.size();i++){
+            if (list.get(i).id == saleItemId){
+                list.remove(i);
                 break;
             }
         }
     }
     
-    public void ClearSalelist(){
-        saleList.clear();
+    public void ClearSalelist(List list){
+        list.clear();
     }
     
     public float GetSaleTotal(){
         float total = 0;
-        for (int i=0;i<saleList.size();i++){
-            total = total + saleList.get(i).price;
+        for (int i=0;i<combos.size();i++){
+            total = total + combos.get(i).price;
+        }
+        for (int i=0;i<products.size();i++){
+            total = total + products.get(i).price;
         }
         return total;
     }
