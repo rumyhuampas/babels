@@ -19,20 +19,20 @@ public class Tab extends andro.babels.views.Base {
         ll = (LinearLayout) Activity.findViewById(llMainId);
     }
 
-    public void DrawObject(Object[] obj, int index, View.OnClickListener onClickHandler) {
+    public void DrawObject(Object[] obj, int index, String type, View.OnClickListener onClickHandler) {
         try {
             if (index % 4 == 0) {
                 row = new LinearLayout(Activity);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 ll.addView(row);
             }
-            row.addView(CreateObjectView(obj, onClickHandler));
+            row.addView(CreateObjectView(obj, type, onClickHandler));
         } catch (Exception ex) {
             //ShowError(Activity, "Error", ex.getMessage(), null);
         }
     }
 
-    private LinearLayout CreateObjectView(Object[] obj, View.OnClickListener onClickHandler) {
+    private LinearLayout CreateObjectView(Object[] obj, String type, View.OnClickListener onClickHandler) {
         LinearLayout ObjectView = new LinearLayout(Activity);
         ObjectView.setOrientation(LinearLayout.VERTICAL);
         ObjectView.setBackgroundResource(R.drawable.border);
@@ -45,6 +45,7 @@ public class Tab extends andro.babels.views.Base {
         ObjectView.addView(CreateObjectId(obj));
         ObjectView.addView(CreateObjectTitle(obj));
         ObjectView.addView(CreateObjectPrice(obj));
+        ObjectView.addView(CreateObjectType(type));
         ObjectView.setOnClickListener(onClickHandler);
         return ObjectView;
     }
@@ -60,7 +61,6 @@ public class Tab extends andro.babels.views.Base {
         lblId.setWidth(0);
         lblId.setHeight(0);
         lblId.setText(obj[0].toString());
-        lblId.setVisibility(LinearLayout.INVISIBLE);
         return lblId;
     }
     
@@ -82,5 +82,13 @@ public class Tab extends andro.babels.views.Base {
         lblPrice.setEllipsize(TextUtils.TruncateAt.END);
         lblPrice.setText("$ " + obj[3].toString());
         return lblPrice;
+    }
+    
+    private TextView CreateObjectType(String type){
+        TextView lblType = new TextView(Activity);
+        lblType.setWidth(0);
+        lblType.setHeight(0);
+        lblType.setText(type);
+        return lblType;
     }
 }

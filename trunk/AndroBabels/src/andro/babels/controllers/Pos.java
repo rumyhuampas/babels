@@ -53,20 +53,21 @@ public class Pos extends andro.babels.controllers.Base {
         view.GetDoneButton().setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                String test = "";
+                /*String test = "";
                 for (int i=0; i<model.GetSaleList().size();i++){
                     test = test.concat(model.GetSaleList().get(i).name.toString());
                 }
-                view.ShowToast(Activity, test);
+                view.ShowToast(Activity, test);*/
             }
         });
     }
     
-    public OnClickListener ComboOnClickHandler = new OnClickListener(){
+    public OnClickListener ObjectOnClickHandler = new OnClickListener(){
 
-        public void onClick(View comboView) {
-            model.AddSaleItem(view.GetComboId(comboView), view.GetComboName(comboView), 
-                    Float.parseFloat(view.GetComboPrice(comboView).replace("$", "")), "COMBO");
+        public void onClick(View objView) {
+            model.AddSaleItem(view.GetObjectId(objView), view.GetObjectName(objView), 
+                    Float.parseFloat(view.GetObjectPrice(objView).replace("$", "")), 
+                    view.GetObjectType(objView));
             view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }        
@@ -75,7 +76,7 @@ public class Pos extends andro.babels.controllers.Base {
     public OnClickListener SaleItemOnClickHandler = new OnClickListener(){
 
         public void onClick(View saleItemView) {
-            model.RemoveSaleItem(view.GetSaleItemId(saleItemView));
+            model.RemoveSaleItem(view.GetSaleItemType(saleItemView), view.GetSaleItemId(saleItemView));
             view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }        
