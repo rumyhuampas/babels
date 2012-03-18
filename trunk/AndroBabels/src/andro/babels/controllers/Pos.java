@@ -65,9 +65,8 @@ public class Pos extends andro.babels.controllers.Base {
     public OnClickListener ComboOnClickHandler = new OnClickListener(){
 
         public void onClick(View comboView) {
-            model.AddSaleItem(model.GetComboList(),
-                    view.GetComboId(comboView), view.GetComboName(comboView), 
-                    Float.parseFloat(view.GetComboPrice(comboView).replace("$", "")));
+            model.AddSaleItem(view.GetComboId(comboView), view.GetComboName(comboView), 
+                    Float.parseFloat(view.GetComboPrice(comboView).replace("$", "")), "COMBO");
             view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }        
