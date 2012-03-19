@@ -5,15 +5,21 @@ import andro.babels.Products;
 import andro.babels.R;
 import andro.babels.wrappers.ExtraObject;
 import andro.babels.wrappers.dialogs.ImageDialog;
+import andro.babels.wrappers.dialogs.LoadingDialog;
 import andro.babels.wrappers.dialogs.YesNoDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import babelsObjects.CombosAdmin;
+import babelsObjects.ProductsAdmin;
+import java.sql.SQLException;
 
 public class Pos extends andro.babels.controllers.Base {
 
@@ -58,24 +64,57 @@ public class Pos extends andro.babels.controllers.Base {
                 final YesNoDialog dialog = view.CreateYesNoMessage(Activity, "Save sale?", "Are you sure?");
                 dialog.SetCallback(new View.OnClickListener() {
 
-                    public void onClick(View view) {
-                        if (((Button) view).getText() == YesNoDialog.BUTTON_YES) {
-                            model.SaveSale();
-                        } else {
-                            dialog.hide();
+                    public void onClick(View v) {
+                        if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
+                            final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Save sale", "Saving...");
+                            loadDialog.show();
+                            Thread thread = new Thread(new Runnable() {
+
+                                public void run() {
+                                    try {
+                                        andro.babels.controllers.Welcome.mysql.Open();
+                                        try {
+                                            model.SaveSale();
+                                            Message msg = SaveSaleHandler.obtainMessage(1, loadDialog);
+                                            SaveSaleHandler.sendMessage(msg);
+
+                                        } finally {
+                                            andro.babels.controllers.Welcome.mysql.Close();
+                                        }
+                                    } catch (Exception ex) {
+                                        Message msg = ExceptionHandler.obtainMessage(1, ex);
+                                        ExceptionHandler.sendMessage(msg);
+                                    }
+                                }
+                            });
+                            thread.start();
                         }
+                        dialog.hide();
                     }
                 });
                 dialog.show();
-                /*
-                 * String test = ""; for (int i=0;
-                 * i<model.GetSaleList().size();i++){ test =
-                 * test.concat(model.GetSaleList().get(i).name.toString()); }
-                 * view.ShowToast(Activity, test);
-                 */
             }
         });
     }
+    private Handler SaveSaleHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            LoadingDialog loadDialog = (LoadingDialog) msg.obj;
+            loadDialog.hide();
+        }
+    };
+    private Handler ExceptionHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException) msg.obj).getMessage());
+            dialog.SetCallback(andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
+            dialog.show();
+        }
+    };
     public OnClickListener ObjectOnClickHandler = new OnClickListener() {
 
         public void onClick(View objView) {
@@ -100,7 +139,6 @@ public class Pos extends andro.babels.controllers.Base {
      * extras.getParcelable("combos"); //for (int i = 0; i< extraObj.Obj.length;
      * i++){ // ImageDialog d = new ImageDialog(Activity, "TEST",
      * ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error, null); //
-     * d.show(); //}
-    }
+     * d.show(); //} }
      */
 }

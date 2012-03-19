@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ImageDialog extends Base{
+public class ImageDialog extends andro.babels.wrappers.dialogs.Base{
 
     public ImageDialog(Context context, String title, String msg, int imageId){
         super(context, title);

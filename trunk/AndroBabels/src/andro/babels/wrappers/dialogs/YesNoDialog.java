@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class YesNoDialog extends Base{
+public class YesNoDialog extends andro.babels.wrappers.dialogs.Base{
     
     public static final String BUTTON_YES = "Yes"; 
     public static final String BUTTON_NO = "No";
