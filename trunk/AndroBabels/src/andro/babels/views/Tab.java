@@ -67,7 +67,7 @@ public class Tab extends andro.babels.views.Base {
     private TextView CreateObjectTitle(Object[] obj){
         TextView lblTitle = new TextView(Activity);
         lblTitle.setLines(1);
-        lblTitle.setTextSize(8);
+        lblTitle.setTextSize(10);
         lblTitle.setGravity(Gravity.CENTER);
         lblTitle.setEllipsize(TextUtils.TruncateAt.END);
         lblTitle.setText(obj[1].toString());
@@ -77,7 +77,7 @@ public class Tab extends andro.babels.views.Base {
     private TextView CreateObjectPrice(Object[] obj){
         TextView lblPrice = new TextView(Activity);
         lblPrice.setLines(1);
-        lblPrice.setTextSize(8);
+        lblPrice.setTextSize(10);
         lblPrice.setGravity(Gravity.CENTER);
         lblPrice.setEllipsize(TextUtils.TruncateAt.END);
         lblPrice.setText("$ " + obj[3].toString());
