@@ -2,6 +2,7 @@ package andro.babels.views;
 
 import andro.babels.R;
 import andro.babels.wrappers.dialogs.ImageDialog;
+import andro.babels.wrappers.dialogs.LoadingDialog;
 import andro.babels.wrappers.dialogs.YesNoDialog;
 import android.content.Context;
 import android.widget.Toast;
@@ -17,5 +18,9 @@ public class Base {
     
     public static andro.babels.wrappers.dialogs.YesNoDialog CreateYesNoMessage(Context context, String title, String msg){
         return new YesNoDialog(context, title, msg, R.drawable.error);
+    }
+    
+    public static andro.babels.wrappers.dialogs.LoadingDialog CreateLoadingMessage(Context context, String title, String msg){
+        return new LoadingDialog(context, title, msg);
     }
 }

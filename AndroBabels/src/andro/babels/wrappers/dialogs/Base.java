@@ -9,6 +9,9 @@ public class Base {
     
     public Dialog dialog;
     
+    public Base(){
+    }
+    
     public Base(Context context, String title){
         dialog = new Dialog(context);
         dialog.setTitle(title);
