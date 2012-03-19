@@ -75,4 +75,8 @@ public class Pos extends andro.babels.models.Base {
         }
         return total;
     }
+    
+    public void SaveSale(){
+        
+    }
 }

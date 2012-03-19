@@ -86,6 +86,7 @@ public class Pos extends andro.babels.views.Base {
         }
         ll.setLayoutParams(params);
         TextView saleValueView = new TextView(Activity);
+        saleValueView.setTextSize(10);
         saleValueView.setText(value);
         ll.addView(saleValueView);
         return ll;
