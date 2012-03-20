@@ -17,7 +17,7 @@ public class Base {
     }
     
     public static andro.babels.wrappers.dialogs.YesNoDialog CreateYesNoMessage(Context context, String title, String msg){
-        return new YesNoDialog(context, title, msg, R.drawable.error);
+        return new YesNoDialog(context, title, msg, R.drawable.question);
     }
     
     public static andro.babels.wrappers.dialogs.LoadingDialog CreateLoadingMessage(Context context, String title, String msg){

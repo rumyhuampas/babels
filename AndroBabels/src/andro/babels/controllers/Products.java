@@ -2,6 +2,7 @@ package andro.babels.controllers;
 
 import andro.babels.wrappers.ExtraObject;
 import android.os.Bundle;
+import babelsObjects.SaleAdmin;
 
 public class Products extends andro.babels.controllers.Tab {
     private andro.babels.Products Activity;
@@ -21,7 +22,7 @@ public class Products extends andro.babels.controllers.Tab {
     private void LoadInfo() {
         ExtraObject extraObj = (ExtraObject) extras.getParcelable("products");
         for (int i = 0; i < extraObj.Obj.length; i++) {
-            view.DrawObject((Object[]) extraObj.Obj[i], i, "PRODUCT", posController.ObjectOnClickHandler);
+            view.DrawObject((Object[]) extraObj.Obj[i], i, SaleAdmin.IT_PROD, posController.ObjectOnClickHandler);
         }
     }
 }
