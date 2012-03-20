@@ -20,7 +20,7 @@ public class CombosAdmin {
         try {
             ArrayList rows = new ArrayList();
             ArrayList row = new ArrayList();
-            ResultSet results = qry.executeQuery(sql);
+            ResultSet results = qry.executeQuery();
             try {
                 while (results.next()) {
                     row.add(results.getInt(FIELD_ID));
