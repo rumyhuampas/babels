@@ -19,7 +19,7 @@ public class CombosProductsAdmin {
         try {
             ArrayList products = new ArrayList();
             qry.setInt(1, combo.getId());
-            ResultSet results = qry.executeQuery(sql);
+            ResultSet results = qry.executeQuery();
             try {
                 while (results.next()) {
                     Product prod = new Product(conn);

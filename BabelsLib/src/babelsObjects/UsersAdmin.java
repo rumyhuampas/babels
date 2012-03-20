@@ -20,7 +20,7 @@ public class UsersAdmin {
         try {
             ArrayList rows = new ArrayList();
             ArrayList row = new ArrayList();
-            ResultSet results = qry.executeQuery(sql);
+            ResultSet results = qry.executeQuery();
             try {
                 while (results.next()) {
                     row.add(results.getInt(FIELD_ID));
@@ -43,7 +43,7 @@ public class UsersAdmin {
         String sql = "SELECT COUNT(IsAdmin) FROM " + TABLENAME;
         PreparedStatement qry = conn.prepareStatement(sql);
         try {
-            ResultSet results = qry.executeQuery(sql);
+            ResultSet results = qry.executeQuery();
             try {
                 results.next();
                 return results.getInt(1) == 0;

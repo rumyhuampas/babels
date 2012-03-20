@@ -23,7 +23,7 @@ public class SaleAdmin {
         try {
             ArrayList items = new ArrayList();
             qry.setInt(1, sale.getId());
-            ResultSet results = qry.executeQuery(sql);
+            ResultSet results = qry.executeQuery();
             try {
                 String itemtype = "";
                 Object[] item = null;
@@ -73,7 +73,7 @@ public class SaleAdmin {
     
     static String GetInsertSql() {
         return "INSERT INTO " + TABLENAME + " ("
-                + FIELD_IDSALE + "," + FIELD_IDITEM+ "," + FIELD_ITEMTYPE
+                + FIELD_IDSALE + "," + FIELD_IDITEM + "," + FIELD_ITEMTYPE
                 + ") VALUES (?,?,?)";
     }
     
