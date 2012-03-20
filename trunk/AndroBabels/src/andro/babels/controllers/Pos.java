@@ -2,12 +2,10 @@ package andro.babels.controllers;
 
 import andro.babels.Combos;
 import andro.babels.Products;
-import andro.babels.R;
 import andro.babels.wrappers.ExtraObject;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import andro.babels.wrappers.dialogs.LoadingDialog;
 import andro.babels.wrappers.dialogs.YesNoDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +13,6 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import babelsObjects.CombosAdmin;
-import babelsObjects.ProductsAdmin;
 import java.sql.SQLException;
 
 public class Pos extends andro.babels.controllers.Base {
