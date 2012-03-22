@@ -1,6 +1,7 @@
 package andro.babels.controllers;
 
 import andro.babels.Combos;
+import andro.babels.ItemDetails;
 import andro.babels.Products;
 import andro.babels.wrappers.ExtraObject;
 import andro.babels.wrappers.dialogs.ImageDialog;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import java.sql.SQLException;
 
@@ -27,6 +29,7 @@ public class Pos extends andro.babels.controllers.Base {
         model = new andro.babels.models.Pos();
         CreateTabs();
         SetListeners();
+        view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
     }
 
     private void CreateTabs() {
@@ -97,6 +100,9 @@ public class Pos extends andro.babels.controllers.Base {
             super.handleMessage(msg);
             LoadingDialog loadDialog = (LoadingDialog) msg.obj;
             loadDialog.hide();
+            model.ClearSalelist();
+            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
+            view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }
     };
     private Handler ExceptionHandler = new Handler() {
@@ -119,6 +125,16 @@ public class Pos extends andro.babels.controllers.Base {
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }
     };
+    public OnLongClickListener ObjectOnLongClickHandler = new OnLongClickListener() {
+
+        public boolean onLongClick(View objView) {
+            Bundle extras = new Bundle();
+            extras.putInt("ItemID", view.GetObjectId(objView));
+            extras.putString("ItemType", view.GetObjectType(objView));
+            RunActivity(Activity, ItemDetails.class, extras);
+            return true;
+        }
+    };
     public OnClickListener SaleItemOnClickHandler = new OnClickListener() {
 
         public void onClick(View saleItemView) {
@@ -127,12 +143,4 @@ public class Pos extends andro.babels.controllers.Base {
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }
     };
-    /*
-     * private void LoadInfo(){ Bundle extras =
-     * Activity.getIntent().getExtras(); ExtraObject extraObj = (ExtraObject)
-     * extras.getParcelable("combos"); //for (int i = 0; i< extraObj.Obj.length;
-     * i++){ // ImageDialog d = new ImageDialog(Activity, "TEST",
-     * ((Object[])extraObj.Obj[i])[1].toString(), R.drawable.error, null); //
-     * d.show(); //} }
-     */
 }

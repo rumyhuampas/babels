@@ -19,11 +19,13 @@ public class Welcome extends andro.babels.controllers.Base {
     private andro.babels.views.Welcome view;
     public static MySQL mysql;
     public static andro.babels.wrappers.BabelsSettings settings;
+    private boolean SettingsPressed;
 
     public Welcome(andro.babels.Welcome activity) {
         Activity = activity;
         view = new andro.babels.views.Welcome(activity);
         settings = new andro.babels.wrappers.BabelsSettings(activity);
+        SettingsPressed = false;
         String url = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.URLKEY, andro.babels.wrappers.BabelsSettings.URLDEFAULT);
         String db = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.DBKEY, andro.babels.wrappers.BabelsSettings.DBDEFAULT);
         String user = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.USERKEY, andro.babels.wrappers.BabelsSettings.USERDEFAULT);
@@ -77,38 +79,41 @@ public class Welcome extends andro.babels.controllers.Base {
         });
         thread.start();
     }
-    
     private Handler LoadInfoHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            Object[] info = (Object[]) msg.obj;
-            Object[] combos = (Object[])info[0];
-            Object[] products = (Object[])info[1];
-            ExtraObject extraCombos = new ExtraObject(combos);
-            ExtraObject extraProducts = new ExtraObject(products);
-            Bundle extras = new Bundle();
-            extras.putParcelable("combos", extraCombos);
-            extras.putParcelable("products", extraProducts);
-            andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Pos.class, extras);
+            if (SettingsPressed == false) {
+                super.handleMessage(msg);
+                Object[] info = (Object[]) msg.obj;
+                Object[] combos = (Object[]) info[0];
+                Object[] products = (Object[]) info[1];
+                ExtraObject extraCombos = new ExtraObject(combos);
+                ExtraObject extraProducts = new ExtraObject(products);
+                Bundle extras = new Bundle();
+                extras.putParcelable("combos", extraCombos);
+                extras.putParcelable("products", extraProducts);
+                andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Pos.class, extras);
+            }
         }
     };
-    
     private Handler ExceptionHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException) msg.obj).getMessage());
-            dialog.SetCallback(andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
-            dialog.show();
+            if (SettingsPressed == false) {
+                super.handleMessage(msg);
+                ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException) msg.obj).getMessage());
+                dialog.SetCallback(andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
+                dialog.show();
+            }
         }
     };
 
     public boolean HandleMenuSelection(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mm_miSett:
+                SettingsPressed = true;
                 andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, null);
                 return true;
             default:

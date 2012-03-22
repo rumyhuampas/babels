@@ -52,9 +52,25 @@ public class Pos extends andro.babels.views.Base {
     public void RefreshSaleList(List<SaleItem> saleList, OnClickListener SaleItemOnClickHandler){
         LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
         llMain.removeAllViews();
-        for (int i=0;i<saleList.size();i++){
-           AddSaleItem(saleList.get(i), i+1, SaleItemOnClickHandler); 
+        if (saleList.size() > 0){
+            for (int i=0;i<saleList.size();i++){
+                AddSaleItem(saleList.get(i), i+1, SaleItemOnClickHandler); 
+            }
+            SetDoneButtonEnabled(true);
+            SetSaleListVisibility(LinearLayout.VISIBLE);
         }
+        else{
+            SetDoneButtonEnabled(false);
+            SetSaleListVisibility(LinearLayout.INVISIBLE);
+        }
+    }
+    
+    private void SetDoneButtonEnabled(boolean value){
+        ((Button)Activity.findViewById(R.id.pos_btnDone)).setEnabled(value);
+    }
+    
+    private void SetSaleListVisibility(int value){
+        ((LinearLayout)Activity.findViewById(R.id.pos_saleList)).setVisibility(value);
     }
     
     private void AddSaleItem(SaleItem item, int number, OnClickListener SaleItemOnClickHandler){
