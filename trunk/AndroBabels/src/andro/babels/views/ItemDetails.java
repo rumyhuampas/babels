@@ -24,14 +24,14 @@ public class ItemDetails extends andro.babels.views.Base {
             txtTitle.setText(combo.Name);
             txtName.setText(combo.Name);
             txtDesc.setText(combo.Desc);
-            txtPrice.setText(String.valueOf(combo.Price));
+            txtPrice.setText("$" + String.valueOf(combo.Price));
         }
         else{
             Product prod = (Product) item;
             txtTitle.setText(prod.Name);
             txtName.setText(prod.Name);
             txtDesc.setText(prod.Desc);
-            txtPrice.setText(String.valueOf(prod.Price));
+            txtPrice.setText("$" + String.valueOf(prod.Price));
         }
     }
 }
