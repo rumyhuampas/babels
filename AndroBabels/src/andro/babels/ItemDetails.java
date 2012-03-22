@@ -14,10 +14,4 @@ public class ItemDetails extends Activity {
 
         controller = new andro.babels.controllers.ItemDetails(this);
     }
-    
-    @Override
-    public void onStart(){
-        super.onStart();
-        controller.LoadItem();
-    }
 }

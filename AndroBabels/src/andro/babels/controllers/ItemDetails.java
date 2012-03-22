@@ -17,9 +17,10 @@ public class ItemDetails extends andro.babels.controllers.Base {
         Activity = activity;
         model = new andro.babels.models.ItemDetails();
         view = new andro.babels.views.ItemDetails(activity);
+        LoadItem();
     }
     
-    public void LoadItem() {
+    private void LoadItem() {
         Bundle extras = Activity.getIntent().getExtras();
         final int itemID = extras.getInt("ItemID");
         final String itemType = extras.getString("ItemType");
