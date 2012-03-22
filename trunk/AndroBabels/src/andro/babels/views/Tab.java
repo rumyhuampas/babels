@@ -19,20 +19,20 @@ public class Tab extends andro.babels.views.Base {
         ll = (LinearLayout) Activity.findViewById(llMainId);
     }
 
-    public void DrawObject(Object[] obj, int index, String type, View.OnClickListener onClickHandler) {
+    public void DrawObject(Object[] obj, int index, String type, View.OnClickListener onClickHandler, View.OnLongClickListener onLongClickHandler) {
         try {
             if (index % 4 == 0) {
                 row = new LinearLayout(Activity);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 ll.addView(row);
             }
-            row.addView(CreateObjectView(obj, type, onClickHandler));
+            row.addView(CreateObjectView(obj, type, onClickHandler, onLongClickHandler));
         } catch (Exception ex) {
             //ShowError(Activity, "Error", ex.getMessage(), null);
         }
     }
 
-    private LinearLayout CreateObjectView(Object[] obj, String type, View.OnClickListener onClickHandler) {
+    private LinearLayout CreateObjectView(Object[] obj, String type, View.OnClickListener onClickHandler, View.OnLongClickListener onLongClickHandler) {
         LinearLayout ObjectView = new LinearLayout(Activity);
         ObjectView.setOrientation(LinearLayout.VERTICAL);
         ObjectView.setBackgroundResource(R.drawable.border);
@@ -47,6 +47,7 @@ public class Tab extends andro.babels.views.Base {
         ObjectView.addView(CreateObjectPrice(obj));
         ObjectView.addView(CreateObjectType(type));
         ObjectView.setOnClickListener(onClickHandler);
+        ObjectView.setOnLongClickListener(onLongClickHandler);
         return ObjectView;
     }
     

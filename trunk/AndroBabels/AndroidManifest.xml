@@ -29,7 +29,10 @@
         </activity>
         <activity android:name="Products">
         </activity>
-        <activity android:name="Settings">
+        <activity android:name="ItemDetails">
+        </activity>
+        <activity android:name="Settings"
+                  android:noHistory="true">
         </activity>
     </application>
 </manifest> 
