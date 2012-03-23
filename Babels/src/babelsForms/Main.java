@@ -76,6 +76,7 @@ public class Main extends javax.swing.JFrame {
         mbarMain.add(mitemFile);
 
         mitemAdmin.setText("Administrar");
+        mitemAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mitemAdmin.setPreferredSize(new java.awt.Dimension(81, 19));
 
         mitemAdminProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/food.png"))); // NOI18N

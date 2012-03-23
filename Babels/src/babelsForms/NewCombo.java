@@ -133,7 +133,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
 
         jScrollPane2.setViewportView(pnlCombo);
 
-        lblHelp.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        lblHelp.setFont(new java.awt.Font("Tahoma", 3, 11));
         lblHelp.setText("Arrastre los productos aqui para armar el combo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
