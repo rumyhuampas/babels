@@ -34,7 +34,7 @@ public class Products extends javax.swing.JDialog {
 
         pmenuTblProducts.setToolTipText("");
 
-        pmitemEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        pmitemEdit.setFont(new java.awt.Font("Segoe UI", 1, 12));
         pmitemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/edit.png"))); // NOI18N
         pmitemEdit.setText("Editar");
         pmitemEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -85,8 +85,8 @@ public class Products extends javax.swing.JDialog {
             }
         });
         tblProducts.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProductsMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblProductsMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(tblProducts);
@@ -158,6 +158,11 @@ public class Products extends javax.swing.JDialog {
                 if (this.tblProducts.getRowCount() > 0) {
                     //this.tblProducts.setRowSelectionInterval(0, 0);
                     this.tblProducts.changeSelection(0, 0, false, false);
+                     try {
+                    this.lblImg.setIcon(this.Manager.GetProductImage(lblImg.getWidth(),lblImg.getHeight()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 }
                 Refresh = false;
             } catch (SQLException ex) {
@@ -169,27 +174,6 @@ public class Products extends javax.swing.JDialog {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
-
-    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON1) {
-            if (evt.getClickCount() == 1) {
-                try {
-                    this.lblImg.setIcon(this.Manager.GetProductImage(lblImg.getWidth(),lblImg.getHeight()));
-                } catch (SQLException ex) {
-                    Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                this.Manager.EditProduct();
-                this.Refresh = true;
-            }
-        } else {
-            if (evt.getButton() == MouseEvent.BUTTON3) {
-                int row = this.tblProducts.rowAtPoint(evt.getPoint());
-                this.tblProducts.changeSelection(row, 0, false, false);
-                this.pmenuTblProducts.show(this.tblProducts, evt.getX(), evt.getY());
-            }
-        }
-    }//GEN-LAST:event_tblProductsMouseClicked
 
     private void btnNewproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewproductActionPerformed
         FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
@@ -214,6 +198,28 @@ public class Products extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_pmitemDeleteActionPerformed
+
+private void tblProductsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMousePressed
+    if (evt.getButton() == MouseEvent.BUTTON1) {
+            if (evt.getClickCount() == 1) {
+                try {
+                    this.lblImg.setIcon(this.Manager.GetProductImage(lblImg.getWidth(),lblImg.getHeight()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                this.Manager.EditProduct();
+                this.Refresh = true;
+            }
+        } else {
+            if (evt.getButton() == MouseEvent.BUTTON3) {
+                int row = this.tblProducts.rowAtPoint(evt.getPoint());
+                this.tblProducts.changeSelection(row, 0, false, false);
+                this.pmenuTblProducts.show(this.tblProducts, evt.getX(), evt.getY());
+            }
+        }
+}//GEN-LAST:event_tblProductsMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnNewproduct;
