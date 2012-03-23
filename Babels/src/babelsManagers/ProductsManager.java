@@ -61,6 +61,7 @@ public class ProductsManager {
         }
     }
 
+    
     public void EditProduct() {
         int row = this.Table.getSelectedRow();
         int prodId = (Integer) this.Model.getValueAt(row, 0);

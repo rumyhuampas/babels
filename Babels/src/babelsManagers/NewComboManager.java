@@ -123,6 +123,7 @@ public class NewComboManager {
         Babels.mysql.Open();
         try {
             Object[] rows = ProductsAdmin.GetAllProductsWithImage(Babels.mysql.Conn);
+            
             Object[] row = null;
             DefaultTableModel tm = (DefaultTableModel) this.Model;
             for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
