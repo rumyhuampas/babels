@@ -19,15 +19,7 @@ public class ProdPnlPMenuMouseListener implements ActionListener, ItemListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (int i=0;i<this.ProdList.size();i++){
-            if (((TransferableProductPanel)this.ProdList.get(i)).prodId == this.Panel.prodId){
-                this.ProdList.remove(i);
-                this.ComboPanel.remove(i);
-                this.ComboPanel.revalidate();
-                this.ComboPanel.repaint();
-                break;
-            }
-        }
+     
     }
 
     @Override
