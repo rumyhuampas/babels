@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -49,12 +50,12 @@ public class Pos extends andro.babels.views.Base {
         return (Button)Activity.findViewById(R.id.pos_btnDone);
     }
     
-    public void RefreshSaleList(List<SaleItem> saleList, OnClickListener SaleItemOnClickHandler){
+    public void RefreshSaleList(List<SaleItem> saleList, OnClickListener SaleItemOnClickHandler, OnLongClickListener SaleItemOnLongClickHandler){
         LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
         llMain.removeAllViews();
         if (saleList.size() > 0){
             for (int i=0;i<saleList.size();i++){
-                AddSaleItem(saleList.get(i), i+1, SaleItemOnClickHandler); 
+                AddSaleItem(saleList.get(i), i+1, SaleItemOnClickHandler, SaleItemOnLongClickHandler); 
             }
             SetDoneButtonEnabled(true);
             SetSaleListVisibility(LinearLayout.VISIBLE);
@@ -73,7 +74,7 @@ public class Pos extends andro.babels.views.Base {
         ((LinearLayout)Activity.findViewById(R.id.pos_saleList)).setVisibility(value);
     }
     
-    private void AddSaleItem(SaleItem item, int number, OnClickListener SaleItemOnClickHandler){
+    private void AddSaleItem(SaleItem item, int number, OnClickListener SaleItemOnClickHandler, OnLongClickListener SaleItemOnLongClickHandler){
         LinearLayout ll = new LinearLayout(Activity);
         ll.setOrientation(LinearLayout.HORIZONTAL);
         ll.addView(CreateSaleId(item));
@@ -82,6 +83,7 @@ public class Pos extends andro.babels.views.Base {
         ll.addView(CreateSaleValueView("$" + String.valueOf(item.price), false));
         ll.addView(CreateSaleType(item));
         ll.setOnClickListener(SaleItemOnClickHandler);
+        ll.setOnLongClickListener(SaleItemOnLongClickHandler);
         LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
         llMain.addView(ll);
     }

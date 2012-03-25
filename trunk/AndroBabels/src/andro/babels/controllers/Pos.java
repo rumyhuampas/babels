@@ -29,7 +29,7 @@ public class Pos extends andro.babels.controllers.Base {
         model = new andro.babels.models.Pos();
         CreateTabs();
         SetListeners();
-        view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
+        view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
     }
 
     private void CreateTabs() {
@@ -47,7 +47,7 @@ public class Pos extends andro.babels.controllers.Base {
 
         Intent productsIntent = new Intent().setClass(Activity, Products.class);
         productsIntent.putExtras(extras);
-        view.CreateTab(productsIntent, "tabProducts", "Products");
+        view.CreateTab(productsIntent, "tabProducts", "Productos");
     }
 
     public void SetListeners() {
@@ -58,12 +58,12 @@ public class Pos extends andro.babels.controllers.Base {
         view.GetDoneButton().setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                final YesNoDialog dialog = view.CreateYesNoMessage(Activity, "Save sale?", "Are you sure?");
+                final YesNoDialog dialog = view.CreateYesNoMessage(Activity, "Guardar venta", "¿Esta seguro?");
                 dialog.SetCallback(new View.OnClickListener() {
 
                     public void onClick(View v) {
                         if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
-                            final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Save sale", "Saving...");
+                            final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
                             loadDialog.show();
                             Thread thread = new Thread(new Runnable() {
 
@@ -101,7 +101,7 @@ public class Pos extends andro.babels.controllers.Base {
             LoadingDialog loadDialog = (LoadingDialog) msg.obj;
             loadDialog.hide();
             model.ClearSalelist();
-            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
+            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }
     };
@@ -121,7 +121,7 @@ public class Pos extends andro.babels.controllers.Base {
             model.AddSaleItem(view.GetObjectId(objView), view.GetObjectName(objView),
                     Float.parseFloat(view.GetObjectPrice(objView).replace("$", "")),
                     view.GetObjectType(objView));
-            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
+            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
         }
     };
@@ -139,8 +139,26 @@ public class Pos extends andro.babels.controllers.Base {
 
         public void onClick(View saleItemView) {
             model.RemoveSaleItem(view.GetSaleItemType(saleItemView), view.GetSaleItemId(saleItemView));
-            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler);
+            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
             view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
+        }
+    };
+    public OnLongClickListener SaleItemOnLongClickHandler = new OnLongClickListener() {
+
+        public boolean onLongClick(View objView) {
+            final YesNoDialog dialog = view.CreateYesNoMessage(Activity, "¿Limpiar lista?", "¿Borrar todos los items de la lista?");
+            dialog.SetCallback(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
+                        model.ClearSalelist();
+                        view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
+                    }
+                    dialog.hide();
+                }
+            });
+            dialog.show();
+            return true;
         }
     };
 }

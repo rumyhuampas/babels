@@ -5,21 +5,21 @@
             android:key="URLPref"
             android:name="URL"
             android:title="URL"
-            android:summary="Babels server URL"/>
+            android:summary="URL del servidor"/>
         <EditTextPreference
             android:key="DBPref"
             android:name="DB"
-            android:title="Database"
-            android:summary="Babels database"/>
+            android:title="Base de datos"
+            android:summary="Nombre de la base de datos"/>
         <EditTextPreference
             android:key="USERPref"
             android:name="USER"
-            android:title="User"
-            android:summary="Database user"/>
+            android:title="Usuario"
+            android:summary="Usuario de la base de datos"/>
         <EditTextPreference
             android:key="PASSPref"
             android:name="PASS"
-            android:title="Password"
-            android:summary="User password"/>
+            android:title="Contraseña"
+            android:summary="Contraseña del usuario de la base de datos"/>
     </PreferenceCategory>
 </PreferenceScreen>

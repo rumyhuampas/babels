@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name:"
+                        android:text="Nombre:"
                     />
                     <TextView
                         android:id="@+id/id_txtName"
@@ -69,7 +69,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Description:"
+                        android:text="Descripción:"
                     />
                     <TextView
                         android:id="@+id/id_txtDesc"
@@ -87,7 +87,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Price:"
+                        android:text="Precio:"
                     />
                     <TextView
                         android:id="@+id/id_txtPrice"

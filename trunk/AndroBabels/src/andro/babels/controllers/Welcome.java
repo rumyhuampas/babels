@@ -66,7 +66,7 @@ public class Welcome extends andro.babels.controllers.Base {
                             Message msg = LoadInfoHandler.obtainMessage(1, info);
                             LoadInfoHandler.sendMessage(msg);
                         } else {
-                            throw new Exception("Could not get info from database");
+                            throw new Exception("No se pudo obtener la información de la base de datos");
                         }
                     } finally {
                         mysql.Close();
