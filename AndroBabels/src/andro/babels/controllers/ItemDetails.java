@@ -24,7 +24,7 @@ public class ItemDetails extends andro.babels.controllers.Base {
         Bundle extras = Activity.getIntent().getExtras();
         final int itemID = extras.getInt("ItemID");
         final String itemType = extras.getString("ItemType");
-        final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Get Item", "Loading...");
+        final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Cargar item", "Cargando...");
         loadDialog.show();
         Thread thread = new Thread(new Runnable() {
 

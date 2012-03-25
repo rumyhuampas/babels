@@ -49,7 +49,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sale List"
+                    android:text="Lista de venta"
                         />
             </LinearLayout>
             <ScrollView
@@ -84,7 +84,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="right"
                     android:textSize="8dp"
-                    android:text="Done"
+                    android:text="Guardar"
                      />
             </LinearLayout>
         </LinearLayout>

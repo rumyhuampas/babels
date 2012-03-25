@@ -12,7 +12,7 @@ public class Tab extends andro.babels.controllers.Base {
     }
     
     public void Exit() {
-        final YesNoDialog dialog = andro.babels.views.Base.CreateYesNoMessage(Activity, "Exit?", "Are you sure?");
+        final YesNoDialog dialog = andro.babels.views.Base.CreateYesNoMessage(Activity, "¿Salir?", "¿Esta seguro?");
         dialog.SetCallback(new View.OnClickListener() {
 
             public void onClick(View view) {
