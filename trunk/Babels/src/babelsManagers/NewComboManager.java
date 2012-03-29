@@ -26,6 +26,7 @@ public class NewComboManager {
     public ArrayList ListProd;
     public TransferableProductPanel PnlProd;
     public JPanel ComboPanel;
+    public Boolean AddOrDel;
 
     public NewComboManager(JTable table, JPanel comboPanel) {
         this.Table = table;
@@ -153,21 +154,38 @@ public class NewComboManager {
     public void setList(ArrayList listProd){
          this.ListProd=listProd;
      }
-    public void Paint(){
+    public void Paint(Boolean AddOrDel){
+      if (AddOrDel==true){
+         ComboPanel.removeAll();
+        for (int i = 0; i < ListProd.size(); i++) {
+             TransferableProductPanel pnl = (TransferableProductPanel) ListProd.get(i);    
+             this.ComboPanel.add(pnl);
+             this.ComboPanel.revalidate();
+             this.ComboPanel.repaint();
+            }
+      }else{
+        if (ListProd.size()>0){  
         ComboPanel.removeAll();
-       for (int i = 0; i < ListProd.size(); i++) {
-        TransferableProductPanel pnl = (TransferableProductPanel) ListProd.get(i);    
-        this.ComboPanel.add(pnl);
-        this.ComboPanel.revalidate();
-        this.ComboPanel.repaint();
-       }
-    }
+        for (int i = 0; i < ListProd.size(); i++) {
+             TransferableProductPanel pnl = (TransferableProductPanel) ListProd.get(i);    
+             this.ComboPanel.add(pnl);
+             this.ComboPanel.revalidate();
+             this.ComboPanel.repaint();
+            }
+        } else{
+          ComboPanel.removeAll();
+            this.ComboPanel.revalidate();
+            this.ComboPanel.repaint();
+        }
+      }
+    }    
     public void DeletePnlProd(TransferableProductPanel pnlProd){
          for (int i = 0; i < ListProd.size(); i++) {
             TransferableProductPanel pnl = (TransferableProductPanel) ListProd.get(i);
             if (pnl.prodId == pnlProd.prodId) {
                 this.ListProd.remove(i);
-                Paint();
+                AddOrDel=false;
+                Paint(AddOrDel);
             } 
         }
         

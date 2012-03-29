@@ -43,7 +43,8 @@ public class pnlComboListener extends DropTargetAdapter  {
                     pnlProd.addMouseListener(prodPnlML);
                   //  this.panel.revalidate();
                   //  this.panel.repaint();*/
-                    Manager.Paint();
+                    Manager.AddOrDel=true;
+                    Manager.Paint(Manager.AddOrDel);
                     dtde.dropComplete(true);
                 } else {
                     dtde.rejectDrop();
