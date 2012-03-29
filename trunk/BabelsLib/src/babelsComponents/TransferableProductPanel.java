@@ -2,6 +2,9 @@ package babelsComponents;
 
 import babelsObjects.Product;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -19,14 +22,34 @@ public class TransferableProductPanel extends JPanel implements Transferable {
     public static DataFlavor[] supportedFlavors = {productPanelFlavor};
 
     public TransferableProductPanel(Product prod) {
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c1 = new GridBagConstraints();
+        GridBagConstraints c2 = new GridBagConstraints();
         this.prodId = prod.getId();
         this.setBorder(BorderFactory.createLineBorder(Color.black));
-        JLabel label = new JLabel(prod.Name, JLabel.CENTER);
+        JLabel label = new JLabel();
         label.setBounds(0,0,120,90);
         ImageIcon img = prod.GetImageIconResized(label.getWidth(),label.getHeight()); 
         label.setIcon(img);
+        label.setText(null);
+        c2.weightx = 0.5;
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.gridx = 0;
+        c2.gridy = 1;
+        c2.gridwidth = 2; 
        
-        this.add(label);
+        this.add(label, c2);
+       
+         JLabel labelText=new JLabel(prod.Name);
+         labelText.setBounds(0, 0, 60, 90);
+         labelText.setFont(new java.awt.Font("Tahoma", 1, 12));
+         c1.weightx = 0.5;
+         c1.fill = GridBagConstraints.HORIZONTAL;
+         c1.gridx = 2;
+         c1.gridy = 1;
+        
+         this.add(labelText, c1);
+    
     }
 
     @Override
