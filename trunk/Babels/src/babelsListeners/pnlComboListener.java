@@ -1,6 +1,7 @@
 package babelsListeners;
 
 import babelsComponents.TransferableProductPanel;
+import babelsManagers.NewComboManager;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -10,16 +11,18 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class pnlComboListener extends DropTargetAdapter {
+public class pnlComboListener extends DropTargetAdapter  {
 
     private JPanel panel;
     public ArrayList prodList;
+    private NewComboManager Manager;
 
     public pnlComboListener(JPanel panel) {
         this.panel = panel;
         this.prodList = new ArrayList();
         DropTarget dropTarget = new DropTarget(panel, DnDConstants.ACTION_COPY,
                 this, true, null);
+        Manager= new NewComboManager(panel);
     }
 
     @Override
@@ -31,13 +34,16 @@ public class pnlComboListener extends DropTargetAdapter {
                 if (!ProductIsListed(pnlProd)) {
                     dtde.acceptDrop(DnDConstants.ACTION_COPY);
                     this.prodList.add(pnlProd);
-                    this.panel.add(pnlProd);
-                    ProdPnlMouseListener prodPnlML = new ProdPnlMouseListener(pnlProd);
-                    prodPnlML.ProdList = this.prodList;
-                    prodPnlML.ComboPanel = this.panel;
+                    Manager.setList(prodList);
+                    Manager.setPnlProd(pnlProd);
+                    //this.panel.add(pnlProd);
+                    ProdPnlMouseListener prodPnlML = new ProdPnlMouseListener(pnlProd, prodList, panel);
+                   // prodPnlML.ProdList = this.prodList;
+                   // prodPnlML.ComboPanel = this.panel;
                     pnlProd.addMouseListener(prodPnlML);
-                    this.panel.revalidate();
-                    this.panel.repaint();
+                  //  this.panel.revalidate();
+                  //  this.panel.repaint();*/
+                    Manager.Paint();
                     dtde.dropComplete(true);
                 } else {
                     dtde.rejectDrop();

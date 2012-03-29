@@ -23,6 +23,9 @@ public class NewComboManager {
     private TableModel Model;
     public boolean RefreshingTable;
     private pnlComboListener pnlCombo;
+    public ArrayList ListProd;
+    public TransferableProductPanel PnlProd;
+    public JPanel ComboPanel;
 
     public NewComboManager(JTable table, JPanel comboPanel) {
         this.Table = table;
@@ -34,6 +37,10 @@ public class NewComboManager {
         tblProductsListener TableListener = new tblProductsListener(table);
         comboPanel.setLayout(new BoxLayout(comboPanel, BoxLayout.PAGE_AXIS));
         pnlCombo = new pnlComboListener(comboPanel);
+    }
+      public NewComboManager(JPanel PnlCombo) {
+        ListProd= new ArrayList();
+        this.ComboPanel=PnlCombo;
     }
     
     public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, IBabelsDialog dialog) {
@@ -134,4 +141,38 @@ public class NewComboManager {
             Babels.mysql.Close();
         }
     }
+    public void setPnlProd(TransferableProductPanel pnlProd){
+        this.PnlProd=pnlProd;
+    }
+    public TransferableProductPanel getPnlProd(){
+        return (PnlProd);
+}
+    public void setListPnlProd(TransferableProductPanel pnlProd){
+        this.ListProd.add(pnlProd);
+    }
+    public void setList(ArrayList listProd){
+         this.ListProd=listProd;
+     }
+    public void Paint(){
+        ComboPanel.removeAll();
+       for (int i = 0; i < ListProd.size(); i++) {
+        TransferableProductPanel pnl = (TransferableProductPanel) ListProd.get(i);    
+        this.ComboPanel.add(pnl);
+        this.ComboPanel.revalidate();
+        this.ComboPanel.repaint();
+       }
+    }
+    public void DeletePnlProd(TransferableProductPanel pnlProd){
+         for (int i = 0; i < ListProd.size(); i++) {
+            TransferableProductPanel pnl = (TransferableProductPanel) ListProd.get(i);
+            if (pnl.prodId == pnlProd.prodId) {
+                this.ListProd.remove(i);
+                Paint();
+            } 
+        }
+        
+    
+    
+    }
+    
 }
