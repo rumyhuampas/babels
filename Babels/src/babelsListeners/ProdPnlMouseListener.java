@@ -12,25 +12,27 @@ import javax.swing.JPopupMenu;
 public class ProdPnlMouseListener extends MouseAdapter{
     
     private JPopupMenu PMenu;
-    public TransferableProductPanel Panel;
+    public TransferableProductPanel prdPanel;
     public ArrayList ProdList;
     public JPanel ComboPanel;
     
-    public ProdPnlMouseListener(TransferableProductPanel panel){
-        this.Panel = panel;
+    public ProdPnlMouseListener(TransferableProductPanel panel, ArrayList prodList, JPanel comboPanel){
+        this.prdPanel = panel;
+        this.ProdList= prodList;
+        this.ComboPanel=comboPanel;
         PMenu = new JPopupMenu();
         JMenuItem mi = new JMenuItem("Remover Producto", 
                 new ImageIcon(getClass().getResource("/babelsImages/delete.png")));
-        ProdPnlPMenuMouseListener pmenuListener = new ProdPnlPMenuMouseListener(this);
+        ProdPnlPMenuMouseListener pmenuListener = new ProdPnlPMenuMouseListener(prdPanel, prodList, comboPanel);
         mi.addActionListener(pmenuListener);
         PMenu.add(mi);
-        this.Panel.add(this.PMenu);
+        this.prdPanel.add(this.PMenu);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON3) {
-            this.PMenu.show(this.Panel, e.getX(), e.getY());
+            this.PMenu.show(this.prdPanel, e.getX(), e.getY());
         }
     }
 }

@@ -59,6 +59,11 @@ public class Combos extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
 
         jmItemEdit.setText("Editar");
+        jmItemEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmItemEditActionPerformed(evt);
+            }
+        });
         jmMenuTblCombos.add(jmItemEdit);
 
         jmItemDelete.setText("Eliminar");
@@ -262,6 +267,11 @@ private void jmItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             }
         }
 }//GEN-LAST:event_jmItemDeleteActionPerformed
+
+private void jmItemEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItemEditActionPerformed
+     int row = this.tblCombos.getSelectedRow();
+     int idCombo=(Integer) this.tblCombos.getModel().getValueAt(row, 0);
+}//GEN-LAST:event_jmItemEditActionPerformed
    
     /**
      * @param args the command line arguments
