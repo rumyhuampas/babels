@@ -40,9 +40,14 @@ public class ProductsManager {
             Object[] rows = ProductsAdmin.GetAllProducts(Babels.mysql.Conn);
             Object[] row = null;
             DefaultTableModel tm = (DefaultTableModel) this.Model;
+            Object[] rowTable= null;
             for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
                 row = (Object[]) rows[rowIdx];
-                tm.addRow(row);
+                rowTable= new Object[3];
+                rowTable[0]=row[0];
+                rowTable[1]=row[1];
+                rowTable[2]=row[3];
+                tm.addRow(rowTable);
             }
         } finally {
             Babels.mysql.Close();
