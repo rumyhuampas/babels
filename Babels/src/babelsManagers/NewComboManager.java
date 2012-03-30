@@ -4,10 +4,13 @@ import babels.Babels;
 import babelsComponents.TransferableProductPanel;
 import babelsInterfaces.IBabelsDialog;
 import babelsListeners.KeyListenerType;
+import babelsListeners.ProdPnlMouseListener;
 import babelsListeners.pnlComboListener;
 import babelsListeners.tblProductsListener;
 import babelsListeners.txtFieldListener;
 import babelsObjects.Combo;
+import babelsObjects.CombosProductsAdmin;
+import babelsObjects.FormsFactory;
 import babelsObjects.Product;
 import babelsObjects.ProductsAdmin;
 import babelsRenderers.JLabelCell;
@@ -23,10 +26,11 @@ public class NewComboManager {
     private TableModel Model;
     public boolean RefreshingTable;
     private pnlComboListener pnlCombo;
-    public ArrayList ListProd;
+    public ArrayList ListProd, ListTransferable;
     public TransferableProductPanel PnlProd;
     public JPanel ComboPanel;
     public Boolean AddOrDel;
+    
 
     public NewComboManager(JTable table, JPanel comboPanel) {
         this.Table = table;
@@ -38,8 +42,10 @@ public class NewComboManager {
         tblProductsListener TableListener = new tblProductsListener(table);
         comboPanel.setLayout(new BoxLayout(comboPanel, BoxLayout.PAGE_AXIS));
         pnlCombo = new pnlComboListener(comboPanel);
+        ComboPanel=comboPanel;
     }
       public NewComboManager(JPanel PnlCombo) {
+          
         ListProd= new ArrayList();
         this.ComboPanel=PnlCombo;
     }
@@ -76,6 +82,7 @@ public class NewComboManager {
             Babels.mysql.Close();
         }
     } 
+   
     
     public boolean SaveCombo(int ComboId, String name, String desc, String price, ArrayList products) throws SQLException {
         Babels.mysql.Open();
@@ -154,6 +161,9 @@ public class NewComboManager {
     public void setList(ArrayList listProd){
          this.ListProd=listProd;
      }
+    public ArrayList getList(){
+        return(this.ListProd);
+    }
     public void Paint(Boolean AddOrDel){
       if (AddOrDel==true){
          ComboPanel.removeAll();
@@ -180,17 +190,59 @@ public class NewComboManager {
       }
     }    
     public void DeletePnlProd(TransferableProductPanel pnlProd){
-         for (int i = 0; i < ListProd.size(); i++) {
+        
+        for (int i = 0; i < this.getList().size(); i++) {
+          
             TransferableProductPanel pnl = (TransferableProductPanel) ListProd.get(i);
             if (pnl.prodId == pnlProd.prodId) {
                 this.ListProd.remove(i);
+                
                 AddOrDel=false;
                 Paint(AddOrDel);
             } 
         }
-        
-    
+           
     
     }
+    public void LoadCombo(int ComboId, JTextField txtName,
+            JTextArea txtDesc, JTextField txtPrice) throws SQLException {
+        Babels.mysql.Open();
+        try {
+            Combo Comb = new Combo(Babels.mysql.Conn);
+            Comb.Load(ComboId);
+            txtName.setText(Comb.Name);
+            txtDesc.setText(Comb.Desc);
+            txtPrice.setText(String.valueOf(Comb.Price));
+            ArrayList ListProducts= CombosProductsAdmin.GetComboProducts(Babels.mysql.Conn, Comb);
+                       
+          
+            ListProd=this.ProdToTransferable(ListProducts);
+             this.setList(ListProd);
+           //   ComboPanel.setLayout(new BoxLayout(ComboPanel, BoxLayout.PAGE_AXIS));
+                pnlCombo = new pnlComboListener(ComboPanel, this.getList());
+             AddOrDel=true;
+            this.Paint(AddOrDel);
+            this.ActiveListenerPnlProd(ListProducts,ListProd);
+           
+        } finally {
+            Babels.mysql.Close();
+        }
+    }
+ 
+     public ArrayList ProdToTransferable(ArrayList listProd){
+         ListTransferable= new ArrayList();
+         for (int i = 0; i < listProd.size(); i++){
+          ListTransferable.add(new TransferableProductPanel((Product)listProd.get(i)));
+             
+         }
+         return(ListTransferable);
+     }
+     public void ActiveListenerPnlProd(ArrayList listProd, ArrayList listTransferable){
+                for (int i = 0; i < listProd.size(); i++){
+                ProdPnlMouseListener prodPnlML = new ProdPnlMouseListener((TransferableProductPanel)listTransferable.get(i), listTransferable, this.ComboPanel);
+                 TransferableProductPanel tpp =(TransferableProductPanel) listTransferable.get(i);
+                 tpp.addMouseListener(prodPnlML);
+            }
+            }
     
 }

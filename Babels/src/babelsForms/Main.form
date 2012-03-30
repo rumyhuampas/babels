@@ -166,10 +166,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="panelImage1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="panelImage1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -184,35 +181,40 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="411" max="32767" attributes="0"/>
                   <Component id="panelImage2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="340" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="280" max="32767" attributes="0"/>
                   <Component id="panelImage2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="164" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
         <Container class="org.edisoncor.gui.panel.PanelImage" name="panelImage2">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="C:\Users\BGH\Documents\NetBeansProjects\trunk\AndroBabels\res\drawable-hdpi\title.png"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="113" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="100" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

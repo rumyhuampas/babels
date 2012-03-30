@@ -269,8 +269,7 @@ private void jmItemDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_jmItemDeleteActionPerformed
 
 private void jmItemEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItemEditActionPerformed
-     int row = this.tblCombos.getSelectedRow();
-     int idCombo=(Integer) this.tblCombos.getModel().getValueAt(row, 0);
+       Manager.EditCombo();
 }//GEN-LAST:event_jmItemEditActionPerformed
    
     /**

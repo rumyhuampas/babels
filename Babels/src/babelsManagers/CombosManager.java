@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import babels.Babels;
 import babelsObjects.Combo;
+import babelsObjects.FormsFactory;
 import babelsObjects.ProductsAdmin;
 import babelsRenderers.JLabelCell;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ public class CombosManager {
     private JTable TableCombos, TableProducts ;
     private TableModel ModelTableCombos, ModelTableProducts;
     private Boolean RefreshingTableCombos, RefreshingTableProducts;
+    public Integer IdCombo;
     
     public CombosManager(JTable tableCombos, JTable tableProducts){
         this.TableCombos=tableCombos;
@@ -80,7 +82,19 @@ public class CombosManager {
             Babels.mysql.Close();
         }
     }
-    
+     public void EditCombo(){
+        int row = this.TableCombos.getSelectedRow();
+        IdCombo=(Integer) this.TableCombos.getModel().getValueAt(row, 0);
+       Class[] classParam = new Class[3];
+        classParam[0] = java.awt.Frame.class;
+        classParam[1] = boolean.class;
+        classParam[2] = int.class;
+        Object[] objectParam = new Object[3];
+        objectParam[0] = new javax.swing.JFrame();
+        objectParam[1] = true;
+        objectParam[2] = IdCombo;
+        FormsFactory.GetDialogForm("babelsForms.NewCombo", true, classParam, objectParam);
+    }
   
     public void GetTableProducts() throws SQLException{
         int rowCombo = this.TableCombos.getSelectedRow();

@@ -24,6 +24,14 @@ public class pnlComboListener extends DropTargetAdapter  {
                 this, true, null);
         Manager= new NewComboManager(panel);
     }
+    public pnlComboListener(JPanel panel, ArrayList ListProducts) {
+        this.panel = panel;
+        this.prodList = ListProducts;
+        DropTarget dropTarget = new DropTarget(panel, DnDConstants.ACTION_COPY,
+                this, true, null);
+        Manager= new NewComboManager(panel);
+    }
+
 
     @Override
     public void drop(DropTargetDropEvent dtde) {
