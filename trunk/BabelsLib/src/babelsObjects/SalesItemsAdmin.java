@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SaleAdmin {
+public class SalesItemsAdmin {
     private static final String TABLENAME = "SalesItems";
     private static final String FIELD_ID = "Id";
     private static final String FIELD_IDSALE = "IdSale";
