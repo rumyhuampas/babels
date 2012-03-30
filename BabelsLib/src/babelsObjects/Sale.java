@@ -8,9 +8,16 @@ public class Sale {
     private final String TABLENAME = "Sales";
     private final String FIELD_ID = "Id";
     private final String FIELD_TOTAL = "Total";
+    private final String FIELD_TYPE = "Type";
+    
+    private final String TYPE_A = "A";
+    private final String TYPE_B = "B";
+    private final String TYPE_X = "X";
+    
     private Connection Conn;
     private int Id;
     public float Total;
+    public String Type;
     public ArrayList Items;
 
     public int getId() {
@@ -26,6 +33,7 @@ public class Sale {
     public void Clear() {
         this.Id = -1;
         this.Total = Float.parseFloat("0");
+        this.Type = TYPE_A;
         this.Items.clear();
     }
 
@@ -47,7 +55,8 @@ public class Sale {
             if (results.next()) {
                 this.Id = results.getInt(this.FIELD_ID);
                 this.Total = results.getFloat(this.FIELD_TOTAL);
-                this.Items = SaleAdmin.GetSaleItems(this.Conn, this);
+                this.Type = results.getString(this.FIELD_TYPE);
+                this.Items = SalesItemsAdmin.GetSaleItems(this.Conn, this);
                 return true;
             } else {
                 return false;
@@ -80,22 +89,22 @@ public class Sale {
 
     private boolean SaveSaleItems() throws SQLException {
         boolean result = false;
-        if (SaleAdmin.DeleteSaleItems(this.Conn, this) == true) {
+        if (SalesItemsAdmin.DeleteSaleItems(this.Conn, this) == true) {
             this.Conn.setAutoCommit(false);
             try {
                 PreparedStatement qry = null;
-                qry = this.Conn.prepareStatement(SaleAdmin.GetInsertSql());
+                qry = this.Conn.prepareStatement(SalesItemsAdmin.GetInsertSql());
                 for (int i = 0; i < this.Items.size(); i++) {
                     qry.setInt(1, this.Id);
-                    if (((Object[])this.Items.get(i))[0] == SaleAdmin.IT_COMBO){
+                    if (((Object[])this.Items.get(i))[0] == SalesItemsAdmin.IT_COMBO){
                         Combo combo = ((Combo) ((Object[])this.Items.get(i))[1]);
                         qry.setInt(2, combo.getId());
-                        qry.setString(3, SaleAdmin.IT_COMBO);
+                        qry.setString(3, SalesItemsAdmin.IT_COMBO);
                     }
                     else{
                         Product prod = ((Product) ((Object[])this.Items.get(i))[1]);
                         qry.setInt(2, prod.getId());
-                        qry.setString(3, SaleAdmin.IT_PROD);
+                        qry.setString(3, SalesItemsAdmin.IT_PROD);
                     }
                     qry.addBatch();
                 }
@@ -115,11 +124,12 @@ public class Sale {
 
     private boolean InsertSale() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
-                + this.FIELD_TOTAL
-                + ") VALUES (?)";
+                + this.FIELD_TOTAL + "," + this.FIELD_TYPE
+                + ") VALUES (?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setFloat(1, this.Total);
+            qry.setString(2, this.Type);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
@@ -135,12 +145,14 @@ public class Sale {
 
     private boolean UpdateSale() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
-                + this.FIELD_TOTAL + " = ? "
+                + this.FIELD_TOTAL + " = ?, "
+                + this.FIELD_TYPE + " = ? "
                 + "WHERE " + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setFloat(1, this.Total);
-            qry.setInt(2, this.Id);
+            qry.setString(2, this.Type);
+            qry.setInt(3, this.Id);
             return qry.executeUpdate() > 0;
         } finally {
             qry.close();
@@ -160,7 +172,7 @@ public class Sale {
     }
 
     private boolean DeleteSaleItems() throws SQLException {
-        PreparedStatement qry = this.Conn.prepareStatement(SaleAdmin.GetDeleteSaleItemsSql());
+        PreparedStatement qry = this.Conn.prepareStatement(SalesItemsAdmin.GetDeleteSaleItemsSql());
         try {
             qry.setInt(1, this.Id);
             try {
