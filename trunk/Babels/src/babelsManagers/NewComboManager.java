@@ -145,8 +145,11 @@ public class NewComboManager {
                 rowTable[0] = row[0];
                 rowTable[1] = row[1];
                 rowTable[2] = row[3];
-                rowTable[3] = row[4];
-                tm.addRow(rowTable);
+                if (row.length>4){
+                     rowTable[3] = row[4];
+                     
+                }
+               tm.addRow(rowTable);
             }
         } finally {
             Babels.mysql.Close();
