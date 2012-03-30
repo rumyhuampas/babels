@@ -3,7 +3,9 @@ package andro.babels.controllers;
 import andro.babels.Combos;
 import andro.babels.ItemDetails;
 import andro.babels.Products;
+import andro.babels.R;
 import andro.babels.wrappers.ExtraObject;
+import andro.babels.wrappers.dialogs.ComboDialog;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import andro.babels.wrappers.dialogs.LoadingDialog;
 import andro.babels.wrappers.dialogs.YesNoDialog;
@@ -58,38 +60,49 @@ public class Pos extends andro.babels.controllers.Base {
         view.GetDoneButton().setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                final YesNoDialog dialog = view.CreateYesNoMessage(Activity, "Guardar venta", "¿Esta seguro?");
-                dialog.SetCallback(new View.OnClickListener() {
+                final YesNoDialog saveDialog = view.CreateYesNoMessage(Activity, "Guardar venta", "¿Esta seguro?");
+                saveDialog.SetCallback(new View.OnClickListener() {
 
                     public void onClick(View v) {
                         if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
-                            final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
-                            loadDialog.show();
-                            Thread thread = new Thread(new Runnable() {
+                            final ComboDialog typeDialog = view.CreateComboMessage(Activity, "Tipo de venta", "Elija un tipo", R.array.types);
+                            typeDialog.SetCallback(new View.OnClickListener() {
 
-                                public void run() {
-                                    try {
-                                        andro.babels.controllers.Welcome.mysql.Open();
-                                        try {
-                                            model.SaveSale();
-                                            Message msg = SaveSaleHandler.obtainMessage(1, loadDialog);
-                                            SaveSaleHandler.sendMessage(msg);
+                                public void onClick(View v) {
+                                    final String type = typeDialog.GetSelectedValue();
+                                    if (!type.equals("")) {
+                                        final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
+                                        loadDialog.show();
+                                        Thread thread = new Thread(new Runnable() {
 
-                                        } finally {
-                                            andro.babels.controllers.Welcome.mysql.Close();
-                                        }
-                                    } catch (Exception ex) {
-                                        Message msg = ExceptionHandler.obtainMessage(1, ex);
-                                        ExceptionHandler.sendMessage(msg);
+                                            public void run() {
+                                                try {
+                                                    andro.babels.controllers.Welcome.mysql.Open();
+                                                    try {
+                                                        model.SaveSale(type);
+                                                        Message msg = SaveSaleHandler.obtainMessage(1, loadDialog);
+                                                        SaveSaleHandler.sendMessage(msg);
+
+                                                    } finally {
+                                                        andro.babels.controllers.Welcome.mysql.Close();
+                                                    }
+                                                } catch (Exception ex) {
+                                                    Message msg = ExceptionHandler.obtainMessage(1, ex);
+                                                    ExceptionHandler.sendMessage(msg);
+                                                }
+                                            }
+                                        });
+                                        thread.start();
                                     }
+                                    typeDialog.hide();
                                 }
                             });
-                            thread.start();
+                            typeDialog.show();
                         }
-                        dialog.hide();
+                        saveDialog.hide();
                     }
                 });
-                dialog.show();
+                saveDialog.show();
             }
         });
     }
