@@ -14,11 +14,11 @@ public class CombosProductsAdmin {
     
     public static ArrayList GetComboProducts(Connection conn, Combo combo) throws SQLException{
         String sql = "SELECT * FROM " + TABLENAME + " WHERE "
-                + FIELD_IDCOMBO + "=? ";
+                + FIELD_IDCOMBO + "=" + combo.getId();
         PreparedStatement qry = conn.prepareStatement(sql);
         try {
             ArrayList products = new ArrayList();
-            qry.setInt(1, combo.getId());
+     //       qry.setInt(1, combo.getId());
             ResultSet results = qry.executeQuery();
             try {
                 while (results.next()) {

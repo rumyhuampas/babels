@@ -50,6 +50,8 @@ public class Combo {
             qry.close();
         }
     }
+   
+    
 
     public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
