@@ -42,7 +42,7 @@ public class TransferableProductPanel extends JPanel implements Transferable {
        
          JLabel labelText=new JLabel(prod.Name);
          labelText.setBounds(0, 0, 60, 90);
-         labelText.setFont(new java.awt.Font("Tahoma", 1, 12));
+         labelText.setFont(new java.awt.Font("Tahoma", 1, 11));
          c1.weightx = 0.5;
          c1.fill = GridBagConstraints.HORIZONTAL;
          c1.gridx = 2;

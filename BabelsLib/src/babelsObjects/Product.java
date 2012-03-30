@@ -120,7 +120,7 @@ public class Product {
             qry.close();
         }
     }
-
+    
     public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
@@ -132,7 +132,8 @@ public class Product {
             qry.close();
         }
     }
-
+    
+     
     private boolean SelectProduct(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
