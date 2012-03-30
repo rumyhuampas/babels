@@ -41,9 +41,9 @@ public class Main extends javax.swing.JFrame {
         setTitle("Babels");
         setName("frmMain"); // NOI18N
 
-        panelImage1.setIcon(new javax.swing.ImageIcon("C:\\Users\\BGH\\Documents\\NetBeansProjects\\trunk\\AndroBabels\\res\\drawable-hdpi\\background.png")); // NOI18N
+        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/background.png"))); // NOI18N
 
-        panelImage2.setIcon(new javax.swing.ImageIcon("C:\\Users\\BGH\\Documents\\NetBeansProjects\\trunk\\AndroBabels\\res\\drawable-hdpi\\title.png")); // NOI18N
+        panelImage2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/title.png"))); // NOI18N
 
         javax.swing.GroupLayout panelImage2Layout = new javax.swing.GroupLayout(panelImage2);
         panelImage2.setLayout(panelImage2Layout);
