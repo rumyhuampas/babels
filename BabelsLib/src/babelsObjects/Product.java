@@ -37,7 +37,7 @@ public class Product {
     private Image Img;
     private File ImageFile;
     public boolean ImageChanged;
-    private InputStream ImageStream;
+    public InputStream ImageStream;
     public float Price;
 
     public int getId() {
