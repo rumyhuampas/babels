@@ -4,7 +4,7 @@ import andro.babels.R;
 import android.widget.TextView;
 import babelsObjects.Combo;
 import babelsObjects.Product;
-import babelsObjects.SaleAdmin;
+import babelsObjects.SalesItemsAdmin;
 
 public class ItemDetails extends andro.babels.views.Base {
 
@@ -19,7 +19,7 @@ public class ItemDetails extends andro.babels.views.Base {
         TextView txtName = (TextView) Activity.findViewById(R.id.id_txtName);
         TextView txtDesc = (TextView) Activity.findViewById(R.id.id_txtDesc);
         TextView txtPrice = (TextView) Activity.findViewById(R.id.id_txtPrice);
-        if (itemType.equals(SaleAdmin.IT_COMBO)) {
+        if (itemType.equals(SalesItemsAdmin.IT_COMBO)) {
             Combo combo = (Combo) item;
             txtTitle.setText(combo.Name);
             txtName.setText(combo.Name);

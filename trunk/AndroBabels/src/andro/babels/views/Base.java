@@ -1,6 +1,7 @@
 package andro.babels.views;
 
 import andro.babels.R;
+import andro.babels.wrappers.dialogs.ComboDialog;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import andro.babels.wrappers.dialogs.LoadingDialog;
 import andro.babels.wrappers.dialogs.YesNoDialog;
@@ -22,5 +23,9 @@ public class Base {
     
     public static andro.babels.wrappers.dialogs.LoadingDialog CreateLoadingMessage(Context context, String title, String msg){
         return new LoadingDialog(context, title, msg);
+    }
+    
+    public andro.babels.wrappers.dialogs.ComboDialog CreateComboMessage(Context context, String title, String prompt, int ArrayID){
+        return new ComboDialog(context, title, prompt, ArrayID);
     }
 }

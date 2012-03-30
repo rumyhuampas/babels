@@ -1,10 +1,7 @@
 package andro.babels.models;
 
 import android.os.Message;
-import babelsObjects.Combo;
-import babelsObjects.Product;
-import babelsObjects.Sale;
-import babelsObjects.SaleAdmin;
+import babelsObjects.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,7 @@ public class Pos extends andro.babels.models.Base {
         item.name = name;
         item.price = price;
         item.type = type;
-        if (item.type == SaleAdmin.IT_COMBO) {
+        if (item.type == SalesItemsAdmin.IT_COMBO) {
             combos.add(item);
         } else {
             products.add(item);
@@ -56,7 +53,7 @@ public class Pos extends andro.babels.models.Base {
 
     public void RemoveSaleItem(String type, int saleItemId) {
         List<SaleItem> list = combos;
-        if (type == SaleAdmin.IT_PROD) {
+        if (type == SalesItemsAdmin.IT_PROD) {
             list = products;
         }
         for (int i = 0; i < list.size(); i++) {
@@ -83,16 +80,17 @@ public class Pos extends andro.babels.models.Base {
         return total;
     }
 
-    public void SaveSale() throws SQLException {
+    public void SaveSale(String type) throws SQLException {
         Sale sale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
         sale.Total = GetSaleTotal();
+        sale.Type = type;
         List<SaleItem> items = GetGeneralList();
         SaleItem saleItem;
         for (int i=0; i<items.size(); i++){
             saleItem = items.get(i);
             Object[] item = new Object[2];
             item[0] = saleItem.type;
-            if (saleItem.type.equals(SaleAdmin.IT_COMBO)){
+            if (saleItem.type.equals(SalesItemsAdmin.IT_COMBO)){
                 Combo combo = new Combo(andro.babels.controllers.Welcome.mysql.Conn);
                 combo.Load(saleItem.id);
                 item[1] = combo;
