@@ -3,6 +3,7 @@ package andro.babels.views;
 import andro.babels.R;
 import andro.babels.models.Pos.SaleItem;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -105,6 +106,7 @@ public class Pos extends andro.babels.views.Base {
         ll.setLayoutParams(params);
         TextView saleValueView = new TextView(Activity);
         saleValueView.setTextSize(10);
+        saleValueView.setTextColor(Color.DKGRAY);
         saleValueView.setText(value);
         ll.addView(saleValueView);
         return ll;

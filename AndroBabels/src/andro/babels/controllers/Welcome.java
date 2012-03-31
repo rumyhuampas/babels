@@ -112,7 +112,7 @@ public class Welcome extends andro.babels.controllers.Base {
 
     public boolean HandleMenuSelection(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.mm_miSett:
+            case R.id.lm_miSett:
                 SettingsPressed = true;
                 andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, null);
                 return true;

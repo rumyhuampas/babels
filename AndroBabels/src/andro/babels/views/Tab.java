@@ -4,6 +4,7 @@ import andro.babels.R;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -84,6 +85,7 @@ public class Tab extends andro.babels.views.Base {
         TextView lblTitle = new TextView(Activity);
         lblTitle.setLines(1);
         lblTitle.setTextSize(10);
+        lblTitle.setTextColor(Color.DKGRAY);
         lblTitle.setGravity(Gravity.CENTER);
         lblTitle.setEllipsize(TextUtils.TruncateAt.END);
         lblTitle.setText(obj[1].toString());
@@ -94,6 +96,7 @@ public class Tab extends andro.babels.views.Base {
         TextView lblPrice = new TextView(Activity);
         lblPrice.setLines(1);
         lblPrice.setTextSize(10);
+        lblPrice.setTextColor(Color.DKGRAY);
         lblPrice.setGravity(Gravity.CENTER);
         lblPrice.setEllipsize(TextUtils.TruncateAt.END);
         lblPrice.setText("$ " + obj[3].toString());
