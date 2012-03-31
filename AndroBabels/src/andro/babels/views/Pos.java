@@ -124,22 +124,22 @@ public class Pos extends andro.babels.views.Base {
     }
     
     public int GetObjectId(View objView){
-        TextView itemId = (TextView)((LinearLayout)objView).getChildAt(1);
+        TextView itemId = (TextView)((LinearLayout)objView).getChildAt(0);
         return Integer.parseInt(itemId.getText().toString());
     }
     
     public String GetObjectName(View objView){
-        TextView itemName = (TextView)((LinearLayout)objView).getChildAt(2);
+        TextView itemName = (TextView)((LinearLayout)objView).getChildAt(1);
         return itemName.getText().toString();
     }
     
     public String GetObjectPrice(View objView){
-        TextView itemPrice = (TextView)((LinearLayout)objView).getChildAt(3);
+        TextView itemPrice = (TextView)((LinearLayout)objView).getChildAt(2);
         return itemPrice.getText().toString();
     }
     
     public String GetObjectType(View objView){
-        TextView itemType = (TextView)((LinearLayout)objView).getChildAt(4);
+        TextView itemType = (TextView)((LinearLayout)objView).getChildAt(3);
         return itemType.getText().toString();
     }
     
