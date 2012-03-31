@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -174,4 +175,17 @@ public class Pos extends andro.babels.controllers.Base {
             return true;
         }
     };
+    
+    public boolean HandleMenuSelection(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mm_miSett:
+                andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, null);
+                return true;
+            case R.id.mm_miCancelSale:
+                andro.babels.controllers.Base.RunActivity(Activity, andro.babels.CancelSale.class, null);
+                return true;
+            default:
+                return false;
+        }
+    }
 }

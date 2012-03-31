@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/mm_miSett"
+    <item android:id="@+id/lm_miSett"
           android:icon="@drawable/settings"
           android:title="Configuración"/>
-    <item android:id="@+id/mm_miCancelSale"
-          android:icon="@drawable/cancelsale"
-          android:title="Cancelar venta"/>
 </menu>

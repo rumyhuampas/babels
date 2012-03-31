@@ -52,11 +52,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Nombre:"
+                        android:textColor="#2E2E2E"
                     />
                     <TextView
                         android:id="@+id/id_txtName"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="#2E2E2E"
                     />
                 </LinearLayout>
                 <LinearLayout
@@ -70,11 +72,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Descripción:"
+                        android:textColor="#2E2E2E"
                     />
                     <TextView
                         android:id="@+id/id_txtDesc"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="#2E2E2E"
                     />
                 </LinearLayout>
                 <LinearLayout
@@ -88,11 +92,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Precio:"
+                        android:textColor="#2E2E2E"
                     />
                     <TextView
                         android:id="@+id/id_txtPrice"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="#2E2E2E"
                     />
                 </LinearLayout>
             </LinearLayout>
