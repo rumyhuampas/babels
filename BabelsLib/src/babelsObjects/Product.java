@@ -6,11 +6,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,35 +56,45 @@ public class Product {
     }
 
     public Image GetImage() {
+        if (this.ImageStream != null) {
+            try {
+                this.Img = ImageIO.read(this.ImageStream);
+                this.ImageStream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         return this.Img;
     }
 
     public ImageIcon GetImageIcon() {
+        if (this.Img == null) GetImage();
         if (this.Img != null) {
             return new ImageIcon(this.Img);
         } else {
             return null;
         }
     }
-    public ImageIcon GetImageIconResized(int width, int height){
 
+    public ImageIcon GetImageIconResized(int width, int height) {
+        if (this.Img == null) GetImage();
         if (this.Img != null) {
-            Image image2 =this.Img;
+            Image image2 = this.Img;
             ImageManagement gImg = new ImageManagement(image2);
             image2 = gImg.getImage();
-            BufferedImage tnsImg = new BufferedImage(width ,height, BufferedImage.TYPE_INT_RGB); 
-            Graphics2D graphics2D = tnsImg.createGraphics(); 
-            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
+            BufferedImage tnsImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            Graphics2D graphics2D = tnsImg.createGraphics();
+            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             graphics2D.drawImage(image2, 0, 0, width, height, null);
-          //  Icon icon = new ImageIcon(tnsImg);
+            //  Icon icon = new ImageIcon(tnsImg);
 
-            
+
             return new ImageIcon(tnsImg);
         } else {
             return null;
         }
 
-}
+    }
 
     public void ClearImage() {
         this.Img = null;
@@ -120,7 +126,7 @@ public class Product {
             qry.close();
         }
     }
-    
+
     public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
@@ -132,8 +138,7 @@ public class Product {
             qry.close();
         }
     }
-    
-     
+
     private boolean SelectProduct(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
@@ -142,14 +147,6 @@ public class Product {
                 this.Name = results.getString(this.FIELD_NAME);
                 this.Desc = results.getString(this.FIELD_DESC);
                 this.ImageStream = results.getBinaryStream(this.FIELD_IMAGE);
-                if (this.ImageStream != null) {
-                    try {
-                        this.Img = ImageIO.read(this.ImageStream);
-                        this.ImageStream.close();
-                    } catch (IOException ex) {
-                        Logger.getLogger(Product.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
                 this.Price = results.getFloat(this.FIELD_PRICE);
                 return true;
             } else {
@@ -207,44 +204,43 @@ public class Product {
                 + this.FIELD_IMAGE + " = ?,"
                 + this.FIELD_PRICE + " = ?"
                 + "WHERE " + this.FIELD_ID + " = ?";
-        
+
         String sql2 = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_NAME + " = ?,"
                 + this.FIELD_DESC + " = ?,"
                 + this.FIELD_PRICE + " = ?"
                 + "WHERE " + this.FIELD_ID + " = ?";
-        if (ImageChanged==true){
-             PreparedStatement qry = this.Conn.prepareStatement(sql);
-        try {
-            qry.setString(1, this.Name);
-            qry.setString(2, this.Desc);
-            if (this.ImageFile != null) {
-          // DE DONDE VIENE IMAGEFILE (EL PATH)SI NO ESTA EN LA BASE DE DATOS Y EL MODIFICAR OBTIENE LOS DATOS D AHI
-                qry.setBinaryStream(3, this.ImageStream, (int) (this.ImageFile.length()));
-            } else {
-                qry.setBinaryStream(3, null);
+        if (ImageChanged == true) {
+            PreparedStatement qry = this.Conn.prepareStatement(sql);
+            try {
+                qry.setString(1, this.Name);
+                qry.setString(2, this.Desc);
+                if (this.ImageFile != null) {
+                    // DE DONDE VIENE IMAGEFILE (EL PATH)SI NO ESTA EN LA BASE DE DATOS Y EL MODIFICAR OBTIENE LOS DATOS D AHI
+                    qry.setBinaryStream(3, this.ImageStream, (int) (this.ImageFile.length()));
+                } else {
+                    qry.setBinaryStream(3, null);
+                }
+                qry.setFloat(4, this.Price);
+                qry.setInt(5, this.Id);
+                return qry.executeUpdate() > 0;
+            } finally {
+                qry.close();
             }
-            qry.setFloat(4, this.Price);
-            qry.setInt(5, this.Id);
-            return qry.executeUpdate() > 0;
-        } finally {
-            qry.close();
-       }
-     }
-        else{
-             PreparedStatement qry = this.Conn.prepareStatement(sql2);
-        try {
-            qry.setString(1, this.Name);
-            qry.setString(2, this.Desc);
-          
-            qry.setFloat(3, this.Price);
-            qry.setInt(4, this.Id);
-            return qry.executeUpdate() > 0;
-        } finally {
-            qry.close();
+        } else {
+            PreparedStatement qry = this.Conn.prepareStatement(sql2);
+            try {
+                qry.setString(1, this.Name);
+                qry.setString(2, this.Desc);
+
+                qry.setFloat(3, this.Price);
+                qry.setInt(4, this.Id);
+                return qry.executeUpdate() > 0;
+            } finally {
+                qry.close();
+            }
         }
-        }
-       
+
     }
 
     public boolean Exists() throws SQLException {
