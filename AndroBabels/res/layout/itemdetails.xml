@@ -9,7 +9,6 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/tabbackground"
         android:gravity="center"
         android:padding="5dp"
     >
@@ -23,7 +22,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#222222"
+            android:textColor="#FFF"
             />
     </LinearLayout>
     <LinearLayout
@@ -52,13 +51,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Nombre:"
-                        android:textColor="#2E2E2E"
+                        android:textColor="#FFF"
                     />
                     <TextView
                         android:id="@+id/id_txtName"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#2E2E2E"
+                        android:textColor="#FFF"
                     />
                 </LinearLayout>
                 <LinearLayout
@@ -72,13 +71,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Descripción:"
-                        android:textColor="#2E2E2E"
+                        android:textColor="#FFF"
                     />
                     <TextView
                         android:id="@+id/id_txtDesc"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#2E2E2E"
+                        android:textColor="#FFF"
                     />
                 </LinearLayout>
                 <LinearLayout
@@ -92,13 +91,13 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Precio:"
-                        android:textColor="#2E2E2E"
+                        android:textColor="#FFF"
                     />
                     <TextView
                         android:id="@+id/id_txtPrice"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#2E2E2E"
+                        android:textColor="#FFF"
                     />
                 </LinearLayout>
             </LinearLayout>

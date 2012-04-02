@@ -5,6 +5,7 @@ import andro.babels.ItemDetails;
 import andro.babels.Products;
 import andro.babels.R;
 import andro.babels.wrappers.ExtraObject;
+import andro.babels.wrappers.SaleList;
 import andro.babels.wrappers.dialogs.ComboDialog;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import andro.babels.wrappers.dialogs.LoadingDialog;
@@ -25,6 +26,7 @@ public class Pos extends andro.babels.controllers.Base {
     private andro.babels.Pos Activity;
     private andro.babels.views.Pos view;
     private andro.babels.models.Pos model;
+    private SaleList saleList;
 
     public Pos(andro.babels.Pos activity) {
         Activity = activity;
@@ -32,7 +34,8 @@ public class Pos extends andro.babels.controllers.Base {
         model = new andro.babels.models.Pos();
         CreateTabs();
         SetListeners();
-        view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
+        saleList = new SaleList();
+        view.RefreshSaleList(saleList, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
     }
 
     private void CreateTabs() {
@@ -80,7 +83,7 @@ public class Pos extends andro.babels.controllers.Base {
                                                 try {
                                                     andro.babels.controllers.Welcome.mysql.Open();
                                                     try {
-                                                        model.SaveSale(type);
+                                                        model.SaveSale(saleList, type);
                                                         Message msg = SaveSaleHandler.obtainMessage(1, loadDialog);
                                                         SaveSaleHandler.sendMessage(msg);
 
@@ -114,9 +117,9 @@ public class Pos extends andro.babels.controllers.Base {
             super.handleMessage(msg);
             LoadingDialog loadDialog = (LoadingDialog) msg.obj;
             loadDialog.hide();
-            model.ClearSalelist();
-            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
-            view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
+            saleList.ClearSalelist();
+            view.RefreshSaleList(saleList, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
+            view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()));
         }
     };
     private Handler ExceptionHandler = new Handler() {
@@ -132,11 +135,11 @@ public class Pos extends andro.babels.controllers.Base {
     public OnClickListener ObjectOnClickHandler = new OnClickListener() {
 
         public void onClick(View objView) {
-            model.AddSaleItem(view.GetObjectId(objView), view.GetObjectName(objView),
+            saleList.AddSaleItem(view.GetObjectId(objView), view.GetObjectName(objView),
                     Float.parseFloat(view.GetObjectPrice(objView).replace("$", "")),
                     view.GetObjectType(objView));
-            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
-            view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
+            view.RefreshSaleList(saleList, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
+            view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()));
         }
     };
     public OnLongClickListener ObjectOnLongClickHandler = new OnLongClickListener() {
@@ -152,9 +155,9 @@ public class Pos extends andro.babels.controllers.Base {
     public OnClickListener SaleItemOnClickHandler = new OnClickListener() {
 
         public void onClick(View saleItemView) {
-            model.RemoveSaleItem(view.GetSaleItemType(saleItemView), view.GetSaleItemId(saleItemView));
-            view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
-            view.SetSaleTotal(String.valueOf(model.GetSaleTotal()));
+            saleList.RemoveSaleItem(view.GetSaleItemType(saleItemView), view.GetSaleItemId(saleItemView));
+            view.RefreshSaleList(saleList, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
+            view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()));
         }
     };
     public OnLongClickListener SaleItemOnLongClickHandler = new OnLongClickListener() {
@@ -165,8 +168,8 @@ public class Pos extends andro.babels.controllers.Base {
 
                 public void onClick(View v) {
                     if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
-                        model.ClearSalelist();
-                        view.RefreshSaleList(model.GetGeneralList(), SaleItemOnClickHandler, SaleItemOnLongClickHandler);
+                        saleList.ClearSalelist();
+                        view.RefreshSaleList(saleList, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
                     }
                     dialog.hide();
                 }
@@ -179,7 +182,9 @@ public class Pos extends andro.babels.controllers.Base {
     public boolean HandleMenuSelection(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mm_miSett:
-                andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, null);
+                Bundle extras = new Bundle();
+                extras.putString("activity", "POS");
+                andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, extras);
                 return true;
             case R.id.mm_miCancelSale:
                 andro.babels.controllers.Base.RunActivity(Activity, andro.babels.CancelSale.class, null);
