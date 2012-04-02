@@ -1,20 +1,17 @@
 package andro.babels.views;
 
 import andro.babels.R;
-import andro.babels.models.Pos.SaleItem;
+import andro.babels.wrappers.SaleList;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import java.util.List;
 
 public class Pos extends andro.babels.views.Base {
 
@@ -51,13 +48,11 @@ public class Pos extends andro.babels.views.Base {
         return (Button)Activity.findViewById(R.id.pos_btnDone);
     }
     
-    public void RefreshSaleList(List<SaleItem> saleList, OnClickListener SaleItemOnClickHandler, OnLongClickListener SaleItemOnLongClickHandler){
+    public void RefreshSaleList(SaleList saleList, OnClickListener SaleItemOnClickHandler, OnLongClickListener SaleItemOnLongClickHandler){
         LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
         llMain.removeAllViews();
-        if (saleList.size() > 0){
-            for (int i=0;i<saleList.size();i++){
-                AddSaleItem(saleList.get(i), i+1, SaleItemOnClickHandler, SaleItemOnLongClickHandler); 
-            }
+        if (saleList.GetGeneralList().size() > 0){
+            saleList.DrawSaleList(Activity, llMain, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
             SetDoneButtonEnabled(true);
             SetSaleListVisibility(LinearLayout.VISIBLE);
         }
@@ -73,51 +68,6 @@ public class Pos extends andro.babels.views.Base {
     
     private void SetSaleListVisibility(int value){
         ((LinearLayout)Activity.findViewById(R.id.pos_saleList)).setVisibility(value);
-    }
-    
-    private void AddSaleItem(SaleItem item, int number, OnClickListener SaleItemOnClickHandler, OnLongClickListener SaleItemOnLongClickHandler){
-        LinearLayout ll = new LinearLayout(Activity);
-        ll.setOrientation(LinearLayout.HORIZONTAL);
-        ll.addView(CreateSaleId(item));
-        ll.addView(CreateSaleValueView(String.valueOf(number) + ". ", false));
-        ll.addView(CreateSaleValueView(item.name, true));
-        ll.addView(CreateSaleValueView("$" + String.valueOf(item.price), false));
-        ll.addView(CreateSaleType(item));
-        ll.setOnClickListener(SaleItemOnClickHandler);
-        ll.setOnLongClickListener(SaleItemOnLongClickHandler);
-        LinearLayout llMain = (LinearLayout)Activity.findViewById(R.id.pos_saleList);
-        llMain.addView(ll);
-    }
-    
-    private TextView CreateSaleId(SaleItem item){
-        TextView saleId = new TextView(Activity);
-        saleId.setText(String.valueOf(item.id));
-        //saleId.setHeight(0);
-        saleId.setWidth(0);
-        return saleId;
-    }
-    
-    private LinearLayout CreateSaleValueView(String value, boolean fillParent){
-        LinearLayout ll = new LinearLayout(Activity);
-        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
-        if (fillParent == true){
-            params.weight = 1;
-        }
-        ll.setLayoutParams(params);
-        TextView saleValueView = new TextView(Activity);
-        saleValueView.setTextSize(10);
-        saleValueView.setTextColor(Color.DKGRAY);
-        saleValueView.setText(value);
-        ll.addView(saleValueView);
-        return ll;
-    }
-    
-    private TextView CreateSaleType(SaleItem item){
-        TextView saleType = new TextView(Activity);
-        saleType.setText(item.type);
-        saleType.setHeight(0);
-        saleType.setWidth(0);
-        return saleType;
     }
     
     public void SetSaleTotal(String value){

@@ -4,10 +4,13 @@ import andro.babels.R;
 import andro.babels.wrappers.BabelsSettings;
 import andro.babels.wrappers.ExtraObject;
 import andro.babels.wrappers.dialogs.ImageDialog;
+import andro.babels.wrappers.dialogs.YesNoDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import babelsObjects.CombosAdmin;
 import babelsObjects.MySQL;
 import babelsObjects.ProductsAdmin;
@@ -103,8 +106,21 @@ public class Welcome extends andro.babels.controllers.Base {
         public void handleMessage(Message msg) {
             if (SettingsPressed == false) {
                 super.handleMessage(msg);
-                ImageDialog dialog = view.CreateErrorMessage(Activity, ((SQLException) msg.obj).getMessage());
-                dialog.SetCallback(andro.babels.wrappers.dialogs.Base.closeAppViewCallback);
+                YesNoDialog dialog = view.CreateYesNoMessage(Activity, "Error", "Un problema ocurrió al iniciar el programa.\n\ns "
+                        + ((SQLException) msg.obj).getMessage()
+                        + "\n\n¿Desea ir a la ventana de configuración?");
+                dialog.SetCallback(new View.OnClickListener() {
+
+                    public void onClick(View v) {
+                        if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
+                            Bundle extras = new Bundle();
+                            extras.putString("activity", "WELCOME");
+                            andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, extras);
+                        } else {
+                            Activity.finish();
+                        }
+                    }
+                });
                 dialog.show();
             }
         }
@@ -114,7 +130,9 @@ public class Welcome extends andro.babels.controllers.Base {
         switch (item.getItemId()) {
             case R.id.lm_miSett:
                 SettingsPressed = true;
-                andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, null);
+                Bundle extras = new Bundle();
+                extras.putString("activity", "WELCOME");
+                andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Settings.class, extras);
                 return true;
             default:
                 return false;
