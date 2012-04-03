@@ -1,12 +1,6 @@
 package andro.babels.controllers;
 
-import andro.babels.wrappers.dialogs.YesNoDialog;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.Button;
 
 public class Settings extends andro.babels.controllers.Base {
 
