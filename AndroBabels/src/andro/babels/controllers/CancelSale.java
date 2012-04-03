@@ -99,7 +99,7 @@ public class CancelSale extends andro.babels.controllers.Base {
                                     try {
                                         andro.babels.controllers.Welcome.mysql.Open();
                                         try {
-                                            //model.SaveSale(saleList, type);
+                                            model.CancelSale();
                                             Message msg = CancelSaleHandler.obtainMessage(1, loadDialog);
                                             CancelSaleHandler.sendMessage(msg);
 
