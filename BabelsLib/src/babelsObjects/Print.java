@@ -89,11 +89,10 @@ public class Print {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_IDSALE + "," + this.FIELD_DATEPOSTED + ","
                 + this.FIELD_STATUS
-                + ") VALUES (?,?,?)";
+                + ") VALUES (?,NOW(),?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setInt(1, this.Sale.getId());
-            qry.setDate(2, (Date) DateUtils.now());
             qry.setString(3, this.Status);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();

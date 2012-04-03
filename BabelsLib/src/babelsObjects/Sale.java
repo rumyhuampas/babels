@@ -9,6 +9,7 @@ public class Sale {
     private final String FIELD_ID = "Id";
     private final String FIELD_TOTAL = "Total";
     private final String FIELD_TYPE = "Type";
+    private final String FIELD_DATEPOSTED = "DatePosted";
     
     private final String TYPE_A = "A";
     private final String TYPE_B = "B";
@@ -19,9 +20,14 @@ public class Sale {
     public float Total;
     public String Type;
     public ArrayList Items;
+    private Date SaleDate;
 
     public int getId() {
         return this.Id;
+    }
+    
+    public Date getDate(){
+        return SaleDate;
     }
 
     public Sale(Connection conn) throws SQLException {
@@ -39,7 +45,7 @@ public class Sale {
 
     public boolean Load(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_ID + " = ?";
+                + this.FIELD_ID + " = ? AND " + this.FIELD_TOTAL + " > 0";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setInt(1, id);
@@ -57,6 +63,7 @@ public class Sale {
                 this.Total = results.getFloat(this.FIELD_TOTAL);
                 this.Type = results.getString(this.FIELD_TYPE);
                 this.Items = SalesItemsAdmin.GetSaleItems(this.Conn, this);
+                this.SaleDate = results.getDate(FIELD_DATEPOSTED);
                 return true;
             } else {
                 return false;
@@ -124,8 +131,9 @@ public class Sale {
 
     private boolean InsertSale() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
-                + this.FIELD_TOTAL + "," + this.FIELD_TYPE
-                + ") VALUES (?,?)";
+                + this.FIELD_TOTAL + "," + this.FIELD_TYPE + ","
+                + this.FIELD_DATEPOSTED
+                + ") VALUES (?,?,NOW())";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setFloat(1, this.Total);
