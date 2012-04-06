@@ -10,12 +10,15 @@ public class CancelSale extends andro.babels.models.Base {
 
     public void Search(SaleList saleList, String search) throws SQLException {
         saleList.ClearSalelist();
-        if (CurrentSale == null) {
-            CurrentSale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
+
+        Cancelation cancel = new Cancelation(andro.babels.controllers.Welcome.mysql.Conn);
+        cancel.LoadByCanceled(Integer.parseInt(search));
+        if (cancel.getId() != -1) {
+            saleList.AddSaleItem(cancel.getId(), "CANCELATION", cancel.CancelerSale.Total, "CANCELATION");
         }
-        else{
-            CurrentSale.Clear();
-        }
+
+        CurrentSale = null;
+        CurrentSale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
         if (CurrentSale.Load(Integer.parseInt(search))) {
             for (int i = 0; i < CurrentSale.Items.size(); i++) {
                 if (((Object[]) CurrentSale.Items.get(i))[0] == SalesItemsAdmin.IT_COMBO) {
@@ -28,8 +31,8 @@ public class CancelSale extends andro.babels.models.Base {
             }
         }
     }
-    
-    public void CancelSale() throws SQLException{
+
+    public void CancelSale() throws SQLException {
         Sale cancelSale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
         cancelSale.Total = -CurrentSale.Total;
         cancelSale.Type = CurrentSale.Type;

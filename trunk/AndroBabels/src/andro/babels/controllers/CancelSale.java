@@ -74,11 +74,15 @@ public class CancelSale extends andro.babels.controllers.Base {
             super.handleMessage(msg);
             LoadingDialog loadDialog = (LoadingDialog) msg.obj;
             loadDialog.hide();
-            if(saleList.GetGeneralList().size() == 0){
-                view.ShowToast(Activity, "La búsqueda no encontró ningun resultado");
+            if (saleList.GetCancelationList().size() == 0) {
+                if (saleList.GetGeneralList().size() == 0) {
+                    view.ShowToast(Activity, "La búsqueda no encontró ningun resultado");
+                }
+                view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()));
+            } else {
+                view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()) + " - La venta ya fue cancelada");
             }
             view.RefreshSaleList(saleList);
-            view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()));
         }
     };
 

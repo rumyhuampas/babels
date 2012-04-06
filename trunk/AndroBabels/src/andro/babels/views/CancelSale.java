@@ -31,8 +31,11 @@ public class CancelSale extends andro.babels.views.Base {
         llMain.removeAllViews();
         if (saleList.GetGeneralList().size() > 0){
             saleList.DrawSaleList(Activity, llMain, null, null);
-            SetCancelButtonEnabled(true);
             SetSaleListVisibility(LinearLayout.VISIBLE);
+            SetCancelButtonEnabled(true);
+            if(saleList.GetCancelationList().size() > 0){
+                SetCancelButtonEnabled(false);
+            }
         }
         else{
             SetCancelButtonEnabled(false);
