@@ -21,6 +21,7 @@ public class SaleList {
     }
     private List<SaleItem> combos;
     private List<SaleItem> products;
+    private List<SaleItem> cancelations;
 
     public List<SaleItem> GetComboList() {
         return combos;
@@ -28,6 +29,10 @@ public class SaleList {
 
     public List<SaleItem> GetProductList() {
         return products;
+    }
+    
+    public List<SaleItem> GetCancelationList() {
+        return cancelations;
     }
 
     public List GetGeneralList() {
@@ -40,6 +45,7 @@ public class SaleList {
     public SaleList() {
         combos = new ArrayList();
         products = new ArrayList();
+        cancelations = new ArrayList();
     }
 
     public void AddSaleItem(int id, String name, float price, String type) {
@@ -51,7 +57,12 @@ public class SaleList {
         if (item.type.equals(SalesItemsAdmin.IT_COMBO)) {
             combos.add(item);
         } else {
-            products.add(item);
+            if (item.type.equals(SalesItemsAdmin.IT_PROD)) {
+                products.add(item);
+            }
+            else{
+                cancelations.add(item);
+            }
         }
     }
 
@@ -59,6 +70,9 @@ public class SaleList {
         List<SaleItem> list = combos;
         if (type.equals(SalesItemsAdmin.IT_PROD)) {
             list = products;
+        }
+        else{
+            list = cancelations;
         }
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).id == saleItemId) {
@@ -71,6 +85,7 @@ public class SaleList {
     public void ClearSalelist() {
         combos.clear();
         products.clear();
+        cancelations.clear();
     }
 
     public float GetSaleTotal() {
