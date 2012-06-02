@@ -3,11 +3,7 @@ package babelsManagers;
 import babels.Babels;
 import babelsComponents.TransferableProductPanel;
 import babelsInterfaces.IBabelsDialog;
-import babelsListeners.KeyListenerType;
-import babelsListeners.ProdPnlMouseListener;
-import babelsListeners.pnlComboListener;
-import babelsListeners.tblProductsListener;
-import babelsListeners.txtFieldListener;
+import babelsListeners.*;
 import babelsObjects.Combo;
 import babelsObjects.CombosProductsAdmin;
 import babelsObjects.FormsFactory;
@@ -50,9 +46,10 @@ public class NewComboManager {
         this.ComboPanel = PnlCombo;
     }
 
-    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, IBabelsDialog dialog) {
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, JTextArea txtaDesc, IBabelsDialog dialog) {
         txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
         txtPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+        txtaDesc.addKeyListener(new txtAreaListener(txtaDesc));
     }
 
     public boolean CheckFields(JTextField txtName, JTextField txtPrice) {

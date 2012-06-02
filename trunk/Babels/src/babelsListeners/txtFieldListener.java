@@ -24,7 +24,8 @@ public class txtFieldListener implements KeyListener {
             if (this.Type == KeyListenerType.NUMBERS_ONLY) {
                 if (!((c >= '0') && (c <= '9')
                         || (c == KeyEvent.VK_BACK_SPACE)
-                        || (c == KeyEvent.VK_DELETE))) {
+                        || (c == KeyEvent.VK_DELETE)
+                        || (c == KeyEvent.VK_PERIOD))) {
                     Toolkit.getDefaultToolkit().beep();
                     e.consume();
                 }

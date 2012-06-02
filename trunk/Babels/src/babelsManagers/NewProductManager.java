@@ -1,27 +1,16 @@
 package babelsManagers;
 
 import babels.Babels;
-import babelsComponents.ImageManagement;
 import babelsFilters.ImagesFilter;
 import babelsForms.NewProduct;
 import babelsInterfaces.IBabelsDialog;
 import babelsListeners.KeyListenerType;
+import babelsListeners.txtAreaListener;
 import babelsListeners.txtFieldListener;
 import babelsObjects.Product;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.SQLException;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class NewProductManager {
 
@@ -37,9 +26,10 @@ public class NewProductManager {
         }
     }
 
-    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, IBabelsDialog dialog) {
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, JTextArea txtaDesc, IBabelsDialog dialog) {
         txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
         txtPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+        txtaDesc.addKeyListener(new txtAreaListener(txtaDesc));
     }
 
     public boolean CheckFields(JTextField txtName, JTextField txtPrice) {
