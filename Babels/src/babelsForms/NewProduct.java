@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
@@ -25,14 +26,14 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new NewProductManager();
-        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this);
     }
 
     public NewProduct(java.awt.Frame parent, boolean modal, int prodId) {
         super(parent, modal);
         initComponents();
         this.Manager = new NewProductManager();
-        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this);
         if (prodId != -1) {
             try {
                 this.ProdId = prodId;
@@ -74,7 +75,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         setResizable(false);
 
         lblImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImg.setText("Click para cargar imágen");
+        lblImg.setText("<html>Click para cargar imágen<br>\n(no superiores a 1 MB)\n</html>");
         lblImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblImg.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -190,9 +191,26 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
             try {
                 if (this.Manager.SaveProduct(this.ProdId, this.txtName.getText(), this.txtaDesc.getText(),
                         this.txtPrice.getText(), this.lblImg.getToolTipText(), this.ImageChanged) == true) {
-                    this.dispose();
+                    if(JOptionPane.showConfirmDialog(this, "Desea agregar otro producto?", 
+                            "Nuevo Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                        this.txtName.setText("");
+                        this.txtPrice.setText("");
+                        this.txtaDesc.setText("");
+                        this.lblImg.setText("<html>Click para cargar imágen<br>(no superiores a 1 MB)</html>");
+                        this.lblImg.setIcon(null);
+                        this.lblImg.setToolTipText("");
+                        this.ImageChanged = false;
+                    }
+                    else{
+                        this.dispose();
+                    }
                 }
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

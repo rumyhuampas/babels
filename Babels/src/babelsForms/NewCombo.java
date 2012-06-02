@@ -19,13 +19,13 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new NewComboManager(this.tblProducts, this.pnlCombo);
-        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this);
     }
     public NewCombo(java.awt.Frame parent, boolean modal, int IdCombo) {
         super(parent, modal);
         initComponents();
         this.Manager = new NewComboManager(this.tblProducts, this.pnlCombo);
-        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this);
          if (IdCombo != -1) {
             try {
                 this.ComboId = IdCombo;
