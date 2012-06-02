@@ -21,7 +21,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
     private NewProductManager Manager;
     private int ProdId = -1;
     private boolean ImageChanged = false;
-    
+
     public NewProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -166,40 +166,43 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
     private void lblImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImgMouseClicked
         File image = this.Manager.ChooseProductImage(this);
         if (image != null) {
-       
+
             Image image2 = Toolkit.getDefaultToolkit().getImage(image.getPath());
             ImageManagement gImg = new ImageManagement(image2);
             image2 = gImg.getImage();
-            BufferedImage tnsImg = new BufferedImage(lblImg.getWidth(),lblImg.getHeight(), BufferedImage.TYPE_INT_RGB); 
-            Graphics2D graphics2D = tnsImg.createGraphics(); 
-            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
-            graphics2D.drawImage(image2, 0, 0,lblImg.getWidth(),lblImg.getHeight(), null);
+            BufferedImage tnsImg = new BufferedImage(lblImg.getWidth(), lblImg.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D graphics2D = tnsImg.createGraphics();
+            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            graphics2D.drawImage(image2, 0, 0, lblImg.getWidth(), lblImg.getHeight(), null);
             Icon icon = new ImageIcon(tnsImg);
             if (icon != null) {
                 this.lblImg.setText("");
                 this.lblImg.setIcon(icon);
                 this.lblImg.setToolTipText(image.getPath());
-                
-               this.ImageChanged = true;
+
+                this.ImageChanged = true;
             }
         }
     }//GEN-LAST:event_lblImgMouseClicked
-  
-    
+
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         if (this.Manager.CheckFields(this.txtName, this.txtPrice) == true) {
             try {
                 if (this.Manager.SaveProduct(this.ProdId, this.txtName.getText(), this.txtaDesc.getText(),
                         this.txtPrice.getText(), this.lblImg.getToolTipText(), this.ImageChanged) == true) {
-                    if(JOptionPane.showConfirmDialog(this, "Desea agregar otro producto?", 
-                            "Nuevo Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                        this.txtName.setText("");
-                        this.txtPrice.setText("");
-                        this.txtaDesc.setText("");
-                        this.lblImg.setText("<html>Click para cargar imágen<br>(no superiores a 1 MB)</html>");
-                        this.lblImg.setIcon(null);
-                        this.lblImg.setToolTipText("");
-                        this.ImageChanged = false;
+                    if (ProdId == -1) {
+                        if (JOptionPane.showConfirmDialog(this, "Desea agregar otro producto?",
+                                "Nuevo Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                            this.txtName.setText("");
+                            this.txtPrice.setText("");
+                            this.txtaDesc.setText("");
+                            this.lblImg.setText("<html>Click para cargar imágen<br>(no superiores a 1 MB)</html>");
+                            this.lblImg.setIcon(null);
+                            this.lblImg.setToolTipText("");
+                            this.ImageChanged = false;
+                        } else {
+                            this.dispose();
+                        }
                     }
                     else{
                         this.dispose();
@@ -208,8 +211,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }

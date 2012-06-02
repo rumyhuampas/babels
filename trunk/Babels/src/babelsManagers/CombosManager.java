@@ -17,43 +17,45 @@ import babelsObjects.FormsFactory;
 import babelsObjects.ProductsAdmin;
 import babelsRenderers.JLabelCell;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author BGH
  */
-    
-
 public class CombosManager {
-    
-    private JTable TableCombos, TableProducts ;
+
+    private JTable TableCombos, TableProducts;
     private TableModel ModelTableCombos, ModelTableProducts;
     private Boolean RefreshingTableCombos, RefreshingTableProducts;
     public Integer IdCombo;
-    
-    public CombosManager(JTable tableCombos, JTable tableProducts){
-        this.TableCombos=tableCombos;
-        this.ModelTableCombos= TableCombos.getModel();
-        this.TableProducts=tableProducts; 
-        this.ModelTableProducts= TableProducts.getModel();
+
+    public CombosManager(JTable tableCombos, JTable tableProducts) {
+        this.TableCombos = tableCombos;
+        this.ModelTableCombos = TableCombos.getModel();
+        this.TableProducts = tableProducts;
+        this.ModelTableProducts = TableProducts.getModel();
         JLabelCell labelCell = new JLabelCell();
         this.TableProducts.getColumnModel().getColumn(3).setCellRenderer(labelCell);
         this.TableProducts.setRowHeight(50);
     }
-     public void RefreshTableCombos() throws SQLException {
+
+    public void RefreshTableCombos() throws SQLException {
         this.RefreshingTableCombos = true;
         ClearTableCombos();
         LoadCombos();
         this.RefreshingTableCombos = false;
     }
-     
+
     private void ClearTableCombos() {
         DefaultTableModel tm = (DefaultTableModel) this.ModelTableCombos;
         tm.getDataVector().removeAllElements();
     }
-    private void ClearTableProducts(){
+
+    private void ClearTableProducts() {
         DefaultTableModel tm = (DefaultTableModel) this.ModelTableProducts;
         tm.getDataVector().removeAllElements();
     }
+
     private void LoadCombos() throws SQLException {
         Babels.mysql.Open();
         try {
@@ -68,7 +70,8 @@ public class CombosManager {
             Babels.mysql.Close();
         }
     }
-     public void DeleteCombo() throws SQLException {
+
+    public void DeleteCombo() throws SQLException {
         Babels.mysql.Open();
         try {
             int row = this.TableCombos.getSelectedRow();
@@ -82,10 +85,11 @@ public class CombosManager {
             Babels.mysql.Close();
         }
     }
-     public void EditCombo(){
+
+    public void EditCombo() {
         int row = this.TableCombos.getSelectedRow();
-        IdCombo=(Integer) this.TableCombos.getModel().getValueAt(row, 0);
-       Class[] classParam = new Class[3];
+        IdCombo = (Integer) this.TableCombos.getModel().getValueAt(row, 0);
+        Class[] classParam = new Class[3];
         classParam[0] = java.awt.Frame.class;
         classParam[1] = boolean.class;
         classParam[2] = int.class;
@@ -95,8 +99,8 @@ public class CombosManager {
         objectParam[2] = IdCombo;
         FormsFactory.GetDialogForm("babelsForms.NewCombo", true, classParam, objectParam);
     }
-  
-    public void GetTableProducts() throws SQLException{
+
+    public void GetTableProducts() throws SQLException {
         int rowCombo = this.TableCombos.getSelectedRow();
         int ComboId = (Integer) this.ModelTableCombos.getValueAt(rowCombo, 0);
         try {
@@ -106,7 +110,7 @@ public class CombosManager {
         }
         try {
             this.ClearTableProducts();
-            Object[] rows =ProductsAdmin.LoadProductDetailWithImage(ComboId, Babels.mysql.Conn);
+            Object[] rows = ProductsAdmin.LoadProductDetailWithImage(ComboId, Babels.mysql.Conn);
             Object[] row = null;
             DefaultTableModel tm = (DefaultTableModel) this.ModelTableProducts;
             for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
@@ -117,9 +121,4 @@ public class CombosManager {
             Babels.mysql.Close();
         }
     }
-    
-    
-    
-    
-    
 }
