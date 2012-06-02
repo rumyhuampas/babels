@@ -117,6 +117,7 @@ public class Pos extends andro.babels.controllers.Base {
             super.handleMessage(msg);
             LoadingDialog loadDialog = (LoadingDialog) msg.obj;
             loadDialog.hide();
+            view.ShowToast(Activity, "Venta guardada exitosamente");
             saleList.ClearSalelist();
             view.RefreshSaleList(saleList, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
             view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()));
