@@ -12,13 +12,13 @@ namespace BabelsPrinter
     {
         private MySQLConnection DBConn;
         private ConfigReader ConfReader;
-        private string _Name;
-        private string SERVER;
-        private string BD;
-        private string USER;
-        private string PASS;
+        private static string _Name;
+        private static string SERVER;
+        private static string BD;
+        private static string USER;
+        private static string PASS;
 
-        public string Name { get { return _Name; } }
+        public static string Name { get { return _Name; } }
 
         public Printer()
         {
@@ -36,7 +36,7 @@ namespace BabelsPrinter
             try
             {
                 ResetMyJobs();
-                PrintJobWatcher watcher = new PrintJobWatcher(this);
+                PrintJobWatcher watcher = new PrintJobWatcher();
                 ThreadPool.QueueUserWorkItem(new WaitCallback(watcher.StartWatching), null);
             }
             catch (Exception ex)
@@ -44,14 +44,11 @@ namespace BabelsPrinter
             }
         }
 
-        public MySQLConnection GetDBConn()
+        public static MySQLConnection GetDBConn()
         {
-            if (DBConn == null)
-            {
-                DBConn = new MySQLConnection(new MySQLConnectionString(SERVER, BD, USER, PASS).AsString);
-            }
-            DBConn.Open();
-            return DBConn;
+            MySQLConnection conn = new MySQLConnection(new MySQLConnectionString(SERVER, BD, USER, PASS).AsString);
+            conn.Open();
+            return conn;
         }
 
         private void ResetMyJobs()
