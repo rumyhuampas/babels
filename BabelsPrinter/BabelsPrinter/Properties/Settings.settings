@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BabelsPrinter.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="IniPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Javier\Documents\Visual Studio 2010\Projects\BabelsPrinter\BabelsPrinter\bin\Debug\Babels.ini</Value>
+    </Setting>
+    <Setting Name="ServiceName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Printer1</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
