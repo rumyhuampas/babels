@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName />
+    <SccLocalPath />
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.Cpp.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <Optimization>MaxSpeed</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Release\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Release\ClaseFiscal.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <ObjectFileName>.\Release\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <Midl>
+      <TypeLibraryName>.\Release\ClaseFiscal.tlb</TypeLibraryName>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x2c0a</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release\ClaseFiscal.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>.\Release\ClaseFiscal.exe</OutputFile>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <Optimization>Disabled</Optimization>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <WarningLevel>Level3</WarningLevel>
+      <MinimalRebuild>true</MinimalRebuild>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;P_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AssemblerListingLocation>.\Debug\</AssemblerListingLocation>
+      <PrecompiledHeaderOutputFile>.\Debug\ClaseFiscal.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <ObjectFileName>.\Debug\</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+    </ClCompile>
+    <Midl>
+      <TypeLibraryName>.\Debug\ClaseFiscal.tlb</TypeLibraryName>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x2c0a</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug\ClaseFiscal.bsc</OutputFile>
+    </Bscmake>
+    <Link>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OutputFile>.\Debug\ClaseFiscal.exe</OutputFile>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Chars.cpp" />
+    <ClCompile Include="ClaseFiscal.cpp" />
+    <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Excepcion.cpp" />
+    <ClCompile Include="ImpresorFiscal.cpp" />
+    <ClCompile Include="ImpresorFiscal16Bits.cpp" />
+    <ClCompile Include="ImpresorFiscal8bits.cpp" />
+    <ClCompile Include="Mutex.cpp" />
+    <ClCompile Include="P262_100.cpp" />
+    <ClCompile Include="P272_100.cpp" />
+    <ClCompile Include="P320_100.cpp" />
+    <ClCompile Include="P321_100.cpp" />
+    <ClCompile Include="P322.cpp" />
+    <ClCompile Include="P322_100.cpp" />
+    <ClCompile Include="P322_201.cpp" />
+    <ClCompile Include="p330.cpp" />
+    <ClCompile Include="p330_100.cpp" />
+    <ClCompile Include="p330_201.cpp" />
+    <ClCompile Include="p330_202.cpp" />
+    <ClCompile Include="P330_203.cpp" />
+    <ClCompile Include="p425.cpp" />
+    <ClCompile Include="p425_100.cpp" />
+    <ClCompile Include="p425_201.cpp" />
+    <ClCompile Include="P435.cpp" />
+    <ClCompile Include="P435_100.cpp" />
+    <ClCompile Include="P435_101.cpp" />
+    <ClCompile Include="P435_102.cpp" />
+    <ClCompile Include="P435_203.cpp" />
+    <ClCompile Include="P441_100.cpp" />
+    <ClCompile Include="P614_100.cpp" />
+    <ClCompile Include="P615_100.cpp" />
+    <ClCompile Include="P715.cpp" />
+    <ClCompile Include="P715_100.cpp" />
+    <ClCompile Include="P715_201.cpp" />
+    <ClCompile Include="P715_302.cpp" />
+    <ClCompile Include="P715_403.cpp" />
+    <ClCompile Include="P950_100.cpp" />
+    <ClCompile Include="P951_100.cpp" />
+    <ClCompile Include="PJ20_100.cpp" />
+    <ClCompile Include="PPL23.cpp" />
+    <ClCompile Include="PPL23_100.cpp" />
+    <ClCompile Include="PPL23_101.cpp" />
+    <ClCompile Include="ppl8.cpp" />
+    <ClCompile Include="PPL8_100.cpp" />
+    <ClCompile Include="PPL8_201.cpp" />
+    <ClCompile Include="PPL9_100.cpp" />
+    <ClCompile Include="PPR4_100.cpp" />
+    <ClCompile Include="PPR5.cpp" />
+    <ClCompile Include="PPR5_100.cpp" />
+    <ClCompile Include="PPR5_201.cpp" />
+    <ClCompile Include="Protocolo.cpp" />
+    <ClCompile Include="PuertoSerie.cpp" />
+    <ClCompile Include="Select.cpp" />
+    <ClCompile Include="Socket.cpp" />
+    <ClCompile Include="ssplit.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Chars.h" />
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="Eventos.h" />
+    <ClInclude Include="Excepcion.h" />
+    <ClInclude Include="ImpresorFiscal.h" />
+    <ClInclude Include="ImpresorFiscal16Bits.h" />
+    <ClInclude Include="ImpresorFiscal8bits.h" />
+    <ClInclude Include="min_max.h" />
+    <ClInclude Include="Mutex.h" />
+    <ClInclude Include="P262_100.h" />
+    <ClInclude Include="P272_100.h" />
+    <ClInclude Include="P320_100.h" />
+    <ClInclude Include="P321_100.h" />
+    <ClInclude Include="P322.h" />
+    <ClInclude Include="P322_100.h" />
+    <ClInclude Include="P322_201.h" />
+    <ClInclude Include="p330.h" />
+    <ClInclude Include="p330_100.h" />
+    <ClInclude Include="p330_201.h" />
+    <ClInclude Include="p330_202.h" />
+    <ClInclude Include="P330_203.h" />
+    <ClInclude Include="p425.h" />
+    <ClInclude Include="p425_100.h" />
+    <ClInclude Include="p425_201.h" />
+    <ClInclude Include="P435.h" />
+    <ClInclude Include="P435_100.h" />
+    <ClInclude Include="P435_101.h" />
+    <ClInclude Include="P435_102.h" />
+    <ClInclude Include="P435_203.h" />
+    <ClInclude Include="P441_100.h" />
+    <ClInclude Include="P614_100.h" />
+    <ClInclude Include="P615_100.h" />
+    <ClInclude Include="P715.h" />
+    <ClInclude Include="P715_100.h" />
+    <ClInclude Include="P715_201.h" />
+    <ClInclude Include="P715_302.h" />
+    <ClInclude Include="P715_403.h" />
+    <ClInclude Include="P950_100.h" />
+    <ClInclude Include="P951_100.h" />
+    <ClInclude Include="PJ20_100.h" />
+    <ClInclude Include="PPL23.h" />
+    <ClInclude Include="PPL23_100.h" />
+    <ClInclude Include="PPL23_101.h" />
+    <ClInclude Include="ppl8.h" />
+    <ClInclude Include="PPL8_100.h" />
+    <ClInclude Include="PPL8_201.h" />
+    <ClInclude Include="PPL9_100.h" />
+    <ClInclude Include="PPR4_100.h" />
+    <ClInclude Include="PPR5.h" />
+    <ClInclude Include="PPR5_100.h" />
+    <ClInclude Include="PPR5_201.h" />
+    <ClInclude Include="Protocolo.h" />
+    <ClInclude Include="ssplit.h" />
+    <ClInclude Include="Transporte.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ClaseFiscal.dsp">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

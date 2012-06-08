@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2bf034ba-8513-4f4c-a746-ae34786ad4bc}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9da036c5-6a9f-421e-bf91-6ea4d6d25fa5}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{f4d0196c-42b0-4180-a1a4-1d4d2a858be9}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Chars.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClaseFiscal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Excepcion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImpresorFiscal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImpresorFiscal16Bits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImpresorFiscal8bits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mutex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P262_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P272_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P320_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P321_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P322.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P322_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P322_201.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p330.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p330_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p330_201.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p330_202.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P330_203.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p425.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p425_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="p425_201.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P435.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P435_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P435_101.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P435_102.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P435_203.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P441_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P614_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P615_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P715.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P715_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P715_201.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P715_302.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P715_403.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P950_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="P951_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PJ20_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPL23.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPL23_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPL23_101.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ppl8.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPL8_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPL8_201.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPL9_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPR4_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPR5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPR5_100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPR5_201.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocolo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PuertoSerie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Select.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ssplit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Chars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Eventos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Excepcion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImpresorFiscal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImpresorFiscal16Bits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImpresorFiscal8bits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="min_max.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P262_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P272_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P320_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P321_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P322.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P322_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P322_201.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p330.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p330_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p330_201.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p330_202.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P330_203.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p425.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p425_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p425_201.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P435.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P435_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P435_101.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P435_102.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P435_203.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P441_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P614_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P615_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P715.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P715_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P715_201.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P715_302.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P715_403.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P950_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="P951_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PJ20_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPL23.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPL23_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPL23_101.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ppl8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPL8_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPL8_201.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPL9_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPR4_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPR5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPR5_100.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPR5_201.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocolo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ssplit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transporte.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ClaseFiscal.dsp" />
+    <CustomBuild Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>
