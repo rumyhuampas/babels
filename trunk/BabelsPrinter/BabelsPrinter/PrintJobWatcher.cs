@@ -9,37 +9,28 @@ namespace BabelsPrinter
 {
     class PrintJobWatcher
     {
-        private Printer Printer;
+        private PrintJobResolver JobResolver;
         MySQLConnection Conn;
 
-        public PrintJobWatcher(Printer printer)
+        public PrintJobWatcher()
         {
-            Printer = printer;
+            Conn = Printer.GetDBConn();
+            JobResolver = new PrintJobResolver();
         }
 
         public void StartWatching(object obj){
             try
             {
-                
                 while (true)
                 {
-                    Conn = null;
-                    Conn =  Printer.GetDBConn();
-                    try
+                    PrintJob job = GetPendingPrintJob();
+                    if (job != null)
                     {
-                        PrintJob job = GetPendingPrint();
-                        if (job != null)
-                        {
-                            ProcessJob(job);
-                        }
-                        else
-                        {
-                            Thread.Sleep(1000);
-                        }
+                        JobResolver.ProcessJob(job);
                     }
-                    finally
+                    else
                     {
-                        Conn.Close();
+                        Thread.Sleep(1000);
                     }
                 }
             }
@@ -47,9 +38,13 @@ namespace BabelsPrinter
             {
 
             }
+            finally
+            {
+                Conn.Close();
+            }
         }
 
-        private PrintJob GetPendingPrint()
+        private PrintJob GetPendingPrintJob()
         {
             PrintJob result = null;
             string sql = "SELECT * FROM " + PrintJob.TABLENAME + 
@@ -96,11 +91,6 @@ namespace BabelsPrinter
             {
                 comm.Dispose();
             }
-        }
-
-        private void ProcessJob(PrintJob job)
-        {
-
         }
     }
 }
