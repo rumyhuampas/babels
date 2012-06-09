@@ -68,6 +68,7 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="Eventos.h" />
     <ClInclude Include="Excepcion.h" />
+    <ClInclude Include="Hasar715.h" />
     <ClInclude Include="ImpresorFiscal.h" />
     <ClInclude Include="ImpresorFiscal8Bits.h" />
     <ClInclude Include="Mutex.h" />
@@ -81,6 +82,7 @@
     <ClCompile Include="Chars.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Excepcion.cpp" />
+    <ClCompile Include="Hasar715.cpp" />
     <ClCompile Include="ImpresorFiscal.cpp" />
     <ClCompile Include="ImpresorFiscal8Bits.cpp" />
     <ClCompile Include="Mutex.cpp" />
