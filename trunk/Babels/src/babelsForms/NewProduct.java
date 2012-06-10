@@ -127,10 +127,6 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
 
         jLabel2.setText("Precio Costo Packaging:");
 
-        txtPricePackaging.setNextFocusableComponent(txtIva);
-
-        txtIva.setNextFocusableComponent(comboKitchen);
-
         jLabel3.setText("<html>Carga Impositiva: <br>\n(Credito fiscal  <br>\ndel producto)<html>");
 
         comboKitchen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", " " }));
