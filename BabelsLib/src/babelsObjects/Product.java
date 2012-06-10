@@ -26,10 +26,20 @@ public class Product {
     private final String FIELD_DESC = "Description";
     private final String FIELD_IMAGE = "Image";
     private final String FIELD_PRICE = "Price";
+    private final String FIELD_COSTPRICE = "CostPrice";
+    private final String FIELD_PRICEPACKAGING = "PricePackaging";
+    private final String FIELD_IVA = "Iva";
+    private final String FIELD_IDKITCHEN = "IdKitchen";
+    private final String FIELD_IDCATEGORIES = "IdCategories";
     private Connection Conn;
     private int Id;
     public String Name;
     public String Desc;
+    public float CostPrice;
+    public float PricePackaging;
+    public float Iva;
+    public int Idkitchen;
+    public int IdCategories;
     private Image Img;
     private File ImageFile;
     public boolean ImageChanged;
@@ -112,6 +122,11 @@ public class Product {
         this.Name = "";
         this.Desc = "";
         this.Price = Float.parseFloat("0");
+        this.CostPrice = Float.parseFloat("0");
+        this.PricePackaging = Float.parseFloat("0");
+        this.Iva = Float.parseFloat("0");
+        this.IdCategories = 0;
+        this.Idkitchen = 0;
         this.ClearImage();
     }
 
@@ -172,18 +187,26 @@ public class Product {
     private boolean InsertProduct() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_NAME + ", " + this.FIELD_DESC + ", "
+                + this.FIELD_COSTPRICE + ", " + this.FIELD_PRICEPACKAGING + ", "
+                + this.FIELD_IVA + ", " + this.FIELD_IDKITCHEN + ", "
+                + this.FIELD_IDCATEGORIES + ", "
                 + this.FIELD_IMAGE + ", " + this.FIELD_PRICE
-                + ") VALUES (?,?,?,?)";
+                + ") VALUES (?,?,?,?,?,?,?,?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setString(1, this.Name);
             qry.setString(2, this.Desc);
+            qry.setFloat(3, this.CostPrice);
+            qry.setFloat(4, this.PricePackaging);
+            qry.setFloat(5, Iva);
+            qry.setInt(6, this.Idkitchen);
+            qry.setInt(7, this.IdCategories);
             if (this.ImageFile != null) {
-                qry.setBinaryStream(3, this.ImageStream, (int) (this.ImageFile.length()));
+                qry.setBinaryStream(8, this.ImageStream, (int) (this.ImageFile.length()));
             } else {
-                qry.setBinaryStream(3, null);
+                qry.setBinaryStream(8, null);
             }
-            qry.setFloat(4, this.Price);
+            qry.setFloat(9, this.Price);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
