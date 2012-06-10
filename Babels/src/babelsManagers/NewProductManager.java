@@ -42,7 +42,8 @@ public class NewProductManager {
         }
     }
 
-    public boolean SaveProduct(int ProdId, String name, String desc, String price, String imagePath, boolean ImageChanged) throws SQLException {
+    public boolean SaveProduct(int ProdId, String name, String desc, String price, String costPrice,
+             String pricePackaging, String iva,int idKitchen, int idCategories, String imagePath, boolean ImageChanged) throws SQLException {
         Babels.mysql.Open();
         try {
             Product prod = new Product(Babels.mysql.Conn);
@@ -52,6 +53,11 @@ public class NewProductManager {
             prod.Name = name;
             prod.Desc = desc;
             prod.Price = Float.parseFloat(price);
+            prod.CostPrice = Float.parseFloat(costPrice);
+            prod.PricePackaging = Float.parseFloat(pricePackaging);
+            prod.Iva = Float.parseFloat(iva);
+            prod.Idkitchen = idKitchen + 1;
+            prod.IdCategories = idCategories + 1;
             prod.SetImage(imagePath);
             prod.ImageChanged=ImageChanged;
             if (prod.Exists() == false) {

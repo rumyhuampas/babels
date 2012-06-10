@@ -3,6 +3,8 @@ package babelsForms;
 import babelsManagers.MainManager;
 import babelsObjects.FormsFactory;
 import java.awt.image.ImageObserver;
+import org.jdesktop.swingx.JXTaskPane;
+import org.jdesktop.swingx.JXTaskPaneContainer;
 
 public class Main extends javax.swing.JFrame {
 
@@ -41,7 +43,7 @@ public class Main extends javax.swing.JFrame {
         setTitle("Babels");
         setName("frmMain"); // NOI18N
 
-        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/background.png"))); // NOI18N
+        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/pa mario3.PNG"))); // NOI18N
 
         panelImage2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/title.png"))); // NOI18N
 
@@ -60,7 +62,7 @@ public class Main extends javax.swing.JFrame {
         panelImage1.setLayout(panelImage1Layout);
         panelImage1Layout.setHorizontalGroup(
             panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImage1Layout.createSequentialGroup()
+            .addGroup(panelImage1Layout.createSequentialGroup()
                 .addContainerGap(411, Short.MAX_VALUE)
                 .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
