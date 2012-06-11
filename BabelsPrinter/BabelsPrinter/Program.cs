@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.ServiceProcess;
-using System.Text;
-using System.Diagnostics;
 using System.Threading;
 
 namespace BabelsPrinter
@@ -23,9 +19,9 @@ namespace BabelsPrinter
             }
             else
             {
-                /*Printer printer = new Printer();
-                printer.Start();*/
-                PrintJobResolver pjr = new PrintJobResolver();
+                Printer printer = new Printer();
+                printer.Start();
+                //PrintJobResolver pjr = new PrintJobResolver();
                 Thread.Sleep(Timeout.Infinite);
             }
         }

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MySQLDriverCS;
-using BabelsPrinter.Properties;
 using System.Threading;
+using BabelsPrinter.Properties;
+using MySQLDriverCS;
 
 namespace BabelsPrinter
 {
-    class Printer
+    public class Printer
     {
-        private MySQLConnection DBConn;
         private ConfigReader ConfReader;
         private static string _Name;
         private static string SERVER;

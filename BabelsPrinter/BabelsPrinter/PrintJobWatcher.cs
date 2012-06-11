@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MySQLDriverCS;
 using System.Threading;
+using MySQLDriverCS;
 
 namespace BabelsPrinter
 {
-    class PrintJobWatcher
+    public class PrintJobWatcher
     {
         private PrintJobResolver JobResolver;
         MySQLConnection Conn;
@@ -49,7 +46,7 @@ namespace BabelsPrinter
             PrintJob result = null;
             string sql = "SELECT * FROM " + PrintJob.TABLENAME + 
                 " WHERE " + PrintJob.FIELD_STATUS + "= '" + PrintJob.ST_PEND + "'" + 
-                " AND " + PrintJob.FIELD_PRINTER + " = NULL";
+                " AND " + PrintJob.FIELD_PRINTER + " IS NULL";
             MySQLCommand comm = new MySQLCommand(sql, Conn);
             try
             {
@@ -65,6 +62,7 @@ namespace BabelsPrinter
                         result.IdSale = reader.GetInt32(reader.GetOrdinal(PrintJob.FIELD_IDSALE));
                         result.DatePosted = reader.GetDateTime(reader.GetOrdinal(PrintJob.FIELD_DATEPOSTED));
                         result.Status = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_STATUS));
+                        result.Printer = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_PRINTER));
                         break;
                     }
                 }

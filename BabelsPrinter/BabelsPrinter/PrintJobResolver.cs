@@ -1,27 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
-
+﻿
+using MySQLDriverCS;
+using System;
 namespace BabelsPrinter
 {
-    class PrintJobResolver
+    public class PrintJobResolver
     {
-        [DllImport("Hasar715.dll")]
-        public static extern void InitPrinter();
-        [DllImport("Hasar715.dll")]
-        public static extern int GetNum();
+        private MySQLConnection Conn;
 
         public PrintJobResolver()
         {
-            InitPrinter();
-            int i = GetNum();
+            
         }
 
         public void ProcessJob(PrintJob job)
         {
+            Conn = Printer.GetDBConn();
+            try
+            {
+                string sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
+                    PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_COMP + "'," +
+                    PrintJob.FIELD_DATEPRINTED + " = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "'" +
+                    " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
+                MySQLCommand comm = new MySQLCommand(sql, Conn);
+                try
+                {
+                    comm.ExecuteNonQuery();
+                }
+                finally
+                {
+                    comm.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
 
+            }
+            finally
+            {
+                Conn.Close();
+            }
         }
     }
 }
