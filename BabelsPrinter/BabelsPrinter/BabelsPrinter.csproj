@@ -39,7 +39,7 @@
       <HintPath>..\..\Hasar715CLR\Debug\Hasar715CLR.dll</HintPath>
     </Reference>
     <Reference Include="MySQLDriverCS">
-      <HintPath>..\..\..\..\..\..\..\Program Files\MySQLDriverCS\dll\MySQLDriverCS.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Archivos de programa\MySQLDriverCS\dll\MySQLDriverCS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
