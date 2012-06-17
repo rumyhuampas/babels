@@ -4,6 +4,7 @@
 
 #include "IniReader.h"
 #include "Logger.h"
+#include "Hasar715CLRConfig.h"
 #include "EventosHasar715.h"
 
 #include <sstream>
@@ -24,11 +25,6 @@ namespace Hasar715CLR {
 
 				// Instanciamos el Impresor Fiscal (en este caso 715_403)
 				impresor = new ImpresorFiscalP715_403;
-
-				logger->Log("Estableciendo manejador y capturador de eventos");
-				EstablecerManejadorDeEventos();
-
-				logger->Log("Configurando Impresor. " + string(IniPath));
 				ConfigurarImpresor(IniPath);
 			}
 			catch(Excepcion &e)
@@ -150,24 +146,35 @@ namespace Hasar715CLR {
 				logger -> Log(e);
 			}
 		}
+
+
+
+		//***********************REPORTE ESTADO**********************
+
+		void EstadoImpresor(){
+			hasarConfig->EstadoInterno();
+		}
 	private:
 		Logger *logger;
 		ImpresorFiscal *impresor;
-		
-		void EstablecerManejadorDeEventos(){
-			EventosHasar715 *E = new EventosHasar715(impresor, logger);
-			impresor->EstablecerManejadorDeEventos (E);
-		}
+		Hasar715CLRConfig *hasarConfig;
 
 		void ConfigurarImpresor(char *IniPath){
+			logger->Log("Configurando Impresor. " + string(IniPath));
+
+			hasarConfig = new Hasar715CLRConfig(impresor, logger);
+			hasarConfig->EstablecerManejadorDeEventos();
+
 			//Leyendo Ini
 			CIniReader *iniReader = new CIniReader(IniPath);
 
 			int puerto = iniReader->ReadInteger("CONFIG", "PUERTO", 1);
+			int interlineado = iniReader->ReadInteger("CONFIG", "INTERLINEADO", 6);
 			logger->Log("PUERTO: " + Logger::IntToStr(puerto));
-				
-			// Estableciendo tipo de Transporte
-			impresor->EstablecerPuertoSerie (puerto, 9600);
+			logger->Log("INTERLINEADO: " + Logger::IntToStr(interlineado));
+			
+			hasarConfig->EstablecerPuertoSerie(puerto);
+			hasarConfig->EstablecerInterlineadoDeImpresion(interlineado);
 		}
 	};
 }

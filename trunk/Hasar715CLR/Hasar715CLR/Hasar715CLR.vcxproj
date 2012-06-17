@@ -73,6 +73,7 @@
     <ClInclude Include="Eventos.h" />
     <ClInclude Include="EventosHasar715.h" />
     <ClInclude Include="Excepcion.h" />
+    <ClInclude Include="Hasar715CLRConfig.h" />
     <ClInclude Include="ImpresorFiscal.h" />
     <ClInclude Include="ImpresorFiscal8Bits.h" />
     <ClInclude Include="IniReader.h" />
@@ -90,6 +91,7 @@
     <ClCompile Include="EventosHasar715.cpp" />
     <ClCompile Include="Excepcion.cpp" />
     <ClCompile Include="Hasar715CLR.cpp" />
+    <ClCompile Include="Hasar715CLRConfig.cpp" />
     <ClCompile Include="ImpresorFiscal.cpp" />
     <ClCompile Include="ImpresorFiscal8Bits.cpp" />
     <ClCompile Include="IniReader.cpp" />
