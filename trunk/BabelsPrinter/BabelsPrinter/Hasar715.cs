@@ -1,12 +1,20 @@
 ﻿using System.Runtime.InteropServices;
+using System.Text;
+using System;
 
 namespace BabelsPrinter
 {
     public static class Hasar715
     {
-        [DllImport("Hasar715.dll")]
-        public static extern void InitPrinter();
-        [DllImport("Hasar715.dll")]
-        public static extern int GetNum();
+        public static unsafe sbyte* ConvertToSbyte(string str)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(str);
+            sbyte* sp;
+            fixed (byte* p = bytes)
+            {
+                sp = (sbyte*)p;
+            }
+            return sp;
+        }
     }
 }
