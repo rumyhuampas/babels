@@ -23,7 +23,7 @@ void Hasar715CLRConfig::EstadoInterno(){
 	ImpresorFiscal::RTA_EstadoInternoImpresor R;
 			
 	impresor->EstadoInternoImpresor (&R);
-	logger -> Logf ("ESTADO INTERNO IMPRESOR (PL23F");
+	logger -> Log ("ESTADO INTERNO IMPRESOR (PL23F");
 	logger -> Logf ("Estado:      %d", R.Estado);
 	logger -> Logf ("Descripción: %s", R.Descripcion.c_str ());
 }
