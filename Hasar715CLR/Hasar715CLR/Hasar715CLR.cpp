@@ -107,19 +107,43 @@ namespace Hasar715CLR {
 			}
 		}
 
-		void ImprimirTextoFiscal(char *text){
+		void AbrirDNFTicket(){
 			try{
-				logger->Log ("Imprimiendo Texto Fiscal");
-				logger->Log ("EJECUTANDO COMANDO ABRIR DNF EN ESTACION TICKET");
-				impresor->AbrirDNF (ImpresorFiscal::ESTACION_TICKET);
-				impresor->ImprimirTextoNoFiscal ("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890");
-				impresor->ImprimirTextoNoFiscal ("********10********20********30********40********50********60********70********80********90*******100");
-				impresor->ImprimirCodigoDeBarras (ImpresorFiscal::CODIGO_TIPO_EAN_13, "123456789012", true, true);
+				logger->Log ("Abriendo DNF Estacion Ticket");
+				impresor->AbrirDNF(ImpresorFiscal::ESTACION_TICKET);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
 
-				logger->Log ("EJECUTANDO COMANDO CERRAR DNF");
-				pIF->CerrarDNF ();
+		void CerrerDNF(){
+			try{
+				logger -> Log("Cerrando DNF");
+				impresor->CerrarDNF();
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
 
-				//logger->Logf ("Estado CF: <%d> <%s>", impresor->EstadoControlador(), impresor->DescripcionEstadoControlador().c_str ());
+		void ImprimirTextoNoFiscal(char *text){
+			try{
+				logger->Log ("Imprimiendo Texto No Fiscal");
+				impresor->ImprimirTextoNoFiscal (string(text));
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void ImprimirCodigoDeBarras(char *codigo, bool imprimirNumeros, bool imprimirAhora){
+			try{
+				logger->Log ("Imprimiendo Codigo de barras");
+				impresor->ImprimirCodigoDeBarras(ImpresorFiscal::CODIGO_TIPO_EAN_13, string(codigo), imprimirNumeros, imprimirAhora);
 			}
 			catch(Excepcion &e)
 			{
@@ -129,7 +153,7 @@ namespace Hasar715CLR {
 	private:
 		Logger *logger;
 		ImpresorFiscal *impresor;
-
+		
 		void EstablecerManejadorDeEventos(){
 			EventosHasar715 *E = new EventosHasar715(impresor, logger);
 			impresor->EstablecerManejadorDeEventos (E);
