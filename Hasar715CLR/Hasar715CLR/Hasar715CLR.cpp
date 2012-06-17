@@ -152,7 +152,35 @@ namespace Hasar715CLR {
 		//***********************REPORTE ESTADO**********************
 
 		void EstadoImpresor(){
-			hasarConfig->EstadoInterno();
+			try{
+				hasarConfig->EstadoInterno();
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void EstadoDatosDeInicializacion(){
+			try{
+				ImpresorFiscal::RTA_ObtenerDatosDeInicializacion R;
+			
+				impresor->ObtenerDatosDeInicializacion (&R);
+					
+				logger -> Log ("DATOS DE INICIALIZACIÓN");
+				logger -> Logf ("Nombre:   %s", R.RazonSocial.c_str ());
+				logger -> Logf ("C.U.I.T.: %s", R.NroCUIT.c_str ());
+				logger -> Logf ("Nº Serie: %s", R.NroSerie.c_str ());
+				logger -> Logf ("FechaIni: %02u/%02u/%04u", R.FechaIncializacion.dia (), R.FechaIncializacion.mes (), R.FechaIncializacion.anio ());
+				logger -> Logf ("Nº POS:   %s", R.NroPOS.c_str ());
+				logger -> Logf ("IngBr:    %s", R.CodIngBrutos.c_str ());
+				logger -> Logf ("FeIniAct: %02u/%02u/%04u", R.FechaIniActividades.dia (), R.FechaIniActividades.mes (), R.FechaIniActividades.anio ());
+				logger -> Logf ("Resp.IVA: %c", R.RespIVA);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
 		}
 	private:
 		Logger *logger;
@@ -171,7 +199,7 @@ namespace Hasar715CLR {
 			int puerto = iniReader->ReadInteger("CONFIG", "PUERTO", 1);
 			int interlineado = iniReader->ReadInteger("CONFIG", "INTERLINEADO", 6);
 			logger->Log("PUERTO: " + Logger::IntToStr(puerto));
-			logger->Log("INTERLINEADO: " + Logger::IntToStr(interlineado));
+			//logger->Log("INTERLINEADO: " + Logger::IntToStr(interlineado));
 			
 			hasarConfig->EstablecerPuertoSerie(puerto);
 			hasarConfig->EstablecerInterlineadoDeImpresion(interlineado);
