@@ -77,26 +77,46 @@ namespace Hasar715CLR {
 			}
 		}
 
-		void ImprimirReporteZ(char *inicio, char *fin){
-			logger->Log ("Imprimiendo Reporte Z entre fechas: Fecha Inicio: " + string(inicio) + " Fecha Fin: " + string(fin));
+		void ImprimirReporteZ(char *fechaInicio, char *fechaFin, bool global){
+			try{
+				logger->Log ("Imprimiendo Reporte Z entre fechas: Fecha Inicio: " + string(fechaInicio) + " Fecha Fin: " + string(fechaFin));
 
-			ImpresorFiscal::FECHA FIni (inicio), FFin (fin);
-			// FIni.anio = 1999;	FIni.mes  = 1;	FIni.dia  = 1;
-			// FFin.anio = 2050;	FFin.mes  = 12;	FFin.dia  = 31;
+				ImpresorFiscal::FECHA FIni (fechaInicio), FFin (fechaFin);
+				// FIni.anio = 1999;	FIni.mes  = 1;	FIni.dia  = 1;	---> 990101
+				// FFin.anio = 2050;	FFin.mes  = 12;	FFin.dia  = 31;	---> 501231
 
-			// Reporte Global por Rango de Fechas
-			impresor->ReporteZPorFechas (FIni, FFin, true);
-			// Reporte Individual por Rango de Fechas
-			impresor->ReporteZPorFechas (FIni, FFin, false);
+				// Reporte Global/Individual por Rango de Fechas
+				impresor->ReporteZPorFechas (FIni, FFin, global);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
 		}
 
-		void ImprimirReporteZ(int inicio, int fin){
-			logger->Log ("Imprimiendo Reporte Z entre numeros: Numero Inicio: " + Logger::IntToStr(inicio) + " Numero Fin: " + Logger::IntToStr(fin));
+		void ImprimirReporteZ(int numeroInicio, int numeroFin, bool global){
+			try{
+				logger->Log ("Imprimiendo Reporte Z entre numeros: Numero Inicio: " + Logger::IntToStr(numeroInicio) + " Numero Fin: " + Logger::IntToStr(numeroFin));
 
-			// Reporte Global por Rango de Zetas
-			impresor->ReporteZPorNumeros (inicio, fin, true);
-			// Reporte Individual por Rango de Zetas
-			impresor->ReporteZPorNumeros (inicio, fin, false);
+				// Reporte Global/Individual por Rango de Zetas
+				impresor->ReporteZPorNumeros (numeroInicio, numeroFin, global);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void ImprimirTextoFiscal(char *text){
+			try{
+				logger->Log ("Imprimiendo Texto Fiscal");
+				impresor->ImprimirTextoFiscal ("¶" + string(text));
+				logger->Logf ("Estado CF: <%d> <%s>", impresor->EstadoControlador(), impresor->DescripcionEstadoControlador().c_str ());
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
 		}
 	private:
 		Logger *logger;
@@ -108,7 +128,9 @@ namespace Hasar715CLR {
 		}
 
 		void ConfigurarImpresor(char *IniPath){
+			//Leyendo Ini
 			CIniReader *iniReader = new CIniReader(IniPath);
+
 			int puerto = iniReader->ReadInteger("CONFIG", "PUERTO", 1);
 			logger->Log("PUERTO: " + Logger::IntToStr(puerto));
 				
