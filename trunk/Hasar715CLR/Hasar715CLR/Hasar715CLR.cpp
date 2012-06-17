@@ -180,6 +180,26 @@ namespace Hasar715CLR {
 				logger -> Log(e);
 			}
 		}
+
+		void CambiarCodigoIngresosBrutos(char *codigo){
+			try{
+				hasarConfig->CambiarCodigoIngresosBrutos(codigo);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void CambiarFechaInicioActividades(char *fechaInicio){
+			try{
+				hasarConfig->CambiarFechaInicioActividades(fechaInicio);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
 	private:
 		Logger *logger;
 		ImpresorFiscal *impresor;

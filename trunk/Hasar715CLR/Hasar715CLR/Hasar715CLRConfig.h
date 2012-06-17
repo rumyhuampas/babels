@@ -12,6 +12,9 @@ public:
 	void ObtenerEstadoInterno();
 	void ObtenerDatosDeInicializacion();
 	void ObtenerDatosMemoriaDeTrabajo();
+	void CambiarResponsabilidadIVA();
+	void CambiarCodigoIngresosBrutos(char *codigo);
+	void CambiarFechaInicioActividades(char *fechaInicio);
 private:
 	ImpresorFiscal *impresor;
 	Logger *logger;
