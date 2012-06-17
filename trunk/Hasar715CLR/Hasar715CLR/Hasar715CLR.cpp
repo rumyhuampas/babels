@@ -151,9 +151,9 @@ namespace Hasar715CLR {
 
 		//***********************REPORTE ESTADO**********************
 
-		void EstadoImpresor(){
+		void ObtenerEstadoInterno(){
 			try{
-				hasarConfig->EstadoInterno();
+				hasarConfig->ObtenerEstadoInterno();
 			}
 			catch(Excepcion &e)
 			{
@@ -161,21 +161,19 @@ namespace Hasar715CLR {
 			}
 		}
 
-		void EstadoDatosDeInicializacion(){
+		void ObtenerDatosDeInicializacion(){
 			try{
-				ImpresorFiscal::RTA_ObtenerDatosDeInicializacion R;
-			
-				impresor->ObtenerDatosDeInicializacion (&R);
-					
-				logger -> Log ("DATOS DE INICIALIZACIÓN");
-				logger -> Logf ("Nombre:   %s", R.RazonSocial.c_str ());
-				logger -> Logf ("C.U.I.T.: %s", R.NroCUIT.c_str ());
-				logger -> Logf ("Nº Serie: %s", R.NroSerie.c_str ());
-				logger -> Logf ("FechaIni: %02u/%02u/%04u", R.FechaIncializacion.dia (), R.FechaIncializacion.mes (), R.FechaIncializacion.anio ());
-				logger -> Logf ("Nº POS:   %s", R.NroPOS.c_str ());
-				logger -> Logf ("IngBr:    %s", R.CodIngBrutos.c_str ());
-				logger -> Logf ("FeIniAct: %02u/%02u/%04u", R.FechaIniActividades.dia (), R.FechaIniActividades.mes (), R.FechaIniActividades.anio ());
-				logger -> Logf ("Resp.IVA: %c", R.RespIVA);
+				hasarConfig->ObtenerDatosDeInicializacion();
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void ObtenerDatosMemoriaDeTrabajo(){
+			try{
+				hasarConfig->ObtenerDatosMemoriaDeTrabajo();
 			}
 			catch(Excepcion &e)
 			{

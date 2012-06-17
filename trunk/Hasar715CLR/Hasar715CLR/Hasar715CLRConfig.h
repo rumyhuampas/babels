@@ -9,7 +9,9 @@ public:
 	void EstablecerPuertoSerie(int puerto);
 	void EstablecerManejadorDeEventos();
 	void EstablecerInterlineadoDeImpresion(int value);
-	void EstadoInterno();
+	void ObtenerEstadoInterno();
+	void ObtenerDatosDeInicializacion();
+	void ObtenerDatosMemoriaDeTrabajo();
 private:
 	ImpresorFiscal *impresor;
 	Logger *logger;
