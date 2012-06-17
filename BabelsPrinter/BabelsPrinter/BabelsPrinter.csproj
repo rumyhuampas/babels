@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -34,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hasar715CLR">
+      <HintPath>..\..\Hasar715CLR\Debug\Hasar715CLR.dll</HintPath>
+    </Reference>
     <Reference Include="MySQLDriverCS">
       <HintPath>..\..\..\..\..\..\..\Program Files\MySQLDriverCS\dll\MySQLDriverCS.dll</HintPath>
     </Reference>

@@ -1,15 +1,22 @@
 ﻿
 using MySQLDriverCS;
 using System;
+using System.Text;
 namespace BabelsPrinter
 {
     public class PrintJobResolver
     {
         private MySQLConnection Conn;
 
-        public PrintJobResolver()
+        public unsafe PrintJobResolver()
         {
-            
+            Hasar715CLR.Hasar715CLR hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ConvertToSbyte("C:\\Hasar715.txt"));
+            hasar715.InitPrinter(Hasar715.ConvertToSbyte("C:\\Hasar715.ini"));
+            hasar715.ImprimirReporteZ();
+
+            /*IntPtr logger = Hasar715.InitLogger("C:\\HasarLog.txt");
+            IntPtr obj = Hasar715.InitPrinter(out logger, "C:\\iniText.ini");*/
+            //int num = Hasar715.GetNum();
         }
 
         public void ProcessJob(PrintJob job)
