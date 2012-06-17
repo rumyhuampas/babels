@@ -110,9 +110,16 @@ namespace Hasar715CLR {
 		void ImprimirTextoFiscal(char *text){
 			try{
 				logger->Log ("Imprimiendo Texto Fiscal");
-				impresor->AbrirDF (ImpresorFiscal::FACTURA_B);
-				impresor->ImprimirTextoFiscal ("¶" + string(text));
-				logger->Logf ("Estado CF: <%d> <%s>", impresor->EstadoControlador(), impresor->DescripcionEstadoControlador().c_str ());
+				logger->Log ("EJECUTANDO COMANDO ABRIR DNF EN ESTACION TICKET");
+				impresor->AbrirDNF (ImpresorFiscal::ESTACION_TICKET);
+				impresor->ImprimirTextoNoFiscal ("12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890");
+				impresor->ImprimirTextoNoFiscal ("********10********20********30********40********50********60********70********80********90*******100");
+				impresor->ImprimirCodigoDeBarras (ImpresorFiscal::CODIGO_TIPO_EAN_13, "123456789012", true, true);
+
+				logger->Log ("EJECUTANDO COMANDO CERRAR DNF");
+				pIF->CerrarDNF ();
+
+				//logger->Logf ("Estado CF: <%d> <%s>", impresor->EstadoControlador(), impresor->DescripcionEstadoControlador().c_str ());
 			}
 			catch(Excepcion &e)
 			{
