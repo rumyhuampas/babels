@@ -4,6 +4,7 @@
 Hasar715CLRConfig::Hasar715CLRConfig(ImpresorFiscal *imp, Logger *log): impresor(imp), logger(log){ }
 
 void Hasar715CLRConfig::EstablecerPuertoSerie(int puerto){
+	logger -> Logf ("Estableciendo puerto serie: %d", puerto);
 	impresor->EstablecerPuertoSerie (puerto, 9600);
 }
 
@@ -14,6 +15,7 @@ void Hasar715CLRConfig::EstablecerManejadorDeEventos(){
 }
 
 void Hasar715CLRConfig::EstablecerInterlineadoDeImpresion(int value){
+	logger -> Logf ("Estableciendo interlineado de impresion: %d", value);
 	impresor->EstablecerInterlineado (value);
 	logger -> Logf ("INTERLINEADO: %d", impresor->ObtenerInterlineado ());
 }
@@ -73,4 +75,20 @@ void Hasar715CLRConfig::ObtenerDatosMemoriaDeTrabajo(){
 	logger -> Logf ("CantidadDFAEmitidos              = %u",		R.CantidadDFAEmitidos			);
 	logger -> Logf ("CantidadNCBCEmitidas             = %u",		R.CantidadNCBCEmitidas			);
 	logger -> Logf ("CantidadNCAEmitidas              = %u",		R.CantidadNCAEmitidas			);
+}
+
+void Hasar715CLRConfig::CambiarResponsabilidadIVA(){
+	logger -> Log ("Cambiando responsabilidad IVA");
+	impresor->CambiarResponsabilidadIVA (ImpresorFiscal::CLASE_RESPONSABLE_INSCRIPTO);
+}
+
+void Hasar715CLRConfig::CambiarCodigoIngresosBrutos(char *codigo){
+	logger -> Logf ("Cambiando codigo de ingresos brutos: %s", codigo);
+	impresor->CambiarCodigoIngresosBrutos (string(codigo));
+}
+
+void Hasar715CLRConfig::CambiarFechaInicioActividades(char *fechaInicio){
+	logger -> Logf ("Cambiando fecha inicio de actividades: %s", fechaInicio);
+	ImpresorFiscal::FECHA F = fechaInicio;
+	impresor->CambiarFechaInicioActividades (F);
 }
