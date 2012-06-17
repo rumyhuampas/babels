@@ -15,10 +15,13 @@ namespace BabelsPrinter
             //hasar715.ImprimirReporteZ();
             //hasar715.ImprimirReporteZ(Hasar715.ConvertToSbyte("120505"), Hasar715.ConvertToSbyte("500505"), true);
             //hasar715.ImprimirReporteZ(50, 60, true);
-            hasar715.AbrirDNFTicket();
+            /*hasar715.AbrirDNFTicket();
             hasar715.ImprimirCodigoDeBarras(Hasar715.ConvertToSbyte("999555111123"), true, true);
             hasar715.ImprimirTextoNoFiscal(Hasar715.ConvertToSbyte("Probando impresora fiscal con texto no fiscal"));
-            hasar715.CerrerDNF();
+            hasar715.CerrerDNF();*/
+            hasar715.ObtenerEstadoInterno();
+            hasar715.ObtenerDatosMemoriaDeTrabajo();
+            hasar715.ObtenerDatosDeInicializacion();
         }
 
         public void ProcessJob(PrintJob job)
