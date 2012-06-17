@@ -13,6 +13,9 @@ namespace BabelsPrinter
             Hasar715CLR.Hasar715CLR hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ConvertToSbyte("C:\\Hasar715.txt"));
             hasar715.InitPrinter(Hasar715.ConvertToSbyte("C:\\Hasar715.ini"));
             hasar715.ImprimirReporteZ();
+            hasar715.ImprimirReporteZ(Hasar715.ConvertToSbyte("120505"), Hasar715.ConvertToSbyte("500505"), true);
+            hasar715.ImprimirReporteZ(50, 60, true);
+            hasar715.ImprimirTextoFiscal(Hasar715.ConvertToSbyte("test"));
 
             /*IntPtr logger = Hasar715.InitLogger("C:\\HasarLog.txt");
             IntPtr obj = Hasar715.InitPrinter(out logger, "C:\\iniText.ini");*/
