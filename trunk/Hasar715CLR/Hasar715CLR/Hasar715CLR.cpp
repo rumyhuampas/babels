@@ -110,6 +110,7 @@ namespace Hasar715CLR {
 		void ImprimirTextoFiscal(char *text){
 			try{
 				logger->Log ("Imprimiendo Texto Fiscal");
+				impresor->AbrirDF (ImpresorFiscal::FACTURA_B);
 				impresor->ImprimirTextoFiscal ("¶" + string(text));
 				logger->Logf ("Estado CF: <%d> <%s>", impresor->EstadoControlador(), impresor->DescripcionEstadoControlador().c_str ());
 			}
