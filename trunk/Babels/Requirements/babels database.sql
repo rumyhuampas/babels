@@ -3,7 +3,7 @@
 -- Server version:               5.5.20-log - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-04-05 22:30:01
+-- Date/time:                    2012-06-19 01:52:35
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -23,6 +23,32 @@ CREATE TABLE IF NOT EXISTS `cancelations` (
   `CancelerSaleId` int(10) NOT NULL,
   `CanceledSaleId` int(10) NOT NULL,
   `DatePosted` datetime NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+-- Data exporting was unselected.
+
+
+-- Dumping structure for table babels.cashmovement
+DROP TABLE IF EXISTS `cashmovement`;
+CREATE TABLE IF NOT EXISTS `cashmovement` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `IdMovementType` int(10) NOT NULL,
+  `Dateposted` date NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+-- Data exporting was unselected.
+
+
+-- Dumping structure for table babels.cashregister
+DROP TABLE IF EXISTS `cashregister`;
+CREATE TABLE IF NOT EXISTS `cashregister` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `ActionType` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `DatePosted` date NOT NULL,
+  `IdUser` int(10) NOT NULL,
+  `IdPos` int(10) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -72,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping structure for table babels.sales
 DROP TABLE IF EXISTS `sales`;
 CREATE TABLE IF NOT EXISTS `sales` (
-  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `Id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `Total` float NOT NULL,
   `Type` varchar(1) COLLATE latin1_spanish_ci NOT NULL,
   `DatePosted` datetime NOT NULL,
@@ -103,6 +129,7 @@ CREATE TABLE IF NOT EXISTS `salesprints` (
   `dateposted` datetime DEFAULT NULL,
   `status` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `dateprinted` datetime DEFAULT NULL,
+  `Printer` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
