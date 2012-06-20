@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CombosProductsAdmin {
-    private static final String TABLENAME = "CombosProducts";
+    public static final String TABLENAME = "Combo_Products";
     private static final String FIELD_ID = "Id";
-    private static final String FIELD_IDCOMBO = "IdCombo";
-    private static final String FIELD_IDPROD = "IdProduct";
+    public static final String FIELD_IDCOMBO = "IdCombo";
+    public static final String FIELD_IDPROD = "IdProduct";
     
     public static ArrayList GetComboProducts(Connection conn, Combo combo) throws SQLException{
         String sql = "SELECT * FROM " + TABLENAME + " WHERE "

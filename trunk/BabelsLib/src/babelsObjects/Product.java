@@ -230,14 +230,24 @@ public class Product {
                 + this.FIELD_NAME + " = ?,"
                 + this.FIELD_DESC + " = ?,"
                 + this.FIELD_IMAGE + " = ?,"
-                + this.FIELD_PRICE + " = ?"
-                + "WHERE " + this.FIELD_ID + " = ?";
+                + this.FIELD_PRICE + " = ?,"
+                + this.FIELD_COSTPRICE + " = ?,"
+                + this.FIELD_PRICEPACKAGING + " = ?,"
+                + this.FIELD_IVA + " = ?,"
+                + this.FIELD_IDKITCHEN + " = ?,"
+                + this.FIELD_IDCATEGORIES + " =?"
+                + " WHERE " + this.FIELD_ID + " = ?";
 
         String sql2 = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_NAME + " = ?,"
                 + this.FIELD_DESC + " = ?,"
-                + this.FIELD_PRICE + " = ?"
-                + "WHERE " + this.FIELD_ID + " = ?";
+                + this.FIELD_PRICE + " = ?,"
+                + this.FIELD_COSTPRICE + " = ?,"
+                + this.FIELD_PRICEPACKAGING + " = ?,"
+                + this.FIELD_IVA + " = ?,"
+                + this.FIELD_IDKITCHEN + " = ?,"
+                + this.FIELD_IDCATEGORIES + " =?"
+                + " WHERE " + this.FIELD_ID + " = ?";
         if (ImageChanged == true) {
             PreparedStatement qry = this.Conn.prepareStatement(sql);
             try {
@@ -250,7 +260,12 @@ public class Product {
                     qry.setBinaryStream(3, null);
                 }
                 qry.setFloat(4, this.Price);
-                qry.setInt(5, this.Id);
+                qry.setFloat(5, this.CostPrice);
+                qry.setFloat(6, this.PricePackaging);
+                qry.setFloat(7, this.Iva);
+                qry.setInt(8, this.Idkitchen);
+                qry.setInt(9, this.IdCategories);
+                qry.setInt(10, this.Id);
                 return qry.executeUpdate() > 0;
             } finally {
                 qry.close();
@@ -260,9 +275,13 @@ public class Product {
             try {
                 qry.setString(1, this.Name);
                 qry.setString(2, this.Desc);
-
                 qry.setFloat(3, this.Price);
-                qry.setInt(4, this.Id);
+                qry.setFloat(4, this.CostPrice);
+                qry.setFloat(5, this.PricePackaging);
+                qry.setFloat(6, this.Iva);
+                qry.setInt(7, this.Idkitchen);
+                qry.setInt(8, this.IdCategories);
+                qry.setInt(9, this.Id);
                 return qry.executeUpdate() > 0;
             } finally {
                 qry.close();
