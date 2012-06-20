@@ -1,10 +1,7 @@
 package andro.babels.models;
 
 import andro.babels.wrappers.SaleList;
-import babelsObjects.Combo;
-import babelsObjects.Product;
-import babelsObjects.Sale;
-import babelsObjects.SalesItemsAdmin;
+import babelsObjects.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,8 +9,9 @@ public class Pos extends andro.babels.models.Base {
 
     public void SaveSale(SaleList saleList, String type) throws SQLException {
         Sale sale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
-        sale.Total = saleList.GetSaleTotal();
-        sale.Type = type;
+        sale.Amount = saleList.GetSaleTotal();
+        sale.Type = new MovementTypes(andro.babels.controllers.Welcome.mysql.Conn);
+        sale.Type.Load(type);
         List<SaleList.SaleItem> items = saleList.GetGeneralList();
         SaleList.SaleItem saleItem;
         for (int i=0; i<items.size(); i++){
