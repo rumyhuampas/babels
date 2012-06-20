@@ -6,10 +6,16 @@ public class Print {
 
     private static final String TABLENAME = "SalesPrints";
     private static final String FIELD_ID = "Id";
-    private static final String FIELD_IDSALE = "IdSale";
+    private static final String FIELD_IDMOVE = "IdMove";
     private static final String FIELD_DATEPOSTED = "DatePosted";
     private static final String FIELD_STATUS = "Status";
     private static final String FIELD_DATEPRINTED = "DatePrinted";
+    
+    private static final String ST_PEND = "Pending";
+    private static final String ST_PRIN = "Printing";
+    private static final String ST_COMP = "Completed";
+    private static final String ST_FAIL = "Failed";
+    
     private Connection Conn;
     private int Id;
     public Sale Sale;
@@ -43,7 +49,7 @@ public class Print {
         this.Sale = null;
         this.DatePosted = null;
         this.DatePrinted = null;
-        this.Status = PrintAdmin.ST_PEND;
+        this.Status = this.ST_PEND;
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -67,7 +73,7 @@ public class Print {
                 this.DatePrinted = results.getDate(this.FIELD_DATEPRINTED);
                 this.Status = results.getString(this.FIELD_STATUS);
                 this.Sale = new Sale(this.Conn);
-                this.Sale.Load(results.getInt(this.FIELD_IDSALE));
+                this.Sale.Load(results.getInt(this.FIELD_IDMOVE));
                 return true;
             } else {
                 return false;
@@ -87,7 +93,7 @@ public class Print {
 
     private boolean InsertPrint() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
-                + this.FIELD_IDSALE + "," + this.FIELD_DATEPOSTED + ","
+                + this.FIELD_IDMOVE + "," + this.FIELD_DATEPOSTED + ","
                 + this.FIELD_STATUS
                 + ") VALUES (?,NOW(),?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -109,7 +115,7 @@ public class Print {
 
     private boolean UpdatePrint() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
-                + this.FIELD_IDSALE + " = ?, "
+                + this.FIELD_IDMOVE + " = ?, "
                 + this.FIELD_STATUS + " = ?, "
                 + this.FIELD_DATEPRINTED + " = ? "
                 + "WHERE " + this.FIELD_ID + " = ?";
