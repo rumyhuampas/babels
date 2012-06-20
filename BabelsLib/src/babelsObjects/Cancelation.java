@@ -6,21 +6,15 @@ public class Cancelation {
 
     private final String TABLENAME = "Cancelations";
     private final String FIELD_ID = "Id";
-    private final String FIELD_CANCELERSALEID = "CancelerSaleId";
-    private final String FIELD_CANCELEDSALEID = "CanceledSaleId";
-    private final String FIELD_DATEPOSTED = "DatePosted";
+    private final String FIELD_CANCELLERMOVEID = "CancellerMoveId";
+    private final String FIELD_CANCELEDMOVEID = "CanceledId";
     private Connection Conn;
     private int Id;
-    public Sale CancelerSale;
-    public Sale CanceledSale;
-    private Date CancelationDate;
+    public Sale CancellerMove;
+    public Sale CanceledMove;
 
     public int getId() {
         return this.Id;
-    }
-    
-    public Date getDate(){
-        return this.CancelationDate;
     }
 
     public Cancelation(Connection conn) throws SQLException {
@@ -30,8 +24,8 @@ public class Cancelation {
 
     public void Clear() {
         this.Id = -1;
-        this.CancelerSale = null;
-        this.CanceledSale = null;
+        this.CancellerMove = null;
+        this.CanceledMove = null;
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -46,9 +40,9 @@ public class Cancelation {
         }
     }
 
-    public boolean LoadByCanceler(Integer id) throws SQLException {
+    public boolean LoadByCanceller(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_CANCELERSALEID + " = ?";
+                + this.FIELD_CANCELLERMOVEID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setInt(1, id);
@@ -60,7 +54,7 @@ public class Cancelation {
 
     public boolean LoadByCanceled(Integer id) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_CANCELEDSALEID + " = ?";
+                + this.FIELD_CANCELEDMOVEID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setInt(1, id);
@@ -75,11 +69,10 @@ public class Cancelation {
         try {
             if (results.next()) {
                 this.Id = results.getInt(this.FIELD_ID);
-                this.CancelerSale = new Sale(Conn);
-                this.CancelerSale.Load(results.getInt(this.FIELD_CANCELERSALEID));
-                this.CanceledSale = new Sale(Conn);
-                this.CanceledSale.Load(results.getInt(this.FIELD_CANCELEDSALEID));
-                this.CancelationDate = results.getDate(FIELD_DATEPOSTED);
+                this.CancellerMove = new Sale(Conn);
+                this.CancellerMove.Load(results.getInt(this.FIELD_CANCELLERMOVEID));
+                this.CanceledMove = new Sale(Conn);
+                this.CanceledMove.Load(results.getInt(this.FIELD_CANCELLERMOVEID));
                 return true;
             } else {
                 return false;
@@ -99,13 +92,12 @@ public class Cancelation {
 
     private boolean InsertCancelation() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
-                + this.FIELD_CANCELERSALEID + ", " + this.FIELD_CANCELEDSALEID + ","
-                + this.FIELD_DATEPOSTED
-                + ") VALUES (?,?,NOW())";
+                + this.FIELD_CANCELLERMOVEID + ", " + this.FIELD_CANCELEDMOVEID
+                + ") VALUES (?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
-            qry.setInt(1, this.CancelerSale.getId());
-            qry.setInt(2, this.CanceledSale.getId());
+            qry.setInt(1, this.CancellerMove.getId());
+            qry.setInt(2, this.CanceledMove.getId());
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
@@ -121,13 +113,13 @@ public class Cancelation {
 
     private boolean UpdateCancelation() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
-                + this.FIELD_CANCELERSALEID + " = ?,"
-                + this.FIELD_CANCELEDSALEID + " = ? "
+                + this.FIELD_CANCELLERMOVEID + " = ?,"
+                + this.FIELD_CANCELEDMOVEID + " = ? "
                 + "WHERE " + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
-            qry.setInt(1, this.CancelerSale.getId());
-            qry.setInt(2, this.CanceledSale.getId());
+            qry.setInt(1, this.CancellerMove.getId());
+            qry.setInt(2, this.CanceledMove.getId());
             qry.setInt(3, this.Id);
             return qry.executeUpdate() > 0;
         } finally {
