@@ -101,13 +101,13 @@ public class CashRegisterOpen extends javax.swing.JDialog implements IBabelsDial
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-         try {
+      /*   try {
             if(Manager.OpenCashRegister(txtAmount)){
                 this.dispose();}
         } catch (SQLException ex) {
             Logger.getLogger(CashRegisterOpen.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+      */ 
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

@@ -14,12 +14,12 @@ public class CashRegister extends javax.swing.JDialog {
     public CashRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager = new CashRegisterManager(this.tblMovements);
-        try {
-            Manager.RefreshTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
-        }
+  //      Manager = new CashRegisterManager(this.tblMovements);
+     //   try {
+      //      Manager.RefreshTable();
+     //   } catch (SQLException ex) {
+        //    Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+       // }
     }
 
     /**
@@ -147,6 +147,11 @@ public class CashRegister extends javax.swing.JDialog {
 
     private void btnOpenCashRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenCashRegisterActionPerformed
         FormsFactory.GetDialogForm("babelsForms.CashRegisterOpen", true, null, null);
+    //    try {
+    //        Manager.RefreshTable();
+     //   } catch (SQLException ex) {
+      //      Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+      //  }
     }//GEN-LAST:event_btnOpenCashRegisterActionPerformed
 
     /**
