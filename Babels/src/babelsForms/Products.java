@@ -34,7 +34,7 @@ public class Products extends javax.swing.JDialog {
 
         pmenuTblProducts.setToolTipText("");
 
-        pmitemEdit.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        pmitemEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         pmitemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/edit.png"))); // NOI18N
         pmitemEdit.setText("Editar");
         pmitemEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +54,7 @@ public class Products extends javax.swing.JDialog {
         pmenuTblProducts.add(pmitemDelete);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Babels - Administrador de Productos");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -121,13 +122,12 @@ public class Products extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(20, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNewproduct)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClose)

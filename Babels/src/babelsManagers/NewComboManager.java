@@ -2,6 +2,8 @@ package babelsManagers;
 
 import babels.Babels;
 import babelsComponents.TransferableProductPanel;
+import babelsFilters.ImagesFilter;
+import babelsForms.NewCombo;
 import babelsInterfaces.IBabelsDialog;
 import babelsListeners.*;
 import babelsObjects.Combo;
@@ -10,6 +12,7 @@ import babelsObjects.FormsFactory;
 import babelsObjects.Product;
 import babelsObjects.ProductsAdmin;
 import babelsRenderers.JLabelCell;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -45,7 +48,17 @@ public class NewComboManager {
         ListProd = new ArrayList();
         this.ComboPanel = PnlCombo;
     }
-
+     public File ChooseProductImage(NewCombo newComboWindow) {
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Elija la imagen del producto");
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fc.addChoosableFileFilter(new ImagesFilter());
+        if (fc.showOpenDialog(newComboWindow) == JFileChooser.APPROVE_OPTION) {
+            return fc.getSelectedFile();
+        } else {
+            return null;
+        }
+    }
     public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, JTextArea txtaDesc, IBabelsDialog dialog) {
         txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
         txtPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
@@ -127,7 +140,7 @@ public class NewComboManager {
         DefaultTableModel tm = (DefaultTableModel) this.Model;
         tm.getDataVector().removeAllElements();
     }
-
+// modificar aca para devolver los nuevos datos..
     private void LoadProducts() throws SQLException {
         Babels.mysql.Open();
         try {

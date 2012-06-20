@@ -43,7 +43,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         if (prodId != -1) {
             try {
                 this.ProdId = prodId;
-                this.Manager.LoadProduct(prodId, this.txtName, this.txtaDesc, this.txtPrice, this.lblImg);
+                this.Manager.LoadProduct(prodId, this.txtName, this.txtaDesc, this.txtPrice, this.lblImg, this.txtCostPrice, this.txtIva, this.txtPricePackaging, this.comboCategories, this.comboKitchen);
             } catch (SQLException ex) {
                 Logger.getLogger(NewProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
