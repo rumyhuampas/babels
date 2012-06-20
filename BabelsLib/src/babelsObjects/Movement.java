@@ -11,7 +11,7 @@ public class Movement {
     public static final String FIELD_DATEPOSTED = "DatePosted";
     public static final String FIELD_AMOUNT = "Amount";
     public static final String FIELD_USER = "IdUser";
-    private Connection Conn;
+    protected Connection Conn;
     public int Id;
     public float Amount;
     public Date DatePosted;
@@ -21,6 +21,10 @@ public class Movement {
     public Movement(Connection conn) {
         this.Conn = conn;
         this.Clear();
+    }
+    
+    public int getId(){
+        return this.Id;
     }
 
     private void Clear() {
@@ -73,7 +77,7 @@ public class Movement {
 
     }
 
-    public boolean InsertMovement() throws SQLException {
+    protected boolean InsertMovement() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_AMOUNT + ", " + this.FIELD_DATEPOSTED + ", "
                 + this.FIELD_TYPE + ", " + this.FIELD_USER + ""
@@ -96,6 +100,7 @@ public class Movement {
         }
 
     }
+    
     public boolean Delete() throws SQLException {
         String sql = "DELETE FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
