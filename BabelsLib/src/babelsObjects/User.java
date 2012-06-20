@@ -25,7 +25,9 @@ public class User {
         this.Conn = conn;
         Clear();
     }
-
+    public int getId(){
+        return(this.Id);
+    }
     public final void Clear() {
         this.Id = -1;
         this.Name = "";
