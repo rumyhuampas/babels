@@ -24,6 +24,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         panelImage1 = new org.edisoncor.gui.panel.PanelImage();
+        panelCurves1 = new org.edisoncor.gui.panel.PanelCurves();
         panelImage2 = new org.edisoncor.gui.panel.PanelImage();
         mbarMain = new javax.swing.JMenuBar();
         mitemFile = new javax.swing.JMenu();
@@ -38,6 +39,8 @@ public class Main extends javax.swing.JFrame {
         mitemAdminUserChangePass = new javax.swing.JMenuItem();
         mitemUsers = new javax.swing.JMenu();
         mitemUsersAdmin = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Babels");
@@ -58,21 +61,32 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout panelCurves1Layout = new javax.swing.GroupLayout(panelCurves1);
+        panelCurves1.setLayout(panelCurves1Layout);
+        panelCurves1Layout.setHorizontalGroup(
+            panelCurves1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCurves1Layout.createSequentialGroup()
+                .addContainerGap(540, Short.MAX_VALUE)
+                .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelCurves1Layout.setVerticalGroup(
+            panelCurves1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCurves1Layout.createSequentialGroup()
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+
         javax.swing.GroupLayout panelImage1Layout = new javax.swing.GroupLayout(panelImage1);
         panelImage1.setLayout(panelImage1Layout);
         panelImage1Layout.setHorizontalGroup(
             panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelImage1Layout.createSequentialGroup()
-                .addContainerGap(411, Short.MAX_VALUE)
-                .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(panelCurves1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelImage1Layout.setVerticalGroup(
             panelImage1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImage1Layout.createSequentialGroup()
-                .addContainerGap(280, Short.MAX_VALUE)
-                .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+            .addComponent(panelCurves1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         mbarMain.setPreferredSize(new java.awt.Dimension(173, 38));
@@ -165,6 +179,18 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemUsers);
 
+        jMenu1.setText("Caja");
+
+        jMenuItem1.setText("Caja");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        mbarMain.add(jMenu1);
+
         setJMenuBar(mbarMain);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -207,11 +233,16 @@ public class Main extends javax.swing.JFrame {
 
 private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAdminCombosActionPerformed
          FormsFactory.GetDialogForm("babelsForms.Combos", true, null, null);
-    
-    // TODO add your handling code here:
+        
 }//GEN-LAST:event_mitemAdminCombosActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.CashRegister", true, null, null);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemAdmin;
     private javax.swing.JMenuItem mitemAdminCombos;
@@ -225,6 +256,7 @@ private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenuItem mitemFileNewProd;
     private javax.swing.JMenu mitemUsers;
     private javax.swing.JMenuItem mitemUsersAdmin;
+    private org.edisoncor.gui.panel.PanelCurves panelCurves1;
     private org.edisoncor.gui.panel.PanelImage panelImage1;
     private org.edisoncor.gui.panel.PanelImage panelImage2;
     // End of variables declaration//GEN-END:variables

@@ -98,4 +98,28 @@ public class NewProductManager {
             Babels.mysql.Close();
         }
     }
+
+    public void LoadProduct(int prodId, JTextField txtName, JTextArea txtaDesc, JTextField txtPrice, JLabel lblImg, JTextField txtCostPrice, JTextField txtIva, JTextField txtPricePackaging, JComboBox comboCategories, JComboBox comboKitchen) throws SQLException {
+         Babels.mysql.Open();
+        try {
+            Product prod = new Product(Babels.mysql.Conn);
+            prod.Load(prodId);
+            txtName.setText(prod.Name);
+            txtaDesc.setText(prod.Desc);
+            txtPrice.setText(String.valueOf(prod.Price));
+            txtCostPrice.setText(String.valueOf(prod.CostPrice));
+            txtIva.setText(String.valueOf(prod.Iva));
+            txtPricePackaging.setText(String.valueOf(prod.PricePackaging));
+            comboCategories.setSelectedIndex(prod.IdCategories);
+            comboKitchen.setSelectedItem(prod.Idkitchen);
+            
+            ImageIcon img = prod.GetImageIconResized(lblImg.getWidth(),lblImg.getHeight());
+            if (img != null) {
+                lblImg.setIcon(img);
+                lblImg.setText("");
+            }
+        } finally {
+            Babels.mysql.Close();
+        }
+    }
 }
