@@ -163,6 +163,11 @@ public class Product {
                 this.Desc = results.getString(this.FIELD_DESC);
                 this.ImageStream = results.getBinaryStream(this.FIELD_IMAGE);
                 this.Price = results.getFloat(this.FIELD_PRICE);
+                this.CostPrice = results.getFloat(this.FIELD_COSTPRICE);
+                this.Iva = results.getFloat(this.FIELD_IVA);
+                this.PricePackaging= results.getFloat(this.FIELD_PRICEPACKAGING);
+                this.IdCategories= results.getInt(this.FIELD_IDCATEGORIES);
+                this.Idkitchen= results.getInt(this.FIELD_IDKITCHEN);
                 return true;
             } else {
                 return false;
