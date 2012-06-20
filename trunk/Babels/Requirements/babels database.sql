@@ -1,63 +1,26 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               5.5.20-log - MySQL Community Server (GPL)
--- Server OS:                    Win32
--- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-06-19 01:52:35
--- --------------------------------------------------------
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE */;
+/*!40101 SET SQL_MODE='' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES */;
+/*!40103 SET SQL_NOTES='ON' */;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 
--- Dumping database structure for babels
-DROP DATABASE IF EXISTS `babels`;
-CREATE DATABASE IF NOT EXISTS `babels` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci */;
 USE `babels`;
-
-
--- Dumping structure for table babels.cancelations
 DROP TABLE IF EXISTS `cancelations`;
-CREATE TABLE IF NOT EXISTS `cancelations` (
+CREATE TABLE `cancelations` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
-  `CancelerSaleId` int(10) NOT NULL,
-  `CanceledSaleId` int(10) NOT NULL,
-  `DatePosted` datetime NOT NULL,
+  `CancellerMoveId` int(10) NOT NULL DEFAULT '0',
+  `CanceledMoveId` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.cashmovement
-DROP TABLE IF EXISTS `cashmovement`;
-CREATE TABLE IF NOT EXISTS `cashmovement` (
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+DROP TABLE IF EXISTS `combo_products`;
+CREATE TABLE `combo_products` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
-  `IdMovementType` int(10) NOT NULL,
-  `Dateposted` date NOT NULL,
+  `IdCombo` int(10) NOT NULL,
+  `IdProduct` int(10) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.cashregister
-DROP TABLE IF EXISTS `cashregister`;
-CREATE TABLE IF NOT EXISTS `cashregister` (
-  `Id` int(10) NOT NULL AUTO_INCREMENT,
-  `ActionType` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `DatePosted` date NOT NULL,
-  `IdUser` int(10) NOT NULL,
-  `IdPos` int(10) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.combos
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 DROP TABLE IF EXISTS `combos`;
-CREATE TABLE IF NOT EXISTS `combos` (
+CREATE TABLE `combos` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
   `Description` text COLLATE latin1_spanish_ci,
@@ -65,65 +28,23 @@ CREATE TABLE IF NOT EXISTS `combos` (
   `Image` blob,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.combosproducts
-DROP TABLE IF EXISTS `combosproducts`;
-CREATE TABLE IF NOT EXISTS `combosproducts` (
+DROP TABLE IF EXISTS `movement_types`;
+CREATE TABLE `movement_types` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`Id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+DROP TABLE IF EXISTS `movements`;
+CREATE TABLE `movements` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
-  `IdCombo` int(10) NOT NULL,
-  `IdProduct` int(10) NOT NULL,
+  `Type` int(3) NOT NULL DEFAULT '0',
+  `Dateposted` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `Amount` float NOT NULL DEFAULT '0',
+  `IdUser` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.products
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE IF NOT EXISTS `products` (
-  `Id` int(10) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
-  `Description` text COLLATE latin1_spanish_ci,
-  `Price` float NOT NULL,
-  `Image` longblob,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.sales
-DROP TABLE IF EXISTS `sales`;
-CREATE TABLE IF NOT EXISTS `sales` (
-  `Id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  `Total` float NOT NULL,
-  `Type` varchar(1) COLLATE latin1_spanish_ci NOT NULL,
-  `DatePosted` datetime NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.salesitems
-DROP TABLE IF EXISTS `salesitems`;
-CREATE TABLE IF NOT EXISTS `salesitems` (
-  `Id` int(10) NOT NULL AUTO_INCREMENT,
-  `IdSale` int(10) NOT NULL,
-  `IdItem` int(10) NOT NULL,
-  `ItemType` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.salesprints
-DROP TABLE IF EXISTS `salesprints`;
-CREATE TABLE IF NOT EXISTS `salesprints` (
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+DROP TABLE IF EXISTS `prints`;
+CREATE TABLE `prints` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `IdSale` int(10) NOT NULL,
   `dateposted` datetime DEFAULT NULL,
@@ -132,21 +53,47 @@ CREATE TABLE IF NOT EXISTS `salesprints` (
   `Printer` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
--- Data exporting was unselected.
-
-
--- Dumping structure for table babels.users
+DROP TABLE IF EXISTS `prints`;
+CREATE TABLE `prints` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `IdSale` int(10) NOT NULL,
+  `dateposted` datetime DEFAULT NULL,
+  `status` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `dateprinted` datetime DEFAULT NULL,
+  `Printer` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
+  `Description` text COLLATE latin1_spanish_ci,
+  `Price` float NOT NULL,
+  `Image` longblob,
+  `CostPrice` float DEFAULT NULL,
+  `Iva` float DEFAULT NULL,
+  `PricePackaging` float DEFAULT NULL,
+  `IdKitchen` int(11) DEFAULT NULL,
+  `IdCategories` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+DROP TABLE IF EXISTS `sale_details`;
+CREATE TABLE `sale_details` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `IdMove` int(10) NOT NULL DEFAULT '0',
+  `IdItem` int(10) NOT NULL,
+  `ItemType` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `Pass` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `IsAdmin` int(1) NOT NULL,
   `Active` int(1) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
-/*!40014 SET FOREIGN_KEY_CHECKS=1 */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

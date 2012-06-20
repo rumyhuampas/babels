@@ -1,7 +1,7 @@
 package babelsManagers;
 
 import babels.Babels;
-import babelsObjects.CashMovements;
+import babelsObjects.Movement;
 import babelsObjects.CashRegister;
 import babelsObjects.User;
 import java.sql.Date;
@@ -19,7 +19,7 @@ public class CashRegisterManager {
     private TableModel Model;
     public boolean RefreshingTable;
     private Date today;
-
+/*
     public CashRegisterManager(JTable table) {
         this.Table = table;
         this.Model = this.Table.getModel();
@@ -43,7 +43,7 @@ public class CashRegisterManager {
     private void LoadMovements() throws SQLException {
         Babels.mysql.Open();
         try {
-            Object[] rows = CashMovements.GetMovements(Babels.mysql.Conn);
+            Object[] rows = Movement.GetMovements(Babels.mysql.Conn);
             Object[] row = null;
             DefaultTableModel tm = (DefaultTableModel) this.Model;
             Object[] rowTable = null;
@@ -71,7 +71,7 @@ public class CashRegisterManager {
         Babels.mysql.Open();
         try {
             CashRegister cashReg = new CashRegister(Babels.mysql.Conn);
-            CashMovements cashMov = new CashMovements(Babels.mysql.Conn);
+            Movement cashMov = new Movement(Babels.mysql.Conn);
             cashReg.IdActionType = 1;
             User currentUser = Babels.session.CurrentUser;
             cashReg.IdUser = currentUser.getId();
@@ -101,5 +101,5 @@ public class CashRegisterManager {
         } finally {
             Babels.mysql.Close();
         }
-    }
+    } */
 }

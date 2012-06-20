@@ -57,7 +57,7 @@ public class NewProductManager {
             prod.PricePackaging = Float.parseFloat(pricePackaging);
             prod.Iva = Float.parseFloat(iva);
             prod.Idkitchen = idKitchen + 1;
-            prod.IdCategories = idCategories + 1;
+            prod.IdCategories = idCategories;
             prod.SetImage(imagePath);
             prod.ImageChanged=ImageChanged;
             if (prod.Exists() == false) {
