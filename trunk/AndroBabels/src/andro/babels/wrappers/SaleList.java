@@ -18,6 +18,7 @@ public class SaleList {
         public String name;
         public float price;
         public String type;
+        public int ammount;
     }
     private List<SaleItem> combos;
     private List<SaleItem> products;
@@ -30,7 +31,7 @@ public class SaleList {
     public List<SaleItem> GetProductList() {
         return products;
     }
-    
+
     public List<SaleItem> GetCancelationList() {
         return cancelations;
     }
@@ -48,20 +49,56 @@ public class SaleList {
         cancelations = new ArrayList();
     }
 
-    public void AddSaleItem(int id, String name, float price, String type) {
-        SaleItem item = new SaleItem();
-        item.id = id;
-        item.name = name;
-        item.price = price;
-        item.type = type;
-        if (item.type.equals(SalesItemsAdmin.IT_COMBO)) {
-            combos.add(item);
-        } else {
-            if (item.type.equals(SalesItemsAdmin.IT_PROD)) {
-                products.add(item);
+    private SaleItem GetProduct(int id) {
+        for (int i = 0; i < products.size(); i++) {
+            if (((SaleItem) products.get(i)).id == id) {
+                return (SaleItem) products.get(i);
             }
-            else{
-                cancelations.add(item);
+        }
+        return null;
+    }
+
+    private SaleItem GetCombo(int id) {
+        for (int i = 0; i < combos.size(); i++) {
+            if (((SaleItem) combos.get(i)).id == id) {
+                return (SaleItem) combos.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void AddSaleItem(int id, String name, float price, String type) {
+        boolean addNew = true;
+        if (type.equals(SalesItemsAdmin.IT_COMBO)) {
+            SaleItem item = GetCombo(id);
+            if (item != null) {
+                item.ammount++;
+                addNew = false;
+            }
+        } else {
+            if (type.equals(SalesItemsAdmin.IT_PROD)) {
+                SaleItem item = GetProduct(id);
+                if (item != null) {
+                    item.ammount++;
+                    addNew = false;
+                }
+            }
+        }
+        if (addNew == true) {
+            SaleItem item = new SaleItem();
+            item.id = id;
+            item.name = name;
+            item.price = price;
+            item.type = type;
+            item.ammount = 1;
+            if (item.type.equals(SalesItemsAdmin.IT_COMBO)) {
+                combos.add(item);
+            } else {
+                if (item.type.equals(SalesItemsAdmin.IT_PROD)) {
+                    products.add(item);
+                } else {
+                    cancelations.add(item);
+                }
             }
         }
     }
@@ -70,8 +107,7 @@ public class SaleList {
         List<SaleItem> list = combos;
         if (type.equals(SalesItemsAdmin.IT_PROD)) {
             list = products;
-        }
-        else{
+        } else {
             list = cancelations;
         }
         for (int i = 0; i < list.size(); i++) {
@@ -91,10 +127,10 @@ public class SaleList {
     public float GetSaleTotal() {
         float total = 0;
         for (int i = 0; i < combos.size(); i++) {
-            total = total + combos.get(i).price;
+            total = total + (combos.get(i).price * combos.get(i).ammount);
         }
         for (int i = 0; i < products.size(); i++) {
-            total = total + products.get(i).price;
+            total = total + (products.get(i).price * products.get(i).ammount);
         }
         return total;
     }
@@ -112,25 +148,25 @@ public class SaleList {
         ll.addView(CreateSaleId(context, item));
         ll.addView(CreateSaleValueView(context, String.valueOf(number) + ". ", false));
         ll.addView(CreateSaleValueView(context, item.name, true));
-        ll.addView(CreateSaleValueView(context, "$" + String.valueOf(item.price), false));
+        ll.addView(CreateSaleValueView(context, String.valueOf(item.ammount), false));
         ll.addView(CreateSaleType(context, item));
         ll.setOnClickListener(SaleItemOnClickHandler);
         ll.setOnLongClickListener(SaleItemOnLongClickHandler);
         return ll;
     }
-    
-    private TextView CreateSaleId(Context context, SaleItem item){
+
+    private TextView CreateSaleId(Context context, SaleItem item) {
         TextView saleId = new TextView(context);
         saleId.setText(String.valueOf(item.id));
         //saleId.setHeight(0);
         saleId.setWidth(0);
         return saleId;
     }
-    
-    private LinearLayout CreateSaleValueView(Context context, String value, boolean fillParent){
+
+    private LinearLayout CreateSaleValueView(Context context, String value, boolean fillParent) {
         LinearLayout ll = new LinearLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
-        if (fillParent == true){
+        if (fillParent == true) {
             params.weight = 1;
         }
         ll.setLayoutParams(params);
@@ -141,8 +177,8 @@ public class SaleList {
         ll.addView(saleValueView);
         return ll;
     }
-    
-    private TextView CreateSaleType(Context context, SaleItem item){
+
+    private TextView CreateSaleType(Context context, SaleItem item) {
         TextView saleType = new TextView(context);
         saleType.setText(item.type);
         saleType.setHeight(0);
