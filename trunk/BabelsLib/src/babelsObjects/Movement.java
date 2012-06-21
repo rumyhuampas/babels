@@ -85,8 +85,13 @@ public class Movement {
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setFloat(1, this.Amount);
-            qry.setInt(3, this.Type.getId());
-            qry.setInt(4, this.User.getId());
+            qry.setInt(2, this.Type.getId());
+            if(this.User != null){
+                qry.setInt(3, this.User.getId());
+            }
+            else{
+                qry.setNull(3, java.sql.Types.INTEGER);
+            }
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();

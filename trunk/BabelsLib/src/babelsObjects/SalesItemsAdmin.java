@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SalesItemsAdmin {
-    private static final String TABLENAME = "SalesItems";
+    private static final String TABLENAME = "sale_details";
     private static final String FIELD_ID = "Id";
-    private static final String FIELD_IDSALE = "IdSale";
+    private static final String FIELD_IDMOVE = "IdMove";
     private static final String FIELD_IDITEM = "IdItem";
     private static final String FIELD_ITEMTYPE = "ItemType";
     
@@ -18,7 +18,7 @@ public class SalesItemsAdmin {
     
     public static ArrayList GetSaleItems(Connection conn, Sale sale) throws SQLException{
         String sql = "SELECT * FROM " + TABLENAME + " WHERE "
-                + FIELD_IDSALE + "=? ";
+                + FIELD_IDMOVE + "=? ";
         PreparedStatement qry = conn.prepareStatement(sql);
         try {
             ArrayList items = new ArrayList();
@@ -55,7 +55,7 @@ public class SalesItemsAdmin {
     
     public static boolean DeleteSaleItems(Connection conn, Sale sale) throws SQLException{
         String sql = "DELETE FROM " + TABLENAME + " WHERE "
-                + FIELD_IDSALE + "=? ";
+                + FIELD_IDMOVE + "=? ";
         PreparedStatement qry = conn.prepareStatement(sql);
         try {
             qry.setInt(1, sale.getId());
@@ -73,12 +73,12 @@ public class SalesItemsAdmin {
     
     static String GetInsertSql() {
         return "INSERT INTO " + TABLENAME + " ("
-                + FIELD_IDSALE + "," + FIELD_IDITEM + "," + FIELD_ITEMTYPE
+                + FIELD_IDMOVE + "," + FIELD_IDITEM + "," + FIELD_ITEMTYPE
                 + ") VALUES (?,?,?)";
     }
     
     static String GetDeleteSaleItemsSql() {
         return "DELETE FROM " + TABLENAME + " WHERE "
-                + FIELD_IDSALE + " = ?";
+                + FIELD_IDMOVE + " = ?";
     }
 }
