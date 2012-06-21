@@ -39,7 +39,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
          if (IdCombo != -1) {
             try {
                 this.ComboId = IdCombo;
-                this.Manager.LoadCombo(ComboId, this.txtName, this.txtaDesc, this.txtPrice);
+                this.Manager.LoadCombo(ComboId, this.txtName, this.txtaDesc, this.txtPrice, this.lblImg);
             } catch (SQLException ex) {
                 Logger.getLogger(NewProduct.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -77,6 +77,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         pnlCombo = new javax.swing.JPanel();
         lblHelp = new javax.swing.JLabel();
+        lblImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Babels - Nuevo Combo");
@@ -160,6 +161,15 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         lblHelp.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         lblHelp.setText("Arrastre los productos aqui para armar el combo");
 
+        lblImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImg.setText("<html>Click para cargar imágen<br>\n(no superiores a 1 MB)\n</html>");
+        lblImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblImgMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,7 +189,8 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(spnlDesc)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblHelp)
@@ -201,7 +212,9 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202)
+                        .addGap(11, 11, 11)
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblName)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,7 +226,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPrice))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnOK))
@@ -246,7 +259,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         if (this.Manager.CheckFields(this.txtName, this.txtPrice) == true) {
             try {
                 if (this.Manager.SaveCombo(this.ComboId, this.txtName.getText(), this.txtaDesc.getText(),
-                        this.txtPrice.getText(), this.Manager.GetComboProducts()) == true) {
+                        this.txtPrice.getText(),this.lblImg.getToolTipText(), this.Manager.GetComboProducts(), this.ImageChanged) == true) {
                     this.dispose();
                 }
             } catch (SQLException ex) {
@@ -256,6 +269,28 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
         
     
     }//GEN-LAST:event_btnOKActionPerformed
+
+    private void lblImgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImgMouseClicked
+        File image = this.Manager.ChooseProductImage(this);
+        if (image != null) {
+
+            Image image2 = Toolkit.getDefaultToolkit().getImage(image.getPath());
+            ImageManagement gImg = new ImageManagement(image2);
+            image2 = gImg.getImage();
+            BufferedImage tnsImg = new BufferedImage(lblImg.getWidth(), lblImg.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D graphics2D = tnsImg.createGraphics();
+            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            graphics2D.drawImage(image2, 0, 0, lblImg.getWidth(), lblImg.getHeight(), null);
+            Icon icon = new ImageIcon(tnsImg);
+            if (icon != null) {
+                this.lblImg.setText("");
+                this.lblImg.setIcon(icon);
+                this.lblImg.setToolTipText(image.getPath());
+
+                this.ImageChanged = true;
+            }
+        }
+    }//GEN-LAST:event_lblImgMouseClicked
     /*public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -271,6 +306,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblHelp;
+    private javax.swing.JLabel lblImg;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JPanel pnlCombo;

@@ -189,7 +189,7 @@
     <Container class="org.edisoncor.gui.panel.PanelImage" name="panelImage1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/babelsImages/pa mario3.PNG"/>
+          <Image iconType="3" name="/babelsImages/background2.PNG"/>
         </Property>
       </Properties>
 
