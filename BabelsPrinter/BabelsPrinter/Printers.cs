@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using BabelsPrinter.Properties;
+
+namespace BabelsPrinter
+{
+    public static class Printers
+    {
+        public static string GetPrinterList(){
+            string[] printerList = Settings.Default.Printers.Split(';');
+            string result = "";
+            foreach (string printer in printerList)
+            {
+                result += "'" + printer + "',";
+            }
+            result = result.Substring(0, result.Length - 1);
+            return result;
+        }
+    }
+}

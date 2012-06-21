@@ -39,7 +39,7 @@
       <HintPath>..\..\Hasar715CLR\Debug\Hasar715CLR.dll</HintPath>
     </Reference>
     <Reference Include="MySQLDriverCS">
-      <HintPath>..\..\..\..\..\..\..\Archivos de programa\MySQLDriverCS\dll\MySQLDriverCS.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\MySQLDriverCS\dll\MySQLDriverCS.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,7 +59,9 @@
     </Compile>
     <Compile Include="ConfigReader.cs" />
     <Compile Include="Hasar715.cs" />
-    <Compile Include="Printer.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="PrinterService.cs" />
+    <Compile Include="Printers.cs" />
     <Compile Include="PrintJob.cs" />
     <Compile Include="PrintJobResolver.cs" />
     <Compile Include="PrintJobWatcher.cs" />

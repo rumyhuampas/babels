@@ -5,8 +5,14 @@
     <Setting Name="IniPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Javier\Documents\Visual Studio 2010\Projects\BabelsPrinter\BabelsPrinter\bin\Debug\Babels.ini</Value>
     </Setting>
+    <Setting Name="Printers" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">COCINA_0;COCINA_1</Value>
+    </Setting>
     <Setting Name="ServiceName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Printer1</Value>
+      <Value Profile="(Default)">ServiceCocina</Value>
+    </Setting>
+    <Setting Name="LogLevel" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
     </Setting>
   </Settings>
 </SettingsFile>
