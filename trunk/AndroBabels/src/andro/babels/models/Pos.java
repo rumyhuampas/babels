@@ -1,6 +1,7 @@
 package andro.babels.models;
 
 import andro.babels.wrappers.SaleList;
+import andro.babels.wrappers.SaleList.SaleItem;
 import babelsObjects.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -32,5 +33,38 @@ public class Pos extends andro.babels.models.Base {
             }
         }
         sale.Save();
+        SavePrint(sale);
+    }
+
+    private void SavePrint(Sale sale) throws SQLException {
+        Print print = new Print(andro.babels.controllers.Welcome.mysql.Conn);
+        print.Sale = sale;
+        if (sale.Type.Name.equals(Sale.TYPE_A) || sale.Type.Name.equals(Sale.TYPE_B)) {
+            print.Printer = "FISCAL";
+        } else {
+            if (sale.Type.Name.equals(Sale.TYPE_X)) {
+                print.Printer = "NOFISCAL";
+            }
+        }
+        if (print.Save() == true) {
+            Print printKitchen = null;
+            for (int i = 0; i < sale.Items.size(); i++) {
+                printKitchen = new Print(andro.babels.controllers.Welcome.mysql.Conn);
+                printKitchen.Sale = sale;
+                printKitchen.Printer = "COCINA_" + GetSaleItemKitchen((Object[]) sale.Items.get(i));
+                printKitchen.Save();
+            }
+        }
+    }
+
+    private int GetSaleItemKitchen(Object[] item) {
+        if (item[0].equals(SalesItemsAdmin.IT_COMBO)) {
+            //TODO: Ver como vamos a hacer con los combos y las cocinas
+        } else {
+            if (item[0].equals(SalesItemsAdmin.IT_PROD)) {
+                return ((Product) item[1]).Idkitchen;
+            }
+        }
+        return 0;
     }
 }
