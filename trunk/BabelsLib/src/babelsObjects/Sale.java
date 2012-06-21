@@ -4,14 +4,13 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Sale extends Movement {
-    
-    private final String TYPE_A = "A";
-    private final String TYPE_B = "B";
-    private final String TYPE_X = "X";
 
+    private final String TYPE_A = "VENTA_A";
+    private final String TYPE_B = "VENTA_B";
+    private final String TYPE_X = "VENTA_X";
     public ArrayList Items;
-    
-    public Date getDate(){
+
+    public Date getDate() {
         return this.DatePosted;
     }
 
@@ -26,8 +25,21 @@ public class Sale extends Movement {
     }
 
     public boolean Load(Integer id) throws SQLException {
-        boolean result = super.Load(id);
-        if(result == true){
+        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_ID + " = ? AND "
+                + this.FIELD_TYPE + " IN "
+                + "(SELECT " + MovementTypes.FIELD_ID + " FROM " + MovementTypes.TABLENAME
+                + " WHERE " + MovementTypes.FIELD_NAME + " in ('" + TYPE_A + "','" + TYPE_B + "','" + TYPE_X + "'))";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        boolean result = false;
+        try {
+            qry.setInt(1, id);
+            result = SelectMovement(qry);
+        } finally {
+            qry.close();
+        }
+
+        if (result == true) {
             this.Items = SalesItemsAdmin.GetSaleItems(this.Conn, this);
         }
         return result;
@@ -59,13 +71,12 @@ public class Sale extends Movement {
                 qry = this.Conn.prepareStatement(SalesItemsAdmin.GetInsertSql());
                 for (int i = 0; i < this.Items.size(); i++) {
                     qry.setInt(1, this.Id);
-                    if (((Object[])this.Items.get(i))[0] == SalesItemsAdmin.IT_COMBO){
-                        Combo combo = ((Combo) ((Object[])this.Items.get(i))[1]);
+                    if (((Object[]) this.Items.get(i))[0] == SalesItemsAdmin.IT_COMBO) {
+                        Combo combo = ((Combo) ((Object[]) this.Items.get(i))[1]);
                         qry.setInt(2, combo.getId());
                         qry.setString(3, SalesItemsAdmin.IT_COMBO);
-                    }
-                    else{
-                        Product prod = ((Product) ((Object[])this.Items.get(i))[1]);
+                    } else {
+                        Product prod = ((Product) ((Object[]) this.Items.get(i))[1]);
                         qry.setInt(2, prod.getId());
                         qry.setString(3, SalesItemsAdmin.IT_PROD);
                     }

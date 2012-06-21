@@ -7,7 +7,7 @@ public class Cancelation {
     private final String TABLENAME = "Cancelations";
     private final String FIELD_ID = "Id";
     private final String FIELD_CANCELLERMOVEID = "CancellerMoveId";
-    private final String FIELD_CANCELEDMOVEID = "CanceledId";
+    private final String FIELD_CANCELEDMOVEID = "CanceledMoveId";
     private Connection Conn;
     private int Id;
     public Sale CancellerMove;
