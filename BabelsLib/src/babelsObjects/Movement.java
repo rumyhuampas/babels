@@ -47,7 +47,7 @@ public class Movement {
         }
     }
 
-    private boolean SelectMovement(PreparedStatement qry) throws SQLException {
+    protected boolean SelectMovement(PreparedStatement qry) throws SQLException {
         ResultSet results = qry.executeQuery();
         try {
             if (results.next()) {

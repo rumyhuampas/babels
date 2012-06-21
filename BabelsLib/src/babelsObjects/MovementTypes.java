@@ -3,9 +3,9 @@ package babelsObjects;
 import java.sql.*;
 
 public class MovementTypes {
-    private final String TABLENAME = "movement_types";
-    private final String FIELD_ID = "Id";
-    private final String FIELD_NAME = "Name";
+    public static final String TABLENAME = "movement_types";
+    public static final String FIELD_ID = "Id";
+    public static final String FIELD_NAME = "Name";
     private Connection Conn;
     private int Id;
     public String Name;
