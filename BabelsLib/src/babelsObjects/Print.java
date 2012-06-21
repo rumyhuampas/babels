@@ -4,12 +4,13 @@ import java.sql.*;
 
 public class Print {
 
-    private static final String TABLENAME = "SalesPrints";
+    private static final String TABLENAME = "Prints";
     private static final String FIELD_ID = "Id";
     private static final String FIELD_IDMOVE = "IdMove";
     private static final String FIELD_DATEPOSTED = "DatePosted";
     private static final String FIELD_STATUS = "Status";
     private static final String FIELD_DATEPRINTED = "DatePrinted";
+    private static final String FIELD_PRINTER = "Printer";
     
     private static final String ST_PEND = "Pending";
     private static final String ST_PRIN = "Printing";
@@ -22,21 +23,10 @@ public class Print {
     private Date DatePosted;
     private Date DatePrinted;
     private String Status;
+    public String Printer;
 
     public int getId() {
         return this.Id;
-    }
-
-    public String getStatus() {
-        return this.Status;
-    }
-
-    public Date getDatePosted() {
-        return this.DatePosted;
-    }
-
-    public Date getDatePrinted() {
-        return this.DatePrinted;
     }
 
     public Print(Connection conn) throws SQLException {
@@ -50,6 +40,7 @@ public class Print {
         this.DatePosted = null;
         this.DatePrinted = null;
         this.Status = this.ST_PEND;
+        this.Printer = "";
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -72,6 +63,7 @@ public class Print {
                 this.DatePosted = results.getDate(this.FIELD_DATEPOSTED);
                 this.DatePrinted = results.getDate(this.FIELD_DATEPRINTED);
                 this.Status = results.getString(this.FIELD_STATUS);
+                this.Printer = results.getString(this.FIELD_PRINTER);
                 this.Sale = new Sale(this.Conn);
                 this.Sale.Load(results.getInt(this.FIELD_IDMOVE));
                 return true;
@@ -87,19 +79,20 @@ public class Print {
         if (this.Id == -1) {
             return InsertPrint();
         } else {
-            return UpdatePrint();
+            return false;
         }
     }
 
     private boolean InsertPrint() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_IDMOVE + "," + this.FIELD_DATEPOSTED + ","
-                + this.FIELD_STATUS
-                + ") VALUES (?,NOW(),?)";
+                + this.FIELD_STATUS + "," + this.FIELD_PRINTER
+                + ") VALUES (?,NOW(),?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setInt(1, this.Sale.getId());
-            qry.setString(3, this.Status);
+            qry.setString(2, this.Status);
+            qry.setString(3, this.Printer);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
@@ -108,24 +101,6 @@ public class Print {
             } else {
                 return false;
             }
-        } finally {
-            qry.close();
-        }
-    }
-
-    private boolean UpdatePrint() throws SQLException {
-        String sql = "UPDATE " + this.TABLENAME + " SET "
-                + this.FIELD_IDMOVE + " = ?, "
-                + this.FIELD_STATUS + " = ?, "
-                + this.FIELD_DATEPRINTED + " = ? "
-                + "WHERE " + this.FIELD_ID + " = ?";
-        PreparedStatement qry = this.Conn.prepareStatement(sql);
-        try {
-            qry.setInt(1, this.Sale.getId());
-            qry.setString(2, this.Status);
-            qry.setDate(3, (Date) this.DatePrinted);
-            qry.setInt(4, this.Id);
-            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }

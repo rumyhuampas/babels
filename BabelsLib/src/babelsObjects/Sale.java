@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class Sale extends Movement {
 
-    private final String TYPE_A = "VENTA_A";
-    private final String TYPE_B = "VENTA_B";
-    private final String TYPE_X = "VENTA_X";
+    public static final String TYPE_A = "VENTA_A";
+    public static final String TYPE_B = "VENTA_B";
+    public static final String TYPE_X = "VENTA_X";
     public ArrayList Items;
 
     public Date getDate() {
