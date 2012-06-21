@@ -14,7 +14,7 @@ public class CancelSale extends andro.babels.models.Base {
         Cancelation cancel = new Cancelation(andro.babels.controllers.Welcome.mysql.Conn);
         cancel.LoadByCanceled(Integer.parseInt(search));
         if (cancel.getId() != -1) {
-            saleList.AddSaleItem(cancel.getId(), "CANCELATION", cancel.CancellerMove.Amount, "CANCELATION");
+            saleList.AddSaleItem(cancel.getId(), "CANCELACION", cancel.CancellerMove.Amount, "CANCELACION");
         }
 
         CurrentSale = null;
@@ -35,7 +35,8 @@ public class CancelSale extends andro.babels.models.Base {
     public void CancelSale() throws SQLException {
         Sale cancelSale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
         cancelSale.Amount = -CurrentSale.Amount;
-        cancelSale.Type = CurrentSale.Type;
+        cancelSale.Type = new MovementTypes(andro.babels.controllers.Welcome.mysql.Conn);
+        cancelSale.Type.Load("CANCELACION");
         cancelSale.Save();
         Cancelation cancelation = new Cancelation(andro.babels.controllers.Welcome.mysql.Conn);
         cancelation.CancellerMove = cancelSale;

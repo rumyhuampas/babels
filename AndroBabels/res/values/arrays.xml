@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="types">
-        <item>A</item>
-        <item>B</item>
-        <item>X</item>
+        <item>VENTA_A</item>
+        <item>VENTA_B</item>
+        <item>VENTA_X</item>
     </string-array>
     
 </resources>
