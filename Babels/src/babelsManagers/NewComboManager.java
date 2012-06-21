@@ -50,7 +50,7 @@ public class NewComboManager {
     }
      public File ChooseProductImage(NewCombo newComboWindow) {
         JFileChooser fc = new JFileChooser();
-        fc.setDialogTitle("Elija la imagen del producto");
+        fc.setDialogTitle("Elija la imagen del Combo");
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fc.addChoosableFileFilter(new ImagesFilter());
         if (fc.showOpenDialog(newComboWindow) == JFileChooser.APPROVE_OPTION) {
@@ -92,7 +92,7 @@ public class NewComboManager {
         }
     }
 
-    public boolean SaveCombo(int ComboId, String name, String desc, String price, ArrayList products) throws SQLException {
+    public boolean SaveCombo(int ComboId, String name, String desc, String price, String imagePath, ArrayList products, boolean ImageChanged) throws SQLException {
         Babels.mysql.Open();
         try {
             if (products.size() > 0) {
@@ -104,6 +104,8 @@ public class NewComboManager {
                 combo.Desc = desc;
                 combo.Price = Float.parseFloat(price);
                 combo.Products = products;
+                combo.SetImage(imagePath);
+                combo.ImageChanged=ImageChanged;
                 if (combo.Exists() == false) {
                     if (combo.Save() == true) {
                         JOptionPane.showMessageDialog(null, "Combo guardado",
@@ -229,7 +231,7 @@ public class NewComboManager {
     }
 
     public void LoadCombo(int ComboId, JTextField txtName,
-            JTextArea txtDesc, JTextField txtPrice) throws SQLException {
+            JTextArea txtDesc, JTextField txtPrice, JLabel lblImg) throws SQLException {
         Babels.mysql.Open();
         try {
             Combo Comb = new Combo(Babels.mysql.Conn);
@@ -237,6 +239,7 @@ public class NewComboManager {
             txtName.setText(Comb.Name);
             txtDesc.setText(Comb.Desc);
             txtPrice.setText(String.valueOf(Comb.Price));
+            
             ArrayList ListProducts = CombosProductsAdmin.GetComboProducts(Babels.mysql.Conn, Comb);
 
 
@@ -247,7 +250,11 @@ public class NewComboManager {
             AddOrDel = true;
             this.Paint(AddOrDel);
             this.ActiveListenerPnlProd(ListProducts, ListProd);
-
+            ImageIcon img = Comb.GetImageIconResized(lblImg.getWidth(),lblImg.getHeight());
+            if (img != null) {
+                lblImg.setIcon(img);
+                lblImg.setText("");
+            }
         } finally {
             Babels.mysql.Close();
         }
