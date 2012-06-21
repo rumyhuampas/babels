@@ -28,7 +28,18 @@ namespace BabelsPrinter
         public void ProcessJob(PrintJob job)
         {
             Logger.Log(Logger.MT_INFO, "Processing job: " + job.Id.ToString(), Settings.Default.LogLevel >= 4);
+            try
+            {
+                CompleteJob(job);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(Logger.MT_ERROR, "Error while processing job. Error: " + ex.Message, Settings.Default.LogLevel >= 3);
+            }
+        }
 
+        private void CompleteJob(PrintJob job)
+        {
             Conn = PrinterService.GetDBConn();
             try
             {
@@ -47,10 +58,6 @@ namespace BabelsPrinter
                 }
 
                 Logger.Log(Logger.MT_INFO, "Job successfully printed: " + job.Id.ToString(), Settings.Default.LogLevel >= 4);
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(Logger.MT_ERROR, "Error while processing job. Error: " + ex.Message, Settings.Default.LogLevel >= 3);
             }
             finally
             {
