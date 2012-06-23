@@ -6,6 +6,11 @@ public class MovementTypes {
     public static final String TABLENAME = "movement_types";
     public static final String FIELD_ID = "Id";
     public static final String FIELD_NAME = "Name";
+    
+    public static final String MT_APER = "APERTURA";
+    public static final String MT_CIERRE = "CIERRE";
+    public static final String MT_CIERREPARC = "CIERREPARCIAL";
+    
     private Connection Conn;
     private int Id;
     public String Name;

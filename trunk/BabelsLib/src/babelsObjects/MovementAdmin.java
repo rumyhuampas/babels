@@ -10,9 +10,9 @@ public class MovementAdmin {
 
     private static Object[] GetMovements(Connection conn, Date BeginingDate, Date FinalDate) throws SQLException {
 
-        DateFormat Sdf= new SimpleDateFormat("yyyy-MM-dd");
-        String BeginingDateStr= Sdf.format(BeginingDate);
-        String FinalDateStr= Sdf.format(FinalDate);
+        DateFormat Sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String BeginingDateStr = Sdf.format(BeginingDate);
+        String FinalDateStr = Sdf.format(FinalDate);
         String sql = "SELECT t." + MovementTypes.FIELD_NAME + ", m." + Movement.FIELD_DATEPOSTED + ",m." + Movement.FIELD_AMOUNT + ","
                 + " c." + Cancelation.FIELD_CANCELLERMOVEID + ", m." + Movement.FIELD_ID
                 + " FROM " + MovementTypes.TABLENAME + " t,  " + Movement.TABLENAME + " m LEFT JOIN"
@@ -49,5 +49,34 @@ public class MovementAdmin {
     public static Object[] GetTodayMovements(Connection Conn) throws SQLException {
         Date fecha = new Date();
         return GetMovements(Conn, fecha, fecha);
+    }
+
+    public static boolean IsCashOpen(Connection conn) throws SQLException {
+        String sql = "SELECT m.* FROM " + Movement.TABLENAME + " m, " + MovementTypes.TABLENAME + " t"
+                + " WHERE m." + Movement.FIELD_TYPE + "=t." + MovementTypes.FIELD_ID
+                + " AND t." + MovementTypes.FIELD_NAME
+                + " IN ('" + MovementTypes.MT_APER + "','" + MovementTypes.MT_CIERRE + "','" + MovementTypes.MT_CIERREPARC + "')"
+                + " AND Date(m." + Movement.FIELD_DATEPOSTED + ") = CurDate()"
+                + " ORDER BY m." + Movement.FIELD_DATEPOSTED + " DESC LIMIT 1";
+
+        PreparedStatement qry = conn.prepareStatement(sql);
+        try {
+            ResultSet results = qry.executeQuery();
+            try {
+                MovementTypes aper = new MovementTypes(conn);
+                aper.Load(MovementTypes.MT_APER);
+
+                while (results.next()) {
+                    if (results.getInt(Movement.FIELD_TYPE) == aper.getId()) {
+                        return true;
+                    }
+                }
+                return false;
+            } finally {
+                results.close();
+            }
+        } finally {
+            qry.close();
+        }
     }
 }
