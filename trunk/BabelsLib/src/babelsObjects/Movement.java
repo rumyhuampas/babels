@@ -123,47 +123,6 @@ public class Movement {
         }
     }
 
+      
     
-
-  /*  public static Object[] GetMovements(Connection conn) throws SQLException {
-        String sql = "SELECT `cashmovement`.`MovementType`, `cashmovement`.`Dateposted`, `sales`.`Total`,"
-                + " `cashregister`.`IdActionType`, `cashmovement`.`IdSale`,"
-                + " `cashmovement`.`IdCancelation`, `cashmovement`.`IdCashRegister`,"
-                + " `cancelations`.`CanceledSaleId`, `cancelations`.`CancelerSaleId`"
-                + " FROM `cancelations` RIGHT JOIN"
-                + " `cashmovement` ON `cancelations`.`Id` = `cashmovement`.`IdCancelation`"
-                + " LEFT JOIN"
-                + " `sales` ON `sales`.`Id` = `cashmovement`.`IdSale` LEFT JOIN"
-                + " `cashregister` ON `cashregister`.`Id` = `cashmovement`.`IdCashRegister`"
-                + " where DATE(`cashmovement`.`Dateposted`)= curdate()"
-                + " order by `cashmovement`.`Dateposted`;";
-
-        PreparedStatement qry = conn.prepareStatement(sql);
-        try {
-            ArrayList rows = new ArrayList();
-            ArrayList row = new ArrayList();
-            ResultSet results = qry.executeQuery();
-            try {
-                while (results.next()) {
-                    row.add(results.getString(FIELD_MOVEMENTTYPE));
-                    // uso getString y no getDate porque asi me devuelve la hora tb
-                    row.add(results.getString(FIELD_DATEPOSTED));
-                    row.add(results.getFloat(FIELD_TOTAL));
-                    row.add(results.getString(FIELD_ACTIONTYPE));
-                    row.add(results.getInt(FIELD_IDSALE));
-                    row.add(results.getInt(FIELD_IDCANCELATION));
-                    row.add(results.getInt(FIELD_IDCASHREGISTER));
-                    row.add(results.getInt(FIELD_CANCELEDSALEID));
-                    row.add(results.getInt(FIELD_CANCELERSALEID));
-                    rows.add(row.toArray());
-                    row.clear();
-                }
-                return rows.toArray();
-            } finally {
-                results.close();
-            }
-        } finally {
-            qry.close();
-        }
-    } */
 }
