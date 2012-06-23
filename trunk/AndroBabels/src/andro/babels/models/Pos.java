@@ -69,4 +69,8 @@ public class Pos extends andro.babels.models.Base {
         printKitchen.Printer = "COCINA_" + prod.Idkitchen;
         printKitchen.Save();
     }
+    
+    public boolean IsCashOpen() throws SQLException{
+        return MovementAdmin.IsCashOpen(andro.babels.controllers.Welcome.mysql.Conn);
+    }
 }
