@@ -64,49 +64,62 @@ public class Pos extends andro.babels.controllers.Base {
         view.GetDoneButton().setOnClickListener(new OnClickListener() {
 
             public void onClick(View v) {
-                final YesNoDialog saveDialog = view.CreateYesNoMessage(Activity, "Guardar venta", "¿Esta seguro?");
-                saveDialog.SetCallback(new View.OnClickListener() {
-
-                    public void onClick(View v) {
-                        if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
-                            final ComboDialog typeDialog = view.CreateComboMessage(Activity, "Tipo de venta", "Elija un tipo", R.array.types);
-                            typeDialog.SetCallback(new View.OnClickListener() {
+                try {
+                    try {
+                        andro.babels.controllers.Welcome.mysql.Open();
+                        if (model.IsCashOpen() == true) {
+                            final YesNoDialog saveDialog = view.CreateYesNoMessage(Activity, "Guardar venta", "¿Esta seguro?");
+                            saveDialog.SetCallback(new View.OnClickListener() {
 
                                 public void onClick(View v) {
-                                    final String type = typeDialog.GetSelectedValue();
-                                    if (!type.equals("")) {
-                                        final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
-                                        loadDialog.show();
-                                        Thread thread = new Thread(new Runnable() {
+                                    if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
+                                        final ComboDialog typeDialog = view.CreateComboMessage(Activity, "Tipo de venta", "Elija un tipo", R.array.types);
+                                        typeDialog.SetCallback(new View.OnClickListener() {
 
-                                            public void run() {
-                                                try {
-                                                    andro.babels.controllers.Welcome.mysql.Open();
-                                                    try {
-                                                        model.SaveSale(saleList, type);
-                                                        Message msg = SaveSaleHandler.obtainMessage(1, loadDialog);
-                                                        SaveSaleHandler.sendMessage(msg);
+                                            public void onClick(View v) {
+                                                final String type = typeDialog.GetSelectedValue();
+                                                if (!type.equals("")) {
+                                                    final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
+                                                    loadDialog.show();
+                                                    Thread thread = new Thread(new Runnable() {
 
-                                                    } finally {
-                                                        andro.babels.controllers.Welcome.mysql.Close();
-                                                    }
-                                                } catch (Exception ex) {
-                                                    Message msg = ExceptionHandler.obtainMessage(1, ex);
-                                                    ExceptionHandler.sendMessage(msg);
+                                                        public void run() {
+                                                            try {
+                                                                andro.babels.controllers.Welcome.mysql.Open();
+                                                                try {
+                                                                    model.SaveSale(saleList, type);
+                                                                    Message msg = SaveSaleHandler.obtainMessage(1, loadDialog);
+                                                                    SaveSaleHandler.sendMessage(msg);
+
+                                                                } finally {
+                                                                    andro.babels.controllers.Welcome.mysql.Close();
+                                                                }
+                                                            } catch (Exception ex) {
+                                                                Message msg = ExceptionHandler.obtainMessage(1, ex);
+                                                                ExceptionHandler.sendMessage(msg);
+                                                            }
+                                                        }
+                                                    });
+                                                    thread.start();
                                                 }
+                                                typeDialog.hide();
                                             }
                                         });
-                                        thread.start();
+                                        typeDialog.show();
                                     }
-                                    typeDialog.hide();
+                                    saveDialog.hide();
                                 }
                             });
-                            typeDialog.show();
+                            saveDialog.show();
+                        } else {//Cash is close
+                            view.ShowToast(Activity, "La venta no puede realizarse. La caja esta cerrada.");
                         }
-                        saveDialog.hide();
+                    } finally {
+                        andro.babels.controllers.Welcome.mysql.Close();
                     }
-                });
-                saveDialog.show();
+                } catch (Exception ex) {
+                    view.ShowToast(Activity, ex.getMessage());
+                }
             }
         });
     }
@@ -150,6 +163,9 @@ public class Pos extends andro.babels.controllers.Base {
             extras.putInt("ItemID", view.GetObjectId(objView));
             extras.putString("ItemType", view.GetObjectType(objView));
             RunActivity(Activity, ItemDetails.class, extras);
+
+
+
             return true;
         }
     };
@@ -179,7 +195,7 @@ public class Pos extends andro.babels.controllers.Base {
             return true;
         }
     };
-    
+
     public boolean HandleMenuSelection(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mm_miSett:
@@ -190,6 +206,12 @@ public class Pos extends andro.babels.controllers.Base {
             case R.id.mm_miCancelSale:
                 andro.babels.controllers.Base.RunActivity(Activity, andro.babels.CancelSale.class, null);
                 return true;
+
+
+
+
+
+
             default:
                 return false;
         }
