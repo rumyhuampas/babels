@@ -47,24 +47,26 @@ public class Pos extends andro.babels.models.Base {
             }
         }
         if (print.Save() == true) {
-            Print printKitchen = null;
             for (int i = 0; i < sale.Items.size(); i++) {
-                printKitchen = new Print(andro.babels.controllers.Welcome.mysql.Conn);
-                printKitchen.Sale = sale;
-                printKitchen.Printer = "COCINA_" + GetSaleItemKitchen((Object[]) sale.Items.get(i));
-                printKitchen.Save();
+                Object[] item = (Object[]) sale.Items.get(i);
+                if(item[0].equals(SalesItemsAdmin.IT_COMBO)){
+                    Combo combo = (Combo)item[1];
+                    for (int j = 0; j < combo.Products.size(); j++) {
+                        Product prod = (Product)combo.Products.get(j);
+                        CreateProdPrint(prod, sale);
+                    }
+                }
+                else{
+                    CreateProdPrint((Product)item[1], sale);
+                }
             }
         }
     }
-
-    private int GetSaleItemKitchen(Object[] item) {
-        if (item[0].equals(SalesItemsAdmin.IT_COMBO)) {
-            //TODO: Ver como vamos a hacer con los combos y las cocinas
-        } else {
-            if (item[0].equals(SalesItemsAdmin.IT_PROD)) {
-                return ((Product) item[1]).Idkitchen;
-            }
-        }
-        return 0;
+    
+    private void CreateProdPrint(Product prod, Sale sale) throws SQLException{
+        Print printKitchen = new Print(andro.babels.controllers.Welcome.mysql.Conn);
+        printKitchen.Sale = sale;
+        printKitchen.Printer = "COCINA_" + prod.Idkitchen;
+        printKitchen.Save();
     }
 }
