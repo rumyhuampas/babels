@@ -5,11 +5,15 @@ import java.sql.*;
 public class MovementTypes {
     public static final String TABLENAME = "movement_types";
     public static final String FIELD_ID = "Id";
-    public static final String FIELD_NAME = "Name";
-    
+    public static final String FIELD_NAME = "Name";    
     public static final String MT_APER = "APERTURA";
     public static final String MT_CIERRE = "CIERRE";
     public static final String MT_CIERREPARC = "CIERREPARCIAL";
+    public static final String MT_VENTA_A = "VENTA_A";
+    public static final String MT_VENTA_B = "VENTA_B";
+    public static final String MT_VENTA_X = "VENTA_X";
+    public static final String MT_DEPOSITO = "DEPOSITO";
+    public static final String MT_EXTRACCION = "EXTRACCION";
     
     private Connection Conn;
     private int Id;
