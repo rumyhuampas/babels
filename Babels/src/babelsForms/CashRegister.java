@@ -14,7 +14,7 @@ public class CashRegister extends javax.swing.JDialog {
     public CashRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Manager = new CashRegisterManager(this.tblMovements);
+        Manager = new CashRegisterManager(this.tblMovements, this.lblTotal);
         Date begin = new Date();
         Date end = new Date();
         dcFrom.setDate(begin);
@@ -34,8 +34,8 @@ public class CashRegister extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        lblTotalTitle = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuOperations = new javax.swing.JMenu();
         mItemOpenCash = new javax.swing.JMenuItem();
@@ -50,6 +50,21 @@ public class CashRegister extends javax.swing.JDialog {
 
         tblMovements.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -93,8 +108,12 @@ public class CashRegister extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Total:");
+        lblTotal.setFont(new java.awt.Font("David", 1, 36)); // NOI18N
+        lblTotal.setForeground(new java.awt.Color(153, 0, 0));
+        lblTotal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        lblTotalTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTotalTitle.setText("Total:");
 
         MenuOperations.setText("Operaciones");
 
@@ -142,9 +161,9 @@ public class CashRegister extends javax.swing.JDialog {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblTotalTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
@@ -171,14 +190,13 @@ public class CashRegister extends javax.swing.JDialog {
                         .addComponent(jLabel2))
                     .addComponent(btnSearch))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel4)))
+                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblTotalTitle)
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
         );
 
@@ -186,7 +204,16 @@ public class CashRegister extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mItemOpenCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemOpenCashActionPerformed
-        // TODO add your handling code here:
+        Class[] classParam = new Class[3];
+        classParam[0] = java.awt.Frame.class;
+        classParam[1] = boolean.class;
+        classParam[2] = int.class;
+        Object[] objectParam = new Object[3];
+        objectParam[0] = new javax.swing.JFrame();
+        objectParam[1] = true;
+        objectParam[2] = 1;
+        FormsFactory.GetDialogForm("babelsForms.CashRegisterWindow", true, classParam, objectParam);
+        btnSearch.doClick();
     }//GEN-LAST:event_mItemOpenCashActionPerformed
 
     private void mItemCashInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCashInActionPerformed
@@ -195,7 +222,7 @@ public class CashRegister extends javax.swing.JDialog {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
-            Manager.RefreshTable(dcFrom.getDate(), dcFrom.getDate());
+            Manager.RefreshTable(dcFrom.getDate(), dcTo.getDate());
             tblMovements.repaint();
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
@@ -259,10 +286,10 @@ public class CashRegister extends javax.swing.JDialog {
     private com.toedter.calendar.JDateChooser dcTo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalTitle;
     private javax.swing.JMenuItem mItemCashIn;
     private javax.swing.JMenuItem mItemCashOut;
     private javax.swing.JMenuItem mItemFinalClose;
