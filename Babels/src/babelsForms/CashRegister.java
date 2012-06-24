@@ -196,6 +196,7 @@ public class CashRegister extends javax.swing.JDialog {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
             Manager.RefreshTable(dcFrom.getDate(), dcFrom.getDate());
+            tblMovements.repaint();
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
