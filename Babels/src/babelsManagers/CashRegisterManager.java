@@ -1,17 +1,12 @@
 package babelsManagers;
 
 import babels.Babels;
-import babelsObjects.Movement;
-import babelsObjects.CashRegister;
-import babelsObjects.User;
-import java.sql.Date;
+import babelsObjects.MovementAdmin;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import java.util.Calendar;
-import javax.swing.JTextField;
 
 public class CashRegisterManager {
 
@@ -19,7 +14,7 @@ public class CashRegisterManager {
     private TableModel Model;
     public boolean RefreshingTable;
     private Date today;
-/*
+
     public CashRegisterManager(JTable table) {
         this.Table = table;
         this.Model = this.Table.getModel();
@@ -28,10 +23,10 @@ public class CashRegisterManager {
     public CashRegisterManager() {
     }
 
-    public void RefreshTable() throws SQLException {
+    public void RefreshTable(Date DateBegining, Date DateFinal) throws SQLException {
         this.RefreshingTable = true;
         ClearTable();
-        LoadMovements();
+        LoadMovements(DateBegining, DateFinal);
         this.RefreshingTable = false;
     }
 
@@ -40,25 +35,22 @@ public class CashRegisterManager {
         tm.getDataVector().removeAllElements();
     }
 
-    private void LoadMovements() throws SQLException {
+    private void LoadMovements(Date DateBegining, Date DateFinal) throws SQLException {
         Babels.mysql.Open();
         try {
-            Object[] rows = Movement.GetMovements(Babels.mysql.Conn);
+            Object[] rows = MovementAdmin.GetMovements(Babels.mysql.Conn, DateBegining, DateFinal);
             Object[] row = null;
             DefaultTableModel tm = (DefaultTableModel) this.Model;
             Object[] rowTable = null;
             for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
                 row = (Object[]) rows[rowIdx];
-                rowTable = new Object[9];
+                rowTable = new Object[5];
                 rowTable[0] = row[0];
                 rowTable[1] = row[1];
-                rowTable[2] = row[3];
-                rowTable[3] = row[2];
+                rowTable[2] = row[2];
+                rowTable[3] = row[3];
                 rowTable[4] = row[4];
-                rowTable[5] = row[5];
-                rowTable[6] = row[6];
-                rowTable[7] = row[7];
-                rowTable[8] = row[8];
+                
 
                 tm.addRow(rowTable);
             }
@@ -67,7 +59,7 @@ public class CashRegisterManager {
         }
     }
 
-    public boolean OpenCashRegister(JTextField txtAmount) throws SQLException {
+ /*   public boolean OpenCashRegister(JTextField txtAmount) throws SQLException {
         Babels.mysql.Open();
         try {
             CashRegister cashReg = new CashRegister(Babels.mysql.Conn);
