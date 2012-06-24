@@ -16,6 +16,21 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
         super(parent, modal);
         initComponents();
         Type = type;
+        if (Type == 1) {
+            this.setTitle("Apertura de Caja");
+        }
+        if (Type == 2) {
+            this.setTitle("Cierre Parcial de Caja");
+        }
+        if (Type == 3) {
+            this.setTitle("Cierre Final de Caja");
+        }
+        if (Type == 4) {
+            this.setTitle("Extraccion");
+        }
+        if (Type == 5) {
+            this.setTitle("Deposito");
+        }
     }
 
     @Override
@@ -94,7 +109,22 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
         try {
             if (Type == 1) {
                 CashRegisterWindowManager.doCashOpen(Float.parseFloat(txtAmount.getText()));
-                
+                this.dispose();
+            }
+            if (Type == 2) {
+                CashRegisterWindowManager.doCashClose(Float.parseFloat(txtAmount.getText()), true);
+                this.dispose();
+            }
+            if (Type == 3) {
+                CashRegisterWindowManager.doCashClose(Float.parseFloat(txtAmount.getText()), false);
+                this.dispose();
+            }
+            if (Type == 4) {
+                CashRegisterWindowManager.doCashMove(Float.parseFloat(txtAmount.getText()), false);
+                this.dispose();
+            }
+            if (Type == 5) {
+                CashRegisterWindowManager.doCashMove(Float.parseFloat(txtAmount.getText()), true);
                 this.dispose();
             }
         } catch (SQLException ex) {

@@ -48,6 +48,7 @@ public class CashRegister extends javax.swing.JDialog {
         mItemCashOut = new javax.swing.JMenuItem();
         mItemCashIn = new javax.swing.JMenuItem();
         MenuReports = new javax.swing.JMenu();
+        mitemPrint = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -119,10 +120,25 @@ public class CashRegister extends javax.swing.JDialog {
         lblTotalTitle.setText("Total:");
 
         chbOpenClose.setText("Aperturas/Cierres");
+        chbOpenClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbOpenCloseActionPerformed(evt);
+            }
+        });
 
         chbSales.setText("Ventas");
+        chbSales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbSalesActionPerformed(evt);
+            }
+        });
 
         chbInOut.setText("Depositos/Extracciones");
+        chbInOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbInOutActionPerformed(evt);
+            }
+        });
 
         MenuOperations.setText("Operaciones");
 
@@ -137,14 +153,29 @@ public class CashRegister extends javax.swing.JDialog {
         menuClose.setText("Cierre");
 
         mItemPartialClose.setText("Cierre Parcial");
+        mItemPartialClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemPartialCloseActionPerformed(evt);
+            }
+        });
         menuClose.add(mItemPartialClose);
 
         mItemFinalClose.setText("Cierre Final");
+        mItemFinalClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemFinalCloseActionPerformed(evt);
+            }
+        });
         menuClose.add(mItemFinalClose);
 
         MenuOperations.add(menuClose);
 
         mItemCashOut.setText("Extraccion");
+        mItemCashOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemCashOutActionPerformed(evt);
+            }
+        });
         MenuOperations.add(mItemCashOut);
 
         mItemCashIn.setText("Deposito");
@@ -158,6 +189,15 @@ public class CashRegister extends javax.swing.JDialog {
         jMenuBar1.add(MenuOperations);
 
         MenuReports.setText("Reportes");
+
+        mitemPrint.setText("Imprimir");
+        mitemPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemPrintActionPerformed(evt);
+            }
+        });
+        MenuReports.add(mitemPrint);
+
         jMenuBar1.add(MenuReports);
 
         setJMenuBar(jMenuBar1);
@@ -232,20 +272,13 @@ public class CashRegister extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mItemOpenCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemOpenCashActionPerformed
-        Class[] classParam = new Class[3];
-        classParam[0] = java.awt.Frame.class;
-        classParam[1] = boolean.class;
-        classParam[2] = int.class;
-        Object[] objectParam = new Object[3];
-        objectParam[0] = new javax.swing.JFrame();
-        objectParam[1] = true;
-        objectParam[2] = 1;
-        FormsFactory.GetDialogForm("babelsForms.CashRegisterWindow", true, classParam, objectParam);
+        Manager.doOperation(1);
         btnSearch.doClick();
     }//GEN-LAST:event_mItemOpenCashActionPerformed
 
     private void mItemCashInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCashInActionPerformed
-        // TODO add your handling code here:
+        Manager.doOperation(5);
+        btnSearch.doClick();
     }//GEN-LAST:event_mItemCashInActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -257,55 +290,41 @@ public class CashRegister extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
+    private void mItemPartialCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemPartialCloseActionPerformed
+        Manager.doOperation(2);
+        btnSearch.doClick();
+    }//GEN-LAST:event_mItemPartialCloseActionPerformed
+
+    private void mItemFinalCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemFinalCloseActionPerformed
+        Manager.doOperation(3);
+        btnSearch.doClick();
+    }//GEN-LAST:event_mItemFinalCloseActionPerformed
+
+    private void mItemCashOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCashOutActionPerformed
+        Manager.doOperation(4);
+        btnSearch.doClick();
+    }//GEN-LAST:event_mItemCashOutActionPerformed
+
+    private void chbOpenCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbOpenCloseActionPerformed
+        btnSearch.doClick();
+    }//GEN-LAST:event_chbOpenCloseActionPerformed
+
+    private void chbSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbSalesActionPerformed
+        btnSearch.doClick();
+    }//GEN-LAST:event_chbSalesActionPerformed
+
+    private void chbInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInOutActionPerformed
+        btnSearch.doClick();
+    }//GEN-LAST:event_chbInOutActionPerformed
+
+    private void mitemPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemPrintActionPerformed
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CashRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CashRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CashRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CashRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Manager.doPrint();
+        } catch (SQLException ex) {
+            Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_mitemPrintActionPerformed
 
-        /*
-         * Create and display the dialog
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                CashRegister dialog = new CashRegister(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private javax.swing.JMenu MenuReports;
@@ -327,6 +346,7 @@ public class CashRegister extends javax.swing.JDialog {
     private javax.swing.JMenuItem mItemOpenCash;
     private javax.swing.JMenuItem mItemPartialClose;
     private javax.swing.JMenu menuClose;
+    private javax.swing.JMenuItem mitemPrint;
     private javax.swing.JTable tblMovements;
     // End of variables declaration//GEN-END:variables
 }
