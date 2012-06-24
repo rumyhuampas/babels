@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class MovementAdmin {
 
-    private static Object[] GetMovements(Connection conn, Date BeginingDate, Date FinalDate) throws SQLException {
+    public static Object[] GetMovements(Connection conn, Date BeginingDate, Date FinalDate) throws SQLException {
 
         DateFormat Sdf = new SimpleDateFormat("yyyy-MM-dd");
         String BeginingDateStr = Sdf.format(BeginingDate);
@@ -44,11 +44,6 @@ public class MovementAdmin {
         } finally {
             qry.close();
         }
-    }
-
-    public static Object[] GetTodayMovements(Connection Conn) throws SQLException {
-        Date fecha = new Date();
-        return GetMovements(Conn, fecha, fecha);
     }
 
     public static boolean IsCashOpen(Connection conn) throws SQLException {
