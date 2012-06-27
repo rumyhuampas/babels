@@ -4,16 +4,13 @@ import babels.Babels;
 import babelsObjects.FormsFactory;
 import babelsObjects.MovementAdmin;
 import babelsObjects.MovementTypes;
-import babelsObjects.Print;
+import babelsRenderers.TableRendererFTextField;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -37,13 +34,24 @@ public class CashRegisterManager {
         this.chbxSales = Sales;
         this.chbxCashInOut = CashInOut;
         this.currentQuery = "";
+        this.setColumnModel(); 
+          
+      //  this.Table.setDefaultRenderer(Float.class, formato); 
     }
+    private void setColumnModel(){
+         TableRendererFTextField formato = new TableRendererFTextField(); 
+        this.Table.getColumnModel().getColumn(0).setCellRenderer(formato);    
+        this.Table.getColumnModel().getColumn(1).setCellRenderer(formato);   
+        this.Table.getColumnModel().getColumn(2).setCellRenderer(formato);   
+        this.Table.getColumnModel().getColumn(3).setCellRenderer(formato);   
 
+    }
+    
     public void RefreshTable(Date DateBegining, Date DateFinal) throws SQLException {
         this.RefreshingTable = true;
         ClearTable();
         ArrayList optList = new ArrayList();
-
+        
         Babels.mysql.Open();
         try {
             if (chbxOpen.isSelected()) {
@@ -79,11 +87,13 @@ public class CashRegisterManager {
 
 
             LoadMovements(DateBegining, DateFinal, optList);
+             
         } finally {
             Babels.mysql.Close();
         }
         this.RefreshingTable = false;
-
+      
+       
     }
 
     private void ClearTable() {
@@ -100,11 +110,11 @@ public class CashRegisterManager {
         for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
             row = (Object[]) rows[rowIdx];
             rowTable = new Object[5];
-            rowTable[0] = row[0];
-            rowTable[1] = row[1];
-            rowTable[2] = row[2];
-            rowTable[3] = row[3];
-            rowTable[4] = row[4];
+            rowTable[1] = row[0];
+            rowTable[2] = row[1];
+            rowTable[3] = row[2];
+            rowTable[4] = row[3];
+            rowTable[0] = row[4];
 
             tm.addRow(rowTable);
 

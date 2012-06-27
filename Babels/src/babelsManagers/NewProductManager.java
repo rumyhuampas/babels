@@ -33,7 +33,8 @@ public class NewProductManager {
     }
 
     public boolean CheckFields(JTextField txtName, JTextField txtPrice) {
-        if (!txtName.getText().equals("") && !txtPrice.getText().equals("")) {
+        if (!txtName.getText().equals("") && !txtPrice.getText().equals("")){
+            //VALIDAR TODOS LOS CAMPOS!!!!!!!!!
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "Debe completar Nombre y Precio",
