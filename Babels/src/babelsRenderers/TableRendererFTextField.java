@@ -19,6 +19,9 @@ public class TableRendererFTextField implements TableCellRenderer {
         if(((Float)table.getValueAt(row, table.getColumnCount()-2)).compareTo(new Float(0))==-1) {
             txtFormated.setBackground(new Color(0xFE899B));
             txtFormated.setOpaque(true);
+        if(isSelected){ 
+            txtFormated.setBackground(Color.lightGray); 
+}
             
         }
 
