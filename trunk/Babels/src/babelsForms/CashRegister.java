@@ -329,7 +329,8 @@ public class CashRegister extends javax.swing.JDialog {
     private void tblMovementsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMovementsMousePressed
         if (evt.getButton() == MouseEvent.BUTTON3) {
             if (evt.getClickCount() == 1) {
-
+                this.tblMovements.changeSelection(tblMovements.getSelectedRow(), tblMovements.getSelectedColumn(), false, false);
+                        
                 this.popUpTableMovement.show(this.tblMovements, evt.getX(), evt.getY());
 
             } else {

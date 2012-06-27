@@ -32,12 +32,14 @@ public class NewProductManager {
         txtaDesc.addKeyListener(new txtAreaListener(txtaDesc));
     }
 
-    public boolean CheckFields(JTextField txtName, JTextField txtPrice) {
-        if (!txtName.getText().equals("") && !txtPrice.getText().equals("")){
+    public boolean CheckFields(JTextField txtName, JTextField txtPrice, JTextField txtcostPrice, JTextField txtpricePackaging,
+            JTextField txtiva) {
+        if (!txtName.getText().equals("") && !txtPrice.getText().equals("") && !txtcostPrice.getText().equals("")
+                && !txtpricePackaging.getText().equals("") && !txtiva.getText().equals("")){
             //VALIDAR TODOS LOS CAMPOS!!!!!!!!!
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Debe completar Nombre y Precio",
+            JOptionPane.showMessageDialog(null, "Debe completar Nombre, Precio de venta, Precio de costo, Precio Packaging y Carga Impositiva",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
