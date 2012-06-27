@@ -34,24 +34,24 @@ public class CashRegisterManager {
         this.chbxSales = Sales;
         this.chbxCashInOut = CashInOut;
         this.currentQuery = "";
-        this.setColumnModel(); 
-          
-      //  this.Table.setDefaultRenderer(Float.class, formato); 
+        this.chbxCashInOut.setSelected(true);
+        this.chbxOpen.setSelected(true);
+        this.chbxSales.setSelected(true);
+        this.setColumnModel();
     }
-    private void setColumnModel(){
-         TableRendererFTextField formato = new TableRendererFTextField(); 
-        this.Table.getColumnModel().getColumn(0).setCellRenderer(formato);    
-        this.Table.getColumnModel().getColumn(1).setCellRenderer(formato);   
-        this.Table.getColumnModel().getColumn(2).setCellRenderer(formato);   
-        this.Table.getColumnModel().getColumn(3).setCellRenderer(formato);   
 
+    private void setColumnModel() {
+        TableRendererFTextField formato = new TableRendererFTextField();
+        for (int i = 0; i < this.Table.getColumnCount(); i++) {
+            this.Table.getColumnModel().getColumn(i).setCellRenderer(formato);
+        }
     }
-    
+
     public void RefreshTable(Date DateBegining, Date DateFinal) throws SQLException {
         this.RefreshingTable = true;
         ClearTable();
         ArrayList optList = new ArrayList();
-        
+
         Babels.mysql.Open();
         try {
             if (chbxOpen.isSelected()) {
@@ -87,13 +87,13 @@ public class CashRegisterManager {
 
 
             LoadMovements(DateBegining, DateFinal, optList);
-             
+
         } finally {
             Babels.mysql.Close();
         }
         this.RefreshingTable = false;
-      
-       
+
+
     }
 
     private void ClearTable() {
@@ -136,23 +136,17 @@ public class CashRegisterManager {
     }
 
     public boolean doPrint() throws SQLException {
-        /*try {
-            babels.Babels.mysql.Open();
-            Print print = new Print(babels.Babels.mysql.Conn);
-            print.Printer = "COMUN";
-            print.Data = currentQuery;
-            if (print.Save() == true) {
-                JOptionPane.showMessageDialog(null, "Impresion enviada",
-                        "Exito", JOptionPane.INFORMATION_MESSAGE);
-                return true;
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo enviar la impresion",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        } finally {
-            babels.Babels.mysql.Close();
-        }*/
+        /*
+         * try { babels.Babels.mysql.Open(); Print print = new
+         * Print(babels.Babels.mysql.Conn); print.Printer = "COMUN"; print.Data
+         * = currentQuery; if (print.Save() == true) {
+         * JOptionPane.showMessageDialog(null, "Impresion enviada", "Exito",
+         * JOptionPane.INFORMATION_MESSAGE); return true; } else {
+         * JOptionPane.showMessageDialog(null, "No se pudo enviar la impresion",
+         * "Error", JOptionPane.ERROR_MESSAGE); return false; } } finally {
+         * babels.Babels.mysql.Close();
+        }
+         */
         return true;
     }
 }
