@@ -2,6 +2,7 @@ package babelsForms;
 
 import babelsManagers.CashRegisterManager;
 import babelsObjects.FormsFactory;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -27,6 +28,8 @@ public class CashRegister extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popUpTableMovement = new javax.swing.JPopupMenu();
+        mItemDetalle = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMovements = new javax.swing.JTable();
         dcTo = new com.toedter.calendar.JDateChooser();
@@ -49,6 +52,9 @@ public class CashRegister extends javax.swing.JDialog {
         mItemCashIn = new javax.swing.JMenuItem();
         MenuReports = new javax.swing.JMenu();
         mitemPrint = new javax.swing.JMenuItem();
+
+        mItemDetalle.setText("jMenuItem1");
+        popUpTableMovement.add(mItemDetalle);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,11 +81,11 @@ public class CashRegister extends javax.swing.JDialog {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Movimiento", "Fecha", "Total", "CancellerId", "Id"
+                "Id", "Movimiento", "Fecha", "Total", "CancellerId"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -93,10 +99,12 @@ public class CashRegister extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tblMovements.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblMovementsMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMovements);
-        tblMovements.getColumnModel().getColumn(3).setMinWidth(0);
-        tblMovements.getColumnModel().getColumn(3).setPreferredWidth(0);
-        tblMovements.getColumnModel().getColumn(3).setMaxWidth(0);
         tblMovements.getColumnModel().getColumn(4).setMinWidth(0);
         tblMovements.getColumnModel().getColumn(4).setPreferredWidth(0);
         tblMovements.getColumnModel().getColumn(4).setMaxWidth(0);
@@ -209,32 +217,30 @@ public class CashRegister extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(chbOpenClose)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chbSales)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chbInOut)
-                        .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 399, Short.MAX_VALUE)
-                                .addComponent(lblTotalTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(dcFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(dcTo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(22, 22, 22))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblTotalTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(dcFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(dcTo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,17 +255,12 @@ public class CashRegister extends javax.swing.JDialog {
                     .addComponent(btnSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(chbOpenClose)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(chbSales)
-                        .addGap(340, 340, 340))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(chbInOut)
-                        .addGap(340, 340, 340)))
+                    .addComponent(chbInOut)
+                    .addComponent(chbOpenClose, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chbSales, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -325,6 +326,18 @@ public class CashRegister extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mitemPrintActionPerformed
 
+    private void tblMovementsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMovementsMousePressed
+        if (evt.getButton() == MouseEvent.BUTTON3) {
+            if (evt.getClickCount() == 1) {
+
+                this.popUpTableMovement.show(this.tblMovements, evt.getX(), evt.getY());
+
+            } else {
+                // this.Manager.EditProduct();
+                // this.Refresh = true;
+            }
+        }
+    }//GEN-LAST:event_tblMovementsMousePressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private javax.swing.JMenu MenuReports;
@@ -342,11 +355,13 @@ public class CashRegister extends javax.swing.JDialog {
     private javax.swing.JLabel lblTotalTitle;
     private javax.swing.JMenuItem mItemCashIn;
     private javax.swing.JMenuItem mItemCashOut;
+    private javax.swing.JMenuItem mItemDetalle;
     private javax.swing.JMenuItem mItemFinalClose;
     private javax.swing.JMenuItem mItemOpenCash;
     private javax.swing.JMenuItem mItemPartialClose;
     private javax.swing.JMenu menuClose;
     private javax.swing.JMenuItem mitemPrint;
+    private javax.swing.JPopupMenu popUpTableMovement;
     private javax.swing.JTable tblMovements;
     // End of variables declaration//GEN-END:variables
 }
