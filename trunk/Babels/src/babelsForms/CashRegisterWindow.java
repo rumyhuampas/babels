@@ -21,9 +21,11 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
         }
         if (Type == 2) {
             this.setTitle("Cierre Parcial de Caja");
+            this.lblAmount.setText("Ingrese el monto real");
         }
         if (Type == 3) {
             this.setTitle("Cierre Final de Caja");
+             this.lblAmount.setText("Ingrese el monto real");
         }
         if (Type == 4) {
             this.setTitle("Extraccion");
