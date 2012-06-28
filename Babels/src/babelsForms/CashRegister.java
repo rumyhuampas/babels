@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 public class CashRegister extends javax.swing.JDialog {
 
     private CashRegisterManager Manager;
+    public boolean Refresh = true;
 
     public CashRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -57,6 +58,11 @@ public class CashRegister extends javax.swing.JDialog {
         popUpTableMovement.add(mItemDetalle);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         tblMovements.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,12 +280,12 @@ public class CashRegister extends javax.swing.JDialog {
 
     private void mItemOpenCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemOpenCashActionPerformed
         Manager.doOperation(1);
-        btnSearch.doClick();
+        this.Refresh = true;
     }//GEN-LAST:event_mItemOpenCashActionPerformed
 
     private void mItemCashInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCashInActionPerformed
         Manager.doOperation(5);
-        btnSearch.doClick();
+       this.Refresh = true;
     }//GEN-LAST:event_mItemCashInActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -293,17 +299,17 @@ public class CashRegister extends javax.swing.JDialog {
 
     private void mItemPartialCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemPartialCloseActionPerformed
         Manager.doOperation(2);
-        btnSearch.doClick();
+        this.Refresh = true;
     }//GEN-LAST:event_mItemPartialCloseActionPerformed
 
     private void mItemFinalCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemFinalCloseActionPerformed
         Manager.doOperation(3);
-        btnSearch.doClick();
+        this.Refresh = true;
     }//GEN-LAST:event_mItemFinalCloseActionPerformed
 
     private void mItemCashOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCashOutActionPerformed
         Manager.doOperation(4);
-        btnSearch.doClick();
+        this.Refresh = true;
     }//GEN-LAST:event_mItemCashOutActionPerformed
 
     private void chbOpenCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbOpenCloseActionPerformed
@@ -339,6 +345,15 @@ public class CashRegister extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_tblMovementsMousePressed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+          if (Refresh == true) {
+           this.btnSearch.doClick();
+           Refresh = false;
+          }
+                                     
+    }//GEN-LAST:event_formWindowActivated
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private javax.swing.JMenu MenuReports;
