@@ -52,7 +52,7 @@ public class Combos extends andro.babels.controllers.Tab {
                     try {
                         Combo combo = new Combo(Welcome.mysql.Conn);
                         combo.Load((Integer) comboObj[0]);
-                        //comboObj[4] = combo.ImageStream;
+                        comboObj[4] = combo.ImageStream;
                         Object[] info = new Object[2];
                         info[0] = llObj;
                         info[1] = comboObj;
