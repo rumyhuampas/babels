@@ -26,9 +26,12 @@ public class NewProductManager {
         }
     }
 
-    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, JTextArea txtaDesc, IBabelsDialog dialog) {
+    public void SetFieldsListeners(JTextField txtName, JTextField txtPrice, JTextArea txtaDesc, JTextField txtCostPrice, JTextField txtPricePackaging, JTextField txtIva, IBabelsDialog dialog) {
         txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
         txtPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+        txtCostPrice.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+        txtPricePackaging.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+        txtIva.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
         txtaDesc.addKeyListener(new txtAreaListener(txtaDesc));
     }
 

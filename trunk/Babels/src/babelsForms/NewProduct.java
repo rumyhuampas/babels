@@ -28,7 +28,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new NewProductManager();
-        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this);
+         this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this.txtCostPrice, this.txtPricePackaging, this.txtIva, this);
         AutoCompleteDecorator.decorate(this.comboKitchen);
         AutoCompleteDecorator.decorate(this.comboCategories);
     }
@@ -39,7 +39,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         AutoCompleteDecorator.decorate(this.comboKitchen);
         AutoCompleteDecorator.decorate(this.comboCategories);
         this.Manager = new NewProductManager();
-        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this.txtCostPrice, this.txtPricePackaging, this.txtIva, this);
         if (prodId != -1) {
             try {
                 this.ProdId = prodId;
