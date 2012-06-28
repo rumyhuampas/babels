@@ -7,7 +7,9 @@ import babelsObjects.MovementTypes;
 import babelsRenderers.TableRendererFTextField;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -85,8 +87,15 @@ public class CashRegisterManager {
                 optList.add(mt);
             }
 
-
-            LoadMovements(DateBegining, DateFinal, optList);
+             Calendar cal = new GregorianCalendar();
+             Calendar calfin = new GregorianCalendar();
+             cal.setTime(DateBegining);
+             calfin.setTime(DateFinal);
+             cal.add(Calendar.HOUR, 2);
+             calfin.add(Calendar.HOUR, 2);
+             Date Begining = cal.getTime();
+             Date Final = calfin.getTime();
+            LoadMovements(Begining, Final, optList);
 
         } finally {
             Babels.mysql.Close();
