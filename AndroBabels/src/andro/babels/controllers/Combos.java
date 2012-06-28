@@ -29,9 +29,9 @@ public class Combos extends andro.babels.controllers.Tab {
     private void LoadInfo() {
         ExtraObject extraObj = (ExtraObject) extras.getParcelable("combos");
         for (int i = 0; i < extraObj.Obj.length; i++) {
-            view.DrawObject((Object[]) extraObj.Obj[i], i, SalesItemsAdmin.IT_COMBO, posController.ObjectOnClickHandler, posController.ObjectOnLongClickHandler);
+            //view.DrawObject((Object[]) extraObj.Obj[i], i, SalesItemsAdmin.IT_COMBO, posController.ObjectOnClickHandler, posController.ObjectOnLongClickHandler);
             
-            /*Object[] obj = (Object[]) extraObj.Obj[i];
+            Object[] obj = (Object[]) extraObj.Obj[i];
             Object[] comboObj = new Object[5];
 
             comboObj[0] = obj[0]; //ID
@@ -39,7 +39,7 @@ public class Combos extends andro.babels.controllers.Tab {
             comboObj[2] = obj[2]; //DESC
             comboObj[3] = obj[3]; //PRICE
             LinearLayout llObj = view.DrawObject(comboObj, i, SalesItemsAdmin.IT_COMBO, posController.ObjectOnClickHandler, posController.ObjectOnLongClickHandler);
-            GetComboImage(comboObj, llObj);*/
+            GetComboImage(comboObj, llObj);
         }
     }
     
