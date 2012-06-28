@@ -10,12 +10,13 @@
         android:anyDensity="true" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <application android:label="@string/app_name" 
-                 android:icon="@drawable/logo">
+                 android:icon="@drawable/logo2">
         <activity android:name="Welcome"
                   android:label="@string/app_name"
                   android:noHistory="true"
                   android:configChanges="orientation"
-                  android:screenOrientation="landscape">
+                  android:screenOrientation="landscape"
+                  android:keepScreenOn = "true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,24 +24,30 @@
         </activity>
         <activity android:name="Pos"
                   android:configChanges="orientation"
-                  android:screenOrientation="landscape">
+                  android:screenOrientation="landscape"
+                  android:keepScreenOn = "true">
         </activity>
-        <activity android:name="Combos">
+        <activity android:name="Combos"
+                  android:keepScreenOn = "true">
         </activity>
-        <activity android:name="Products">
+        <activity android:name="Products"
+                  android:keepScreenOn = "true">
         </activity>
         <activity android:name="ItemDetails"
                   android:configChanges="orientation"
-                  android:screenOrientation="landscape">
+                  android:screenOrientation="landscape"
+                  android:keepScreenOn = "true">
         </activity>
         <activity android:name="Settings"
                   android:configChanges="orientation"
                   android:screenOrientation="landscape"
-                  android:noHistory="true">
+                  android:noHistory="true"
+                  android:keepScreenOn = "true">
         </activity>
         <activity android:name="CancelSale"
                   android:configChanges="orientation"
-                  android:screenOrientation="landscape">
+                  android:screenOrientation="landscape"
+                  android:keepScreenOn = "true">
         </activity>
     </application>
 </manifest> 
