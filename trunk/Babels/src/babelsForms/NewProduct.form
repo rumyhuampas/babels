@@ -35,12 +35,19 @@
                           <Component id="lblPrice" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtName" min="-2" pref="214" max="-2" attributes="0"/>
-                          <Component id="spnlDesc" min="-2" pref="214" max="-2" attributes="0"/>
-                          <Component id="txtPrice" min="-2" pref="89" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtName" min="-2" pref="214" max="-2" attributes="0"/>
+                                  <Component id="spnlDesc" min="-2" pref="214" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="69" pref="69" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="txtPrice" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="69" pref="69" max="-2" attributes="0"/>
                       <Component id="lblImg" min="-2" pref="180" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -140,6 +147,7 @@
                       </Group>
                   </Group>
               </Group>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
