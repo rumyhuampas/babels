@@ -14,6 +14,7 @@ public class MovementTypes {
     public static final String MT_VENTA_X = "VENTA_X";
     public static final String MT_DEPOSITO = "DEPOSITO";
     public static final String MT_EXTRACCION = "EXTRACCION";
+    public static final String MT_CANCELATION = "CANCELACION";
     
     private Connection Conn;
     private int Id;
