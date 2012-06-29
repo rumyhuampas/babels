@@ -15,6 +15,7 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
     public CashRegisterWindow(java.awt.Frame parent, boolean modal, int type) {
         super(parent, modal);
         initComponents();
+        CashRegisterWindowManager.SetFieldsListeners(this.txtAmount, this);
         Type = type;
         if (Type == 1) {
             this.setTitle("Apertura de Caja");

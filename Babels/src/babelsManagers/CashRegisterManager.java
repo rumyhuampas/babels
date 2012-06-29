@@ -77,6 +77,10 @@ public class CashRegisterManager {
                 mt = new MovementTypes(babels.Babels.mysql.Conn);
                 mt.Load(MovementTypes.MT_VENTA_X);
                 optList.add(mt);
+                mt = new MovementTypes(babels.Babels.mysql.Conn);
+                mt.Load(MovementTypes.MT_CANCELATION);
+                optList.add(mt);
+
             }
             if (chbxCashInOut.isSelected()) {
                 MovementTypes mt = new MovementTypes(babels.Babels.mysql.Conn);
