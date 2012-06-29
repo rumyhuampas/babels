@@ -13,7 +13,7 @@ import de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel;
 
 public class Babels {
 
-    public static MySQL mysql = new MySQL("192.168.1.109", "babels", "root", "");
+    public static MySQL mysql = new MySQL("localhost", "babels", "root", "");
     public static Session session = null;
 
     public static void main(String[] args) {

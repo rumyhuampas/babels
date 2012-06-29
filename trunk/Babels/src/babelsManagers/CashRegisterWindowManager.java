@@ -1,10 +1,16 @@
 package babelsManagers;
 
+import babelsInterfaces.IBabelsDialog;
+import babelsListeners.KeyListenerType;
+import babelsListeners.txtAreaListener;
+import babelsListeners.txtFieldListener;
 import babelsObjects.Movement;
 import babelsObjects.MovementAdmin;
 import babelsObjects.MovementTypes;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class CashRegisterWindowManager {
 
@@ -73,10 +79,14 @@ public class CashRegisterWindowManager {
             babels.Babels.mysql.Close();
         }
     }
-
+     public static void SetFieldsListeners(JTextField txtAmount, IBabelsDialog dialog) {
+               txtAmount.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+       
+    }
     public static boolean doCashMove(float amount, boolean isIn) throws SQLException {
         try {
             babels.Babels.mysql.Open();
+             if (MovementAdmin.IsCashOpen(babels.Babels.mysql.Conn)) {
             MovementTypes Mt = new MovementTypes(babels.Babels.mysql.Conn);
             if (isIn == true) {
                 Mt.Load(MovementTypes.MT_DEPOSITO);
@@ -101,6 +111,10 @@ public class CashRegisterWindowManager {
                         "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
+            } else {
+                JOptionPane.showMessageDialog(null, "La caja no esta abierta",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }   return false;
         } finally {
             babels.Babels.mysql.Close();
         }
