@@ -1,6 +1,7 @@
 package andro.babels.views;
 
 import andro.babels.R;
+import andro.babels.wrappers.BabelsSettings;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,10 +19,12 @@ public class Tab extends andro.babels.views.Base {
     private Activity Activity;
     private LinearLayout ll;
     private LinearLayout row;
+    private int TextSize;
 
     public Tab(Activity activity, int llMainId) {
         Activity = activity;
         ll = (LinearLayout) Activity.findViewById(llMainId);
+        TextSize = Integer.parseInt(andro.babels.controllers.Welcome.settings.GetAppSetting(BabelsSettings.ITEMTEXTSIZEKEY, BabelsSettings.ITEMTEXTSIZEDEFAULT));
     }
 
     public LinearLayout DrawObject(Object[] obj, int index, String type, View.OnClickListener onClickHandler, View.OnLongClickListener onLongClickHandler) {
@@ -84,7 +87,7 @@ public class Tab extends andro.babels.views.Base {
     private TextView CreateObjectTitle(Object[] obj) {
         TextView lblTitle = new TextView(Activity);
         lblTitle.setLines(1);
-        lblTitle.setTextSize(andro.babels.controllers.Welcome.textSize);
+        lblTitle.setTextSize(TextSize);
         lblTitle.setTextColor(Color.WHITE);
         lblTitle.setGravity(Gravity.CENTER);
         lblTitle.setEllipsize(TextUtils.TruncateAt.END);
@@ -95,7 +98,7 @@ public class Tab extends andro.babels.views.Base {
     private TextView CreateObjectPrice(Object[] obj) {
         TextView lblPrice = new TextView(Activity);
         lblPrice.setLines(1);
-        lblPrice.setTextSize(andro.babels.controllers.Welcome.textSize);
+        lblPrice.setTextSize(TextSize);
         lblPrice.setTextColor(Color.WHITE);
         lblPrice.setGravity(Gravity.CENTER);
         lblPrice.setEllipsize(TextUtils.TruncateAt.END);

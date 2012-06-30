@@ -27,7 +27,8 @@
                               android:layout_height="fill_parent">
                     <TabWidget android:id="@android:id/tabs"
                                android:layout_width="fill_parent" 
-                               android:layout_height="30dp" />
+                               android:layout_height="0dp"
+                               android:layout_weight="0.5"/>
                     <FrameLayout android:id="@android:id/tabcontent"
                                  android:layout_width="fill_parent" 
                                  android:layout_height="fill_parent">
@@ -48,6 +49,7 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
+                    android:id="@+id/pos_saleListTitle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Lista de venta"
@@ -84,7 +86,7 @@
                 <Button
                     android:id="@+id/pos_btnDone"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:textSize="8dp"
                     android:text="Guardar"
