@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 public class Combos extends andro.babels.models.Base{
-    public InputStream LoadCombo(Integer id) throws SQLException {
+    public InputStream GetComboImage(Integer id) throws SQLException {
         Combo combo = new Combo(Welcome.mysql.Conn);
         combo.Load(id);
         return combo.ImageStream;

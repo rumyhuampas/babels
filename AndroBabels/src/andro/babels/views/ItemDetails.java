@@ -28,7 +28,7 @@ public class ItemDetails extends andro.babels.views.Base {
         TextView txtPrice = (TextView) Activity.findViewById(R.id.id_txtPrice);
         if (itemType.equals(SalesItemsAdmin.IT_COMBO)) {
             Combo combo = (Combo) item;
-            //img.setImageBitmap(BitmapFactory.decodeStream(combo.ImageStream));
+            img.setImageBitmap(BitmapFactory.decodeStream(combo.ImageStream));
             txtTitle.setText(combo.Name);
             txtName.setText(combo.Name);
             txtDesc.setText(combo.Desc);

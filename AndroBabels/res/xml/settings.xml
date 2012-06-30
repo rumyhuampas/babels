@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="Connection">
+    <PreferenceCategory android:title="Connección">
         <EditTextPreference
             android:key="URLPref"
             android:name="URL"
@@ -21,5 +21,12 @@
             android:name="PASS"
             android:title="Contraseña"
             android:summary="Contraseña del usuario de la base de datos"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Configuraciones visuales">
+        <EditTextPreference
+            android:key="TEXTSIZEPref"
+            android:name="TextSize"
+            android:title="Tamaño"
+            android:summary="Tamaño de letra"/>
     </PreferenceCategory>
 </PreferenceScreen>

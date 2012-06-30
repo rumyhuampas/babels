@@ -2,13 +2,11 @@ package andro.babels.controllers;
 
 import andro.babels.wrappers.AndroThread;
 import andro.babels.wrappers.ExtraObject;
-import andro.babels.wrappers.SaleList;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.LinearLayout;
-import babelsObjects.Combo;
 import babelsObjects.SalesItemsAdmin;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -54,7 +52,7 @@ public class Combos extends andro.babels.controllers.Tab {
         info[1] = comboObj;
         
         AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
-                model, "LoadCombo", new Class[]{Integer.class}, new Object[]{comboObj[0]},
+                model, "GetComboImage", new Class[]{Integer.class}, new Object[]{comboObj[0]},
                 InputStream.class, info, LoadComboHandler, ExceptionHandler);
         thread.Start();
     }
@@ -63,6 +61,7 @@ public class Combos extends andro.babels.controllers.Tab {
 
         @Override
         public void handleMessage(Message msg) {
+            super.handleMessage(msg);
             Object[] message = (Object[]) msg.obj;
             Object[] info = (Object[])message[1];
             

@@ -17,6 +17,8 @@ public class BabelsSettings {
     public static final String USERDEFAULT = "root";
     public static final String PASSKEY = "PASSPref";
     public static final String PASSDEFAULT = "";
+    public static final String TEXTSIZEKEY = "TEXTSIZEPref";
+    public static final String TEXTSIZEDEFAULT = "10";
     
     public BabelsSettings(andro.babels.Welcome activity){
         Activity = activity;
