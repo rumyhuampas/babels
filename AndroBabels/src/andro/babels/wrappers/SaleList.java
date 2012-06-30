@@ -108,11 +108,14 @@ public class SaleList {
         if (type.equals(SalesItemsAdmin.IT_PROD)) {
             list = products;
         } else {
-            list = cancelations;
+            list = combos;
         }
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).id == saleItemId) {
-                list.remove(i);
+                list.get(i).ammount--;
+                if (list.get(i).ammount == 0) {
+                    list.remove(i);
+                }
                 break;
             }
         }

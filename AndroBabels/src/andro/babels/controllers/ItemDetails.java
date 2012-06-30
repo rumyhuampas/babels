@@ -1,10 +1,12 @@
 package andro.babels.controllers;
 
+import andro.babels.wrappers.AndroThread;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import andro.babels.wrappers.dialogs.LoadingDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 public class ItemDetails extends andro.babels.controllers.Base {
@@ -26,29 +28,15 @@ public class ItemDetails extends andro.babels.controllers.Base {
         final String itemType = extras.getString("ItemType");
         final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Cargar item", "Cargando...");
         loadDialog.show();
-        Thread thread = new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    andro.babels.controllers.Welcome.mysql.Open();
-                    try {
-                        Object[] resp = new Object[3];
-                        resp[0] = itemType;
-                        resp[1] = model.GetItem(itemID, itemType);
-                        resp[2] = loadDialog;
-                        Message msg = LoadItemHandler.obtainMessage(1, resp);
-                        LoadItemHandler.sendMessage(msg);
-
-                    } finally {
-                        andro.babels.controllers.Welcome.mysql.Close();
-                    }
-                } catch (Exception ex) {
-                    Message msg = ExceptionHandler.obtainMessage(1, ex);
-                    ExceptionHandler.sendMessage(msg);
-                }
-            }
-        });
-        thread.start();
+        
+        Object[] info = new Object[2];
+        info[0] = itemType;
+        info[1] = loadDialog;
+        
+        AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
+                model, "GetItem", new Class[]{int.class, String.class}, new Object[]{itemID, itemType},
+                Object.class, info, LoadItemHandler, ExceptionHandler);
+        thread.Start();
     }
     
     private Handler LoadItemHandler = new Handler() {
@@ -56,9 +44,12 @@ public class ItemDetails extends andro.babels.controllers.Base {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Object[] resp = (Object[]) msg.obj;
-            view.DrawItem((String)resp[0], (Object)resp[1]);
-            LoadingDialog loadDialog = (LoadingDialog) resp[2];
+            Object[] message = (Object[]) msg.obj;
+            Object item = (Object)message[0];
+            Object[] info = (Object[])message[1];
+            
+            view.DrawItem((String)info[0], item);
+            LoadingDialog loadDialog = (LoadingDialog) info[1];
             loadDialog.hide();
         }
     };

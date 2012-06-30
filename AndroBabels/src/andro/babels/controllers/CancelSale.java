@@ -1,6 +1,7 @@
 package andro.babels.controllers;
 
 import andro.babels.R;
+import andro.babels.wrappers.AndroThread;
 import andro.babels.wrappers.SaleList;
 import andro.babels.wrappers.dialogs.ComboDialog;
 import andro.babels.wrappers.dialogs.ImageDialog;
@@ -41,26 +42,11 @@ public class CancelSale extends andro.babels.controllers.Base {
                 if (!search.equals("")) {
                     final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Buscar venta", "Buscando...");
                     loadDialog.show();
-                    Thread thread = new Thread(new Runnable() {
-
-                        public void run() {
-                            try {
-                                andro.babels.controllers.Welcome.mysql.Open();
-                                try {
-                                    model.Search(saleList, search);
-                                    Message msg = SearchSaleHandler.obtainMessage(1, loadDialog);
-                                    SearchSaleHandler.sendMessage(msg);
-
-                                } finally {
-                                    andro.babels.controllers.Welcome.mysql.Close();
-                                }
-                            } catch (Exception ex) {
-                                Message msg = ExceptionHandler.obtainMessage(1, ex);
-                                ExceptionHandler.sendMessage(msg);
-                            }
-                        }
-                    });
-                    thread.start();
+                    
+                    AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
+                            model, "Search",new Class[]{SaleList.class, String.class}, new Object[]{saleList, search},
+                            null, loadDialog, SearchSaleHandler, ExceptionHandler);
+                    thread.Start();
                 } else {
                     view.ShowToast(Activity, "El campo de búsqueda está vacio");
                 }
@@ -72,7 +58,8 @@ public class CancelSale extends andro.babels.controllers.Base {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            LoadingDialog loadDialog = (LoadingDialog) msg.obj;
+            Object[] message = (Object[]) msg.obj;
+            LoadingDialog loadDialog = (LoadingDialog) message[1];
             loadDialog.hide();
             if (saleList.GetCancelationList().size() == 0) {
                 if (saleList.GetGeneralList().size() == 0) {
@@ -97,26 +84,10 @@ public class CancelSale extends andro.babels.controllers.Base {
                         if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
                             final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Cancelar venta", "Cancelando...");
                             loadDialog.show();
-                            Thread thread = new Thread(new Runnable() {
-
-                                public void run() {
-                                    try {
-                                        andro.babels.controllers.Welcome.mysql.Open();
-                                        try {
-                                            model.CancelSale();
-                                            Message msg = CancelSaleHandler.obtainMessage(1, loadDialog);
-                                            CancelSaleHandler.sendMessage(msg);
-
-                                        } finally {
-                                            andro.babels.controllers.Welcome.mysql.Close();
-                                        }
-                                    } catch (Exception ex) {
-                                        Message msg = ExceptionHandler.obtainMessage(1, ex);
-                                        ExceptionHandler.sendMessage(msg);
-                                    }
-                                }
-                            });
-                            thread.start();
+                            
+                            AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
+                            model, "CancelSale", null, null, null, loadDialog, CancelSaleHandler, ExceptionHandler);
+                            thread.Start();
                         }
                         cancelDialog.hide();
                     }
@@ -130,7 +101,8 @@ public class CancelSale extends andro.babels.controllers.Base {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            LoadingDialog loadDialog = (LoadingDialog) msg.obj;
+            Object[] message = (Object[]) msg.obj;
+            LoadingDialog loadDialog = (LoadingDialog) message[1];
             loadDialog.hide();
             view.ShowToast(Activity, "Venta cancelada exitosamente");
             saleList.ClearSalelist();
