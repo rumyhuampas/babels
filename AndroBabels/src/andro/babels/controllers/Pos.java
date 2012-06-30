@@ -189,6 +189,7 @@ public class Pos extends andro.babels.controllers.Base {
                     if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
                         saleList.ClearSalelist();
                         view.RefreshSaleList(saleList, SaleItemOnClickHandler, SaleItemOnLongClickHandler);
+                        view.SetSaleTotal(String.valueOf(saleList.GetSaleTotal()));
                     }
                     dialog.hide();
                 }
