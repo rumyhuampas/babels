@@ -1,9 +1,7 @@
 package babelsManagers;
 
 import babels.Babels;
-import babelsObjects.FormsFactory;
-import babelsObjects.MovementAdmin;
-import babelsObjects.MovementTypes;
+import babelsObjects.*;
 import babelsRenderers.TableRendererFTextField;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -91,14 +89,14 @@ public class CashRegisterManager {
                 optList.add(mt);
             }
 
-             Calendar cal = new GregorianCalendar();
-             Calendar calfin = new GregorianCalendar();
-             cal.setTime(DateBegining);
-             calfin.setTime(DateFinal);
-             cal.add(Calendar.HOUR, 2);
-             calfin.add(Calendar.HOUR, 2);
-             Date Begining = cal.getTime();
-             Date Final = calfin.getTime();
+            Calendar cal = new GregorianCalendar();
+            Calendar calfin = new GregorianCalendar();
+            cal.setTime(DateBegining);
+            calfin.setTime(DateFinal);
+            cal.add(Calendar.HOUR, 2);
+            calfin.add(Calendar.HOUR, 2);
+            Date Begining = cal.getTime();
+            Date Final = calfin.getTime();
             LoadMovements(Begining, Final, optList);
 
         } finally {
@@ -108,6 +106,8 @@ public class CashRegisterManager {
 
 
     }
+
+    
 
     private void ClearTable() {
         DefaultTableModel tm = (DefaultTableModel) this.Model;
@@ -157,8 +157,7 @@ public class CashRegisterManager {
          * JOptionPane.INFORMATION_MESSAGE); return true; } else {
          * JOptionPane.showMessageDialog(null, "No se pudo enviar la impresion",
          * "Error", JOptionPane.ERROR_MESSAGE); return false; } } finally {
-         * babels.Babels.mysql.Close();
-        }
+         * babels.Babels.mysql.Close(); }
          */
         return true;
     }
