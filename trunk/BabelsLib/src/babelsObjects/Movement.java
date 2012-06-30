@@ -11,7 +11,7 @@ public class Movement {
     public static final String FIELD_DATEPOSTED = "DatePosted";
     public static final String FIELD_AMOUNT = "Amount";
     public static final String FIELD_USER = "IdUser";
-    protected Connection Conn;
+    public Connection Conn;
     public int Id;
     public float Amount;
     public Date DatePosted;
