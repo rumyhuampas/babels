@@ -20,7 +20,7 @@
             <Menu class="javax.swing.JMenu" name="mitemFileNew">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/babelsImages/new.png"/>
+                  <Image iconType="3" name="/babelsImages/Add48.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo"/>
               </Properties>
@@ -52,7 +52,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mitemFileExit">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/babelsImages/exit.png"/>
+                  <Image iconType="3" name="/babelsImages/power_black (1) - copia.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
@@ -74,7 +74,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mitemAdminProducts">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/babelsImages/food.png"/>
+                  <Image iconType="3" name="/babelsImages/foodpng.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Productos..."/>
               </Properties>
@@ -84,6 +84,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemAdminCombos">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/babelsImages/foodpng.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Combos"/>
               </Properties>
               <Events>
@@ -93,7 +96,7 @@
             <Menu class="javax.swing.JMenu" name="mitemAdminUser">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/babelsImages/user.png"/>
+                  <Image iconType="3" name="/babelsImages/User48 - copia.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cuenta de usuario"/>
               </Properties>
@@ -124,7 +127,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mitemUsersAdmin">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/babelsImages/users.png"/>
+                  <Image iconType="3" name="/babelsImages/Users48.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Administrar usuarios..."/>
               </Properties>
@@ -141,6 +144,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/babelsImages/currency_black_dollar (2) - copia.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Caja"/>
               </Properties>
               <Events>
