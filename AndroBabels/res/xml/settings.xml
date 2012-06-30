@@ -24,9 +24,19 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Configuraciones visuales">
         <EditTextPreference
-            android:key="TEXTSIZEPref"
-            android:name="TextSize"
-            android:title="Tamaño"
-            android:summary="Tamaño de letra"/>
+            android:key="ITEMTEXTSIZEPref"
+            android:name="ItemTextSize"
+            android:title="Tamaño Items"
+            android:summary="Tamaño de letra de los items"/>
+        <EditTextPreference
+            android:key="TITLETEXTSIZEPref"
+            android:name="TitleTextSize"
+            android:title="Tamaño Titulos"
+            android:summary="Tamaño de letra de los titulos"/>
+        <EditTextPreference
+            android:key="SALEITEMTEXTSIZEPref"
+            android:name="SaleItemTextSize"
+            android:title="Tamaño letra items de venta"
+            android:summary="Tamaño de letra de los items de una venta"/>
     </PreferenceCategory>
 </PreferenceScreen>

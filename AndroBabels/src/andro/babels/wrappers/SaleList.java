@@ -23,6 +23,7 @@ public class SaleList {
     private List<SaleItem> combos;
     private List<SaleItem> products;
     private List<SaleItem> cancelations;
+    private int TextSize;
 
     public List<SaleItem> GetComboList() {
         return combos;
@@ -47,6 +48,7 @@ public class SaleList {
         combos = new ArrayList();
         products = new ArrayList();
         cancelations = new ArrayList();
+        TextSize = Integer.parseInt(andro.babels.controllers.Welcome.settings.GetAppSetting(BabelsSettings.SALEITEMTEXTSIZEKEY, BabelsSettings.SALEITEMTEXTSIZEDEFAULT));
     }
 
     private SaleItem GetProduct(int id) {
@@ -174,7 +176,7 @@ public class SaleList {
         }
         ll.setLayoutParams(params);
         TextView saleValueView = new TextView(context);
-        saleValueView.setTextSize(andro.babels.controllers.Welcome.textSize);
+        saleValueView.setTextSize(TextSize);
         saleValueView.setTextColor(Color.WHITE);
         saleValueView.setText(value);
         ll.addView(saleValueView);

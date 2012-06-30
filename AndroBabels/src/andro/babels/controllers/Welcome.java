@@ -21,7 +21,6 @@ public class Welcome extends andro.babels.controllers.Base {
     private andro.babels.models.Welcome model;
     public static MySQL mysql;
     public static andro.babels.wrappers.BabelsSettings settings;
-    public static int textSize;
     private boolean SettingsPressed;
 
     public Welcome(andro.babels.Welcome activity) {
@@ -36,8 +35,6 @@ public class Welcome extends andro.babels.controllers.Base {
         String pass = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.PASSKEY, andro.babels.wrappers.BabelsSettings.PASSDEFAULT);
         mysql = new MySQL(url, db, user, pass);
         LoadAppSettings();
-        textSize = (Integer.parseInt(settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.TEXTSIZEKEY, 
-                andro.babels.wrappers.BabelsSettings.TEXTSIZEDEFAULT)));
         LoadInfo();
     }
 
@@ -54,8 +51,14 @@ public class Welcome extends andro.babels.controllers.Base {
         if (settings.GetAppSetting(BabelsSettings.PASSKEY, "").equals("")) {
             settings.SaveAppSetting(BabelsSettings.PASSKEY, BabelsSettings.PASSDEFAULT);
         }
-        if (settings.GetAppSetting(BabelsSettings.TEXTSIZEKEY, "").equals("")) {
-            settings.SaveAppSetting(BabelsSettings.TEXTSIZEKEY, BabelsSettings.TEXTSIZEDEFAULT);
+        if (settings.GetAppSetting(BabelsSettings.ITEMTEXTSIZEKEY, "").equals("")) {
+            settings.SaveAppSetting(BabelsSettings.ITEMTEXTSIZEKEY, BabelsSettings.ITEMTEXTSIZEDEFAULT);
+        }
+        if (settings.GetAppSetting(BabelsSettings.TITLETEXTSIZEKEY, "").equals("")) {
+            settings.SaveAppSetting(BabelsSettings.TITLETEXTSIZEKEY, BabelsSettings.TITLETEXTSIZEDEFAULT);
+        }
+        if (settings.GetAppSetting(BabelsSettings.SALEITEMTEXTSIZEKEY, "").equals("")) {
+            settings.SaveAppSetting(BabelsSettings.SALEITEMTEXTSIZEKEY, BabelsSettings.SALEITEMTEXTSIZEDEFAULT);
         }
     }
 
