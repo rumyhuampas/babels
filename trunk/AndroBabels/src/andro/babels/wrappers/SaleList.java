@@ -151,43 +151,51 @@ public class SaleList {
         LinearLayout ll = new LinearLayout(context);
         ll.setOrientation(LinearLayout.HORIZONTAL);
         ll.addView(CreateSaleId(context, item));
-        ll.addView(CreateSaleValueView(context, String.valueOf(number) + ". ", false));
+        ll.addView(CreateSaleValueView(context, String.valueOf(number) + ". ", true));
         ll.addView(CreateSaleValueView(context, item.name, true));
         ll.addView(CreateSaleValueView(context, String.valueOf(item.ammount), false));
         ll.addView(CreateSaleType(context, item));
         ll.setOnClickListener(SaleItemOnClickHandler);
         ll.setOnLongClickListener(SaleItemOnLongClickHandler);
+        //ll.setPadding(0, 5, 0, 5);
         return ll;
     }
 
     private TextView CreateSaleId(Context context, SaleItem item) {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, 0);
         TextView saleId = new TextView(context);
+        saleId.setLayoutParams(params);
+        saleId.setVisibility(View.GONE);
         saleId.setText(String.valueOf(item.id));
         //saleId.setHeight(0);
-        saleId.setWidth(0);
+        //saleId.setWidth(0);
         return saleId;
     }
 
-    private LinearLayout CreateSaleValueView(Context context, String value, boolean fillParent) {
-        LinearLayout ll = new LinearLayout(context);
+    private TextView CreateSaleValueView(Context context, String value, boolean fillParent) {
+        //LinearLayout ll = new LinearLayout(context);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT);
         if (fillParent == true) {
             params.weight = 1;
         }
-        ll.setLayoutParams(params);
+        //ll.setLayoutParams(params);
         TextView saleValueView = new TextView(context);
+        saleValueView.setLayoutParams(params);
         saleValueView.setTextSize(TextSize);
         saleValueView.setTextColor(Color.WHITE);
         saleValueView.setText(value);
-        ll.addView(saleValueView);
-        return ll;
+        //ll.addView(saleValueView);
+        return saleValueView;
     }
 
     private TextView CreateSaleType(Context context, SaleItem item) {
+        //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.FILL_PARENT);
         TextView saleType = new TextView(context);
+        //saleType.setLayoutParams(params);
         saleType.setText(item.type);
-        saleType.setHeight(0);
-        saleType.setWidth(0);
+        saleType.setVisibility(View.GONE);
+        //saleType.setHeight(0);
+        //saleType.setWidth(0);
         return saleType;
     }
 }
