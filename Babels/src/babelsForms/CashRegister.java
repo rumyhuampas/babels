@@ -11,10 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CashRegister extends javax.swing.JDialog {
-    
+
     private CashRegisterManager Manager;
     public boolean Refresh = true;
-    
+
     public CashRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -29,13 +29,13 @@ public class CashRegister extends javax.swing.JDialog {
         calfin.add(Calendar.HOUR, 2);
         Date Begining = cal.getTime();
         Date Final = calfin.getTime();
-        
+
         dcFrom.setDate(Begining);
         dcTo.setDate(Final);
         this.Refresh = true;
         this.btnSearch.doClick();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -65,7 +65,12 @@ public class CashRegister extends javax.swing.JDialog {
         MenuReports = new javax.swing.JMenu();
         mitemPrint = new javax.swing.JMenuItem();
 
-        mItemDetalle.setText("jMenuItem1");
+        mItemDetalle.setText("Detalle");
+        mItemDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemDetalleActionPerformed(evt);
+            }
+        });
         popUpTableMovement.add(mItemDetalle);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -293,12 +298,12 @@ public class CashRegister extends javax.swing.JDialog {
         Manager.doOperation(1);
         this.Refresh = true;
     }//GEN-LAST:event_mItemOpenCashActionPerformed
-    
+
     private void mItemCashInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCashInActionPerformed
         Manager.doOperation(5);
         this.Refresh = true;
     }//GEN-LAST:event_mItemCashInActionPerformed
-    
+
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
             Manager.RefreshTable(dcFrom.getDate(), dcTo.getDate());
@@ -307,34 +312,34 @@ public class CashRegister extends javax.swing.JDialog {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
-    
+
     private void mItemPartialCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemPartialCloseActionPerformed
         Manager.doOperation(2);
         this.Refresh = true;
     }//GEN-LAST:event_mItemPartialCloseActionPerformed
-    
+
     private void mItemFinalCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemFinalCloseActionPerformed
         Manager.doOperation(3);
         this.Refresh = true;
     }//GEN-LAST:event_mItemFinalCloseActionPerformed
-    
+
     private void mItemCashOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCashOutActionPerformed
         Manager.doOperation(4);
         this.Refresh = true;
     }//GEN-LAST:event_mItemCashOutActionPerformed
-    
+
     private void chbOpenCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbOpenCloseActionPerformed
         btnSearch.doClick();
     }//GEN-LAST:event_chbOpenCloseActionPerformed
-    
+
     private void chbSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbSalesActionPerformed
         btnSearch.doClick();
     }//GEN-LAST:event_chbSalesActionPerformed
-    
+
     private void chbInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbInOutActionPerformed
         btnSearch.doClick();
     }//GEN-LAST:event_chbInOutActionPerformed
-    
+
     private void mitemPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemPrintActionPerformed
         try {
             Manager.doPrint();
@@ -342,28 +347,39 @@ public class CashRegister extends javax.swing.JDialog {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mitemPrintActionPerformed
-    
+
     private void tblMovementsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMovementsMousePressed
         if (evt.getButton() == MouseEvent.BUTTON3) {
             if (evt.getClickCount() == 1) {
                 this.tblMovements.changeSelection(tblMovements.getSelectedRow(), tblMovements.getSelectedColumn(), false, false);
-                
                 this.popUpTableMovement.show(this.tblMovements, evt.getX(), evt.getY());
-                
             } else {
-                // this.Manager.EditProduct();
-                // this.Refresh = true;
+                if (evt.getClickCount() == 1) {
+                    try {
+                        Manager.getDetail();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
         }
     }//GEN-LAST:event_tblMovementsMousePressed
-    
+
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         if (Refresh == true) {
             this.btnSearch.doClick();
             Refresh = false;
         }
-        
+
     }//GEN-LAST:event_formWindowActivated
+
+    private void mItemDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemDetalleActionPerformed
+        try {
+            Manager.getDetail();
+        } catch (SQLException ex) {
+            Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mItemDetalleActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private javax.swing.JMenu MenuReports;

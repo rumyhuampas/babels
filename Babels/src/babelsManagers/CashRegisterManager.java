@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -25,6 +26,7 @@ public class CashRegisterManager {
     public boolean RefreshingTable;
     private Date today;
     private String currentQuery;
+    public int moveId;
 
     public CashRegisterManager(JTable table, JLabel lblTotal, JCheckBox Open, JCheckBox Sales, JCheckBox CashInOut) {
         this.Table = table;
@@ -107,8 +109,6 @@ public class CashRegisterManager {
 
     }
 
-    
-
     private void ClearTable() {
         DefaultTableModel tm = (DefaultTableModel) this.Model;
         tm.getDataVector().removeAllElements();
@@ -146,6 +146,33 @@ public class CashRegisterManager {
         objectParam[1] = true;
         objectParam[2] = opType;
         FormsFactory.GetDialogForm("babelsForms.CashRegisterWindow", true, classParam, objectParam);
+    }
+
+    public void getDetail() throws SQLException {
+        Babels.mysql.Open();
+        try {
+            int row = this.Table.getSelectedRow();
+            moveId = (Integer) this.Model.getValueAt(row, 0);
+            Movement move = new Movement(Babels.mysql.Conn);
+            move.Load(moveId);
+            if (move.Type.Name.equals(MovementTypes.MT_VENTA_A)) {
+                Class[] classParam = new Class[3];
+                classParam[0] = java.awt.Frame.class;
+                classParam[1] = boolean.class;
+                classParam[2] = int.class;
+                Object[] objectParam = new Object[3];
+                objectParam[0] = new javax.swing.JFrame();
+                objectParam[1] = true;
+                objectParam[2] = moveId;
+                FormsFactory.GetDialogForm("babelsForms.CashRegisterSaleDetail", true, classParam, objectParam);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Este Movimiento no es una venta",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } finally {
+            Babels.mysql.Close();
+        }
     }
 
     public boolean doPrint() throws SQLException {

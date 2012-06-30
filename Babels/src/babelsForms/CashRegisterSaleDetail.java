@@ -1,15 +1,17 @@
 package babelsForms;
 
 import babelsManagers.CashRegisterSaleDetailManager;
+import java.sql.SQLException;
 
 
 public class CashRegisterSaleDetail extends javax.swing.JDialog {
 
     private CashRegisterSaleDetailManager Manager;
-    public CashRegisterSaleDetail(java.awt.Frame parent, boolean modal) {
+    public CashRegisterSaleDetail(java.awt.Frame parent, boolean modal, int moveId) throws SQLException {
         super(parent, modal);
         initComponents();
-        Manager = new CashRegisterSaleDetailManager(this.tblSaleDetail, this.txtAmount, this.txtFechaHora, this.txtMovementId, this.txtMovementType);
+        Manager = new CashRegisterSaleDetailManager(moveId, this.tblSaleDetail, this.txtAmount, this.txtFechaHora, this.txtMovementId, this.txtMovementType);
+        Manager.RefreshTable();
     }
 
    
@@ -34,15 +36,23 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog {
 
         tblSaleDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tipo", "Nombre", "Precio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblSaleDetail);
 
         jLabel1.setText("Movimiento ID:");
