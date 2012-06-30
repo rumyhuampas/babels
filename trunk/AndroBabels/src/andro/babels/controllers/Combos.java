@@ -1,6 +1,8 @@
 package andro.babels.controllers;
 
+import andro.babels.wrappers.AndroThread;
 import andro.babels.wrappers.ExtraObject;
+import andro.babels.wrappers.SaleList;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,12 +10,14 @@ import android.os.Message;
 import android.widget.LinearLayout;
 import babelsObjects.Combo;
 import babelsObjects.SalesItemsAdmin;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 public class Combos extends andro.babels.controllers.Tab {
 
     private andro.babels.Combos Activity;
     private andro.babels.views.Combos view;
+    private andro.babels.models.Combos model;
     private Bundle extras;
     private andro.babels.controllers.Pos posController;
 
@@ -21,8 +25,9 @@ public class Combos extends andro.babels.controllers.Tab {
         super(activity);
         Activity = activity;
         view = new andro.babels.views.Combos(activity);
+        model = new andro.babels.models.Combos();
         extras = Activity.getIntent().getExtras();
-        posController = (andro.babels.controllers.Pos)((ExtraObject)extras.getParcelable("posController")).Obj[0];
+        posController = (andro.babels.controllers.Pos) ((ExtraObject) extras.getParcelable("posController")).Obj[0];
         LoadInfo();
     }
 
@@ -30,7 +35,7 @@ public class Combos extends andro.babels.controllers.Tab {
         ExtraObject extraObj = (ExtraObject) extras.getParcelable("combos");
         for (int i = 0; i < extraObj.Obj.length; i++) {
             //view.DrawObject((Object[]) extraObj.Obj[i], i, SalesItemsAdmin.IT_COMBO, posController.ObjectOnClickHandler, posController.ObjectOnLongClickHandler);
-            
+
             Object[] obj = (Object[]) extraObj.Obj[i];
             Object[] comboObj = new Object[5];
 
@@ -42,47 +47,31 @@ public class Combos extends andro.babels.controllers.Tab {
             GetComboImage(comboObj, llObj);
         }
     }
-    
+
     private void GetComboImage(final Object[] comboObj, final LinearLayout llObj) {
-        Thread thread = new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    Welcome.mysql.Open();
-                    try {
-                        Combo combo = new Combo(Welcome.mysql.Conn);
-                        combo.Load((Integer) comboObj[0]);
-                        comboObj[4] = combo.ImageStream;
-                        Object[] info = new Object[2];
-                        info[0] = llObj;
-                        info[1] = comboObj;
-                        Message msg = LoadInfoHandler.obtainMessage(1, info);
-                        LoadInfoHandler.sendMessage(msg);
-
-                    } catch (SQLException ex) {
-                        Message msg = ExceptionHandler.obtainMessage(1, ex);
-                        ExceptionHandler.sendMessage(msg);
-                    } finally {
-                        Welcome.mysql.Close();
-                    }
-                } catch (Exception ex) {
-                    Message msg = ExceptionHandler.obtainMessage(1, ex);
-                    ExceptionHandler.sendMessage(msg);
-                }
-            }
-        });
-        thread.start();
+        Object[] info = new Object[2];
+        info[0] = llObj;
+        info[1] = comboObj;
+        
+        AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
+                model, "LoadCombo", new Class[]{Integer.class}, new Object[]{comboObj[0]},
+                InputStream.class, info, LoadComboHandler, ExceptionHandler);
+        thread.Start();
     }
-    private Handler LoadInfoHandler = new Handler() {
+
+    private Handler LoadComboHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            Object[] info = (Object[]) msg.obj;
+            Object[] message = (Object[]) msg.obj;
+            Object[] info = (Object[])message[1];
+            
+            Object[] comboObj = (Object[])info[1];
+            comboObj[4] = (InputStream)message[0];
+            
             LinearLayout llObj = (LinearLayout) info[0];
-            Object[] combo = (Object[]) info[1];
-            if (combo[4] != null){
-                view.AddImageToObject(llObj, combo);
+            if (comboObj[4] != null) {
+                view.AddImageToObject(llObj, comboObj);
             }
         }
     };
