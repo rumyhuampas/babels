@@ -1,6 +1,7 @@
 package andro.babels.controllers;
 
 import andro.babels.R;
+import andro.babels.wrappers.AndroThread;
 import andro.babels.wrappers.BabelsSettings;
 import andro.babels.wrappers.ExtraObject;
 import andro.babels.wrappers.dialogs.YesNoDialog;
@@ -10,22 +11,23 @@ import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import babelsObjects.CombosAdmin;
 import babelsObjects.MySQL;
-import babelsObjects.ProductsAdmin;
 import java.sql.SQLException;
 
 public class Welcome extends andro.babels.controllers.Base {
 
     private andro.babels.Welcome Activity;
     private andro.babels.views.Welcome view;
+    private andro.babels.models.Welcome model;
     public static MySQL mysql;
     public static andro.babels.wrappers.BabelsSettings settings;
+    public static int textSize;
     private boolean SettingsPressed;
 
     public Welcome(andro.babels.Welcome activity) {
         Activity = activity;
         view = new andro.babels.views.Welcome(activity);
+        model = new andro.babels.models.Welcome();
         settings = new andro.babels.wrappers.BabelsSettings(activity);
         SettingsPressed = false;
         String url = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.URLKEY, andro.babels.wrappers.BabelsSettings.URLDEFAULT);
@@ -34,6 +36,8 @@ public class Welcome extends andro.babels.controllers.Base {
         String pass = settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.PASSKEY, andro.babels.wrappers.BabelsSettings.PASSDEFAULT);
         mysql = new MySQL(url, db, user, pass);
         LoadAppSettings();
+        textSize = (Integer.parseInt(settings.GetAppSetting(andro.babels.wrappers.BabelsSettings.TEXTSIZEKEY, 
+                andro.babels.wrappers.BabelsSettings.TEXTSIZEDEFAULT)));
         LoadInfo();
     }
 
@@ -50,36 +54,14 @@ public class Welcome extends andro.babels.controllers.Base {
         if (settings.GetAppSetting(BabelsSettings.PASSKEY, "").equals("")) {
             settings.SaveAppSetting(BabelsSettings.PASSKEY, BabelsSettings.PASSDEFAULT);
         }
+        if (settings.GetAppSetting(BabelsSettings.TEXTSIZEKEY, "").equals("")) {
+            settings.SaveAppSetting(BabelsSettings.TEXTSIZEKEY, BabelsSettings.TEXTSIZEDEFAULT);
+        }
     }
 
     private void LoadInfo() {
-        Thread thread = new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    mysql.Open();
-                    try {
-                        Object[] info = new Object[2];
-                        Object[] combos = CombosAdmin.GetAllCombos(mysql.Conn);
-                        Object[] products = ProductsAdmin.GetAllProducts(mysql.Conn);
-                        if (combos != null && products != null) {
-                            info[0] = combos;
-                            info[1] = products;
-                            Message msg = LoadInfoHandler.obtainMessage(1, info);
-                            LoadInfoHandler.sendMessage(msg);
-                        } else {
-                            throw new Exception("No se pudo obtener la información de la base de datos");
-                        }
-                    } finally {
-                        mysql.Close();
-                    }
-                } catch (Exception ex) {
-                    Message msg = ExceptionHandler.obtainMessage(1, ex);
-                    ExceptionHandler.sendMessage(msg);
-                }
-            }
-        });
-        thread.start();
+        AndroThread thread = new AndroThread(mysql, model, "LoadInfo", null, null, Object[].class, null, LoadInfoHandler, ExceptionHandler);
+        thread.Start();
     }
     private Handler LoadInfoHandler = new Handler() {
 
@@ -87,7 +69,9 @@ public class Welcome extends andro.babels.controllers.Base {
         public void handleMessage(Message msg) {
             if (SettingsPressed == false) {
                 super.handleMessage(msg);
-                Object[] info = (Object[]) msg.obj;
+                
+                Object[] message = (Object[]) msg.obj;
+                Object[] info = (Object[])message[0];
                 Object[] combos = (Object[]) info[0];
                 Object[] products = (Object[]) info[1];
                 ExtraObject extraCombos = new ExtraObject(combos);

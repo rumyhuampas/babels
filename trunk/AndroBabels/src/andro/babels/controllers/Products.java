@@ -1,19 +1,21 @@
 package andro.babels.controllers;
 
+import andro.babels.wrappers.AndroThread;
 import andro.babels.wrappers.ExtraObject;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.LinearLayout;
-import babelsObjects.Product;
 import babelsObjects.SalesItemsAdmin;
+import java.io.InputStream;
 import java.sql.SQLException;
 
 public class Products extends andro.babels.controllers.Tab {
 
     private andro.babels.Products Activity;
     private andro.babels.views.Products view;
+    private andro.babels.models.Products model;
     private Bundle extras;
     private andro.babels.controllers.Pos posController;
 
@@ -21,6 +23,7 @@ public class Products extends andro.babels.controllers.Tab {
         super(activity);
         Activity = activity;
         view = new andro.babels.views.Products(activity);
+        model = new andro.babels.models.Products();
         extras = Activity.getIntent().getExtras();
         posController = (andro.babels.controllers.Pos) ((ExtraObject) extras.getParcelable("posController")).Obj[0];
         LoadInfo();
@@ -42,45 +45,29 @@ public class Products extends andro.babels.controllers.Tab {
     }
 
     private void GetProductImage(final Object[] prodObj, final LinearLayout llObj) {
-        Thread thread = new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    Welcome.mysql.Open();
-                    try {
-                        Product prod = new Product(Welcome.mysql.Conn);
-                        prod.Load((Integer) prodObj[0]);
-                        prodObj[4] = prod.ImageStream;
-                        Object[] info = new Object[2];
-                        info[0] = llObj;
-                        info[1] = prodObj;
-                        Message msg = LoadInfoHandler.obtainMessage(1, info);
-                        LoadInfoHandler.sendMessage(msg);
-
-                    } catch (SQLException ex) {
-                        Message msg = ExceptionHandler.obtainMessage(1, ex);
-                        ExceptionHandler.sendMessage(msg);
-                    } finally {
-                        Welcome.mysql.Close();
-                    }
-                } catch (Exception ex) {
-                    Message msg = ExceptionHandler.obtainMessage(1, ex);
-                    ExceptionHandler.sendMessage(msg);
-                }
-            }
-        });
-        thread.start();
+        Object[] info = new Object[2];
+        info[0] = llObj;
+        info[1] = prodObj;
+        
+        AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
+                model, "GetProductImage", new Class[]{Integer.class}, new Object[]{prodObj[0]},
+                InputStream.class, info, LoadProductHandler, ExceptionHandler);
+        thread.Start();
     }
-    private Handler LoadInfoHandler = new Handler() {
+    private Handler LoadProductHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Object[] info = (Object[]) msg.obj;
+            Object[] message = (Object[]) msg.obj;
+            Object[] info = (Object[])message[1];
+            
+            Object[] prodObj = (Object[])info[1];
+            prodObj[4] = (InputStream)message[0];
+            
             LinearLayout llObj = (LinearLayout) info[0];
-            Object[] product = (Object[]) info[1];
-            if (product[4] != null){
-                view.AddImageToObject(llObj, product);
+            if (prodObj[4] != null) {
+                view.AddImageToObject(llObj, prodObj);
             }
         }
     };

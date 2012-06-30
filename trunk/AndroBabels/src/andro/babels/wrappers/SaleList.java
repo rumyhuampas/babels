@@ -174,7 +174,7 @@ public class SaleList {
         }
         ll.setLayoutParams(params);
         TextView saleValueView = new TextView(context);
-        saleValueView.setTextSize(10);
+        saleValueView.setTextSize(andro.babels.controllers.Welcome.textSize);
         saleValueView.setTextColor(Color.WHITE);
         saleValueView.setText(value);
         ll.addView(saleValueView);

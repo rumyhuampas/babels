@@ -39,7 +39,7 @@ public class Pos extends andro.babels.views.Base {
     private View prepareTabView(String title) {
         View view = LayoutInflater.from(Activity).inflate(R.layout.tabs_bg, null);
         TextView tv = (TextView) view.findViewById(R.id.tabsText);
-        tv.setTextSize(9);
+        tv.setTextSize(andro.babels.controllers.Welcome.textSize);
         tv.setText(title);
         return view;
     }
