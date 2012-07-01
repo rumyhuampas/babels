@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 public class CashRegisterWindowManager {
 
-    public static boolean doCashOpen(float amount) throws SQLException {
+    public static boolean doCashOpen(float amount, String Description) throws SQLException {
         try {
             babels.Babels.mysql.Open();
             if (!MovementAdmin.IsCashOpen(babels.Babels.mysql.Conn)) {
@@ -23,6 +23,7 @@ public class CashRegisterWindowManager {
                 Mt.Load(MovementTypes.MT_APER);
                 Movement move = new Movement(babels.Babels.mysql.Conn);
                 move.Type = Mt;
+                move.Description = Description;
                 move.Amount = amount;
                 move.User = babels.Babels.session.CurrentUser;
                 if (move.Save()) {
@@ -45,7 +46,7 @@ public class CashRegisterWindowManager {
         }
     }
 
-    public static boolean doCashClose(float amount, boolean isParcial) throws SQLException {
+    public static boolean doCashClose(float amount, boolean isParcial, String Description) throws SQLException {
         try {
             babels.Babels.mysql.Open();
              if (MovementAdmin.IsCashOpen(babels.Babels.mysql.Conn)) {
@@ -56,6 +57,7 @@ public class CashRegisterWindowManager {
                 Mt.Load(MovementTypes.MT_CIERRE);
             }
             Movement move = new Movement(babels.Babels.mysql.Conn);
+            move.Description = Description;
             move.Type = Mt;
             if (amount > 0) {
                 amount = -amount;
@@ -83,7 +85,7 @@ public class CashRegisterWindowManager {
                txtAmount.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
        
     }
-    public static boolean doCashMove(float amount, boolean isIn) throws SQLException {
+    public static boolean doCashMove(float amount, boolean isIn, String Description) throws SQLException {
         try {
             babels.Babels.mysql.Open();
              if (MovementAdmin.IsCashOpen(babels.Babels.mysql.Conn)) {
@@ -100,6 +102,7 @@ public class CashRegisterWindowManager {
                     amount = -amount;
                 }
             }
+            move.Description = Description;
             move.Amount = amount;
             move.User = babels.Babels.session.CurrentUser;
             if (move.Save()) {

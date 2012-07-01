@@ -1,10 +1,12 @@
 package babelsForms;
 
+import babelsInterfaces.IBabelsDialog;
 import babelsManagers.CashRegisterSaleDetailManager;
+import java.awt.Dimension;
 import java.sql.SQLException;
 
 
-public class CashRegisterSaleDetail extends javax.swing.JDialog {
+public class CashRegisterSaleDetail extends javax.swing.JDialog  implements IBabelsDialog{
 
     private CashRegisterSaleDetailManager Manager;
     public CashRegisterSaleDetail(java.awt.Frame parent, boolean modal, int moveId) throws SQLException {
@@ -12,9 +14,24 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog {
         initComponents();
         Manager = new CashRegisterSaleDetailManager(moveId, this.tblSaleDetail, this.txtAmount, this.txtFechaHora, this.txtMovementId, this.txtMovementType);
         Manager.RefreshTable();
+        
+      //  this.tblSaleDetail.setMaximumSize(new Dimension(0, 0) );
+      //  this.tblSaleDetail.setMinimumSize(new Dimension(0, 0));
+      //  this.tblSaleDetail.setSize(new Dimension(0, 0));
     }
 
-   
+    @Override
+    public void ClickOKButton() {
+        this.btnOk.doClick();
+       
+    }
+
+    @Override
+    public void ClickCancelButton() {
+        this.btnOk.doClick();
+        
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,10 +46,11 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog {
         txtFechaHora = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtAmount = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Detalle");
 
         tblSaleDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,9 +81,19 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog {
 
         jLabel4.setText("Monto:");
 
-        jButton1.setText("Cancelar");
+        btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Aceptar");
+        btnOk.setText("Aceptar");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,9 +122,9 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(btnCancel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -120,18 +148,26 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancel)
+                    .addComponent(btnOk))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+            this.dispose();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+            this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -144,3 +180,4 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog {
     private javax.swing.JTextField txtMovementType;
     // End of variables declaration//GEN-END:variables
 }
+   

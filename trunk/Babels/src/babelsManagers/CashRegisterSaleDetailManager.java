@@ -35,7 +35,7 @@ public class CashRegisterSaleDetailManager {
             Sale sale = new Sale(Babels.mysql.Conn);
             sale.Load(moveId);
             this.txtAmount.setText("" + sale.Amount);
-            this.txtDateTime.setText(sale.DatePosted.toString());
+            this.txtDateTime.setText(sale.DateTime.toString());
             this.txtMovementId.setText("" + sale.Id);
             this.txtMovementType.setText(sale.Type.Name);
             this.loadDetail(sale.Items);

@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDialog {
-
+    
     private int Type;
 
     public CashRegisterWindow(java.awt.Frame parent, boolean modal, int type) {
@@ -19,6 +20,7 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
         Type = type;
         if (Type == 1) {
             this.setTitle("Apertura de Caja");
+            
         }
         if (Type == 2) {
             this.setTitle("Cierre Parcial de Caja");
@@ -35,7 +37,7 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
             this.setTitle("Deposito");
         }
     }
-
+    
     @Override
     public void ClickOKButton() {
         this.btnOk.doClick();
@@ -54,6 +56,9 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
         btnCancel = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
         lblAmount = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtaDescription = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,6 +78,12 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
 
         lblAmount.setText("Monto");
 
+        txtaDescription.setColumns(20);
+        txtaDescription.setRows(5);
+        jScrollPane1.setViewportView(txtaDescription);
+
+        jLabel1.setText("Descripcion");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,15 +91,19 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblAmount)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addComponent(txtAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnOk)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblAmount)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                        .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCancel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,11 +113,19 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAmount))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnOk, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCancel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnOk, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -111,23 +134,23 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         try {
             if (Type == 1) {
-                CashRegisterWindowManager.doCashOpen(Float.parseFloat(txtAmount.getText()));
+                CashRegisterWindowManager.doCashOpen(Float.parseFloat(txtAmount.getText()), this.txtaDescription.getText());
                 this.dispose();
             }
             if (Type == 2) {
-                CashRegisterWindowManager.doCashClose(Float.parseFloat(txtAmount.getText()), true);
+                CashRegisterWindowManager.doCashClose(Float.parseFloat(txtAmount.getText()), true, this.txtaDescription.getText());
                 this.dispose();
             }
             if (Type == 3) {
-                CashRegisterWindowManager.doCashClose(Float.parseFloat(txtAmount.getText()), false);
+                CashRegisterWindowManager.doCashClose(Float.parseFloat(txtAmount.getText()), false, this.txtaDescription.getText());
                 this.dispose();
             }
             if (Type == 4) {
-                CashRegisterWindowManager.doCashMove(Float.parseFloat(txtAmount.getText()), false);
+                CashRegisterWindowManager.doCashMove(Float.parseFloat(txtAmount.getText()), false, this.txtaDescription.getText());
                 this.dispose();
             }
             if (Type == 5) {
-                CashRegisterWindowManager.doCashMove(Float.parseFloat(txtAmount.getText()), true);
+                CashRegisterWindowManager.doCashMove(Float.parseFloat(txtAmount.getText()), true, this.txtaDescription.getText());
                 this.dispose();
             }
         } catch (SQLException ex) {
@@ -142,7 +165,10 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOk;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAmount;
     private javax.swing.JTextField txtAmount;
+    private javax.swing.JTextArea txtaDescription;
     // End of variables declaration//GEN-END:variables
 }
