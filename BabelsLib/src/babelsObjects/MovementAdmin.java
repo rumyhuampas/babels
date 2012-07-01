@@ -16,7 +16,7 @@ public class MovementAdmin {
             String FinalDateStr = Sdf.format(FinalDate);
             String optionStr = getOptions(options);
             String sql = "SELECT t." + MovementTypes.FIELD_NAME + ", m." + Movement.FIELD_DATEPOSTED + ",m." + Movement.FIELD_AMOUNT + ","
-                    + " c." + Cancelation.FIELD_CANCELLERMOVEID + ", m." + Movement.FIELD_ID
+                    + " c." + Cancelation.FIELD_CANCELLERMOVEID + ", m." + Movement.FIELD_ID + ", m." + Movement.FIELD_DESCRIPTION 
                     + " FROM " + MovementTypes.TABLENAME + " t,  " + Movement.TABLENAME + " m LEFT JOIN"
                     + " " + Cancelation.TABLENAME + " c ON c." + Cancelation.FIELD_CANCELEDMOVEID + " = m." + Movement.FIELD_ID
                     + " WHERE DATE(m." + Movement.FIELD_DATEPOSTED + ")BETWEEN '" + BeginingDateStr + "' and '" + FinalDateStr + "'"
@@ -37,6 +37,7 @@ public class MovementAdmin {
                         row.add(results.getFloat(Movement.FIELD_AMOUNT));
                         row.add(results.getFloat(Cancelation.FIELD_CANCELLERMOVEID));
                         row.add(results.getInt(Movement.FIELD_ID));
+                        row.add(results.getString(Movement.FIELD_DESCRIPTION));
                         rows.add(row.toArray());
                         row.clear();
                     }
