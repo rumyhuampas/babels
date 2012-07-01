@@ -19,6 +19,7 @@
             android:layout_margin="2dp"
         >
             <TextView
+                android:id="@+id/cs_lblSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
@@ -82,7 +83,7 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:id="@+id/cs_txtTotal"
+                    android:id="@+id/cs_lblTotal"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
