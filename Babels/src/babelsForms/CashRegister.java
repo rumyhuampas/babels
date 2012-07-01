@@ -353,14 +353,14 @@ public class CashRegister extends javax.swing.JDialog {
             if (evt.getClickCount() == 1) {
                 this.tblMovements.changeSelection(tblMovements.getSelectedRow(), tblMovements.getSelectedColumn(), false, false);
                 this.popUpTableMovement.show(this.tblMovements, evt.getX(), evt.getY());
-            } else {
-                if (evt.getClickCount() == 1) {
+            } 
+                }else {
+                if (evt.getClickCount() == 2) {
                     try {
                         Manager.getDetail();
                     } catch (SQLException ex) {
                         Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
             }
         }
     }//GEN-LAST:event_tblMovementsMousePressed

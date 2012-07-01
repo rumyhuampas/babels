@@ -155,7 +155,8 @@ public class CashRegisterManager {
             moveId = (Integer) this.Model.getValueAt(row, 0);
             Movement move = new Movement(Babels.mysql.Conn);
             move.Load(moveId);
-            if (move.Type.Name.equals(MovementTypes.MT_VENTA_A)) {
+            if (move.Type.Name.equals(MovementTypes.MT_VENTA_A) || move.Type.Name.equals(MovementTypes.MT_VENTA_B)
+                    || move.Type.Name.equals(MovementTypes.MT_VENTA_X)) {
                 Class[] classParam = new Class[3];
                 classParam[0] = java.awt.Frame.class;
                 classParam[1] = boolean.class;
