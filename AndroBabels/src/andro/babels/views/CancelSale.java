@@ -1,6 +1,7 @@
 package andro.babels.views;
 
 import andro.babels.R;
+import andro.babels.wrappers.BabelsSettings;
 import andro.babels.wrappers.SaleList;
 import android.view.View;
 import android.widget.Button;
@@ -9,17 +10,41 @@ import android.widget.TextView;
 
 public class CancelSale extends andro.babels.views.Base {
     private andro.babels.CancelSale Activity;
+    private int TextSize;
 
     public CancelSale(andro.babels.CancelSale activity) {
         Activity = activity;
+        TextSize = Integer.parseInt(andro.babels.controllers.Welcome.settings.GetAppSetting(BabelsSettings.TITLETEXTSIZEKEY, BabelsSettings.TITLETEXTSIZEDEFAULT));
+        GetSearchButton().setTextSize(TextSize);
+        GetCancelButton().setTextSize(TextSize);
+        GetSearchLabel().setTextSize(TextSize);
+        GetSaleLabel().setTextSize(TextSize);
+        GetTotalLabel().setTextSize(TextSize);
+        GetSearchTextBox().setTextSize(TextSize);
+    }
+    
+    public TextView GetSearchLabel(){
+        return (TextView)Activity.findViewById(R.id.cs_lblSearch);
     }
      
     public Button GetSearchButton(){
         return (Button)Activity.findViewById(R.id.cs_btnSearch);
     }
     
+    public TextView GetSaleLabel(){
+        return (TextView)Activity.findViewById(R.id.cs_lblSale);
+    }
+    
+    public TextView GetTotalLabel(){
+        return (TextView)Activity.findViewById(R.id.cs_lblTotal);
+    }
+    
     public Button GetCancelButton(){
         return (Button)Activity.findViewById(R.id.cs_btnCancelSale);
+    }
+    
+    public TextView GetSearchTextBox(){
+        return (TextView)Activity.findViewById(R.id.cs_txtSearch);
     }
     
     public String GetSearchText(){
@@ -52,7 +77,7 @@ public class CancelSale extends andro.babels.views.Base {
     }
     
     public void SetSaleTotal(String value){
-        TextView txtTotal = (TextView) Activity.findViewById(R.id.cs_txtTotal);
+        TextView txtTotal = (TextView) Activity.findViewById(R.id.cs_lblTotal);
         txtTotal.setText("Total: $" + value);
     }
 }

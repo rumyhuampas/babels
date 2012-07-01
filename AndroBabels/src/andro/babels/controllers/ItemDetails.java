@@ -1,6 +1,7 @@
 package andro.babels.controllers;
 
 import andro.babels.wrappers.AndroThread;
+import andro.babels.wrappers.BabelsSettings;
 import andro.babels.wrappers.dialogs.ImageDialog;
 import andro.babels.wrappers.dialogs.LoadingDialog;
 import android.os.Bundle;

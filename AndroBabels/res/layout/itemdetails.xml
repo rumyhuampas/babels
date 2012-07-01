@@ -50,6 +50,7 @@
                     android:layout_margin="5dp"
                 >
                     <TextView
+                        android:id="@+id/id_lblName"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Nombre:"
@@ -70,6 +71,7 @@
                     android:layout_margin="5dp"
                 >
                     <TextView
+                        android:id="@+id/id_lblDesc"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Descripción:"
@@ -90,6 +92,7 @@
                     android:layout_margin="5dp"
                 >
                     <TextView
+                        android:id="@+id/id_lblPrice"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="Precio:"
