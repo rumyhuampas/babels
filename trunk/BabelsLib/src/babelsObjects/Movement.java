@@ -11,11 +11,14 @@ public class Movement {
     public static final String FIELD_DATEPOSTED = "DatePosted";
     public static final String FIELD_AMOUNT = "Amount";
     public static final String FIELD_USER = "IdUser";
+    public static final String FIELD_DESCRIPTION = "Description";
     public Connection Conn;
     public int Id;
     public float Amount;
     public Date DatePosted;
+    public String DateTime;
     public MovementTypes Type;
+    public String Description;
     public User User;
 
     public Movement(Connection conn) {
@@ -32,6 +35,7 @@ public class Movement {
         this.DatePosted = null;
         this.Amount = 0;
         this.Type = null;
+        this.Description = null;
         this.User = null;
     }
 
@@ -54,10 +58,12 @@ public class Movement {
                 this.Id = results.getInt(this.FIELD_ID);
                 this.Amount = results.getFloat(this.FIELD_AMOUNT);
                 this.DatePosted = results.getDate(this.FIELD_DATEPOSTED);
+                this.DateTime = results.getString(this.FIELD_DATEPOSTED);
                 this.Type = new MovementTypes(this.Conn);
                 this.Type.Load(results.getInt(this.FIELD_TYPE));
                 this.User = new User(this.Conn);
                 this.User.Load(results.getInt(this.FIELD_USER));
+                this.Description = results.getString(this.FIELD_DESCRIPTION);
                 return true;
             } else {
                 return false;
@@ -80,8 +86,9 @@ public class Movement {
     protected boolean InsertMovement() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_AMOUNT + ", " + this.FIELD_DATEPOSTED + ", "
-                + this.FIELD_TYPE + ", " + this.FIELD_USER + ""
-                + ") VALUES (?,now(),?,?)";
+                + this.FIELD_TYPE + ", " + this.FIELD_USER + ", "
+                + this.FIELD_DESCRIPTION 
+                + ") VALUES (?,now(),?,?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setFloat(1, this.Amount);
@@ -92,8 +99,9 @@ public class Movement {
             else{
                 qry.setNull(3, java.sql.Types.INTEGER);
             }
+            qry.setString(4, this.Description);
             if (qry.executeUpdate() > 0) {
-                ResultSet result = qry.getGeneratedKeys();
+                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
                 this.Id = result.getInt("GENERATED_KEY");
                 return true;
