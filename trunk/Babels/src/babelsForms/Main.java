@@ -46,7 +46,7 @@ public class Main extends javax.swing.JFrame {
         setTitle("Babels");
         setName("frmMain"); // NOI18N
 
-        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/background.png"))); // NOI18N
+        panelImage1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/FONDO SISTEMA 1.jpg"))); // NOI18N
 
         panelImage2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/title.png"))); // NOI18N
 
@@ -66,7 +66,7 @@ public class Main extends javax.swing.JFrame {
         panelCurves1Layout.setHorizontalGroup(
             panelCurves1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCurves1Layout.createSequentialGroup()
-                .addContainerGap(540, Short.MAX_VALUE)
+                .addContainerGap(701, Short.MAX_VALUE)
                 .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

@@ -16,7 +16,7 @@ public class TableRendererFTextField implements TableCellRenderer {
         txtFormated.setText(""+ value);
 
         txtFormated.setHorizontalAlignment(SwingConstants.CENTER);
-        if(((Float)table.getValueAt(row, table.getColumnCount()-2)).compareTo(new Float(0))==-1) {
+        if(((Float)table.getValueAt(row, table.getColumnCount()-3)).compareTo(new Float(0))==-1) {
             txtFormated.setBackground(new Color(0xFE899B));
             txtFormated.setOpaque(true);
         if(isSelected){ 
