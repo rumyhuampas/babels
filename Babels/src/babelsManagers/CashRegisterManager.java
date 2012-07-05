@@ -27,7 +27,8 @@ public class CashRegisterManager {
     private Date today;
     private String currentQuery;
     public int moveId;
-
+    private float subTotal;
+    
     public CashRegisterManager(JTable table, JLabel lblTotal, JCheckBox Open, JCheckBox Sales, JCheckBox CashInOut) {
         this.Table = table;
         this.LblTotal = lblTotal;
@@ -122,16 +123,30 @@ public class CashRegisterManager {
         Object[] rowTable = null;
         for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
             row = (Object[]) rows[rowIdx];
-            rowTable = new Object[5];
+              if (row[0].toString().equalsIgnoreCase(MovementTypes.MT_APER)){
+                subTotal = 0 + (Float) row [2];
+            } else{
+                subTotal= subTotal + ((Float) row[2]);
+            }
+            rowTable = new Object[6];
             rowTable[1] = row[0];
             rowTable[2] = row[1];
             rowTable[3] = row[2];
             rowTable[4] = row[3];
             rowTable[0] = row[4];
-
-            tm.addRow(rowTable);
-
-            result = result + ((Float) row[2]);
+            rowTable[5] = subTotal;          
+            
+            for (int i=0; i< optList.size(); i++){
+                MovementTypes move;
+                move= (MovementTypes)optList.get(i);
+                if(row[0].toString().equalsIgnoreCase(move.Name)){
+                  tm.addRow(rowTable);
+                  result = result + ((Float) row[2]);
+                }
+            }
+         //   ArrayList Type= new ArrayList();
+         //   Type = optList;
+           
         }
         this.LblTotal.setText("$ " + result);
     }
