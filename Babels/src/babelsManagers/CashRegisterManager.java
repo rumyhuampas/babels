@@ -28,7 +28,7 @@ public class CashRegisterManager {
     private String currentQuery;
     public int moveId;
     private float subTotal;
-    
+
     public CashRegisterManager(JTable table, JLabel lblTotal, JCheckBox Open, JCheckBox Sales, JCheckBox CashInOut) {
         this.Table = table;
         this.LblTotal = lblTotal;
@@ -123,10 +123,10 @@ public class CashRegisterManager {
         Object[] rowTable = null;
         for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
             row = (Object[]) rows[rowIdx];
-              if (row[0].toString().equalsIgnoreCase(MovementTypes.MT_APER)){
-                subTotal = 0 + (Float) row [2];
-            } else{
-                subTotal= subTotal + ((Float) row[2]);
+            if (row[0].toString().equalsIgnoreCase(MovementTypes.MT_APER)) {
+                subTotal = 0 + (Float) row[2];
+            } else {
+                subTotal = subTotal + ((Float) row[2]);
             }
             rowTable = new Object[6];
             rowTable[1] = row[0];
@@ -134,19 +134,19 @@ public class CashRegisterManager {
             rowTable[3] = row[2];
             rowTable[4] = row[3];
             rowTable[0] = row[4];
-            rowTable[5] = subTotal;          
-            
-            for (int i=0; i< optList.size(); i++){
+            rowTable[5] = subTotal;
+
+            for (int i = 0; i < optList.size(); i++) {
                 MovementTypes move;
-                move= (MovementTypes)optList.get(i);
-                if(row[0].toString().equalsIgnoreCase(move.Name)){
-                  tm.addRow(rowTable);
-                  result = result + ((Float) row[2]);
+                move = (MovementTypes) optList.get(i);
+                if (row[0].toString().equalsIgnoreCase(move.Name)) {
+                    tm.addRow(rowTable);
+                    result = result + ((Float) row[2]);
                 }
             }
-         //   ArrayList Type= new ArrayList();
-         //   Type = optList;
-           
+            //   ArrayList Type= new ArrayList();
+            //   Type = optList;
+
         }
         this.LblTotal.setText("$ " + result);
     }
@@ -172,23 +172,24 @@ public class CashRegisterManager {
             move.Load(moveId);
             if (move.Type.Name.equals(MovementTypes.MT_VENTA_A) || move.Type.Name.equals(MovementTypes.MT_VENTA_B)
                     || move.Type.Name.equals(MovementTypes.MT_VENTA_X)) {
-                Class[] classParam = new Class[3];
-                classParam[0] = java.awt.Frame.class;
-                classParam[1] = boolean.class;
-                classParam[2] = int.class;
-                Object[] objectParam = new Object[3];
-                objectParam[0] = new javax.swing.JFrame();
-                objectParam[1] = true;
-                objectParam[2] = moveId;
-                FormsFactory.GetDialogForm("babelsForms.CashRegisterSaleDetail", true, classParam, objectParam);
-
+                this.setFactoryForm("babelsForms.CashRegisterSaleDetail");
             } else {
-                JOptionPane.showMessageDialog(null, "Este Movimiento no es una venta",
-                        "Error", JOptionPane.ERROR_MESSAGE);
-            }
+                this.setFactoryForm("babelsForms.CashRegisterDetail");            }
         } finally {
             Babels.mysql.Close();
         }
+    }
+
+    private void setFactoryForm(String Form) {
+        Class[] classParam = new Class[3];
+        classParam[0] = java.awt.Frame.class;
+        classParam[1] = boolean.class;
+        classParam[2] = int.class;
+        Object[] objectParam = new Object[3];
+        objectParam[0] = new javax.swing.JFrame();
+        objectParam[1] = true;
+        objectParam[2] = moveId;
+        FormsFactory.GetDialogForm(Form, true, classParam, objectParam);
     }
 
     public boolean doPrint() throws SQLException {
