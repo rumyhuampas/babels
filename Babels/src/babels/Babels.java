@@ -52,7 +52,7 @@ public class Babels {
         appPath = appPath + "\\Babels.ini";
         Ini ini = new Ini(new File(appPath));
         String server = ini.get("CONFIG", "SERVER");
-        String bd = ini.get("CONFIG", "BD");
+        String bd = ini.get("CONFIG", "DB");
         String user = ini.get("CONFIG", "USER");
         String pass = ini.get("CONFIG", "PASS");
         mysql = new MySQL(server, bd, user, pass);
