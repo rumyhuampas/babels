@@ -2,17 +2,26 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BabelsPrinter.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="IniPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Javier\Documents\Visual Studio 2010\Projects\BabelsPrinter\BabelsPrinter\bin\Debug\Babels.ini</Value>
-    </Setting>
     <Setting Name="Printers" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">COCINA_0;COCINA_1</Value>
+      <Value Profile="(Default)">FISCAL,NO_FISCAL,COCINA_0,COCINA_1,COCINA_2</Value>
     </Setting>
     <Setting Name="ServiceName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ServiceCocina</Value>
+      <Value Profile="(Default)">MainPrinter</Value>
     </Setting>
     <Setting Name="LogLevel" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="Server" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="DB" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">babels</Value>
+    </Setting>
+    <Setting Name="User" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="Pass" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

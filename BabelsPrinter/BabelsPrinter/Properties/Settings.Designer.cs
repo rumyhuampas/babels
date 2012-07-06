@@ -25,17 +25,7 @@ namespace BabelsPrinter.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Javier\\Documents\\Visual Studio 2010\\Projects\\BabelsPrinter\\BabelsPrinter" +
-            "\\bin\\Debug\\Babels.ini")]
-        public string IniPath {
-            get {
-                return ((string)(this["IniPath"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("COCINA_0;COCINA_1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FISCAL,NO_FISCAL,COCINA_0,COCINA_1,COCINA_2")]
         public string Printers {
             get {
                 return ((string)(this["Printers"]));
@@ -44,7 +34,7 @@ namespace BabelsPrinter.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ServiceCocina")]
+        [global::System.Configuration.DefaultSettingValueAttribute("MainPrinter")]
         public string ServiceName {
             get {
                 return ((string)(this["ServiceName"]));
@@ -57,6 +47,42 @@ namespace BabelsPrinter.Properties {
         public int LogLevel {
             get {
                 return ((int)(this["LogLevel"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        public string Server {
+            get {
+                return ((string)(this["Server"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("babels")]
+        public string DB {
+            get {
+                return ((string)(this["DB"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        public string User {
+            get {
+                return ((string)(this["User"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Pass {
+            get {
+                return ((string)(this["Pass"]));
             }
         }
     }
