@@ -10,16 +10,21 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel;
+import java.io.File;
+import java.io.IOException;
+import org.ini4j.Ini;
 
 public class Babels {
 
-    public static MySQL mysql = new MySQL("127.0.0.1", "babels", "root", "");
+    public static MySQL mysql = null;
     public static Session session = null;
 
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(
                     "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel");
+            InitDBConn();
+            
         } catch (Exception ex) {
             Logger.getLogger(Babels.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,5 +45,16 @@ public class Babels {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
                     "Error " + ex.getErrorCode(), JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private static void InitDBConn() throws IOException{
+        String appPath = Babels.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        appPath = appPath + "\\Babels.ini";
+        Ini ini = new Ini(new File(appPath));
+        String server = ini.get("CONFIG", "SERVER");
+        String bd = ini.get("CONFIG", "BD");
+        String user = ini.get("CONFIG", "USER");
+        String pass = ini.get("CONFIG", "PASS");
+        mysql = new MySQL(server, bd, user, pass);
     }
 }
