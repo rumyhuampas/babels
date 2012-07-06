@@ -120,6 +120,10 @@ public class Login extends javax.swing.JDialog implements IBabelsDialog {
                     this.setVisible(false);
                     LaunchMainFrame();
                     this.dispose();
+                }else{
+                    this.txtPass.setText(null);
+                    this.txtName.selectAll();
+                    this.txtName.requestFocus();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
