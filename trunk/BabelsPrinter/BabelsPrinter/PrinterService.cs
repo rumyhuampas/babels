@@ -7,19 +7,17 @@ namespace BabelsPrinter
 {
     public class PrinterService
     {
-        private ConfigReader ConfReader;
         private static string SERVER;
-        private static string BD;
+        private static string DB;
         private static string USER;
         private static string PASS;
 
         public PrinterService()
         {
-            ConfReader = new ConfigReader(Settings.Default.IniPath);
-            SERVER = ConfReader.IniReadValue("BD", "SERVER");
-            BD = ConfReader.IniReadValue("BD", "BD");
-            USER = ConfReader.IniReadValue("BD", "USER");
-            PASS = ConfReader.IniReadValue("BD", "PASS");
+            SERVER = Settings.Default.Server;
+            DB = Settings.Default.DB;
+            USER = Settings.Default.User;
+            PASS = Settings.Default.Pass;
         }
 
         public void Start()
@@ -40,7 +38,7 @@ namespace BabelsPrinter
 
         public static MySQLConnection GetDBConn()
         {
-            MySQLConnection conn = new MySQLConnection(new MySQLConnectionString(SERVER, BD, USER, PASS).AsString);
+            MySQLConnection conn = new MySQLConnection(new MySQLConnectionString(SERVER, DB, USER, PASS).AsString);
             conn.Open();
             return conn;
         }
