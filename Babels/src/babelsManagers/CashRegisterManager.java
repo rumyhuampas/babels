@@ -125,8 +125,10 @@ public class CashRegisterManager {
             row = (Object[]) rows[rowIdx];
             if (row[0].toString().equalsIgnoreCase(MovementTypes.MT_APER)) {
                 subTotal = 0 + (Float) row[2];
+                result = 0 + ((Float) row[2]);
             } else {
                 subTotal = subTotal + ((Float) row[2]);
+                result = result + ((Float) row[2]);
             }
             rowTable = new Object[6];
             rowTable[1] = row[0];
@@ -141,11 +143,10 @@ public class CashRegisterManager {
                 move = (MovementTypes) optList.get(i);
                 if (row[0].toString().equalsIgnoreCase(move.Name)) {
                     tm.addRow(rowTable);
-                    result = result + ((Float) row[2]);
+                    
                 }
             }
-            //   ArrayList Type= new ArrayList();
-            //   Type = optList;
+            
 
         }
         this.LblTotal.setText("$ " + result);
