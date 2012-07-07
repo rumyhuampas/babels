@@ -60,6 +60,9 @@ public class Welcome extends andro.babels.controllers.Base {
         if (settings.GetAppSetting(BabelsSettings.SALEITEMTEXTSIZEKEY, "").equals("")) {
             settings.SaveAppSetting(BabelsSettings.SALEITEMTEXTSIZEKEY, BabelsSettings.SALEITEMTEXTSIZEDEFAULT);
         }
+        if (settings.GetAppSetting(BabelsSettings.ITEMSAMOUNTKEY, "").equals("")) {
+            settings.SaveAppSetting(BabelsSettings.ITEMSAMOUNTKEY, BabelsSettings.ITEMSAMOUNTDEFAULT);
+        }
     }
 
     private void LoadInfo() {
