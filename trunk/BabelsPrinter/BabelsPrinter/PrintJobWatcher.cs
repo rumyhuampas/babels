@@ -26,6 +26,7 @@ namespace BabelsPrinter
                     if (job != null)
                     {
                         JobResolver.ProcessJob(job);
+                        Thread.Sleep(3000);
                     }
                     else
                     {
