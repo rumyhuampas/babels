@@ -287,6 +287,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
                         if (JOptionPane.showConfirmDialog(this, "Desea agregar otro producto?",
                                 "Nuevo Producto", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                             this.txtName.setText("");
+                            this.txtName.requestFocus();
                             this.txtPrice.setText("");
                             this.txtaDesc.setText("");
                             this.lblImg.setText("<html>Click para cargar imágen<br>(no superiores a 1 MB)</html>");
@@ -294,7 +295,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
                             this.lblImg.setToolTipText("");
                             this.ImageChanged = false;
                             this.txtCostPrice.setText("");
-                            this.txtIva.setText("");
+                            this.txtIva.setText("21");
                             this.txtPricePackaging.setText("");
                             this.comboCategories.setSelectedIndex(0);
                             this.comboKitchen.setSelectedIndex(0);
