@@ -25,7 +25,7 @@ namespace BabelsPrinter.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FISCAL,NO_FISCAL,COCINA_0,COCINA_1,COCINA_2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FISCAL;NOFISCAL;COCINA_0;COCINA_1;COCINA_2;COCINA_3")]
         public string Printers {
             get {
                 return ((string)(this["Printers"]));
