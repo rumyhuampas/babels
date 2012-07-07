@@ -20,16 +20,18 @@ public class Tab extends andro.babels.views.Base {
     private LinearLayout ll;
     private LinearLayout row;
     private int TextSize;
+    private int ItemsAmount;
 
     public Tab(Activity activity, int llMainId) {
         Activity = activity;
         ll = (LinearLayout) Activity.findViewById(llMainId);
         TextSize = Integer.parseInt(andro.babels.controllers.Welcome.settings.GetAppSetting(BabelsSettings.ITEMTEXTSIZEKEY, BabelsSettings.ITEMTEXTSIZEDEFAULT));
+        ItemsAmount = Integer.parseInt(andro.babels.controllers.Welcome.settings.GetAppSetting(BabelsSettings.ITEMSAMOUNTKEY, BabelsSettings.ITEMSAMOUNTDEFAULT));
     }
 
     public LinearLayout DrawObject(Object[] obj, int index, String type, View.OnClickListener onClickHandler, View.OnLongClickListener onLongClickHandler) {
         try {
-            if (index % 4 == 0) {
+            if (index % ItemsAmount == 0) {
                 row = new LinearLayout(Activity);
                 row.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 ll.addView(row);

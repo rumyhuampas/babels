@@ -38,5 +38,10 @@
             android:name="SaleItemTextSize"
             android:title="Tamaño letra items de venta"
             android:summary="Tamaño de letra de los items de una venta"/>
+        <EditTextPreference
+            android:key="ITEMSAMOUNTPref"
+            android:name="ItemsAmount"
+            android:title="Cantidad de items por fila"
+            android:summary="Cantidad de items que se mostraran por fila en la grilla"/>
     </PreferenceCategory>
 </PreferenceScreen>

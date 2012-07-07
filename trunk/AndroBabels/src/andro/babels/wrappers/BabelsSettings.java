@@ -23,6 +23,8 @@ public class BabelsSettings {
     public static final String TITLETEXTSIZEDEFAULT = "10";
     public static final String SALEITEMTEXTSIZEKEY = "SALEITEMTEXTSIZEPref";
     public static final String SALEITEMTEXTSIZEDEFAULT = "10";
+    public static final String ITEMSAMOUNTKEY = "ITEMSAMOUNTPref";
+    public static final String ITEMSAMOUNTDEFAULT = "4";
     
     public BabelsSettings(andro.babels.Welcome activity){
         Activity = activity;
