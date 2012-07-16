@@ -51,13 +51,21 @@ public class CashRegisterDetail extends javax.swing.JDialog  implements IBabelsD
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detalle");
 
+        txtMovementId.setEnabled(false);
+
         jLabel1.setText("Movimiento ID:");
 
         jLabel2.setText("Tipo de Movimiento:");
 
+        txtMovementType.setEditable(false);
+
         jLabel3.setText("Fecha / Hora:");
 
+        txtFechaHora.setEditable(false);
+
         jLabel4.setText("Monto:");
+
+        txtAmount.setEditable(false);
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {

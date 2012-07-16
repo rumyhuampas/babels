@@ -1,6 +1,7 @@
 package babelsForms;
 
 import babelsManagers.MainManager;
+import babelsManagers.ReportManager;
 import babelsObjects.FormsFactory;
 import java.awt.image.ImageObserver;
 import org.jdesktop.swingx.JXTaskPane;
@@ -65,7 +66,7 @@ public class Main extends javax.swing.JFrame {
         panelCurves1.setLayout(panelCurves1Layout);
         panelCurves1Layout.setHorizontalGroup(
             panelCurves1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCurves1Layout.createSequentialGroup()
+            .addGroup(panelCurves1Layout.createSequentialGroup()
                 .addContainerGap(701, Short.MAX_VALUE)
                 .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

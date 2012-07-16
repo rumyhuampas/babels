@@ -61,7 +61,7 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog implements IBabe
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -70,13 +70,21 @@ public class CashRegisterSaleDetail extends javax.swing.JDialog implements IBabe
         });
         jScrollPane1.setViewportView(tblSaleDetail);
 
+        txtMovementId.setEnabled(false);
+
         jLabel1.setText("Movimiento ID:");
 
         jLabel2.setText("Tipo de Movimiento:");
 
+        txtMovementType.setEditable(false);
+
         jLabel3.setText("Fecha / Hora:");
 
+        txtFechaHora.setEditable(false);
+
         jLabel4.setText("Monto:");
+
+        txtAmount.setEditable(false);
 
         btnCancel.setText("Cancelar");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {

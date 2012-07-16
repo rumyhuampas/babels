@@ -1,6 +1,7 @@
 package babelsForms;
 
 import babelsManagers.CashRegisterManager;
+import babelsManagers.ReportManager;
 import babelsObjects.FormsFactory;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -54,6 +55,7 @@ public class CashRegister extends javax.swing.JDialog {
         chbOpenClose = new javax.swing.JCheckBox();
         chbSales = new javax.swing.JCheckBox();
         chbInOut = new javax.swing.JCheckBox();
+        btnGenerarReporte = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuOperations = new javax.swing.JMenu();
         mItemOpenCash = new javax.swing.JMenuItem();
@@ -170,6 +172,13 @@ public class CashRegister extends javax.swing.JDialog {
             }
         });
 
+        btnGenerarReporte.setText("Generar Reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
+
         MenuOperations.setText("Operaciones");
 
         mItemOpenCash.setText("Apertura Caja");
@@ -248,7 +257,8 @@ public class CashRegister extends javax.swing.JDialog {
                         .addComponent(chbInOut)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTotalTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -286,8 +296,10 @@ public class CashRegister extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblTotalTitle)
-                        .addGap(8, 8, 8)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTotalTitle)
+                            .addComponent(btnGenerarReporte))
+                        .addGap(13, 13, 13)))
                 .addContainerGap())
         );
 
@@ -380,9 +392,20 @@ public class CashRegister extends javax.swing.JDialog {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mItemDetalleActionPerformed
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        ReportManager repManager = new ReportManager(this.tblMovements);
+        try {
+            repManager.print();
+        } catch (SQLException ex) {
+            Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private javax.swing.JMenu MenuReports;
+    private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JButton btnSearch;
     private javax.swing.JCheckBox chbInOut;
     private javax.swing.JCheckBox chbOpenClose;
