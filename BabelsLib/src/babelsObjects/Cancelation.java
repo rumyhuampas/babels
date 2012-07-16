@@ -70,9 +70,9 @@ public class Cancelation {
             if (results.next()) {
                 this.Id = results.getInt(this.FIELD_ID);
                 this.CancellerMove = new Sale(Conn);
-                this.CancellerMove.Load(results.getInt(this.FIELD_CANCELLERMOVEID));
+                this.CancellerMove.Load(results.getInt(Cancelation.FIELD_CANCELLERMOVEID));
                 this.CanceledMove = new Sale(Conn);
-                this.CanceledMove.Load(results.getInt(this.FIELD_CANCELLERMOVEID));
+                this.CanceledMove.Load(results.getInt(this.FIELD_CANCELEDMOVEID));
                 return true;
             } else {
                 return false;
