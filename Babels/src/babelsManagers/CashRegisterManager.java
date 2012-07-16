@@ -117,6 +117,7 @@ public class CashRegisterManager {
 
     private void LoadMovements(Date DateBegining, Date DateFinal, ArrayList optList) throws SQLException {
         float result = 0;
+        this.subTotal = 0;
         Object[] rows = MovementAdmin.GetMovements(Babels.mysql.Conn, DateBegining, DateFinal, optList);
         Object[] row = null;
         DefaultTableModel tm = (DefaultTableModel) this.Model;
@@ -128,7 +129,7 @@ public class CashRegisterManager {
                 result = 0 + ((Float) row[2]);
             } else {
                 subTotal = subTotal + ((Float) row[2]);
-                result = result + ((Float) row[2]);
+                result = result + ((Float) row[2]);              
             }
             rowTable = new Object[6];
             rowTable[1] = row[0];

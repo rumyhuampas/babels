@@ -102,6 +102,9 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtMovementId">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -114,6 +117,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtMovementType">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -121,6 +127,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFechaHora">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -128,6 +137,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtAmount">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancel">
       <Properties>

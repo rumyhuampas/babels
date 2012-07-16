@@ -24,42 +24,42 @@ public class TableRendererFTextField implements TableCellRenderer {
          * txtFormated.setBackground(Color.lightGray); } }
          */
         if (table.getValueAt(row, 1).equals(MovementTypes.MT_APER)) {
-            txtFormated.setBackground(new Color(0xFFFF00));
+            txtFormated.setBackground(new Color(0x90EE90));
             txtFormated.setOpaque(true);
             if (isSelected) {
                 txtFormated.setBackground(Color.lightGray);
             }
         }
         if (table.getValueAt(row, 1).equals(MovementTypes.MT_CIERREPARC)) {
-            txtFormated.setBackground(new Color(0xFF8000));
+            txtFormated.setBackground(new Color(0xB0E0E6));
              txtFormated.setOpaque(true);
             if (isSelected) {
                 txtFormated.setBackground(Color.lightGray);
             }
         }
         if (table.getValueAt(row, 1).equals(MovementTypes.MT_CIERRE)) {
-            txtFormated.setBackground(new Color(0xFF4000));
+            txtFormated.setBackground(new Color(0x87CEEB));
              txtFormated.setOpaque(true);
             if (isSelected) {
                 txtFormated.setBackground(Color.lightGray);
             }
         }
         if (table.getValueAt(row, 1).equals(MovementTypes.MT_CANCELATION)) {
-            txtFormated.setBackground(new Color(0xFF0040));
+            txtFormated.setBackground(new Color(0xFFA07A));
              txtFormated.setOpaque(true);
             if (isSelected) {
                 txtFormated.setBackground(Color.lightGray);
             }
         }
         if (table.getValueAt(row, 1).equals(MovementTypes.MT_EXTRACCION)) {
-            txtFormated.setBackground(new Color(0x2EFE2E));
+            txtFormated.setBackground(new Color(0xD8BFD8));
              txtFormated.setOpaque(true);
             if (isSelected) {
                 txtFormated.setBackground(Color.lightGray);
             }
         }
          if (table.getValueAt(row, 1).equals(MovementTypes.MT_DEPOSITO)) {
-            txtFormated.setBackground(new Color(0x2E64FE));
+            txtFormated.setBackground(new Color(0xE6E6FA));
              txtFormated.setOpaque(true);
             if (isSelected) {
                 txtFormated.setBackground(Color.lightGray);

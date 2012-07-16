@@ -30,7 +30,8 @@ public class CashRegisterDetailManager {
         this.txtMovementId = txtMovementId;
         this.txtMovementType = txtMovementType;
     }
-     public CashRegisterDetailManager(int moveId, JTextArea taDescription, JTextField txtAmount, JTextField txtDateTime, JTextField txtMovementId, JTextField txtMovementType) {
+
+    public CashRegisterDetailManager(int moveId, JTextArea taDescription, JTextField txtAmount, JTextField txtDateTime, JTextField txtMovementId, JTextField txtMovementType) {
         this.moveId = moveId;
         this.taDescription = taDescription;
         this.txtAmount = txtAmount;
@@ -53,22 +54,29 @@ public class CashRegisterDetailManager {
             Babels.mysql.Close();
         }
     }
+
     public void LoadMovement() throws SQLException {
         Babels.mysql.Open();
         try {
             Movement move = new Movement(Babels.mysql.Conn);
+            Cancelation cancel = new Cancelation(Babels.mysql.Conn);
             move.Load(moveId);
             this.txtAmount.setText("" + move.Amount);
             this.txtDateTime.setText(move.DateTime.toString());
             this.txtMovementId.setText("" + move.Id);
             this.txtMovementType.setText(move.Type.Name);
-            this.taDescription.setText(move.Description);
+            if (cancel.LoadByCanceller(moveId)) {
+             //   Sale sale = new Sale(Babels.mysql.Conn);
+             //   sale = cancel.CanceledMove;
+                this.taDescription.setText("Cancelacion del movimiento: " + (cancel.CanceledMove.getId()));
+            } else {
+                this.taDescription.setText(move.Description);
+            }
         } finally {
             Babels.mysql.Close();
         }
     }
 
-    
     private void ClearTable() {
         DefaultTableModel tm = (DefaultTableModel) this.ModelTable;
         tm.getDataVector().removeAllElements();
