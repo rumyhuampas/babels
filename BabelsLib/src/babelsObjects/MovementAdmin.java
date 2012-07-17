@@ -59,7 +59,6 @@ public class MovementAdmin {
                 + " WHERE m." + Movement.FIELD_TYPE + "=t." + MovementTypes.FIELD_ID
                 + " AND t." + MovementTypes.FIELD_NAME
                 + " IN ('" + MovementTypes.MT_APER + "','" + MovementTypes.MT_CIERRE + "','" + MovementTypes.MT_CIERREPARC + "')"
-                + " AND Date(m." + Movement.FIELD_DATEPOSTED + ") = CurDate()"
                 + " ORDER BY m." + Movement.FIELD_DATEPOSTED + " DESC LIMIT 1";
 
         PreparedStatement qry = conn.prepareStatement(sql);
