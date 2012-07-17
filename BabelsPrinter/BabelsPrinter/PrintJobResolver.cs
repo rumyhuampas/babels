@@ -11,8 +11,8 @@ namespace BabelsPrinter
 
         public unsafe PrintJobResolver()
         {
-            /*Hasar715CLR.Hasar715CLR hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ConvertToSbyte("C:\\Hasar715.txt"));
-            hasar715.InitPrinter(Hasar715.ConvertToSbyte("C:\\Hasar715.ini"));*/
+            Hasar715CLR.Hasar715CLR hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ConvertToSbyte("C:\\Hasar715.txt"));
+            hasar715.InitPrinter(Hasar715.ConvertToSbyte("C:\\Hasar715.ini"));
             //hasar715.ImprimirReporteZ();
             //hasar715.ImprimirReporteZ(Hasar715.ConvertToSbyte("120505"), Hasar715.ConvertToSbyte("500505"), true);
             //hasar715.ImprimirReporteZ(50, 60, true);
@@ -20,9 +20,9 @@ namespace BabelsPrinter
             hasar715.ImprimirCodigoDeBarras(Hasar715.ConvertToSbyte("999555111123"), true, true);
             hasar715.ImprimirTextoNoFiscal(Hasar715.ConvertToSbyte("Probando impresora fiscal con texto no fiscal"));
             hasar715.CerrerDNF();*/
-            /*hasar715.ObtenerEstadoInterno();
+            hasar715.ObtenerEstadoInterno();
             hasar715.ObtenerDatosMemoriaDeTrabajo();
-            hasar715.ObtenerDatosDeInicializacion();*/
+            hasar715.ObtenerDatosDeInicializacion();
         }
 
         public void ProcessJob(PrintJob job)
