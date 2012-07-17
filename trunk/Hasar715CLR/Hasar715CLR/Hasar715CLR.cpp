@@ -114,7 +114,7 @@ namespace Hasar715CLR {
 			}
 		}
 
-		void CerrerDNF(){
+		void CerrarDNF(){
 			try{
 				logger -> Log("Cerrando DNF");
 				impresor->CerrarDNF();
