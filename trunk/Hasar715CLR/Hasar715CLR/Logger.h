@@ -13,7 +13,8 @@ public:
 	void Log(const std::string &Message);
 	void Log(Excepcion &e);
 	void Log(int Message);
-	void Logf(const std::string &fmt, ...);
+	//void Logf(const std::string &fmt, ...);
+	void Logf(const char* fmt, ...);
 	string static IntToStr(int num);
 private:
 	char *filePath;

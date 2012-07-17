@@ -4,7 +4,7 @@
 Hasar715CLRConfig::Hasar715CLRConfig(ImpresorFiscal *imp, Logger *log): impresor(imp), logger(log){ }
 
 void Hasar715CLRConfig::EstablecerPuertoSerie(int puerto){
-	logger -> Logf ("Estableciendo puerto serie: %d", puerto);
+	logger -> Logf ("Estableciendo puerto serie: %i", puerto);
 	impresor->EstablecerPuertoSerie (puerto, 9600);
 }
 
@@ -15,9 +15,9 @@ void Hasar715CLRConfig::EstablecerManejadorDeEventos(){
 }
 
 void Hasar715CLRConfig::EstablecerInterlineadoDeImpresion(int value){
-	logger -> Logf ("Estableciendo interlineado de impresion: %d", value);
+	logger -> Logf ("Estableciendo interlineado de impresion: %i", value);
 	impresor->EstablecerInterlineado (value);
-	logger -> Logf ("INTERLINEADO: %d", impresor->ObtenerInterlineado ());
+	logger -> Logf ("INTERLINEADO: %i", impresor->ObtenerInterlineado ());
 }
 
 void Hasar715CLRConfig::ObtenerEstadoInterno(){
@@ -26,7 +26,7 @@ void Hasar715CLRConfig::ObtenerEstadoInterno(){
 			
 	impresor->EstadoInternoImpresor (&R);
 	logger -> Log ("ESTADO INTERNO IMPRESOR (PL23F");
-	logger -> Logf ("Estado:      %d", R.Estado);
+	logger -> Logf ("Estado:      %i", R.Estado);
 	logger -> Logf ("Descripción: %s", R.Descripcion.c_str ());
 }
 

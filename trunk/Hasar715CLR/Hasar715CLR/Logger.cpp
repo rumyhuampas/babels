@@ -45,14 +45,25 @@ void Logger::Log(Excepcion &e){
 	Log(s);
 }
 
-void Logger::Logf(const std::string &fmt, ...){
+/*void Logger::Logf(const char* fmt, ...){
+	FILE * pFile = fopen (filePath, "w");
+
+	va_list args;
+    va_start(args,fmt);
+    fprintf (pFile, fmt, args);
+    va_end(args);
+
+	fclose (pFile);
+}*/
+
+void Logger::Logf(const char* fmt, ...){
 	int n, size=100;
 	std::string str;
 	va_list ap;
 	while (1) {
 		str.resize(size);
 		va_start(ap, fmt);
-		int n = vsnprintf((char *)str.c_str(), size, fmt.c_str(), ap);
+		int n = vsnprintf((char *)str.c_str(), size, fmt, ap);
 		va_end(ap);
 		if (n > -1 && n < size){
 			Log(str);
