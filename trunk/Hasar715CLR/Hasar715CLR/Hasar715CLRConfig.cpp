@@ -92,3 +92,91 @@ void Hasar715CLRConfig::CambiarFechaInicioActividades(char *fechaInicio){
 	ImpresorFiscal::FECHA F = fechaInicio;
 	impresor->CambiarFechaInicioActividades (F);
 }
+
+void Hasar715CLRConfig::ObtenerUltimosDocumentos(){
+	unsigned UltimoDFBC   = impresor->UltimoDocumentoFiscalBC ();
+	unsigned UltimoDFA    = impresor->UltimoDocumentoFiscalA ();
+	unsigned UltimaNCBC   = impresor->UltimaNotaCreditoBC ();
+	unsigned UltimaNCA    = impresor->UltimaNotaCreditoA ();
+			
+	unsigned UltimoRemito = 0;
+	try
+	{
+		UltimoRemito = impresor->UltimoRemito ();
+	}
+
+	catch(Excepcion &e)
+	{
+		if (e.Codigo == Excepcion::IMPRESOR_FISCAL_ERROR_NO_IMPLEMENTADO)
+			logger -> Log ("Método UltimoRemito No Soportado por el modelo actual\n");
+	}
+
+	logger -> Log ("REPORTE DE Nº DE ULTIMOS DOCUMENTOS");
+	logger -> Logf ("Ultimo DF BC:  %8lu", UltimoDFBC);
+	logger -> Logf ("Ultimo DF A:   %8lu", UltimoDFA);
+	logger -> Logf ("Ultima NC BC:  %8lu", UltimaNCBC);
+	logger -> Logf ("Ultima NC A:   %8lu", UltimaNCA);
+	logger -> Logf ("Ultimo Remito: %8lu", UltimoRemito);
+}
+
+void Hasar715CLRConfig::EstablecerFechaHora(char *fecha, char *hora){
+	logger -> Log ("Estableciendo fecha y hora");
+
+	ImpresorFiscal::FECHA F;
+	ImpresorFiscal::HORA H;
+
+	logger -> Log ("Obteniendo la Fecha y Hora antes de Re-programar");
+	impresor->ObtenerFechaHoraFiscal (F, H);
+	logger -> Log ("Fecha y Hora Anterior del CF");
+	logger -> Logf ("Fecha: %02u/%02u/%04u - Hora: %02u:%02u:%02u",
+				F.dia (), F.mes (), F.anio (),
+				H.hora (), H.minutos (), H.segundos ());
+
+	logger -> Log ("Re-programando la Fecha y Hora");
+	ImpresorFiscal::FECHA FNueva;
+	ImpresorFiscal::HORA HNueva;
+	FNueva = ImpresorFiscal::FECHA (fecha);
+	HNueva = ImpresorFiscal::HORA (hora);
+	/*ImpresorFiscal::FECHA FNueva;
+	ImpresorFiscal::HORA HNueva;
+	FNueva.dia(dia);
+	FNueva.mes(mes);
+	FNueva.anio(anio);
+	HNueva.hora(hora);
+	HNueva.minutos(minutos);
+	HNueva.segundos(segundos);*/
+	impresor->EstablecerFechaHoraFiscal (FNueva, HNueva);
+
+	logger -> Log ("Obteniendo la Fecha y Hora después de Re-programar");
+	impresor->ObtenerFechaHoraFiscal (F, H);
+	logger -> Log ("Fecha y Hora Nueva del CF (Programada)");
+	logger -> Logf ("Fecha: %02u/%02u/%04u - Hora: %02u:%02u:%02u",
+				F.dia (), F.mes (), F.anio (),
+				H.hora (), H.minutos (), H.segundos ());
+}
+
+void Hasar715CLRConfig::ObtenerConfiguracionCF(){
+	ImpresorFiscal::RTA_ObtenerConfiguracion R;
+			
+	logger -> Log ("EJECUTANDO COMANDO OBTENER CONFIGURACION");
+	impresor->ObtenerConfiguracion (&R);
+
+	logger -> Log ("REPORTE DE CONFIGURACION DEL CF");
+	logger -> Logf ("LimiteConsumidorFinal:         %.2f", R.LimiteConsumidorFinal);
+	logger -> Logf ("LimiteTicketFactura:           %.2f", R.LimiteTicketFactura);
+	logger -> Logf ("PorcentajeIVANoInscripto:      %.2f", R.PorcentajeIVANoInscripto);
+	logger -> Logf ("TipoDeCopiasMaximo:			%c", R.TipoDeCopiasMaximo);
+	logger -> Logf ("ImprimeCambio $0.00:           %s", R.ImprimeCambio ? "SI" : "NO");
+	logger -> Logf ("ImprimeLeyendasOpcionales:     %s", R.ImprimeLeyendasOpcionales ? "SI" : "NO");
+	logger -> Logf ("TipoDeCorte:                   %c", R.TipoDeCorte);
+	logger -> Logf ("ImprimeMarco:                  %s", R.ImprimeMarco ? "SI" : "NO");
+	logger -> Logf ("ReImprimeDocumentos:           %s", R.ReImprimeDocumentos ? "SI" : "NO");
+	logger -> Logf ("DescripcionDelMedioDePago:     %s", R.DescripcionDelMedioDePago.c_str());
+	logger -> Logf ("Sonido:                        %s", R.Sonido ? "SI" : "NO");
+	logger -> Logf ("AltoHoja:                      %c", R.AltoHoja);
+	logger -> Logf ("AnchoHoja:                     %c", R.AnchoHoja);
+	logger -> Logf ("EstacionImpresionReportesXZ:   %c", R.EstacionImpresionReportesXZ);
+	logger -> Logf ("ModoImpresion:                 %c", R.ModoImpresion);
+	logger -> Logf ("ChequeoDesbordeCompleto:       %s", R.ChequeoDesbordeCompleto ? "SI" : "NO");
+	logger -> Logf ("ChequeoTapaAbierta:			%s", R.ChequeoTapaAbierta ? "SI" : "NO");
+}
