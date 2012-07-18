@@ -33,6 +33,9 @@ namespace Hasar715CLR {
 			}
 		}
 
+
+		//***********************************REPORTES******************************************
+
 		void ImprimirReporteZ(){
 			try{
 				logger->Log ("Imprimiendo Reporte Z");
@@ -103,6 +106,71 @@ namespace Hasar715CLR {
 			}
 		}
 
+		void ImprimirReporteZ(char *fecha){
+			ImpresorFiscal::FECHA FechaZ;
+			unsigned NumeroZ;
+
+			ImpresorFiscal::RTA_ReporteZIndividual R;
+
+			// Reporte Z Individual por Fecha
+			FechaZ = ImpresorFiscal::FECHA (fecha);	// ("050928");	// ("050727");
+			impresor->ReporteZIndividualPorFecha (FechaZ, &R);
+
+			logger->Log ("Reporte Z Individual por Fecha");
+			logger->Logf ("Fecha: %02u/%02u/%04u - Zeta Nº: %04u",
+					 R.FechaZeta.dia (), R.FechaZeta.mes (), R.FechaZeta.anio (), R.NumeroZeta		);
+			logger->Logf ("\tUltimoDocFiscalBC                = %lu",	R.UltimoDocFiscalBC				);
+			logger->Logf ("\tUltimoDocFiscalA                 = %lu",	R.UltimoDocFiscalA				);
+			logger->Logf ("\tMontoVentasDocFiscal             = %.2f",  R.MontoVentasDocFiscal			);
+			logger->Logf ("\tMontoIVADocFiscal                = %.2f",  R.MontoIVADocFiscal				);
+			logger->Logf ("\tMontoImpInternosDocFiscal        = %.2f",  R.MontoImpInternosDocFiscal		);
+			logger->Logf ("\tMontoPercepcionesDocFiscal       = %.2f",  R.MontoPercepcionesDocFiscal	);
+			logger->Logf ("\tMontoIVANoInscriptoDocFiscal     = %.2f",  R.MontoIVANoInscriptoDocFiscal  );
+			logger->Logf ("\tUltimaNotaCreditoBC              = %lu",	R.UltimaNotaCreditoBC			);
+			logger->Logf ("\tUltimaNotaCreditoA               = %lu",	R.UltimaNotaCreditoA			);
+			logger->Logf ("\tMontoVentasNotaCredito           = %.2f",  R.MontoVentasNotaCredito		);
+			logger->Logf ("\tMontoIVANotaCredito              = %.2f",  R.MontoIVANotaCredito			);
+			logger->Logf ("\tMontoImpInternosNotaCredito      = %.2f",  R.MontoImpInternosNotaCredito	);
+			logger->Logf ("\tMontoPercepcionesNotaCredito     = %.2f",  R.MontoPercepcionesNotaCredito  );
+			logger->Logf ("\tMontoIVANoInscriptoNotaCredito   = %.2f",  R.MontoIVANoInscriptoNotaCredito);
+			logger->Logf ("\tUltimoRemito                     = %lu",	R.UltimoRemito					);
+		}
+
+		void ImprimirReporteZ(int numero){
+			// Reporte Z Individual por Número
+			ImpresorFiscal::RTA_ReporteZIndividual R;
+			//NumeroZ = 1;
+			impresor->ReporteZIndividualPorNumero (numero, &R);
+
+			logger->Log ("Reporte Z Individual por Número");
+			logger->Logf ("Zeta Nº: %04u - Fecha: %02u/%02u/%04u",
+					 R.NumeroZeta, R.FechaZeta.dia (), R.FechaZeta.mes (), R.FechaZeta.anio ()		);
+			logger->Logf ("\tUltimoDocFiscalBC                = %lu",	R.UltimoDocFiscalBC				);
+			logger->Logf ("\tUltimoDocFiscalA                 = %lu",	R.UltimoDocFiscalA				);
+			logger->Logf ("\tMontoVentasDocFiscal             = %.2f",  R.MontoVentasDocFiscal			);
+			logger->Logf ("\tMontoIVADocFiscal                = %.2f",  R.MontoIVADocFiscal				);
+			logger->Logf ("\tMontoImpInternosDocFiscal        = %.2f",  R.MontoImpInternosDocFiscal		);
+			logger->Logf ("\tMontoPercepcionesDocFiscal       = %.2f",  R.MontoPercepcionesDocFiscal	);
+			logger->Logf ("\tMontoIVANoInscriptoDocFiscal     = %.2f",  R.MontoIVANoInscriptoDocFiscal  );
+			logger->Logf ("\tUltimaNotaCreditoBC              = %lu",	R.UltimaNotaCreditoBC			);
+			logger->Logf ("\tUltimaNotaCreditoA               = %lu",	R.UltimaNotaCreditoA			);
+			logger->Logf ("\tMontoVentasNotaCredito           = %.2f",  R.MontoVentasNotaCredito		);
+			logger->Logf ("\tMontoIVANotaCredito              = %.2f",  R.MontoIVANotaCredito			);
+			logger->Logf ("\tMontoImpInternosNotaCredito      = %.2f",  R.MontoImpInternosNotaCredito	);
+			logger->Logf ("\tMontoPercepcionesNotaCredito     = %.2f",  R.MontoPercepcionesNotaCredito  );
+			logger->Logf ("\tMontoIVANoInscriptoNotaCredito   = %.2f",  R.MontoIVANoInscriptoNotaCredito);
+			logger->Logf ("\tUltimoRemito                     = %lu",	R.UltimoRemito					);
+		}
+
+		void ObtenerCapacidadZ(){
+			ImpresorFiscal::RTA_CapacidadRestante R;
+			
+			impresor->CapacidadRestante (&R);
+			logger->Logf ("Total Cierres Z:     %4u", R.TotalCierresZeta);
+			logger->Logf ("Cierre Z actual:     %4u", R.CierreZetaActual);
+			logger->Logf ("Cierres Z restantes: %4u", R.TotalCierresZeta - R.CierreZetaActual);
+		}
+
 		void AbrirDNFTicket(){
 			try{
 				logger->Log ("Abriendo DNF Estacion Ticket");
@@ -147,6 +215,38 @@ namespace Hasar715CLR {
 			}
 		}
 
+		void ImprimirReporteX(){
+			ImpresorFiscal::RTA_ReporteZX R;
+			
+			impresor->ReporteX (&R);
+					
+			logger->Logf ("Reporte X Nº %u",							R.NumeroReporte					);
+			logger->Logf ("\tCantidadDFCancelados             = %u",	R.CantidadDFCancelados			);
+			logger->Logf ("\tCantidadDNFHEmitidos             = %u",	R.CantidadDNFHEmitidos			);
+			logger->Logf ("\tCantidadDNFEmitidos              = %u",	R.CantidadDNFEmitidos			);
+			logger->Logf ("\tCantidadDFEmitidos               = %u",	R.CantidadDFEmitidos			);
+			logger->Logf ("\tUltimoDocFiscalBC                = %lu",	R.UltimoDocFiscalBC				);
+			logger->Logf ("\tUltimoDocFiscalA                 = %lu",	R.UltimoDocFiscalA				);
+			logger->Logf ("\tMontoVentasDocFiscal             = %.2f",	R.MontoVentasDocFiscal			);
+			logger->Logf ("\tMontoIVADocFiscal                = %.2f",	R.MontoIVADocFiscal				);
+			logger->Logf ("\tMontoImpInternosDocFiscal        = %.2f",	R.MontoImpInternosDocFiscal		);
+			logger->Logf ("\tMontoPercepcionesDocFiscal       = %.2f",	R.MontoPercepcionesDocFiscal	);
+			logger->Logf ("\tMontoIVANoInscriptoDocFiscal     = %.2f",	R.MontoIVANoInscriptoDocFiscal	);
+			logger->Logf ("\tUltimaNotaCreditoBC              = %lu",	R.UltimaNotaCreditoBC			);
+			logger->Logf ("\tUltimaNotaCreditoA               = %lu",	R.UltimaNotaCreditoA			);
+			logger->Logf ("\tMontoVentasNotaCredito           = %.2f",	R.MontoVentasNotaCredito		);
+			logger->Logf ("\tMontoIVANotaCredito              = %.2f",	R.MontoIVANotaCredito			);
+			logger->Logf ("\tMontoImpInternosNotaCredito      = %.2f",	R.MontoImpInternosNotaCredito	);
+			logger->Logf ("\tMontoPercepcionesNotaCredito     = %.2f",	R.MontoPercepcionesNotaCredito	);
+			logger->Logf ("\tMontoIVANoInscriptoNotaCredito   = %.2f",	R.MontoIVANoInscriptoNotaCredito);
+			logger->Logf ("\tUltimoRemito                     = %lu",	R.UltimoRemito					);
+			logger->Logf ("\tCantidadNCCanceladas             = %u",	R.CantidadNCCanceladas			);
+			logger->Logf ("\tCantidadDFBCEmitidos             = %u",	R.CantidadDFBCEmitidos			);
+			logger->Logf ("\tCantidadDFAEmitidos              = %u",	R.CantidadDFAEmitidos			);
+			logger->Logf ("\tCantidadNCBCEmitidas             = %u",	R.CantidadNCBCEmitidas			);
+			logger->Logf ("\tCantidadNCAEmitidas              = %u",	R.CantidadNCAEmitidas			);
+		}
+
 
 
 		//***********************REPORTE ESTADO**********************
@@ -181,6 +281,16 @@ namespace Hasar715CLR {
 			}
 		}
 
+		void CambiarResponsabilidadIVA(){
+			try{
+				hasarConfig->CambiarResponsabilidadIVA();
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
 		void CambiarCodigoIngresosBrutos(char *codigo){
 			try{
 				hasarConfig->CambiarCodigoIngresosBrutos(codigo);
@@ -194,6 +304,33 @@ namespace Hasar715CLR {
 		void CambiarFechaInicioActividades(char *fechaInicio){
 			try{
 				hasarConfig->CambiarFechaInicioActividades(fechaInicio);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+		void ObtenerUltimosDocumentos(){
+			try{
+				hasarConfig->ObtenerUltimosDocumentos();
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+		void EstablecerFechaHora(char *fecha, char *hora){
+			try{
+				hasarConfig->EstablecerFechaHora(fecha, hora);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+		void ObtenerConfiguracionCF(){
+			try{
+				hasarConfig->ObtenerConfiguracionCF();
 			}
 			catch(Excepcion &e)
 			{

@@ -15,6 +15,9 @@ public:
 	void CambiarResponsabilidadIVA();
 	void CambiarCodigoIngresosBrutos(char *codigo);
 	void CambiarFechaInicioActividades(char *fechaInicio);
+	void ObtenerUltimosDocumentos();
+	void EstablecerFechaHora(char *fecha, char *hora);
+	void ObtenerConfiguracionCF();
 private:
 	ImpresorFiscal *impresor;
 	Logger *logger;
