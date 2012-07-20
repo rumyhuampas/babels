@@ -93,6 +93,40 @@ void Hasar715CLRConfig::CambiarFechaInicioActividades(char *fechaInicio){
 	impresor->CambiarFechaInicioActividades (F);
 }
 
+void Hasar715CLRConfig::ObtenerReporteStatusImpresor(){
+	logger -> Log ("REPORTE DE BITS DE PRINTER_STATUS");
+	for (unsigned i = 0; i < 15; i++)
+	{
+		try
+		{
+			if (impresor->EstadoImpresor ((ImpresorFiscal::EstadosImpresor)i, false))
+				logger -> Logf ("\tBit %2d (%-40.40s)", i, impresor->DescripcionEstadoImpresor ((ImpresorFiscal::EstadosImpresor)i).c_str ());
+		}
+		catch(Excepcion &e)
+		{
+			if (e.Codigo != Excepcion::IMPRESOR_FISCAL_ERROR_BIT_NO_VALIDO)
+				throw;
+		}
+	}
+}
+
+void Hasar715CLRConfig::ObtenerReporteStatusFiscal(){
+	logger -> Log ("REPORTE DE BITS DE FISCAL_STATUS");
+	for (unsigned i = 0; i < 15; i++)
+	{
+		try
+		{
+			if (impresor->EstadoFiscal ((ImpresorFiscal::EstadosFiscal)i, false))
+				logger -> Logf ("\tBit %2d (%-40.40s)", i, impresor->DescripcionEstadoFiscal ((ImpresorFiscal::EstadosFiscal)i).c_str ());
+		}
+		catch(Excepcion &e)
+		{
+			if (e.Codigo != Excepcion::IMPRESOR_FISCAL_ERROR_BIT_NO_VALIDO)
+				throw;
+		}
+	}
+}
+
 void Hasar715CLRConfig::ObtenerUltimosDocumentos(){
 	unsigned UltimoDFBC   = impresor->UltimoDocumentoFiscalBC ();
 	unsigned UltimoDFA    = impresor->UltimoDocumentoFiscalA ();
@@ -137,14 +171,6 @@ void Hasar715CLRConfig::EstablecerFechaHora(char *fecha, char *hora){
 	ImpresorFiscal::HORA HNueva;
 	FNueva = ImpresorFiscal::FECHA (fecha);
 	HNueva = ImpresorFiscal::HORA (hora);
-	/*ImpresorFiscal::FECHA FNueva;
-	ImpresorFiscal::HORA HNueva;
-	FNueva.dia(dia);
-	FNueva.mes(mes);
-	FNueva.anio(anio);
-	HNueva.hora(hora);
-	HNueva.minutos(minutos);
-	HNueva.segundos(segundos);*/
 	impresor->EstablecerFechaHoraFiscal (FNueva, HNueva);
 
 	logger -> Log ("Obteniendo la Fecha y Hora después de Re-programar");
@@ -179,4 +205,62 @@ void Hasar715CLRConfig::ObtenerConfiguracionCF(){
 	logger -> Logf ("ModoImpresion:                 %c", R.ModoImpresion);
 	logger -> Logf ("ChequeoDesbordeCompleto:       %s", R.ChequeoDesbordeCompleto ? "SI" : "NO");
 	logger -> Logf ("ChequeoTapaAbierta:			%s", R.ChequeoTapaAbierta ? "SI" : "NO");
+}
+
+void Hasar715CLRConfig::ConfigurarControlador(char *parametro, char *valor){
+	impresor->ConfigurarControlador (ObtenerParametro(parametro), string(valor));
+}
+
+ImpresorFiscal::ParametrosDeConfiguracion Hasar715CLRConfig::ObtenerParametro(char *valor){	
+	if(*valor == '4') return ImpresorFiscal::IMPRESION_CAMBIO;
+	else if(*valor == '5') return ImpresorFiscal::IMPRESION_LEYENDAS;
+	else if(*valor == '6') return ImpresorFiscal::CORTE_PAPEL;
+	else if(*valor == '7') return ImpresorFiscal::IMPRESION_MARCO;
+	else if(*valor == '8') return ImpresorFiscal::REIMPRESION_CANCELADOS;
+	else if(*valor == '9') return ImpresorFiscal::COPIAS_DOCUMENTOS;
+	else if(*valor == ':') return ImpresorFiscal::PAGO_SALDO;
+	else if(*valor == ';') return ImpresorFiscal::SONIDO_AVISO;
+	else if(*valor == '<') return ImpresorFiscal::ALTO_HOJA;
+	else if(*valor == '=') return ImpresorFiscal::ANCHO_HOJA;
+	else if(*valor == '>') return ImpresorFiscal::ESTACION_REPORTES_XZ;
+	else if(*valor == '?') return ImpresorFiscal::MODO_IMPRESION;
+	else if(*valor == '@') return ImpresorFiscal::CHEQUEO_DESBORDE;
+	else if(*valor == 'A') return ImpresorFiscal::CHEQUEO_TAPA_ABIERTA;
+}
+
+void Hasar715CLRConfig::Configurar(){
+	bool Imprimir = true;
+	bool Defaults = false;
+	double LimiteConsumidorFinal = 1000;
+	double LimiteTicketFactura = 5000;
+	double PorcentajeIVANoInscripto = 50;
+	ImpresorFiscal::NumerosDeCopias TipoDeCopiasMaximo = ImpresorFiscal::DUPLICADO;
+	bool ImprimeCambio = true;
+	bool ImprimeLeyendasOpcionales = true;
+	ImpresorFiscal::TiposDeCorteDePapel TipoDeCorte = ImpresorFiscal::CORTE_PARCIAL;
+	bool ImprimeMarco = false;
+	bool ReImprimeDocumentos = true;
+	std::string DescripcionDelMedioDePago = "CuentaCorriente";
+	bool Sonido = true;
+	ImpresorFiscal::TiposDeAltoHoja AltoHoja = ImpresorFiscal::ALTO_REDUCIDO;
+	ImpresorFiscal::TiposDeAnchoHoja AnchoHoja = ImpresorFiscal::ANCHO_REDUCIDO;
+	ImpresorFiscal::TiposDeEstacion EstacionImpresionReportesXZ = ImpresorFiscal::ESTACION_TICKET;
+	ImpresorFiscal::TiposDeModoImpresion ModoImpresion = ImpresorFiscal::USO_ESTACION_TICKET;
+
+	pIF->ConfigurarControladorCompleto (Imprimir, Defaults,
+			true ? &LimiteConsumidorFinal		: NULL,
+			true ? &LimiteTicketFactura			: NULL,
+			true ? &PorcentajeIVANoInscripto	: NULL,
+			true ? &TipoDeCopiasMaximo			: NULL,
+			true ? &ImprimeCambio				: NULL,
+			true ? &ImprimeLeyendasOpcionales	: NULL,
+			true ? &TipoDeCorte					: NULL,
+			true ? &ImprimeMarco				: NULL,
+			true ? &ReImprimeDocumentos			: NULL,
+			true ? &DescripcionDelMedioDePago	: NULL,
+			true ? &Sonido						: NULL,
+			true ? &AltoHoja					: NULL,
+			true ? &AnchoHoja					: NULL,
+			true ? &EstacionImpresionReportesXZ	: NULL,
+			true ? &ModoImpresion				: NULL);			
 }
