@@ -15,6 +15,7 @@ public class CashRegisterDetail extends javax.swing.JDialog  implements IBabelsD
         initComponents();
         Manager = new CashRegisterDetailManager(moveId, this.taDescription, this.txtAmount, this.txtFechaHora, this.txtMovementId, this.txtMovementType);
         Manager.LoadMovement();
+        Manager.setFieldsListener(txtAmount, taDescription, this);
       
        }
 

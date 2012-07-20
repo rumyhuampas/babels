@@ -1,6 +1,10 @@
 package babelsManagers;
 
 import babels.Babels;
+import babelsInterfaces.IBabelsDialog;
+import babelsListeners.KeyListenerType;
+import babelsListeners.txtAreaListener;
+import babelsListeners.txtFieldListener;
 import babelsObjects.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -40,6 +44,11 @@ public class CashRegisterDetailManager {
         this.txtMovementType = txtMovementType;
     }
 
+    public void setFieldsListener(JTextField Amount, JTextArea Desc, IBabelsDialog dialog) {
+        Amount.addKeyListener(new txtFieldListener(KeyListenerType.NUMBERS_ONLY, dialog));
+        Desc.addKeyListener(new txtAreaListener(Desc));
+    }
+
     public void LoadMovementSale() throws SQLException {
         Babels.mysql.Open();
         try {
@@ -66,8 +75,8 @@ public class CashRegisterDetailManager {
             this.txtMovementId.setText("" + move.Id);
             this.txtMovementType.setText(move.Type.Name);
             if (cancel.LoadByCanceller(moveId)) {
-             //   Sale sale = new Sale(Babels.mysql.Conn);
-             //   sale = cancel.CanceledMove;
+                //   Sale sale = new Sale(Babels.mysql.Conn);
+                //   sale = cancel.CanceledMove;
                 this.taDescription.setText("Cancelacion del movimiento: " + (cancel.CanceledMove.getId()));
             } else {
                 this.taDescription.setText(move.Description);

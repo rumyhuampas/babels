@@ -4,12 +4,14 @@ import babelsManagers.CashRegisterManager;
 import babelsManagers.ReportManager;
 import babelsObjects.FormsFactory;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
 
 public class CashRegister extends javax.swing.JDialog {
 
@@ -109,7 +111,7 @@ public class CashRegister extends javax.swing.JDialog {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -396,7 +398,15 @@ public class CashRegister extends javax.swing.JDialog {
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
         ReportManager repManager = new ReportManager(this.tblMovements);
         try {
-            repManager.print();
+            try {
+                try {
+                    repManager.print();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (JRException ex) {
+                Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
