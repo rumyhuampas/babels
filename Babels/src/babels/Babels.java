@@ -49,6 +49,7 @@ public class Babels {
     private static void InitDBConn() throws IOException{
         String appPath = Babels.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         appPath = appPath + "Babels.ini";
+        appPath = appPath.replaceAll("%20", " ");
         Ini ini = new Ini(new File(appPath));
         String server = ini.get("CONFIG", "SERVER");
         String bd = ini.get("CONFIG", "DB");
