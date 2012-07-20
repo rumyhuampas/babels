@@ -58,6 +58,7 @@
       <DependentUpon>BabelsPrinterServ.cs</DependentUpon>
     </Compile>
     <Compile Include="Hasar715.cs" />
+    <Compile Include="HasarTypes.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="PrinterService.cs" />
     <Compile Include="Printers.cs" />

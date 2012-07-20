@@ -8,6 +8,7 @@ namespace BabelsPrinter
     public class PrintJobResolver
     {
         private MySQLConnection Conn;
+        HasarTypes HTypes = new HasarTypes();
 
         public unsafe PrintJobResolver()
         {
@@ -23,15 +24,20 @@ namespace BabelsPrinter
             //hasar715.ObtenerEstadoInterno();
             //hasar715.ObtenerDatosMemoriaDeTrabajo();
             //hasar715.ObtenerDatosDeInicializacion();
+            //hasar715.ObtenerReporteStatusImpresor();
+            //hasar715.ObtenerReporteStatusFiscal();
             //hasar715.CambiarResponsabilidadIVA();
             //hasar715.CambiarFechaInicioActividades(Hasar715.ConvertToSbyte("160712"));
             //hasar715.ObtenerUltimosDocumentos();
             //hasar715.EstablecerFechaHora(12, 5, 2012, 16, 14, 11);
-            hasar715.ObtenerConfiguracionCF();
+            //hasar715.ObtenerConfiguracionCF();
             //hasar715.ImprimirReporteX();
-            hasar715.ImprimirReporteZ(Hasar715.ConvertToSbyte("120617"));
-            hasar715.ImprimirReporteZ(1);
-            hasar715.ObtenerCapacidadZ();
+            //hasar715.ImprimirReporteZ(Hasar715.ConvertToSbyte("120617"));
+            //hasar715.ImprimirReporteZ(1);
+            //hasar715.ObtenerCapacidadZ();
+            //hasar715.ConfigurarParametro(nombredelparam, valor);
+            hasar715.ConfigurarControlador(Hasar715.ConvertToSbyte(HTypes.GetValue(HasarTypes.ParametroConfiguracion.IMPRESION_CAMBIO)), Hasar715.ConvertToSbyte("M"));
+            //hasar715.CambiarResponsabilidadIVA();
         }
 
         public void ProcessJob(PrintJob job)
