@@ -25,10 +25,6 @@ public class Babels {
                     "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel");
             InitDBConn();
             
-        } catch (Exception ex) {
-            Logger.getLogger(Babels.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
             mysql.Open();
             try {
                 FormsFactory.GetDialogForm("babelsForms.Login", false, null, null);
@@ -44,12 +40,15 @@ public class Babels {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
                     "Error " + ex.getErrorCode(), JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     private static void InitDBConn() throws IOException{
         String appPath = Babels.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        appPath = appPath + "\\Babels.ini";
+        appPath = appPath + "Babels.ini";
         Ini ini = new Ini(new File(appPath));
         String server = ini.get("CONFIG", "SERVER");
         String bd = ini.get("CONFIG", "DB");
