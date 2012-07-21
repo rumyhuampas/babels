@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "Hasar715CLRConfig.h"
 #include "EventosHasar715.h"
+#include "Hasar715CLRConfigEnumFuncs.h"
 
 #include <sstream>
 
@@ -171,7 +172,7 @@ namespace Hasar715CLR {
 			logger->Logf ("Cierres Z restantes: %4u", R.TotalCierresZeta - R.CierreZetaActual);
 		}
 
-		//***********************************************
+		//*************************************************************
 
 		//************************** REPORTE X ************************
 		void ImprimirReporteX(){
@@ -208,10 +209,10 @@ namespace Hasar715CLR {
 
 		//********************* DNF **********************
 
-		void AbrirDNF(){
+		void AbrirDNF(char *TipoDeEstacion){
 			try{
-				logger->Log ("Abriendo DNF Estacion Ticket");
-				impresor->AbrirDNF(ImpresorFiscal::ESTACION_TICKET);
+				logger->Logf ("Abriendo DNF tipo: %s", TipoDeEstacion);
+				impresor->AbrirDNF(Hasar715CLRConfigEnumFuncs::ObtenerParamTipoEstacion(TipoDeEstacion));
 			}
 			catch(Excepcion &e)
 			{
@@ -252,7 +253,31 @@ namespace Hasar715CLR {
 			}
 		}
 
-		//**********************************************
+		//**********************************************************
+
+		//********************************* DF ***********************************
+		void AbrirDF(char *TipoDocumentoFiscal){
+			try{
+				logger->Logf ("Abriendo DF tipo: %s", TipoDocumentoFiscal);
+				impresor->AbrirDF(Hasar715CLRConfigEnumFuncs::ObtenerParamDocumentosFiscales(TipoDocumentoFiscal));
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void CerrarDF(){
+			try{
+				logger -> Log("Cerrando DF");
+				logger -> Logf("Número de DF recién cerrado: %lu\n", impresor->CerrarDF());
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+		//************************************************************************
 
 		//***********************REPORTE ESTADO**********************
 
@@ -356,9 +381,9 @@ namespace Hasar715CLR {
 			}
 		}
 
-		void ObtenerConfiguracionCF(){
+		void ObtenerConfiguracion(){
 			try{
-				hasarConfig->ObtenerConfiguracionCF();
+				hasarConfig->ObtenerConfiguracion();
 			}
 			catch(Excepcion &e)
 			{
@@ -375,6 +400,23 @@ namespace Hasar715CLR {
 				logger -> Log(e);
 			}
 		}
+
+		void ConfigurarControlador(bool Imprimir, bool Defaults, double LimiteConsumidorFinal, double LimiteTicketFactura,
+				double PorcentajeIVANoInscripto, char *CopiasMaximo, bool ImprimeCambio, bool ImprimeLeyendasOpcionales, char *TipoCorte,
+				bool ImprimeMarco, bool ReImprimeDocumentos, char *DescripcionMedioDePago, bool Sonido, char *AltoDeHoja, char *AnchoDeHoja,
+				char *TipoEstacion, char *TipoModoImpresion){
+			try{
+				hasarConfig->ConfigurarControlador(Imprimir, Defaults, LimiteConsumidorFinal, LimiteTicketFactura,
+					PorcentajeIVANoInscripto, CopiasMaximo, ImprimeCambio, ImprimeLeyendasOpcionales, TipoCorte,
+					ImprimeMarco, ReImprimeDocumentos, DescripcionMedioDePago, Sonido, AltoDeHoja, AnchoDeHoja,
+					TipoEstacion, TipoModoImpresion);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
 	private:
 		Logger *logger;
 		ImpresorFiscal *impresor;

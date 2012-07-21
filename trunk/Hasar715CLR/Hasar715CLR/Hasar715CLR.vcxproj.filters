@@ -63,6 +63,9 @@
     <ClInclude Include="Hasar715CLRConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Hasar715CLRConfigEnumFuncs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chars.cpp">
@@ -117,6 +120,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Hasar715CLRConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hasar715CLRConfigEnumFuncs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

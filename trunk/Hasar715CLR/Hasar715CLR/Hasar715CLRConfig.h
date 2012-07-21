@@ -19,9 +19,12 @@ public:
 	void ObtenerReporteStatusFiscal();
 	void ObtenerUltimosDocumentos();
 	void EstablecerFechaHora(char *fecha, char *hora);
-	void ObtenerConfiguracionCF();
+	void ObtenerConfiguracion();
 	void ConfigurarControlador(char *parametro, char *valor);
-	ImpresorFiscal::ParametrosDeConfiguracion ObtenerParametro(char *value);
+	void Hasar715CLRConfig::ConfigurarControlador(bool Imprimir, bool Defaults, double LimiteConsumidorFinal, double LimiteTicketFactura,
+		double PorcentajeIVANoInscripto, char *CopiasMaximo, bool ImprimeCambio, bool ImprimeLeyendasOpcionales, char *TipoCorte,
+		bool ImprimeMarco, bool ReImprimeDocumentos, char *DescripcionMedioDePago, bool Sonido, char *AltoDeHoja, char *AnchoDeHoja,
+		char *TipoEstacion, char *TipoModoImpresion);
 private:
 	ImpresorFiscal *impresor;
 	Logger *logger;
