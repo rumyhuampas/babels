@@ -8,12 +8,11 @@ namespace BabelsPrinter
     public class PrintJobResolver
     {
         private MySQLConnection Conn;
-        HasarTypes HTypes = new HasarTypes();
 
         public unsafe PrintJobResolver()
         {
-            Hasar715CLR.Hasar715CLR hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ConvertToSbyte("C:\\Hasar715.txt"));
-            hasar715.InitPrinter(Hasar715.ConvertToSbyte("C:\\Hasar715.ini"));
+            Hasar715CLR.Hasar715CLR hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ToSbyte("C:\\Hasar715.txt"));
+            hasar715.InitPrinter(Hasar715.ToSbyte("C:\\Hasar715.ini"));
             //hasar715.ImprimirReporteZ();
             //hasar715.ImprimirReporteZ(Hasar715.ConvertToSbyte("120505"), Hasar715.ConvertToSbyte("500505"), true);
             //hasar715.ImprimirReporteZ(50, 60, true);
@@ -36,7 +35,15 @@ namespace BabelsPrinter
             //hasar715.ImprimirReporteZ(1);
             //hasar715.ObtenerCapacidadZ();
             //hasar715.ConfigurarParametro(nombredelparam, valor);
-            hasar715.ConfigurarControlador(Hasar715.ConvertToSbyte(HTypes.GetValue(HasarTypes.ParametroConfiguracion.IMPRESION_CAMBIO)), Hasar715.ConvertToSbyte("M"));
+            //hasar715.ConfigurarControlador(Hasar715.ToSbyte(ParametroConfiguracion.IMPRESION_CAMBIO.value), Hasar715.ToSbyte("M"));
+            //hasar715.ObtenerConfiguracion();
+            //hasar715.ConfigurarControlador(true, false, 1000, 5000, 50, Hasar715.ToSbyte(NumerosDeCopias.DUPLICADO.value), true, true, 
+            //    Hasar715.ToSbyte(TiposDeCorteDePapel.CORTE_PARCIAL.value), true, false, Hasar715.ToSbyte("Cuenta Corriente"), true, 
+            //    Hasar715.ToSbyte(TiposDeAltoHoja.ALTO_REDUCIDO.value), Hasar715.ToSbyte(TiposDeAnchoHoja.ANCHO_REDUCIDO.value),
+            //    Hasar715.ToSbyte(TiposDeEstacion.ESTACION_TICKET.value), Hasar715.ToSbyte(TiposDeModoImpresion.USO_ESTACION_TICKET.value));
+            //hasar715.ObtenerConfiguracion();
+            hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_A.value));
+            hasar715.CerrarDF();
             //hasar715.CambiarResponsabilidadIVA();
         }
 

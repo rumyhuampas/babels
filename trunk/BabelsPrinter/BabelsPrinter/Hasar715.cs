@@ -6,7 +6,7 @@ namespace BabelsPrinter
 {
     public static class Hasar715
     {
-        public static unsafe sbyte* ConvertToSbyte(string str)
+        public static unsafe sbyte* ToSbyte(string str)
         {
             byte[] bytes = Encoding.ASCII.GetBytes(str);
             sbyte* sp;
