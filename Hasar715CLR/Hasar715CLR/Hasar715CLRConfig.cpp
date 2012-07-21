@@ -1,5 +1,6 @@
 #include "Hasar715CLRConfig.h"
 #include "EventosHasar715.h"
+#include "Hasar715CLRConfigEnumFuncs.h"
 
 Hasar715CLRConfig::Hasar715CLRConfig(ImpresorFiscal *imp, Logger *log): impresor(imp), logger(log){ }
 
@@ -181,7 +182,7 @@ void Hasar715CLRConfig::EstablecerFechaHora(char *fecha, char *hora){
 				H.hora (), H.minutos (), H.segundos ());
 }
 
-void Hasar715CLRConfig::ObtenerConfiguracionCF(){
+void Hasar715CLRConfig::ObtenerConfiguracion(){
 	ImpresorFiscal::RTA_ObtenerConfiguracion R;
 			
 	logger -> Log ("EJECUTANDO COMANDO OBTENER CONFIGURACION");
@@ -208,46 +209,26 @@ void Hasar715CLRConfig::ObtenerConfiguracionCF(){
 }
 
 void Hasar715CLRConfig::ConfigurarControlador(char *parametro, char *valor){
-	impresor->ConfigurarControlador (ObtenerParametro(parametro), string(valor));
+	logger -> Logf("Configurando controlador parametro: %s valor: %s", string(parametro), string(valor));
+	impresor->ConfigurarControlador (Hasar715CLRConfigEnumFuncs::ObtenerParamConfiguracion(parametro), string(valor));
 }
 
-ImpresorFiscal::ParametrosDeConfiguracion Hasar715CLRConfig::ObtenerParametro(char *valor){	
-	if(*valor == '4') return ImpresorFiscal::IMPRESION_CAMBIO;
-	else if(*valor == '5') return ImpresorFiscal::IMPRESION_LEYENDAS;
-	else if(*valor == '6') return ImpresorFiscal::CORTE_PAPEL;
-	else if(*valor == '7') return ImpresorFiscal::IMPRESION_MARCO;
-	else if(*valor == '8') return ImpresorFiscal::REIMPRESION_CANCELADOS;
-	else if(*valor == '9') return ImpresorFiscal::COPIAS_DOCUMENTOS;
-	else if(*valor == ':') return ImpresorFiscal::PAGO_SALDO;
-	else if(*valor == ';') return ImpresorFiscal::SONIDO_AVISO;
-	else if(*valor == '<') return ImpresorFiscal::ALTO_HOJA;
-	else if(*valor == '=') return ImpresorFiscal::ANCHO_HOJA;
-	else if(*valor == '>') return ImpresorFiscal::ESTACION_REPORTES_XZ;
-	else if(*valor == '?') return ImpresorFiscal::MODO_IMPRESION;
-	else if(*valor == '@') return ImpresorFiscal::CHEQUEO_DESBORDE;
-	else if(*valor == 'A') return ImpresorFiscal::CHEQUEO_TAPA_ABIERTA;
-}
+void Hasar715CLRConfig::ConfigurarControlador(bool Imprimir, bool Defaults, double LimiteConsumidorFinal, double LimiteTicketFactura,
+	double PorcentajeIVANoInscripto, char *CopiasMaximo, bool ImprimeCambio, bool ImprimeLeyendasOpcionales, char *TipoCorte,
+	bool ImprimeMarco, bool ReImprimeDocumentos, char *DescripcionMedioDePago, bool Sonido, char *AltoDeHoja, char *AnchoDeHoja,
+	char *TipoEstacion, char *TipoModoImpresion){
 
-void Hasar715CLRConfig::Configurar(){
-	bool Imprimir = true;
-	bool Defaults = false;
-	double LimiteConsumidorFinal = 1000;
-	double LimiteTicketFactura = 5000;
-	double PorcentajeIVANoInscripto = 50;
-	ImpresorFiscal::NumerosDeCopias TipoDeCopiasMaximo = ImpresorFiscal::DUPLICADO;
-	bool ImprimeCambio = true;
-	bool ImprimeLeyendasOpcionales = true;
-	ImpresorFiscal::TiposDeCorteDePapel TipoDeCorte = ImpresorFiscal::CORTE_PARCIAL;
-	bool ImprimeMarco = false;
-	bool ReImprimeDocumentos = true;
-	std::string DescripcionDelMedioDePago = "CuentaCorriente";
-	bool Sonido = true;
-	ImpresorFiscal::TiposDeAltoHoja AltoHoja = ImpresorFiscal::ALTO_REDUCIDO;
-	ImpresorFiscal::TiposDeAnchoHoja AnchoHoja = ImpresorFiscal::ANCHO_REDUCIDO;
-	ImpresorFiscal::TiposDeEstacion EstacionImpresionReportesXZ = ImpresorFiscal::ESTACION_TICKET;
-	ImpresorFiscal::TiposDeModoImpresion ModoImpresion = ImpresorFiscal::USO_ESTACION_TICKET;
+	logger -> Log("Configurando controlador completo");
 
-	pIF->ConfigurarControladorCompleto (Imprimir, Defaults,
+	ImpresorFiscal::NumerosDeCopias TipoDeCopiasMaximo = Hasar715CLRConfigEnumFuncs::ObtenerParamNumeroCopias(CopiasMaximo);
+	ImpresorFiscal::TiposDeCorteDePapel TipoDeCorte = Hasar715CLRConfigEnumFuncs::ObtenerParamTipoCorte(TipoCorte);
+	std::string DescripcionDelMedioDePago = string(DescripcionMedioDePago);
+	ImpresorFiscal::TiposDeAltoHoja AltoHoja = Hasar715CLRConfigEnumFuncs::ObtenerParamAltoHoja(AltoDeHoja);
+	ImpresorFiscal::TiposDeAnchoHoja AnchoHoja = Hasar715CLRConfigEnumFuncs::ObtenerParamAnchoHoja(AnchoDeHoja);
+	ImpresorFiscal::TiposDeEstacion EstacionImpresionReportesXZ = Hasar715CLRConfigEnumFuncs::ObtenerParamTipoEstacion(TipoEstacion);
+	ImpresorFiscal::TiposDeModoImpresion ModoImpresion = Hasar715CLRConfigEnumFuncs::ObtenerParamTipoModoImpresion(TipoModoImpresion);
+
+	impresor->ConfigurarControladorCompleto (Imprimir, Defaults,
 			true ? &LimiteConsumidorFinal		: NULL,
 			true ? &LimiteTicketFactura			: NULL,
 			true ? &PorcentajeIVANoInscripto	: NULL,
@@ -262,5 +243,5 @@ void Hasar715CLRConfig::Configurar(){
 			true ? &AltoHoja					: NULL,
 			true ? &AnchoHoja					: NULL,
 			true ? &EstacionImpresionReportesXZ	: NULL,
-			true ? &ModoImpresion				: NULL);			
+			true ? &ModoImpresion				: NULL);	
 }
