@@ -231,6 +231,16 @@ namespace Hasar715CLR {
 			}
 		}
 
+		void CancelarComprobante(){
+			try{
+				impresor->CancelarComprobante();
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
 		void ImprimirTextoNoFiscal(char *text){
 			try{
 				logger->Log ("Imprimiendo Texto No Fiscal");
@@ -256,6 +266,12 @@ namespace Hasar715CLR {
 		//**********************************************************
 
 		//********************************* DF ***********************************
+		void IngresarDatosCliente(char *Nombre, char *DniCuil, char *TipoCuil, char *RespInscripto, char *Direccion){
+			impresor->DatosCliente (Nombre, DniCuil, Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeDocumentoCliente(TipoCuil),
+				Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeResponsabilidadesCliente(RespInscripto),
+						Direccion);
+		}
+		
 		void AbrirDF(char *TipoDocumentoFiscal){
 			try{
 				logger->Logf ("Abriendo DF tipo: %s", TipoDocumentoFiscal);
@@ -277,7 +293,48 @@ namespace Hasar715CLR {
 				logger -> Log(e);
 			}
 		}
+
+		void CancelarComprobanteFiscal(){
+			try{
+				impresor->CancelarComprobanteFiscal();
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void ImprimirTextoFiscal(char *text){
+			try{
+				logger->Log ("Imprimiendo Texto Fiscal");
+				impresor->ImprimirTextoFiscal (string(text));
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+
+		void ImprimirItem(char *texto, double cantidad, double monto, double iva, double impuestosInternos, bool enNegativo){
+			try{
+				logger->Log ("Imprimiendo Item");
+				impresor->ImprimirItem (texto, cantidad, monto, iva, impuestosInternos, enNegativo);
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
 		//************************************************************************
+
+		//**************************************************************
+		void TratarDeCancelarTodo(){
+			CancelarComprobante();
+			CancelarComprobanteFiscal();
+			CerrarDF();
+			CerrarDNF();
+		}
+		//**************************************************************
 
 		//***********************REPORTE ESTADO**********************
 

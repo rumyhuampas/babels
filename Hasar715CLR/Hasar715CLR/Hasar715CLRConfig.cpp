@@ -22,6 +22,7 @@ void Hasar715CLRConfig::EstablecerInterlineadoDeImpresion(int value){
 }
 
 void Hasar715CLRConfig::ObtenerEstadoInterno(){
+	logger -> Log ("Obteniendo estado interno de impresor");
 	// Estado Interno del Impresor
 	ImpresorFiscal::RTA_EstadoInternoImpresor R;
 			
@@ -32,6 +33,7 @@ void Hasar715CLRConfig::ObtenerEstadoInterno(){
 }
 
 void Hasar715CLRConfig::ObtenerDatosDeInicializacion(){
+	logger -> Log ("Obteniendo datos de inicializacion");
 	ImpresorFiscal::RTA_ObtenerDatosDeInicializacion R;
 			
 	impresor->ObtenerDatosDeInicializacion (&R);
@@ -48,6 +50,7 @@ void Hasar715CLRConfig::ObtenerDatosDeInicializacion(){
 }
 
 void Hasar715CLRConfig::ObtenerDatosMemoriaDeTrabajo(){
+	logger -> Log ("Obteniendo datos de memoria de trabajo");
 	ImpresorFiscal::RTA_ObtenerDatosMemoriaDeTrabajo R;
 			
 	impresor->ObtenerDatosMemoriaDeTrabajo (&R);
@@ -129,6 +132,7 @@ void Hasar715CLRConfig::ObtenerReporteStatusFiscal(){
 }
 
 void Hasar715CLRConfig::ObtenerUltimosDocumentos(){
+	logger -> Log ("Obteniendo ultimos documentos");
 	unsigned UltimoDFBC   = impresor->UltimoDocumentoFiscalBC ();
 	unsigned UltimoDFA    = impresor->UltimoDocumentoFiscalA ();
 	unsigned UltimaNCBC   = impresor->UltimaNotaCreditoBC ();
@@ -183,6 +187,7 @@ void Hasar715CLRConfig::EstablecerFechaHora(char *fecha, char *hora){
 }
 
 void Hasar715CLRConfig::ObtenerConfiguracion(){
+	logger -> Logf ("Obteniendo configuracion");
 	ImpresorFiscal::RTA_ObtenerConfiguracion R;
 			
 	logger -> Log ("EJECUTANDO COMANDO OBTENER CONFIGURACION");
