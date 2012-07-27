@@ -18,14 +18,14 @@ namespace BabelsPrinter
         public static string ST_FAIL = "FAILED";
 
         private int _Id;
-        private int _IdMove;
+        private Movement _Move;
         private DateTime _DatePosted;
         private string _Status;
         private DateTime _DatePrinted;
         private string _Printer;
 
         public int Id { get { return _Id; } set { _Id = value; } }
-        public int IdMove { get { return _IdMove; } set { _IdMove = value; } }
+        public Movement Move { get { return _Move; } set { _Move = value; } }
         public DateTime DatePosted { get { return _DatePosted; } set { _DatePosted = value; } }
         public string Status { get { return _Status; } set { _Status = value; } }
         public DateTime DatePrinted { get { return _DatePrinted; } set { _DatePrinted = value; } }

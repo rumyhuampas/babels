@@ -62,7 +62,9 @@ namespace BabelsPrinter
                     {
                         result = new PrintJob();
                         result.Id = jobID;
-                        result.IdMove = reader.GetInt32(reader.GetOrdinal(PrintJob.FIELD_IDMOVE));
+                        Movement move = new Movement(Conn);
+                        move.Load(reader.GetInt32(reader.GetOrdinal(PrintJob.FIELD_IDMOVE)));
+                        result.Move = move;
                         result.DatePosted = reader.GetDateTime(reader.GetOrdinal(PrintJob.FIELD_DATEPOSTED));
                         result.Status = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_STATUS));
                         result.Printer = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_PRINTER));

@@ -20,8 +20,8 @@ namespace BabelsPrinter
             else
             {
                 PrinterService printer = new PrinterService();
-                //printer.Start();
-                PrintJobResolver pjr = new PrintJobResolver();
+                printer.Start();
+                //PrintJobResolver pjr = new PrintJobResolver();
                 Thread.Sleep(Timeout.Infinite);
             }
         }

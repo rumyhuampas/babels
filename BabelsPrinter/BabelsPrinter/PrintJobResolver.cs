@@ -8,10 +8,11 @@ namespace BabelsPrinter
     public class PrintJobResolver
     {
         private MySQLConnection Conn;
+        private Hasar715CLR.Hasar715CLR hasar715;
 
         public unsafe PrintJobResolver()
         {
-            Hasar715CLR.Hasar715CLR hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ToSbyte("C:\\Hasar715.txt"));
+            hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ToSbyte("C:\\Hasar715.txt"));
             hasar715.InitPrinter(Hasar715.ToSbyte("C:\\Hasar715.ini"));
             //hasar715.ImprimirReporteZ();
             //hasar715.ImprimirReporteZ(Hasar715.ConvertToSbyte("120505"), Hasar715.ConvertToSbyte("500505"), true);
@@ -42,8 +43,11 @@ namespace BabelsPrinter
             //    Hasar715.ToSbyte(TiposDeAltoHoja.ALTO_REDUCIDO.value), Hasar715.ToSbyte(TiposDeAnchoHoja.ANCHO_REDUCIDO.value),
             //    Hasar715.ToSbyte(TiposDeEstacion.ESTACION_TICKET.value), Hasar715.ToSbyte(TiposDeModoImpresion.USO_ESTACION_TICKET.value));
             //hasar715.ObtenerConfiguracion();
-            hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_A.value));
-            hasar715.CerrarDF();
+           /*hasar715.TratarDeCancelarTodo();
+            hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
+            hasar715.ImprimirItem(Hasar715.ToSbyte("PROD1"), 1, 14.56, 21, 5, false);
+            hasar715.ImprimirItem(Hasar715.ToSbyte("PROD2"), 2, 5.00, 21, 5, false);
+            hasar715.CerrarDF();*/
             //hasar715.CambiarResponsabilidadIVA();
         }
 
@@ -52,6 +56,26 @@ namespace BabelsPrinter
             Logger.Log(Logger.MT_INFO, "Processing job: " + job.Id.ToString(), Settings.Default.LogLevel >= 4);
             try
             {
+                switch (job.Move.Type.Name)
+                {
+                    case Movement.MT_VENTAA:
+                        break;
+                    case Movement.MT_VENTAB:
+                        Print_B_Ticket(job);
+                        break;
+                    case Movement.MT_CANCELACION:
+                        break;
+                    case Movement.MT_APERTURA:
+                        break;
+                    case Movement.MT_CIERRE:
+                        break;
+                    case Movement.MT_CIERREPARCIAL:
+                        break;
+                    case Movement.MT_DEPOSITO:
+                        break;
+                    case Movement.MT_EXTRACCION:
+                        break;
+                }
                 CompleteJob(job);
             }
             catch (Exception ex)
@@ -85,6 +109,18 @@ namespace BabelsPrinter
             {
                 Conn.Close();
             }
+        }
+
+        private unsafe void Print_B_Ticket(PrintJob job)
+        {
+            hasar715.TratarDeCancelarTodo();
+            hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
+            foreach (SaleItem item in job.Move.Items)
+            {
+                hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
+            }
+            //hasar715.ImprimirItem(Hasar715.ToSbyte("PROD2"), 2, 5.00, 21, 5, false);
+            hasar715.CerrarDF();
         }
     }
 }
