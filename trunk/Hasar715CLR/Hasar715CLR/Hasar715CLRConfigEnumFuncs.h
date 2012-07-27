@@ -11,4 +11,6 @@ public:
 	static ImpresorFiscal::TiposDeEstacion ObtenerParamTipoEstacion(char *valor);
 	static ImpresorFiscal::TiposDeModoImpresion ObtenerParamTipoModoImpresion(char *valor);
 	static ImpresorFiscal::DocumentosFiscales ObtenerParamDocumentosFiscales(char *valor);
+	static ImpresorFiscal::TiposDeDocumentoCliente ObtenerParamTiposDeDocumentoCliente(char *valor);
+	static ImpresorFiscal::TiposDeResponsabilidadesCliente ObtenerParamTiposDeResponsabilidadesCliente(char *valor);
 };

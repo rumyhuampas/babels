@@ -68,3 +68,30 @@ ImpresorFiscal::DocumentosFiscales Hasar715CLRConfigEnumFuncs::ObtenerParamDocum
 	else if(*valor == 'b') return ImpresorFiscal::RECIBO_B;
 	else if(*valor == 'T') return ImpresorFiscal::TICKET_C;
 }
+
+ImpresorFiscal::TiposDeDocumentoCliente Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeDocumentoCliente(char *valor){
+	
+	if(*valor == 'C') return ImpresorFiscal::TIPO_CUIT;
+	else if(*valor == 'L') return ImpresorFiscal::TIPO_CUIL;
+	else if(*valor == '0') return ImpresorFiscal::TIPO_LE;
+	else if(*valor == '1') return ImpresorFiscal::TIPO_LC;
+	else if(*valor == '2') return ImpresorFiscal::TIPO_DNI;
+	else if(*valor == '3') return ImpresorFiscal::TIPO_PASAPORTE;
+	else if(*valor == '4') return ImpresorFiscal::TIPO_CI;
+	else if(*valor == ' ') return ImpresorFiscal::TIPO_NINGUNO;
+}
+
+ImpresorFiscal::TiposDeResponsabilidadesCliente Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeResponsabilidadesCliente(char *valor){
+	
+	if(*valor == 'I') return ImpresorFiscal::RESPONSABLE_INSCRIPTO;
+	else if(*valor == 'N') return ImpresorFiscal::RESPONSABLE_NO_INSCRIPTO;
+	else if(*valor == 'E') return ImpresorFiscal::RESPONSABLE_EXENTO;
+	else if(*valor == 'A') return ImpresorFiscal::NO_RESPONSABLE;
+	else if(*valor == 'C') return ImpresorFiscal::CONSUMIDOR_FINAL;
+	else if(*valor == 'B') return ImpresorFiscal::BIENES_DE_USO;
+	else if(*valor == 'T') return ImpresorFiscal::NO_CATEGORIZADO;
+	else if(*valor == 'M') return ImpresorFiscal::MONOTRIBUTO;
+	else if(*valor == 'S') return ImpresorFiscal::MONOTRIBUTO_SOCIAL;
+	else if(*valor == 'V') return ImpresorFiscal::EVENTUAL;
+	else if(*valor == 'W') return ImpresorFiscal::EVENTUAL_SOCIAL;
+}
