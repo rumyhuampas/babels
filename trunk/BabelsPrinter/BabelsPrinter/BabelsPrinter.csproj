@@ -60,6 +60,8 @@
     <Compile Include="Hasar715.cs" />
     <Compile Include="HasarTypes.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Movement.cs" />
+    <Compile Include="MovementType.cs" />
     <Compile Include="PrinterService.cs" />
     <Compile Include="Printers.cs" />
     <Compile Include="PrintJob.cs" />
@@ -72,6 +74,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SaleItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
