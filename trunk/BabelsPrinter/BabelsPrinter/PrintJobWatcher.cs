@@ -37,6 +37,7 @@ namespace BabelsPrinter
             catch (Exception ex)
             {
                 Logger.Log(Logger.MT_ERROR, "Error while watching printing jobs. Error: " + ex.Message, Settings.Default.LogLevel >= 3);
+                throw ex;
             }
             finally
             {
@@ -51,10 +52,10 @@ namespace BabelsPrinter
                 " WHERE " + PrintJob.FIELD_STATUS + "= '" + PrintJob.ST_PEND + "'" +
                 " AND " + PrintJob.FIELD_PRINTER + " IN (" + Printers.GetPrinterList() + ")";
             MySQLCommand comm = new MySQLCommand(sql, Conn);
+            int jobID = -1;
             try
             {
                 MySQLDataReader reader = comm.ExecuteReaderEx();
-                int jobID = -1;
                 while (reader.Read())
                 {
                     jobID = reader.GetInt32(reader.GetOrdinal(PrintJob.FIELD_ID));
@@ -68,6 +69,7 @@ namespace BabelsPrinter
                         result.DatePosted = reader.GetDateTime(reader.GetOrdinal(PrintJob.FIELD_DATEPOSTED));
                         result.Status = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_STATUS));
                         result.Printer = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_PRINTER));
+                        result.Retries = reader.GetInt32(reader.GetOrdinal(PrintJob.FIELD_RETRIES));
                         break;
                     }
                     else
@@ -79,7 +81,8 @@ namespace BabelsPrinter
             }
             catch (Exception ex)
             {
-                throw ex;
+                Logger.Log(Logger.MT_WARNING, "Error reserving job: " + jobID.ToString() + ". Error: " + ex.Message, Settings.Default.LogLevel >= 4);
+                return null;
             }
             finally
             {
