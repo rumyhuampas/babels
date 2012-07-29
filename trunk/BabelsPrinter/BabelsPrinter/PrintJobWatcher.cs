@@ -77,6 +77,10 @@ namespace BabelsPrinter
                 }
                 return result;
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             finally
             {
                 comm.Dispose();
@@ -94,6 +98,10 @@ namespace BabelsPrinter
             try
             {
                 return comm.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {

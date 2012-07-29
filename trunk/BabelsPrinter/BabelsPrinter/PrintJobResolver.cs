@@ -98,6 +98,10 @@ namespace BabelsPrinter
                 {
                     comm.ExecuteNonQuery();
                 }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
                 finally
                 {
                     comm.Dispose();
@@ -113,14 +117,25 @@ namespace BabelsPrinter
 
         private unsafe void Print_B_Ticket(PrintJob job)
         {
-            hasar715.TratarDeCancelarTodo();
-            hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
-            foreach (SaleItem item in job.Move.Items)
+            try
             {
-                hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
+                hasar715.TratarDeCancelarTodo();
+                hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
+                foreach (SaleItem item in job.Move.Items)
+                {
+                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
+                }
+                //hasar715.ImprimirItem(Hasar715.ToSbyte("PROD2"), 2, 5.00, 21, 5, false);
+                hasar715.CerrarDF();
             }
-            //hasar715.ImprimirItem(Hasar715.ToSbyte("PROD2"), 2, 5.00, 21, 5, false);
-            hasar715.CerrarDF();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
         }
     }
 }
