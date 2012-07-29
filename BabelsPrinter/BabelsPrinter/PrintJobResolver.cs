@@ -3,6 +3,7 @@ using MySQLDriverCS;
 using System;
 using System.Text;
 using BabelsPrinter.Properties;
+using System.Threading;
 namespace BabelsPrinter
 {
     public class PrintJobResolver
@@ -43,10 +44,14 @@ namespace BabelsPrinter
             //    Hasar715.ToSbyte(TiposDeAltoHoja.ALTO_REDUCIDO.value), Hasar715.ToSbyte(TiposDeAnchoHoja.ANCHO_REDUCIDO.value),
             //    Hasar715.ToSbyte(TiposDeEstacion.ESTACION_TICKET.value), Hasar715.ToSbyte(TiposDeModoImpresion.USO_ESTACION_TICKET.value));
             //hasar715.ObtenerConfiguracion();
-           /*hasar715.TratarDeCancelarTodo();
+            /*hasar715.TratarDeCancelarTodo();
             hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
             hasar715.ImprimirItem(Hasar715.ToSbyte("PROD1"), 1, 14.56, 21, 5, false);
             hasar715.ImprimirItem(Hasar715.ToSbyte("PROD2"), 2, 5.00, 21, 5, false);
+            hasar715.ImprimirItem(Hasar715.ToSbyte("PROD3"), 1, 14.56, 21, 5, false);
+            hasar715.ImprimirItem(Hasar715.ToSbyte("PROD4"), 2, 5.00, 21, 5, false);
+            hasar715.ImprimirItem(Hasar715.ToSbyte("PROD5"), 1, 14.56, 21, 5, false);
+            hasar715.ImprimirItem(Hasar715.ToSbyte("PROD6"), 2, 5.00, 21, 5, false);
             hasar715.CerrarDF();*/
             //hasar715.CambiarResponsabilidadIVA();
         }
@@ -62,6 +67,7 @@ namespace BabelsPrinter
                         break;
                     case Movement.MT_VENTAB:
                         Print_B_Ticket(job);
+                        //throw new Exception();
                         break;
                     case Movement.MT_CANCELACION:
                         break;
@@ -76,23 +82,46 @@ namespace BabelsPrinter
                     case Movement.MT_EXTRACCION:
                         break;
                 }
-                CompleteJob(job);
+                CompleteJob(job, false);
             }
             catch (Exception ex)
             {
                 Logger.Log(Logger.MT_ERROR, "Error while processing job. Error: " + ex.Message, Settings.Default.LogLevel >= 3);
+                if (job.Retries >= Settings.Default.MaxJobRetries)
+                {
+                    try
+                    {
+                        CompleteJob(job, true);
+                    }
+                    catch { }
+                }
+                else
+                {
+                    IncrementJobRetries(job);
+                }
             }
         }
 
-        private void CompleteJob(PrintJob job)
+        private void CompleteJob(PrintJob job, bool fail)
         {
             Conn = PrinterService.GetDBConn();
             try
             {
-                string sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
-                    PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_COMP + "'," +
-                    PrintJob.FIELD_DATEPRINTED + " = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "'" +
-                    " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
+                string sql;
+                if (!fail)
+                {
+                    sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
+                        PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_COMP + "'," +
+                        PrintJob.FIELD_DATEPRINTED + " = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "'" +
+                        " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
+                }
+                else
+                {
+                    sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
+                        PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_FAIL + "'," +
+                        PrintJob.FIELD_DATEPRINTED + " = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "'" +
+                        " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
+                }
                 MySQLCommand comm = new MySQLCommand(sql, Conn);
                 try
                 {
@@ -109,6 +138,47 @@ namespace BabelsPrinter
 
                 Logger.Log(Logger.MT_INFO, "Job successfully printed: " + job.Id.ToString(), Settings.Default.LogLevel >= 4);
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+        }
+
+        private void IncrementJobRetries(PrintJob job)
+        {
+            job.Retries++; 
+            Logger.Log(Logger.MT_INFO, "Incrementing retries. Job: " + job.Id.ToString() + ". Retries: " + job.Retries.ToString(), Settings.Default.LogLevel >= 4);
+
+            Conn = PrinterService.GetDBConn();
+            try
+            {
+                string sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
+                        PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_PEND + "'," +
+                        PrintJob.FIELD_DATEPRINTED + " = NULL," +
+                        PrintJob.FIELD_RETRIES + " = " + job.Retries.ToString() +
+                        " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
+                MySQLCommand comm = new MySQLCommand(sql, Conn);
+                try
+                {
+                    comm.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    comm.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             finally
             {
                 Conn.Close();
@@ -123,9 +193,8 @@ namespace BabelsPrinter
                 hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
                 foreach (SaleItem item in job.Move.Items)
                 {
-                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
+                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), 1, item.Price, item.IVA, 0, false);
                 }
-                //hasar715.ImprimirItem(Hasar715.ToSbyte("PROD2"), 2, 5.00, 21, 5, false);
                 hasar715.CerrarDF();
             }
             catch (Exception ex)

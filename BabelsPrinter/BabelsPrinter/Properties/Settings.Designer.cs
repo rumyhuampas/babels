@@ -43,7 +43,7 @@ namespace BabelsPrinter.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int LogLevel {
             get {
                 return ((int)(this["LogLevel"]));
@@ -83,6 +83,15 @@ namespace BabelsPrinter.Properties {
         public string Pass {
             get {
                 return ((string)(this["Pass"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int MaxJobRetries {
+            get {
+                return ((int)(this["MaxJobRetries"]));
             }
         }
     }
