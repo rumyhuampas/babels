@@ -32,7 +32,7 @@ namespace BabelsPrinter
         private double _Amount;
         private int _IdUser;
         private string _Description;
-        private List<SaleItem> _Items;
+        private SaleItemList _Items;
 
         public int Id { get { return _Id; } set { _Id = value; } }
         public MovementType Type { get { return _Type; } set { _Type = value; } }
@@ -40,7 +40,7 @@ namespace BabelsPrinter
         public double Amount { get { return _Amount; } set { _Amount = value; } }
         public int IdUser { get { return _IdUser; } set { _IdUser = value; } }
         public string Description { get { return _Description; } set { _Description = value; } }
-        public List<SaleItem> Items { get { return _Items; } set { _Items = value; } }
+        public SaleItemList Items { get { return _Items; } set { _Items = value; } }
 
         public Movement(MySQLConnection conn)
         {
@@ -82,9 +82,9 @@ namespace BabelsPrinter
             }
         }
 
-        private List<SaleItem> GetItems(int saleId)
+        private SaleItemList GetItems(int saleId)
         {
-            List<SaleItem> list = new List<SaleItem>();
+            SaleItemList list = new SaleItemList();
 
             string sql = "SELECT * FROM " + SaleItem.TABLENAME +
                 " WHERE " + SaleItem.FIELD_IDMOVE + "= " + saleId.ToString();
@@ -100,7 +100,7 @@ namespace BabelsPrinter
                     itemId = -1;
                     itemType = reader.GetString(reader.GetOrdinal(SaleItem.FIELD_ITEMTYPE));
                     itemId = reader.GetInt32(reader.GetOrdinal(SaleItem.FIELD_IDITEM));
-                    if (itemType == "COMBO")
+                    if (itemType == SaleItem.T_COMBO)
                     {
                         sql = "SELECT * FROM " + SaleItem.COMBOTABLENAME +
                             " WHERE " + SaleItem.FIELD_ID + "= " + itemId;
@@ -123,8 +123,9 @@ namespace BabelsPrinter
                             item.Description = readerItems.GetString(readerItems.GetOrdinal(SaleItem.FIELD_DESCRIPTION));
                             item.Price = readerItems.GetDouble(readerItems.GetOrdinal(SaleItem.FIELD_PRICE));
                             item.IVA = 21;
+                            item.Type = itemType;
 
-                            list.Add(item);
+                            list.AddItem(item);
                         }
                     }
                     catch (Exception ex) { }
