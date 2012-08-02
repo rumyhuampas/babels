@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MySQLDriverCS;
+using BabelsPrinter.Model;
 
 namespace BabelsPrinter
 {
@@ -14,6 +15,7 @@ namespace BabelsPrinter
         public static string FIELD_DATEPOSTED = "DatePosted";
         public static string FIELD_AMOUNT = "Amount";
         public static string FIELD_IDUSER = "IdUser";
+        public static string FIELD_IDCLIENT = "IdClient";
         public static string FIELD_DESCRIPTION = "Description";
 
         public const string MT_VENTAA = "VENTA_A";
@@ -28,6 +30,7 @@ namespace BabelsPrinter
         private MySQLConnection Conn;
         private int _Id;
         private MovementType _Type;
+        private Client _MoveClient;
         private DateTime _DatePosted;
         private double _Amount;
         private int _IdUser;
@@ -36,6 +39,7 @@ namespace BabelsPrinter
 
         public int Id { get { return _Id; } set { _Id = value; } }
         public MovementType Type { get { return _Type; } set { _Type = value; } }
+        public Client MoveClient { get { return _MoveClient; } set { _MoveClient = value; } }
         public DateTime DatePosted { get { return _DatePosted; } set { _DatePosted = value; } }
         public double Amount { get { return _Amount; } set { _Amount = value; } }
         public int IdUser { get { return _IdUser; } set { _IdUser = value; } }
@@ -59,15 +63,20 @@ namespace BabelsPrinter
                 {
                     reader.Read();
                     this.Id = reader.GetInt32(reader.GetOrdinal(FIELD_ID));
-                    MovementType type = new MovementType(Conn);
-                    type.Load(reader.GetInt32(reader.GetOrdinal(FIELD_TYPE)));
-                    this.Type = type;
+                    this.Type = new MovementType(Conn);
+                    this.Type.Load(reader.GetInt32(reader.GetOrdinal(FIELD_TYPE)));
+                    if (this.Type.Name == MT_VENTAA)
+                    {
+                        this.MoveClient = new Client(Conn);
+                        this.MoveClient.Load(reader.GetInt32(reader.GetOrdinal(FIELD_IDCLIENT)));
+                    }
                     this.DatePosted = reader.GetDateTime(reader.GetOrdinal(FIELD_DATEPOSTED));
                     this.Amount = reader.GetDouble(reader.GetOrdinal(FIELD_AMOUNT));
                     if (!reader.IsDBNull(reader.GetOrdinal(FIELD_IDUSER)))
                     {
                         this.IdUser = reader.GetInt32(reader.GetOrdinal(FIELD_IDUSER));
                     }
+                    this.Description = "";
                     if (!reader.IsDBNull(reader.GetOrdinal(FIELD_DESCRIPTION)))
                     {
                         this.Description = reader.GetString(reader.GetOrdinal(FIELD_DESCRIPTION));

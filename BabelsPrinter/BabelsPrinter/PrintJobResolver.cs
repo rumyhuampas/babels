@@ -64,11 +64,10 @@ namespace BabelsPrinter
                 switch (job.Move.Type.Name)
                 {
                     case Movement.MT_VENTAA:
-
+                        Print_A_Ticket(job);
                         break;
                     case Movement.MT_VENTAB:
                         Print_B_Ticket(job);
-                        //throw new Exception();
                         break;
                     case Movement.MT_CANCELACION:
                         break;
@@ -87,7 +86,7 @@ namespace BabelsPrinter
             }
             catch (Exception ex)
             {
-                Logger.Log(Logger.MT_ERROR, "Error while processing job. Error: " + ex.Message, Settings.Default.LogLevel >= 3);
+                Logger.Log(Logger.MT_ERROR, "Error while processing job.", Settings.Default.LogLevel >= 3);
                 if (job.Retries >= Settings.Default.MaxJobRetries)
                 {
                     try
@@ -191,11 +190,16 @@ namespace BabelsPrinter
             try
             {
                 hasar715.TratarDeCancelarTodo();
-                hasar715.IngresarDatosCliente(Hasar715.ToSbyte("NOMBRE"), Hasar715.ToSbyte("CUIL"), Hasar715.ToSbyte(
-                hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
+                hasar715.IngresarDatosCliente(
+                    Hasar715.ToSbyte(job.Move.MoveClient.Name), 
+                    Hasar715.ToSbyte(job.Move.MoveClient.DocNum), 
+                    Hasar715.ToSbyte(job.Move.MoveClient.DocType.value),
+                    Hasar715.ToSbyte(job.Move.MoveClient.Resp.value), 
+                    Hasar715.ToSbyte(job.Move.MoveClient.Address));
+                hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_A.value));
                 foreach (SaleItem item in job.Move.Items.items)
                 {
-                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), 1, item.Price, item.IVA, 0, false);
+                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
                 }
                 hasar715.CerrarDF();
             }
@@ -217,7 +221,7 @@ namespace BabelsPrinter
                 hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
                 foreach (SaleItem item in job.Move.Items.items)
                 {
-                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), 1, item.Price, item.IVA, 0, false);
+                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
                 }
                 hasar715.CerrarDF();
             }
