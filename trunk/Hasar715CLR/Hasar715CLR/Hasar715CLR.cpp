@@ -266,10 +266,23 @@ namespace Hasar715CLR {
 		//**********************************************************
 
 		//********************************* DF ***********************************
-		void IngresarDatosCliente(char *Nombre, char *DniCuil, char *TipoCuil, char *RespInscripto, char *Direccion){
-			impresor->DatosCliente (Nombre, DniCuil, Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeDocumentoCliente(TipoCuil),
-				Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeResponsabilidadesCliente(RespInscripto),
-						Direccion);
+		void IngresarDatosCliente(char *RazonSocial, char *NroDoc, char *TipoDoc, char *TipoResp, char *Direccion){
+			try{
+				logger->Logf ("Ingresando cliente. RazonSocial: %s, NroDoc: %s, TipoDoc: %s, TipoResp: %s, Dir: %s", RazonSocial, NroDoc, TipoDoc, TipoResp, Direccion);
+				if(Direccion != NULL){
+					impresor->DatosCliente (RazonSocial, NroDoc, Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeDocumentoCliente(TipoDoc),
+						Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeResponsabilidadesCliente(TipoResp), Direccion);
+				}
+				else{
+					impresor->DatosCliente (RazonSocial, NroDoc, Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeDocumentoCliente(TipoDoc),
+						Hasar715CLRConfigEnumFuncs::ObtenerParamTiposDeResponsabilidadesCliente(TipoResp));
+				}
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+				throw e;
+			}
 		}
 		
 		void AbrirDF(char *TipoDocumentoFiscal){
@@ -280,6 +293,7 @@ namespace Hasar715CLR {
 			catch(Excepcion &e)
 			{
 				logger -> Log(e);
+				throw e;
 			}
 		}
 
@@ -312,6 +326,7 @@ namespace Hasar715CLR {
 			catch(Excepcion &e)
 			{
 				logger -> Log(e);
+				throw e;
 			}
 		}
 
@@ -323,6 +338,7 @@ namespace Hasar715CLR {
 			catch(Excepcion &e)
 			{
 				logger -> Log(e);
+				throw e;
 			}
 		}
 		//************************************************************************
