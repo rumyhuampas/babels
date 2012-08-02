@@ -64,6 +64,7 @@ namespace BabelsPrinter
                 switch (job.Move.Type.Name)
                 {
                     case Movement.MT_VENTAA:
+
                         break;
                     case Movement.MT_VENTAB:
                         Print_B_Ticket(job);
@@ -185,13 +186,36 @@ namespace BabelsPrinter
             }
         }
 
+        private unsafe void Print_A_Ticket(PrintJob job)
+        {
+            try
+            {
+                hasar715.TratarDeCancelarTodo();
+                hasar715.IngresarDatosCliente(Hasar715.ToSbyte("NOMBRE"), Hasar715.ToSbyte("CUIL"), Hasar715.ToSbyte(
+                hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
+                foreach (SaleItem item in job.Move.Items.items)
+                {
+                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), 1, item.Price, item.IVA, 0, false);
+                }
+                hasar715.CerrarDF();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
         private unsafe void Print_B_Ticket(PrintJob job)
         {
             try
             {
                 hasar715.TratarDeCancelarTodo();
                 hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
-                foreach (SaleItem item in job.Move.Items)
+                foreach (SaleItem item in job.Move.Items.items)
                 {
                     hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), 1, item.Price, item.IVA, 0, false);
                 }
