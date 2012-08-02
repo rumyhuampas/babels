@@ -109,13 +109,16 @@ public class Pos extends andro.babels.controllers.Base {
                         public void onClick(View v) {
                             final String type = typeDialog.GetSelectedValue();
                             if (!type.equals("")) {
-                                final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
+                                if(type.equals("VENTA_A")){
+                                    andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Clients.class, null);
+                                }
+                                /*final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
                                 loadDialog.show();
 
                                 AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
                                         model, "SaveSale", new Class[]{SaleList.class, String.class},
                                         new Object[]{saleList, type}, null, loadDialog, SaveSaleHandler, ExceptionHandler);
-                                thread.Start();
+                                thread.Start();*/
                             }
                             typeDialog.hide();
                         }
