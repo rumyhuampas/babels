@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace BabelsPrinter
 {
@@ -85,4 +86,60 @@ namespace BabelsPrinter
         public static Field RECIBO_B = new Field("b");
         public static Field TICKET_C = new Field("T");
 	}
+
+    public class TiposDeDocumentoCliente
+    {
+        public static Field TIPO_CUIT = new Field("C");
+        public static Field TIPO_CUIL = new Field("L");
+        public static Field TIPO_LE = new Field("0");
+        public static Field TIPO_LC = new Field("1");
+        public static Field TIPO_DNI = new Field("2");
+        public static Field TIPO_PASAPORTE = new Field("3");
+        public static Field TIPO_CI = new Field("4");
+        public static Field TIPO_NINGUNO = new Field(" ");
+
+        public static Field FromValue(string value)
+        {
+            if(value =="C") return TIPO_CUIT;
+            if (value == "L") return TIPO_CUIL;
+            if (value == "0") return TIPO_LE;
+            if (value == "1") return TIPO_LC;
+            if (value == "2") return TIPO_DNI;
+            if (value == "3") return TIPO_PASAPORTE;
+            if (value == "4") return TIPO_CI;
+            if (value == " ") return TIPO_NINGUNO;
+            return null;
+        }
+    }
+
+    public class TiposDeResponsabilidadesCliente
+    {
+        public static Field RESPONSABLE_INSCRIPTO = new Field("I");
+        public static Field RESPONSABLE_NO_INSCRIPTO = new Field("N");
+        public static Field RESPONSABLE_EXENTO = new Field("E");
+        public static Field NO_RESPONSABLE = new Field("A");
+        public static Field CONSUMIDOR_FINAL = new Field("C");
+        public static Field BIENES_DE_USO = new Field("B");
+        public static Field NO_CATEGORIZADO = new Field("T");
+        public static Field MONOTRIBUTO = new Field("M");
+        public static Field MONOTRIBUTO_SOCIAL = new Field("S");
+        public static Field EVENTUAL = new Field("V");
+        public static Field EVENTUAL_SOCIAL = new Field("W");
+
+        public static Field FromValue(string value)
+        {
+            if (value == "I") return RESPONSABLE_INSCRIPTO;
+            if (value == "N") return RESPONSABLE_NO_INSCRIPTO;
+            if (value == "E") return RESPONSABLE_EXENTO;
+            if (value == "A") return NO_RESPONSABLE;
+            if (value == "C") return CONSUMIDOR_FINAL;
+            if (value == "B") return BIENES_DE_USO;
+            if (value == "T") return NO_CATEGORIZADO;
+            if (value == "M") return MONOTRIBUTO;
+            if (value == "S") return MONOTRIBUTO_SOCIAL;
+            if (value == "V") return EVENTUAL;
+            if (value == "W") return EVENTUAL_SOCIAL;
+            return null;
+        }
+    }
 }
