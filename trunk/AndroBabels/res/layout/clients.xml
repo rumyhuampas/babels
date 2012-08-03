@@ -135,7 +135,7 @@
             android:background="@drawable/border"
         >
             <Button
-                android:id="@+id/cs_btnOK"
+                android:id="@+id/cli_btnOK"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,7 +144,7 @@
                 android:text="Aceptar"
                         />
             <Button
-                android:id="@+id/cs_btnCancel"
+                android:id="@+id/cli_btnCancel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
