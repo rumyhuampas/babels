@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Pos extends andro.babels.models.Base {
 
-    public void SaveSale(SaleList saleList, String type) throws SQLException {
+    public void SaveSale(SaleList saleList, String type, String idClient) throws SQLException {
         Sale sale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
         sale.Amount = saleList.GetSaleTotal();
         sale.Type = new MovementTypes(andro.babels.controllers.Welcome.mysql.Conn);

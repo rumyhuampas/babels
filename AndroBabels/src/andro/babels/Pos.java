@@ -1,6 +1,10 @@
 package andro.babels;
 
+import andro.babels.wrappers.AndroThread;
+import andro.babels.wrappers.SaleList;
+import andro.babels.wrappers.dialogs.LoadingDialog;
 import android.app.TabActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,4 +33,14 @@ public class Pos extends TabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return controller.HandleMenuSelection(item);
     }
+    
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+         if (requestCode == 1) {
+             if (resultCode == RESULT_OK) {
+                 controller.SaveSaleInternal("VENTA_A");
+             }
+         }
+     }
 }
