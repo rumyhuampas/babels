@@ -110,15 +110,11 @@ public class Pos extends andro.babels.controllers.Base {
                             final String type = typeDialog.GetSelectedValue();
                             if (!type.equals("")) {
                                 if(type.equals("VENTA_A")){
-                                    andro.babels.controllers.Base.RunActivity(Activity, andro.babels.Clients.class, null);
+                                    andro.babels.controllers.Base.RunActivityForResult(Activity, andro.babels.Clients.class, null);
                                 }
-                                /*final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
-                                loadDialog.show();
-
-                                AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
-                                        model, "SaveSale", new Class[]{SaleList.class, String.class},
-                                        new Object[]{saleList, type}, null, loadDialog, SaveSaleHandler, ExceptionHandler);
-                                thread.Start();*/
+                                else{
+                                    SaveSaleInternal(type);
+                                }
                             }
                             typeDialog.hide();
                         }
@@ -130,6 +126,17 @@ public class Pos extends andro.babels.controllers.Base {
         });
         saveDialog.show();
     }
+    
+    public void SaveSaleInternal(String type){
+        final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
+        loadDialog.show();
+
+        AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
+                model, "SaveSale", new Class[]{SaleList.class, String.class},
+                new Object[]{saleList, type}, null, loadDialog, SaveSaleHandler, ExceptionHandler);
+        thread.Start();
+    }
+    
     private Handler SaveSaleHandler = new Handler() {
 
         @Override
