@@ -8,11 +8,15 @@ import java.util.List;
 
 public class Pos extends andro.babels.models.Base {
 
-    public void SaveSale(SaleList saleList, String type, String idClient) throws SQLException {
+    public void SaveSale(SaleList saleList, String type, int idClient) throws SQLException {
         Sale sale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
         sale.Amount = saleList.GetSaleTotal();
         sale.Type = new MovementTypes(andro.babels.controllers.Welcome.mysql.Conn);
         sale.Type.Load(type);
+        if(idClient > 0){
+            sale.Client = new Client(andro.babels.controllers.Welcome.mysql.Conn);
+            sale.Client.Load(idClient);
+        }
         List<SaleList.SaleItem> items = saleList.GetGeneralList();
         SaleList.SaleItem saleItem;
         for (int i = 0; i < items.size(); i++) {

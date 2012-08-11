@@ -113,7 +113,7 @@ public class Pos extends andro.babels.controllers.Base {
                                     andro.babels.controllers.Base.RunActivityForResult(Activity, andro.babels.Clients.class, null);
                                 }
                                 else{
-                                    SaveSaleInternal(type);
+                                    SaveSaleInternal(type, -1);
                                 }
                             }
                             typeDialog.hide();
@@ -127,13 +127,13 @@ public class Pos extends andro.babels.controllers.Base {
         saveDialog.show();
     }
     
-    public void SaveSaleInternal(String type){
+    public void SaveSaleInternal(String type, int idClient){
         final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Guardar venta", "Guardando...");
         loadDialog.show();
 
         AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
-                model, "SaveSale", new Class[]{SaleList.class, String.class},
-                new Object[]{saleList, type}, null, loadDialog, SaveSaleHandler, ExceptionHandler);
+                model, "SaveSale", new Class[]{SaleList.class, String.class, int.class},
+                new Object[]{saleList, type, idClient}, null, loadDialog, SaveSaleHandler, ExceptionHandler);
         thread.Start();
     }
     

@@ -39,7 +39,8 @@ public class Pos extends TabActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
          if (requestCode == 1) {
              if (resultCode == RESULT_OK) {
-                 controller.SaveSaleInternal("VENTA_A");
+                 int idClient = data.getExtras().getInt("idClient");
+                 controller.SaveSaleInternal("VENTA_A", idClient);
              }
          }
      }
