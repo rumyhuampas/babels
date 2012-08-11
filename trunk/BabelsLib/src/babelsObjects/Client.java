@@ -4,27 +4,26 @@ import java.sql.*;
 
 public class Client {
 
-    private final String TABLENAME = "clients";
-    private final String FIELD_ID = "Id";
-    private final String FIELD_NAME = "Name";
-    private final String FIELD_PHONE1 = "Phone1";
-    private final String FIELD_PHONE2 = "Phone2";
-    private final String FIELD_ADRESS = "Adress";
-    private final String FIELD_CUIT = "Cuit";
-    private final String FIELD_IVATYPE = "IvaType";
+    public static final String TABLENAME = "Clients";
+    public static final String FIELD_ID = "Id";
+    public static final String FIELD_NAME = "Name";
+    public static final String FIELD_DOCNUM = "DocNum";
+    public static final String FIELD_DOCTYPE = "DocType";
+    public static final String FIELD_RESP = "Resp";
+    public static final String FIELD_ADDRESS = "Address";
     private Connection Conn;
     private int Id;
     public String Name;
-    public String Phone1;
-    public String Phone2;
-    public String Adress;
-    public String Cuit;
-    public int IdIvaType;
-    
-      public int getId() {
+    public String DocNum;
+    public char DocType;
+    public char Resp;
+    public String Address;
+
+    public int getId() {
         return this.Id;
     }
-       public Client(Connection conn) throws SQLException {
+
+    public Client(Connection conn) throws SQLException {
         this.Conn = conn;
         this.Clear();
     }
@@ -32,11 +31,10 @@ public class Client {
     public void Clear() {
         this.Id = -1;
         this.Name = "";
-        this.Adress = "";
-        this.Cuit = "";
-        this.IdIvaType = 0;
-        this.Phone1 = "";
-        this.Phone2 = "";
+        this.DocNum = "";
+        this.DocType = ' ';
+        this.Resp = ' ';
+        this.Address = "";
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -51,12 +49,12 @@ public class Client {
         }
     }
 
-    public boolean Load(String name) throws SQLException {
+    public boolean Load(String docNum) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
-            qry.setString(1, name);
+            qry.setString(1, docNum);
             return SelectClient(qry);
         } finally {
             qry.close();
@@ -68,12 +66,11 @@ public class Client {
         try {
             if (results.next()) {
                 this.Id = results.getInt(this.FIELD_ID);
-                this.Name = results.getString(this.FIELD_NAME);
-                this.Adress = results.getString(this.FIELD_ADRESS);
-                this.Phone1 = results.getString(this.FIELD_PHONE1);
-                this.Phone2 = results.getString(this.FIELD_PHONE2);
-                this.Cuit = results.getString(this.FIELD_CUIT);
-                this.IdIvaType = results.getInt(this.FIELD_IVATYPE);               
+                this.Name = results.getString(Client.FIELD_NAME);
+                this.DocNum = results.getString(Client.FIELD_DOCNUM);
+                this.DocType = results.getString(Client.FIELD_DOCTYPE).charAt(0);
+                this.Resp = results.getString(Client.FIELD_RESP).charAt(0);
+                this.Address = results.getString(Client.FIELD_ADDRESS);
                 return true;
             } else {
                 return false;
@@ -84,33 +81,27 @@ public class Client {
     }
 
     public boolean Save() throws SQLException {
-        if (!Exists()) {
-            if (this.Id == -1) {
-                return InsertClient();
-            } else {
-                return UpdateClient();
-            }
+        if (this.Id == -1) {
+            return InsertClient();
         } else {
-            return false;
+            return UpdateClient();
         }
     }
 
     private boolean InsertClient() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
-                + this.FIELD_NAME + ", " + this.FIELD_PHONE1 + ", "
-                + this.FIELD_PHONE2 + ", " + this.FIELD_ADRESS + ", "
-                + this.FIELD_CUIT + ", " + this.FIELD_IVATYPE 
-                + ") VALUES (?,?,?,?,?,?)";
+                + this.FIELD_NAME + ", " + this.FIELD_DOCNUM + ", "
+                + this.FIELD_DOCTYPE + ", " + this.FIELD_RESP + ", "
+                + this.FIELD_ADDRESS
+                + ") VALUES (?,?,?,?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setString(1, this.Name);
-            qry.setString(2, this.Phone1);
-            qry.setString(3, this.Phone2);
-            qry.setString(4, this.Adress);
-            qry.setString(5, this.Cuit);
-            qry.setInt(6, this.IdIvaType);
-                   
-           if (qry.executeUpdate() > 0) {
+            qry.setString(2, this.DocNum);
+            qry.setString(3, String.valueOf(this.DocType));
+            qry.setString(4, String.valueOf(this.Resp));
+            qry.setString(5, this.Address);
+            if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
                 this.Id = result.getInt("GENERATED_KEY");
@@ -126,50 +117,25 @@ public class Client {
     private boolean UpdateClient() throws SQLException {
         String sql = "UPDATE " + this.TABLENAME + " SET "
                 + this.FIELD_NAME + " = ?,"
-                + this.FIELD_PHONE1 + " = ?,"
-                + this.FIELD_PHONE2 + " = ?,"
-                + this.FIELD_ADRESS + " = ?,"
-                + this.FIELD_CUIT + " = ?,"
-                + this.FIELD_IVATYPE + " = ?"               
-                + " WHERE " + this.FIELD_ID + " = ?";   
-                PreparedStatement qry = this.Conn.prepareStatement(sql);
-            try {
-                qry.setString(1, this.Name);
-                qry.setString(2, this.Phone1);
-                qry.setString(3, this.Phone2);
-                qry.setString(4, this.Adress);
-                qry.setString(5, this.Cuit);
-                qry.setInt(6, this.IdIvaType);                
-                qry.setInt(7, this.Id);
-                return qry.executeUpdate() > 0;
-            } finally {
-                qry.close();
-            }    
-         }
-
-    public boolean Exists() throws SQLException {
-        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_NAME + " = ? AND "
-                + this.FIELD_ID + " <> ?";
+                + this.FIELD_DOCNUM + " = ?, "
+                + this.FIELD_DOCTYPE + " = ?, "
+                + this.FIELD_RESP + " = ?, "
+                + this.FIELD_ADDRESS + " = ? "
+                + "WHERE " + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setString(1, this.Name);
-            qry.setInt(2, this.Id);
-            ResultSet results = qry.executeQuery();
-            try {
-                if (results.next()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } finally {
-                results.close();
-            }
+            qry.setString(2, this.DocNum);
+            qry.setString(3, String.valueOf(this.DocType));
+            qry.setString(4, String.valueOf(this.Resp));
+            qry.setString(5, this.Address);
+            qry.setInt(6, this.Id);
+            return qry.executeUpdate() > 0;
         } finally {
             qry.close();
         }
     }
-
+    
     public boolean Delete() throws SQLException {
         String sql = "DELETE FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
