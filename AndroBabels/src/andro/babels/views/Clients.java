@@ -58,4 +58,16 @@ public class Clients extends andro.babels.views.Base {
     public String GetSearchText(){
         return ((TextView)Activity.findViewById(R.id.cli_txtSearch)).getText().toString();
     }
+    
+    public void SetName(String name){
+        ((TextView)Activity.findViewById(R.id.cli_txtName)).setText(name);
+    }
+    
+    public void SetDocNum(String docNum){
+        ((TextView)Activity.findViewById(R.id.cli_txtDocNum)).setText(docNum);
+    }
+    
+    public void SetAddress(String address){
+        ((TextView)Activity.findViewById(R.id.cli_txtAddress)).setText(address);
+    }
 }
