@@ -1,17 +1,17 @@
-﻿
-using MySQLDriverCS;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using BabelsPrinter.Properties;
-using System.Threading;
-namespace BabelsPrinter
+using BabelsPrinter.Interfaces;
+
+namespace BabelsPrinter.Hasar
 {
-    public class PrintJobResolver
+    public class HasarJobResolver : IJobResolver
     {
-        private MySQLConnection Conn;
         private Hasar715CLR.Hasar715CLR hasar715;
 
-        public unsafe PrintJobResolver()
+        public unsafe HasarJobResolver()
         {
             hasar715 = new Hasar715CLR.Hasar715CLR(Hasar715.ToSbyte("C:\\Hasar715.txt"));
             hasar715.InitPrinter(Hasar715.ToSbyte("C:\\Hasar715.ini"));
@@ -58,7 +58,7 @@ namespace BabelsPrinter
 
         public void ProcessJob(PrintJob job)
         {
-            Logger.Log(Logger.MT_INFO, "Processing job: " + job.Id.ToString(), Settings.Default.LogLevel >= 4);
+            Logger.Log(Logger.MT_INFO, "Processing hasar job: " + job.Id.ToString(), Settings.Default.LogLevel >= 4);
             try
             {
                 switch (job.Move.Type.Name)
@@ -82,106 +82,10 @@ namespace BabelsPrinter
                     case Movement.MT_EXTRACCION:
                         break;
                 }
-                CompleteJob(job, false);
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(Logger.MT_ERROR, "Error while processing job.", Settings.Default.LogLevel >= 3);
-                if (job.Retries >= Settings.Default.MaxJobRetries)
-                {
-                    try
-                    {
-                        CompleteJob(job, true);
-                    }
-                    catch { }
-                }
-                else
-                {
-                    IncrementJobRetries(job);
-                }
-            }
-        }
-
-        private void CompleteJob(PrintJob job, bool fail)
-        {
-            Conn = PrinterService.GetDBConn();
-            try
-            {
-                string sql;
-                if (!fail)
-                {
-                    sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
-                        PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_COMP + "'," +
-                        PrintJob.FIELD_DATEPRINTED + " = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "'" +
-                        " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
-                }
-                else
-                {
-                    sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
-                        PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_FAIL + "'," +
-                        PrintJob.FIELD_DATEPRINTED + " = '" + DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "'" +
-                        " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
-                }
-                MySQLCommand comm = new MySQLCommand(sql, Conn);
-                try
-                {
-                    comm.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    comm.Dispose();
-                }
-
-                Logger.Log(Logger.MT_INFO, "Job successfully printed: " + job.Id.ToString(), Settings.Default.LogLevel >= 4);
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                Conn.Close();
-            }
-        }
-
-        private void IncrementJobRetries(PrintJob job)
-        {
-            job.Retries++; 
-            Logger.Log(Logger.MT_INFO, "Incrementing retries. Job: " + job.Id.ToString() + ". Retries: " + job.Retries.ToString(), Settings.Default.LogLevel >= 4);
-
-            Conn = PrinterService.GetDBConn();
-            try
-            {
-                string sql = "UPDATE " + PrintJob.TABLENAME + " SET " +
-                        PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_PEND + "'," +
-                        PrintJob.FIELD_DATEPRINTED + " = NULL," +
-                        PrintJob.FIELD_RETRIES + " = " + job.Retries.ToString() +
-                        " WHERE " + PrintJob.FIELD_ID + " = " + job.Id;
-                MySQLCommand comm = new MySQLCommand(sql, Conn);
-                try
-                {
-                    comm.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    comm.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Conn.Close();
             }
         }
 

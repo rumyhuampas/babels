@@ -8,6 +8,10 @@ namespace BabelsPrinter
 {
     public static class Printers
     {
+        public const string PRINTER_FISCAL = "FISCAL";
+        public const string PRINTER_NOFISCAL = "NOFISCAL";
+        public const string PRINTER_COCINA = "COCINA";
+
         public static string GetPrinterList(){
             string[] printerList = Settings.Default.Printers.Split(';');
             string result = "";
