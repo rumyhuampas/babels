@@ -25,7 +25,7 @@ namespace BabelsPrinter.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FISCAL;NOFISCAL;COCINA_0;COCINA_1;COCINA_2;COCINA_3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FISCAL;NOFISCAL;COCINA_1;COCINA_2")]
         public string Printers {
             get {
                 return ((string)(this["Printers"]));
@@ -92,6 +92,24 @@ namespace BabelsPrinter.Properties {
         public int MaxJobRetries {
             get {
                 return ((int)(this["MaxJobRetries"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Hasar715.txt")]
+        public string HasarLogPath {
+            get {
+                return ((string)(this["HasarLogPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Hasar715.ini")]
+        public string HasarIniPath {
+            get {
+                return ((string)(this["HasarIniPath"]));
             }
         }
     }

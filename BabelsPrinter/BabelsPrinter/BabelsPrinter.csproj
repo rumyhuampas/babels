@@ -58,7 +58,10 @@
       <DependentUpon>BabelsPrinterServ.cs</DependentUpon>
     </Compile>
     <Compile Include="Hasar\Hasar715.cs" />
+    <Compile Include="Interfaces\IJobResolver.cs" />
+    <Compile Include="Resolvers\HasarJobResolver.cs" />
     <Compile Include="Hasar\HasarTypes.cs" />
+    <Compile Include="Resolvers\KitchenJobResolver.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Logger.cs" />
     <Compile Include="Model\Movement.cs" />
@@ -66,7 +69,7 @@
     <Compile Include="PrinterService.cs" />
     <Compile Include="Model\Printers.cs" />
     <Compile Include="Model\PrintJob.cs" />
-    <Compile Include="PrintJobResolver.cs" />
+    <Compile Include="Resolvers\PrintJobResolver.cs" />
     <Compile Include="PrintJobWatcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
