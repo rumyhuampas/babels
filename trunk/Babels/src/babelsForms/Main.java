@@ -29,19 +29,22 @@ public class Main extends javax.swing.JFrame {
         panelImage2 = new org.edisoncor.gui.panel.PanelImage();
         mbarMain = new javax.swing.JMenuBar();
         mitemFile = new javax.swing.JMenu();
-        mitemFileNew = new javax.swing.JMenu();
-        mitemFileNewProd = new javax.swing.JMenuItem();
-        mitemFileNewCombo = new javax.swing.JMenuItem();
         mitemFileExit = new javax.swing.JMenuItem();
         mitemAdmin = new javax.swing.JMenu();
-        mitemAdminProducts = new javax.swing.JMenuItem();
-        mitemAdminCombos = new javax.swing.JMenuItem();
         mitemAdminUser = new javax.swing.JMenu();
         mitemAdminUserChangePass = new javax.swing.JMenuItem();
         mitemUsers = new javax.swing.JMenu();
         mitemUsersAdmin = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        mitemCaja = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mitemCliente = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        mitemProductos = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        mitemAdminProducts = new javax.swing.JMenuItem();
+        mitemCombos = new javax.swing.JMenu();
+        jmitemNuevoProd = new javax.swing.JMenuItem();
+        mitemAdminCombos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Babels");
@@ -95,29 +98,6 @@ public class Main extends javax.swing.JFrame {
         mitemFile.setText("Archivo");
         mitemFile.setPreferredSize(new java.awt.Dimension(59, 19));
 
-        mitemFileNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Add48.png"))); // NOI18N
-        mitemFileNew.setText("Nuevo");
-
-        mitemFileNewProd.setText("Producto...");
-        mitemFileNewProd.setPreferredSize(new java.awt.Dimension(101, 38));
-        mitemFileNewProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemFileNewProdActionPerformed(evt);
-            }
-        });
-        mitemFileNew.add(mitemFileNewProd);
-
-        mitemFileNewCombo.setLabel("Combo...");
-        mitemFileNewCombo.setPreferredSize(new java.awt.Dimension(107, 38));
-        mitemFileNewCombo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemFileNewComboActionPerformed(evt);
-            }
-        });
-        mitemFileNew.add(mitemFileNewCombo);
-
-        mitemFile.add(mitemFileNew);
-
         mitemFileExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/power_black (1) - copia.png"))); // NOI18N
         mitemFileExit.setText("Salir");
         mitemFileExit.addActionListener(new java.awt.event.ActionListener() {
@@ -132,24 +112,6 @@ public class Main extends javax.swing.JFrame {
         mitemAdmin.setText("Administrar");
         mitemAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mitemAdmin.setPreferredSize(new java.awt.Dimension(81, 19));
-
-        mitemAdminProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/foodpng.png"))); // NOI18N
-        mitemAdminProducts.setText("Productos...");
-        mitemAdminProducts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemAdminProductsActionPerformed(evt);
-            }
-        });
-        mitemAdmin.add(mitemAdminProducts);
-
-        mitemAdminCombos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/foodpng.png"))); // NOI18N
-        mitemAdminCombos.setText("Combos");
-        mitemAdminCombos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemAdminCombosActionPerformed(evt);
-            }
-        });
-        mitemAdmin.add(mitemAdminCombos);
 
         mitemAdminUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/User48 - copia.png"))); // NOI18N
         mitemAdminUser.setText("Cuenta de usuario");
@@ -181,7 +143,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemUsers);
 
-        jMenu1.setText("Caja");
+        mitemCaja.setText("Caja");
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/currency_black_dollar (2) - copia.png"))); // NOI18N
         jMenuItem1.setText("Caja");
@@ -190,9 +152,66 @@ public class Main extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mitemCaja.add(jMenuItem1);
 
-        mbarMain.add(jMenu1);
+        mbarMain.add(mitemCaja);
+
+        mitemCliente.setText("   Cliente");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Add_user48.png"))); // NOI18N
+        jMenuItem2.setText("Nuevo Cliente");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mitemCliente.add(jMenuItem2);
+
+        mbarMain.add(mitemCliente);
+
+        mitemProductos.setText("   Productos");
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Add48.png"))); // NOI18N
+        jMenuItem3.setText("   Nuevo Producto");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mitemProductos.add(jMenuItem3);
+
+        mitemAdminProducts.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/foodpng.png"))); // NOI18N
+        mitemAdminProducts.setText("   Productos");
+        mitemAdminProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAdminProductsActionPerformed(evt);
+            }
+        });
+        mitemProductos.add(mitemAdminProducts);
+
+        mbarMain.add(mitemProductos);
+
+        mitemCombos.setText("   Combos");
+
+        jmitemNuevoProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Add48.png"))); // NOI18N
+        jmitemNuevoProd.setText("   Nuevo Combo");
+        jmitemNuevoProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmitemNuevoProdActionPerformed(evt);
+            }
+        });
+        mitemCombos.add(jmitemNuevoProd);
+
+        mitemAdminCombos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/foodpng.png"))); // NOI18N
+        mitemAdminCombos.setText("   Combos");
+        mitemAdminCombos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAdminCombosActionPerformed(evt);
+            }
+        });
+        mitemCombos.add(mitemAdminCombos);
+
+        mbarMain.add(mitemCombos);
 
         setJMenuBar(mbarMain);
 
@@ -235,28 +254,35 @@ private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//
         FormsFactory.GetDialogForm("babelsForms.CashRegister", true, null, null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void mitemFileNewComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemFileNewComboActionPerformed
-        FormsFactory.GetDialogForm("babelsForms.NewCombo", true, null, null);
-    }//GEN-LAST:event_mitemFileNewComboActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       FormsFactory.GetDialogForm("babelsForms.NewClient", true, null, null);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void mitemFileNewProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemFileNewProdActionPerformed
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         FormsFactory.GetDialogForm("babelsForms.NewProduct", true, null, null);
-    }//GEN-LAST:event_mitemFileNewProdActionPerformed
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jmitemNuevoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitemNuevoProdActionPerformed
+       FormsFactory.GetDialogForm("babelsForms.NewCombo", true, null, null);
+    }//GEN-LAST:event_jmitemNuevoProdActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jmitemNuevoProd;
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemAdmin;
     private javax.swing.JMenuItem mitemAdminCombos;
     private javax.swing.JMenuItem mitemAdminProducts;
     private javax.swing.JMenu mitemAdminUser;
     private javax.swing.JMenuItem mitemAdminUserChangePass;
+    private javax.swing.JMenu mitemCaja;
+    private javax.swing.JMenu mitemCliente;
+    private javax.swing.JMenu mitemCombos;
     private javax.swing.JMenu mitemFile;
     private javax.swing.JMenuItem mitemFileExit;
-    private javax.swing.JMenu mitemFileNew;
-    private javax.swing.JMenuItem mitemFileNewCombo;
-    private javax.swing.JMenuItem mitemFileNewProd;
+    private javax.swing.JMenu mitemProductos;
     private javax.swing.JMenu mitemUsers;
     private javax.swing.JMenuItem mitemUsersAdmin;
     private org.edisoncor.gui.panel.PanelCurves panelCurves1;

@@ -84,11 +84,6 @@
 			<frame>
 				<reportElement uuid="3936f215-b514-4e57-9495-25cb11cb6cf7" x="42" y="2" width="513" height="27"/>
 				<textField>
-					<reportElement uuid="afaf5423-bf7c-4b78-8289-658152ba04e4" x="192" y="0" width="105" height="20"/>
-					<textElement/>
-					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement uuid="6bc07a83-719a-4c15-a633-db97dc15860b" x="0" y="0" width="68" height="20"/>
 					<textElement/>
 					<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
@@ -114,6 +109,11 @@
 				<reportElement uuid="58cd81a0-0359-4e69-819e-f8895a1dee6c" x="443" y="2" width="110" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{subTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="afaf5423-bf7c-4b78-8289-658152ba04e4" x="220" y="2" width="119" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

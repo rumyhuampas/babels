@@ -2,14 +2,12 @@ package babelsManagers;
 
 import babelsInterfaces.IBabelsDialog;
 import babelsListeners.KeyListenerType;
-import babelsListeners.txtAreaListener;
 import babelsListeners.txtFieldListener;
 import babelsObjects.Movement;
 import babelsObjects.MovementAdmin;
 import babelsObjects.MovementTypes;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class CashRegisterWindowManager {

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="plantilla" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<field name="id" class="java.lang.String"/>
+	<field name="movimiento" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="monto" class="java.lang.Float"/>
+	<field name="subTotal" class="java.lang.Float"/>
+	<title>
+		<band height="76" splitType="Stretch">
+			<line>
+				<reportElement key="line" x="0" y="49" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="158" y="19" width="254" height="30"/>
+				<textElement>
+					<font fontName="Serif" size="20" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[BABEL`S - Reporte de Caja]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText" x="0" y="1" width="89" height="25"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="89" y="0" width="100" height="26"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Movimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="325" y="1" width="100" height="25"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="1" width="136" height="25"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="1" width="100" height="25"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SubTotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="57" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="89" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{movimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="0" width="136" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="325" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{monto}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{subTotal}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement key="textField" x="285" y="30" width="270" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -8,9 +8,8 @@ import net.sf.jasperreports.view.JasperViewer;
 import babels.Babels;
 import babelsreports.ReportCashRegisterClass;
 import babelsreports.ReportCashRegisterClassDataSource;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.awt.Desktop;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JTable;
@@ -33,7 +32,7 @@ public class ReportManager {
     }
  
    
-    public void print() throws SQLException, JRException, FileNotFoundException {
+    public void print() throws SQLException, JRException, FileNotFoundException, IOException {
        
 
 
@@ -71,7 +70,15 @@ public class ReportManager {
             JasperPrint jasperPrint = JasperFillManager.fillReport(
                     jasperReport, null, datasource);
 
-           JasperViewer.viewReport(jasperPrint);
-       
+           //JasperViewer.viewReport(jasperPrint);
+            String filename = "Reporte Movimientos de Caja" + ".pdf";
+             OutputStream output = new FileOutputStream(new File("C:/Marito/"+filename+"")); 
+            JasperExportManager.exportReportToPdfStream(jasperPrint, output); 
+           
+            output.flush();
+            output.close();
+            File path = new File ("C:/Marito/"+filename+"");
+        Desktop.getDesktop().open(path);
+          
     }
 }

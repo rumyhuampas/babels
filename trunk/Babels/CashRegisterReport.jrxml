@@ -3,7 +3,7 @@
 	<property name="template.type" value="columnar"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="28"/>
 	<style name="Title" forecolor="#000000" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -74,9 +74,9 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="113" splitType="Stretch">
+		<band height="164" splitType="Stretch">
 			<line>
-				<reportElement uuid="11d64dfe-c69b-45dd-a572-ac4865befdbd" positionType="FixRelativeToBottom" x="4" y="104" width="551" height="1"/>
+				<reportElement uuid="11d64dfe-c69b-45dd-a572-ac4865befdbd" positionType="FixRelativeToBottom" x="4" y="163" width="551" height="1"/>
 			</line>
 			<staticText>
 				<reportElement uuid="ce247417-2ff5-4a85-9c0e-044d18f2c65e" x="255" y="12" width="100" height="20"/>
@@ -109,12 +109,12 @@
 				<textFieldExpression><![CDATA[$F{monto}.toString()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="1590ec94-b111-46ea-aba7-bf849bf9508f" x="33" y="32" width="100" height="20"/>
+				<reportElement uuid="1590ec94-b111-46ea-aba7-bf849bf9508f" x="5" y="0" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[id]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="409618f7-a497-41cf-991c-9fc11a00c04f" x="133" y="32" width="100" height="20"/>
+				<reportElement uuid="409618f7-a497-41cf-991c-9fc11a00c04f" x="5" y="20" width="100" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
