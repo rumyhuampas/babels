@@ -24,7 +24,7 @@ public class Babels {
             UIManager.setLookAndFeel(
                     "de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel");
             InitDBConn();
-            
+
             mysql.Open();
             try {
                 FormsFactory.GetDialogForm("babelsForms.Login", false, null, null);
@@ -45,15 +45,15 @@ public class Babels {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private static void InitDBConn() throws IOException{
-        String appPathFinal= "";
+
+    private static void InitDBConn() throws IOException {
+        String appPathFinal = "";
         String appPath = Babels.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         JOptionPane.showMessageDialog(null, appPath);
-        if(appPath.substring(appPath.length()-3).equalsIgnoreCase("jar")){
-        appPathFinal = appPath.substring(0, appPath.length()- 3);
-        appPathFinal = appPathFinal + "ini";
-        } else{
+        if (appPath.substring(appPath.length() - 3).equalsIgnoreCase("jar")) {
+            appPathFinal = appPath.substring(0, appPath.length() - 3);
+            appPathFinal = appPathFinal + "ini";
+        } else {
             appPathFinal = appPath + "Babels.ini";
         }
         appPathFinal = appPathFinal.replaceAll("%20", " ");

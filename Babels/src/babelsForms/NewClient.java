@@ -192,7 +192,7 @@ public class NewClient extends javax.swing.JDialog {
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
        // Manager.CheckFields(txtName, txtCuit, txtAdress);
         try {
-            if (this.Manager.SaveProduct(this.ClientId, this.txtName.getText(), this.txtphone1.getText(),
+            if (this.Manager.SaveClient(this.ClientId, this.txtName.getText(), this.txtphone1.getText(),
                     this.txtPhone2.getText(), this.txtAdress.getText(), this.txtCuit.getText(),
                     this.comboTypeIva.getSelectedIndex())) {
                 if (this.ClientId == -1) {
