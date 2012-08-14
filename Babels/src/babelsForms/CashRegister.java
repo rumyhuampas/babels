@@ -2,9 +2,12 @@ package babelsForms;
 
 import babelsManagers.CashRegisterManager;
 import babelsManagers.ReportManager;
-import babelsObjects.FormsFactory;
+import babelsObjects.GarbageCollector;
+import babelsRenderers.JFrameBusy;
+import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,15 +15,18 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
+import org.jdesktop.swingx.JXBusyLabel;
 
 public class CashRegister extends javax.swing.JDialog {
 
     private CashRegisterManager Manager;
     public boolean Refresh = true;
+    private JXBusyLabel busylabel1;
 
     public CashRegister(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.pnlBusy1.setLayout(new BorderLayout());
         Manager = new CashRegisterManager(this.tblMovements, this.lblTotal, this.chbOpenClose, this.chbSales, this.chbInOut);
         Date begin = new Date();
         Date end = new Date();
@@ -32,13 +38,19 @@ public class CashRegister extends javax.swing.JDialog {
         calfin.add(Calendar.HOUR, 2);
         Date Begining = cal.getTime();
         Date Final = calfin.getTime();
+        busylabel1 = createSimpleBusyLabel();
+        busylabel1.setEnabled(false);
 
         dcFrom.setDate(Begining);
         dcTo.setDate(Final);
         this.Refresh = true;
         this.btnSearch.doClick();
     }
-
+    public JXBusyLabel createSimpleBusyLabel() {
+        JXBusyLabel label = new JXBusyLabel();
+        label.setToolTipText("Cargando...");
+        return label;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -57,7 +69,10 @@ public class CashRegister extends javax.swing.JDialog {
         chbOpenClose = new javax.swing.JCheckBox();
         chbSales = new javax.swing.JCheckBox();
         chbInOut = new javax.swing.JCheckBox();
-        btnGenerarReporte = new javax.swing.JButton();
+        btnExportPdf = new org.edisoncor.gui.button.ButtonIcon();
+        jButton1 = new javax.swing.JButton();
+        pnlBusy2 = new org.jdesktop.swingx.JXPanel();
+        pnlBusy1 = new org.jdesktop.swingx.JXPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuOperations = new javax.swing.JMenu();
         mItemOpenCash = new javax.swing.JMenuItem();
@@ -148,9 +163,11 @@ public class CashRegister extends javax.swing.JDialog {
 
         lblTotal.setFont(new java.awt.Font("David", 1, 36)); // NOI18N
         lblTotal.setForeground(new java.awt.Color(153, 0, 0));
+        lblTotal.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         lblTotal.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblTotal.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        lblTotalTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTotalTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblTotalTitle.setText("Total:");
 
         chbOpenClose.setText("Aperturas/Cierres");
@@ -174,12 +191,43 @@ public class CashRegister extends javax.swing.JDialog {
             }
         });
 
-        btnGenerarReporte.setText("Generar Reporte");
-        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+        btnExportPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/pdf.png"))); // NOI18N
+        btnExportPdf.setText("buttonIcon1");
+        btnExportPdf.setToolTipText("Generar PDF");
+        btnExportPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerarReporteActionPerformed(evt);
+                btnExportPdfActionPerformed(evt);
             }
         });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlBusy2Layout = new javax.swing.GroupLayout(pnlBusy2);
+        pnlBusy2.setLayout(pnlBusy2Layout);
+        pnlBusy2Layout.setHorizontalGroup(
+            pnlBusy2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        pnlBusy2Layout.setVerticalGroup(
+            pnlBusy2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlBusy1Layout = new javax.swing.GroupLayout(pnlBusy1);
+        pnlBusy1.setLayout(pnlBusy1Layout);
+        pnlBusy1Layout.setHorizontalGroup(
+            pnlBusy1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 58, Short.MAX_VALUE)
+        );
+        pnlBusy1Layout.setVerticalGroup(
+            pnlBusy1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 37, Short.MAX_VALUE)
+        );
 
         MenuOperations.setText("Operaciones");
 
@@ -250,59 +298,73 @@ public class CashRegister extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(chbOpenClose)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chbSales)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chbInOut))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(dcFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(dcTo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pnlBusy1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(chbOpenClose)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chbSales)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(chbInOut)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGenerarReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(pnlBusy2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(112, 112, 112)
                         .addComponent(lblTotalTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(dcFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(dcTo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)))
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dcTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dcFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2))
-                    .addComponent(btnSearch))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chbInOut)
-                    .addComponent(chbOpenClose, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(chbSales, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(dcTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dcFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addComponent(btnSearch))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chbInOut)
+                            .addComponent(chbOpenClose, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(chbSales, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(9, 9, 9))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnlBusy1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTotalTitle)
-                            .addComponent(btnGenerarReporte))
-                        .addGap(13, 13, 13)))
-                .addContainerGap())
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTotalTitle))
+                    .addComponent(pnlBusy2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -320,13 +382,20 @@ public class CashRegister extends javax.swing.JDialog {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
+            busylabel1.setEnabled(true);
+            busylabel1.setBusy(true);    
+            this.pnlBusy1.add(busylabel1, BorderLayout.CENTER);
+            this.pnlBusy1.setAlpha(0.7f);
+            // JFrameBusy fb = new JFrameBusy(); 
             Manager.RefreshTable(dcFrom.getDate(), dcTo.getDate());
             tblMovements.repaint();
+            GarbageCollector.getSolicitaGarbageColector();   
+            
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
-
+       
     private void mItemPartialCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemPartialCloseActionPerformed
         Manager.doOperation(2);
         this.Refresh = true;
@@ -395,33 +464,41 @@ public class CashRegister extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mItemDetalleActionPerformed
 
-    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
-        ReportManager repManager = new ReportManager(this.tblMovements);
+    private void btnExportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPdfActionPerformed
+         ReportManager repManager = new ReportManager(this.tblMovements);
         try {
             try {
-                try {
-                    repManager.print();
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                repManager.print();
             } catch (JRException ex) {
                 Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
             }
+               
+           
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnGenerarReporteActionPerformed
+    }//GEN-LAST:event_btnExportPdfActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        GarbageCollector.getSolicitaGarbageColector();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private javax.swing.JMenu MenuReports;
-    private javax.swing.JButton btnGenerarReporte;
+    private org.edisoncor.gui.button.ButtonIcon btnExportPdf;
     private javax.swing.JButton btnSearch;
     private javax.swing.JCheckBox chbInOut;
     private javax.swing.JCheckBox chbOpenClose;
     private javax.swing.JCheckBox chbSales;
     private com.toedter.calendar.JDateChooser dcFrom;
     private com.toedter.calendar.JDateChooser dcTo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -436,6 +513,8 @@ public class CashRegister extends javax.swing.JDialog {
     private javax.swing.JMenuItem mItemPartialClose;
     private javax.swing.JMenu menuClose;
     private javax.swing.JMenuItem mitemPrint;
+    private org.jdesktop.swingx.JXPanel pnlBusy1;
+    private org.jdesktop.swingx.JXPanel pnlBusy2;
     private javax.swing.JPopupMenu popUpTableMovement;
     private javax.swing.JTable tblMovements;
     // End of variables declaration//GEN-END:variables
