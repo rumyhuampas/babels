@@ -18,7 +18,7 @@ public class NewClientManager {
             return false;
         }
     }
-    public boolean SaveProduct(int IdClient, String Name, String Phone1, String Phone2, String Adress,
+    public boolean SaveClient(int IdClient, String Name, String Phone1, String Phone2, String Adress,
              String Cuit, int IvaType) throws SQLException {
         Babels.mysql.Open();
         try {
