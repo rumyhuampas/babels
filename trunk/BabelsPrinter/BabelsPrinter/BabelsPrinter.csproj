@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Hasar715CLR">
       <HintPath>..\..\Hasar715CLR\Debug\Hasar715CLR.dll</HintPath>
     </Reference>
@@ -64,11 +61,11 @@
     </Compile>
     <Compile Include="Hasar\Hasar715.cs" />
     <Compile Include="Interfaces\IJobResolver.cs" />
-    <Compile Include="KitchenReport.cs">
+    <Compile Include="Model\PrintHelper.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>KitchenReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resolvers\HasarJobResolver.cs" />
     <Compile Include="Hasar\HasarTypes.cs" />
@@ -99,13 +96,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="KitchenReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>KitchenReport.cs</LastGenOutput>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+    <None Include="Resources\BabelsLogo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LOGO BABEL%27S FINAL blanco y negro %281%29.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
