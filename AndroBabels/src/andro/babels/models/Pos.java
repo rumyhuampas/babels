@@ -4,6 +4,7 @@ import andro.babels.wrappers.SaleList;
 import andro.babels.wrappers.SaleList.SaleItem;
 import babelsObjects.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pos extends andro.babels.models.Base {
@@ -51,7 +52,24 @@ public class Pos extends andro.babels.models.Base {
             }
         }
         if (print.Save() == true) {
+            ArrayList kitchenList = new ArrayList();
             for (int i = 0; i < sale.Items.size(); i++) {
+                Object[] item = (Object[]) sale.Items.get(i);
+                if(item[0].equals(SalesItemsAdmin.IT_COMBO)){
+                    Combo combo = (Combo)item[1];
+                    for (int j = 0; j < combo.Products.size(); j++) {
+                        Product prod = (Product)combo.Products.get(j);
+                        AddKitchenIfNotExists(kitchenList, prod.Idkitchen);
+                    }
+                }
+                else{
+                    AddKitchenIfNotExists(kitchenList, ((Product)item[1]).Idkitchen);
+                }
+            }
+            for (int i = 0; i < kitchenList.size(); i++) {
+                CreateProdPrint(((Integer)kitchenList.get(i)).intValue(), sale);
+            }
+            /*for (int i = 0; i < sale.Items.size(); i++) {
                 Object[] item = (Object[]) sale.Items.get(i);
                 if(item[0].equals(SalesItemsAdmin.IT_COMBO)){
                     Combo combo = (Combo)item[1];
@@ -63,14 +81,27 @@ public class Pos extends andro.babels.models.Base {
                 else{
                     CreateProdPrint((Product)item[1], sale);
                 }
-            }
+            }*/
         }
     }
     
-    private void CreateProdPrint(Product prod, Sale sale) throws SQLException{
+    private void AddKitchenIfNotExists(ArrayList list, int kitchenId){
+        boolean found = false;
+        for (int i = 0; i < list.size(); i++) {
+            if(((Integer)list.get(i)).intValue() == kitchenId){
+                found = true;
+                break;
+            }
+        }
+        if(found == false){
+            list.add(kitchenId);
+        }
+    }
+    
+    private void CreateProdPrint(int idKitchen, Sale sale) throws SQLException{
         Print printKitchen = new Print(andro.babels.controllers.Welcome.mysql.Conn);
         printKitchen.Sale = sale;
-        printKitchen.Printer = "COCINA_" + prod.Idkitchen;
+        printKitchen.Printer = "COCINA_" + idKitchen;
         printKitchen.Save();
     }
     
