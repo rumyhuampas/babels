@@ -11,6 +11,9 @@ public class Client {
     public static final String FIELD_DOCTYPE = "DocType";
     public static final String FIELD_RESP = "Resp";
     public static final String FIELD_ADDRESS = "Address";
+    public static final String FIELD_PHONE1 = "Phone1";
+    public static final String FIELD_PHONE2 = "Phone2";
+    
     private Connection Conn;
     private int Id;
     public String Name;
@@ -18,6 +21,8 @@ public class Client {
     public char DocType;
     public char Resp;
     public String Address;
+    public String Phone1;
+    public String Phone2;
 
     public int getId() {
         return this.Id;
@@ -35,6 +40,8 @@ public class Client {
         this.DocType = ' ';
         this.Resp = ' ';
         this.Address = "";
+        this.Phone1 = "";
+        this.Phone2 = "";
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -49,12 +56,12 @@ public class Client {
         }
     }
 
-    public boolean Load(String docNum) throws SQLException {
+    public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
-            qry.setString(1, docNum);
+            qry.setString(1, name);
             return SelectClient(qry);
         } finally {
             qry.close();
@@ -71,6 +78,8 @@ public class Client {
                 this.DocType = results.getString(Client.FIELD_DOCTYPE).charAt(0);
                 this.Resp = results.getString(Client.FIELD_RESP).charAt(0);
                 this.Address = results.getString(Client.FIELD_ADDRESS);
+                this.Phone1 = results.getString(Client.FIELD_PHONE1);
+                this.Phone2 = results.getString(Client.FIELD_PHONE2);
                 return true;
             } else {
                 return false;
@@ -92,8 +101,9 @@ public class Client {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_NAME + ", " + this.FIELD_DOCNUM + ", "
                 + this.FIELD_DOCTYPE + ", " + this.FIELD_RESP + ", "
-                + this.FIELD_ADDRESS
-                + ") VALUES (?,?,?,?,?)";
+                + this.FIELD_ADDRESS + this.FIELD_PHONE1
+                + this.FIELD_PHONE2
+                + ") VALUES (?,?,?,?,?,?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
             qry.setString(1, this.Name);
@@ -101,6 +111,8 @@ public class Client {
             qry.setString(3, String.valueOf(this.DocType));
             qry.setString(4, String.valueOf(this.Resp));
             qry.setString(5, this.Address);
+            qry.setString(6, this.Phone1);
+            qry.setString(7, this.Phone2);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
@@ -120,7 +132,9 @@ public class Client {
                 + this.FIELD_DOCNUM + " = ?, "
                 + this.FIELD_DOCTYPE + " = ?, "
                 + this.FIELD_RESP + " = ?, "
-                + this.FIELD_ADDRESS + " = ? "
+                + this.FIELD_ADDRESS + " = ?, "
+                + this.FIELD_PHONE1 + " = ?, "
+                + this.FIELD_PHONE2 + " = ? "
                 + "WHERE " + this.FIELD_ID + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
@@ -129,7 +143,9 @@ public class Client {
             qry.setString(3, String.valueOf(this.DocType));
             qry.setString(4, String.valueOf(this.Resp));
             qry.setString(5, this.Address);
-            qry.setInt(6, this.Id);
+            qry.setString(6, this.Phone1);
+            qry.setString(7, this.Phone2);
+            qry.setInt(8, this.Id);
             return qry.executeUpdate() > 0;
         } finally {
             qry.close();
