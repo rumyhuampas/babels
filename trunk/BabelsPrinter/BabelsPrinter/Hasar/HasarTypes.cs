@@ -142,4 +142,19 @@ namespace BabelsPrinter
             return null;
         }
     }
+
+    public class DocumentosNoFiscalesHomologados
+    {
+        public static Field TICKET_NOTA_CREDITO_A = new Field("4");
+        public static Field TICKET_NOTA_CREDITO_B = new Field("5");
+        public static Field NOTA_CREDITO_A = new Field("R");
+        public static Field NOTA_CREDITO_B = new Field("S");
+        public static Field REMITO = new Field("r");
+        public static Field TICKET_RECIBO_X = new Field("6");
+        public static Field RECIBO_X = new Field("x");
+        public static Field ORDEN_SALIDA = new Field("s");
+        public static Field RESUMEN_CUENTA = new Field("t");
+        public static Field CARGO_HABITACION = new Field("U");
+        public static Field COTIZACION = new Field("u");
+    }
 }

@@ -65,10 +65,13 @@ namespace BabelsPrinter
                     this.Id = reader.GetInt32(reader.GetOrdinal(FIELD_ID));
                     this.Type = new MovementType(Conn);
                     this.Type.Load(reader.GetInt32(reader.GetOrdinal(FIELD_TYPE)));
-                    if (this.Type.Name == MT_VENTAA)
+                    if (this.Type.Name == MT_VENTAA || this.Type.Name == MT_CANCELACION)
                     {
-                        this.MoveClient = new Client(Conn);
-                        this.MoveClient.Load(reader.GetInt32(reader.GetOrdinal(FIELD_IDCLIENT)));
+                        if (!reader.IsDBNull(reader.GetOrdinal(FIELD_IDCLIENT)))
+                        {
+                            this.MoveClient = new Client(Conn);
+                            this.MoveClient.Load(reader.GetInt32(reader.GetOrdinal(FIELD_IDCLIENT)));
+                        }
                     }
                     this.DatePosted = reader.GetDateTime(reader.GetOrdinal(FIELD_DATEPOSTED));
                     this.Amount = reader.GetDouble(reader.GetOrdinal(FIELD_AMOUNT));

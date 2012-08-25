@@ -51,6 +51,7 @@ namespace BabelsPrinter
                 PrintJob.FIELD_STATUS + " = '" + PrintJob.ST_PEND + "'" +
                 " WHERE " + PrintJob.FIELD_STATUS + " <> '" + PrintJob.ST_PEND + "'" +
                 " AND " + PrintJob.FIELD_STATUS + " <> '" + PrintJob.ST_COMP + "'" +
+                " AND " + PrintJob.FIELD_STATUS + " <> '" + PrintJob.ST_FAIL + "'" +
                 " AND " + PrintJob.FIELD_PRINTER + " IN (" + Printers.GetPrinterList() + ")";
             MySQLCommand comm = new MySQLCommand(sql, GetDBConn());
             try
