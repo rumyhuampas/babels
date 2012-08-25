@@ -342,7 +342,7 @@
     <Component class="org.edisoncor.gui.button.ButtonIcon" name="btnExportPdf">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/babelsImages/pdf.png"/>
+          <Image iconType="2" name="C:\Users\Marito\Documents\NetBeansProjects\trunk\Babels\src\babelsImages\pdf.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="buttonIcon1"/>
         <Property name="toolTipText" type="java.lang.String" value="Generar PDF"/>
