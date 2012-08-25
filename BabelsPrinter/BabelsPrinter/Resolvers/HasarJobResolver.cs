@@ -70,10 +70,13 @@ namespace BabelsPrinter.Resolvers
                         Print_B_Ticket(job);
                         break;
                     case Movement.MT_CANCELACION:
+                        Print_Cancelation_Report(job);
                         break;
                     case Movement.MT_APERTURA:
+                        Print_Open_Report(job);
                         break;
                     case Movement.MT_CIERRE:
+                        Print_Z_Report(job);
                         break;
                     case Movement.MT_CIERREPARCIAL:
                         break;
@@ -128,6 +131,79 @@ namespace BabelsPrinter.Resolvers
                     hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
                 }
                 hasar715.CerrarDF();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+        private unsafe void Print_Z_Report(PrintJob job)
+        {
+            try
+            {
+                hasar715.TratarDeCancelarTodo();
+                hasar715.ImprimirReporteZ();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+        private unsafe void Print_Open_Report(PrintJob job)
+        {
+            try
+            {
+                hasar715.TratarDeCancelarTodo();
+                hasar715.AbrirDNF(Hasar715.ToSbyte(TiposDeEstacion.ESTACION_TICKET.value));
+                hasar715.ImprimirTextoNoFiscal(Hasar715.ToSbyte("CAJA ABIERTA"));
+                hasar715.CerrarDNF();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+        private unsafe void Print_Cancelation_Report(PrintJob job)
+        {
+            try
+            {
+                hasar715.TratarDeCancelarTodo();
+                if (job.Move.MoveClient != null)
+                {
+                    hasar715.IngresarDatosCliente(
+                        Hasar715.ToSbyte(job.Move.MoveClient.Name),
+                        Hasar715.ToSbyte(job.Move.MoveClient.DocNum),
+                        Hasar715.ToSbyte(job.Move.MoveClient.DocType.value),
+                        Hasar715.ToSbyte(job.Move.MoveClient.Resp.value),
+                        Hasar715.ToSbyte(job.Move.MoveClient.Address));
+                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0000-00000018"));
+                    hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.NOTA_CREDITO_A.value));
+                }
+                else
+                {
+                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0000-00000016"));
+                    hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.NOTA_CREDITO_B.value));
+                }
+                foreach (SaleItem item in job.Move.Items.items)
+                {
+                    hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
+                }
+                hasar715.CerrarDNFH();
             }
             catch (Exception ex)
             {
