@@ -2,6 +2,7 @@
 using System.Threading;
 using MySQLDriverCS;
 using BabelsPrinter.Properties;
+using BabelsPrinter.Resolvers;
 
 namespace BabelsPrinter
 {

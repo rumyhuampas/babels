@@ -60,8 +60,11 @@
       <DependentUpon>BabelsPrinterServ.cs</DependentUpon>
     </Compile>
     <Compile Include="Hasar\Hasar715.cs" />
+    <Compile Include="Helpers\XPrintHelper.cs" />
     <Compile Include="Interfaces\IJobResolver.cs" />
-    <Compile Include="Model\PrintHelper.cs" />
+    <Compile Include="Model\Combo.cs" />
+    <Compile Include="Helpers\KitchenPrintHelper.cs" />
+    <Compile Include="Model\Product.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -87,6 +90,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Model\SaleItem.cs" />
+    <Compile Include="Resolvers\XJobResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

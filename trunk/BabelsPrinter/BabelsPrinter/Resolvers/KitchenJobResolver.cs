@@ -8,7 +8,7 @@ using System.Drawing.Printing;
 using System.Drawing;
 using BabelsPrinter.Model;
 
-namespace BabelsPrinter
+namespace BabelsPrinter.Resolvers
 {
     public class KitchenJobResolver : IJobResolver
     {
@@ -45,9 +45,11 @@ namespace BabelsPrinter
 
         void doc_PrintPage(object sender, PrintPageEventArgs e)
         {
+            string kitchenID = Job.Printer.Substring(Job.Printer.IndexOf("_") + 1, Job.Printer.Length - (Job.Printer.IndexOf("_") + 1));
+
             helper = new KitchenPrintHelper(e);
             helper.DrawLogo();
-            helper.DrawTitle("Babels");
+            helper.DrawTitle("Babels - Cocina: " + kitchenID);
             helper.DrawJobInfo(Job);
             helper.DrawJobItems(Job);
         }

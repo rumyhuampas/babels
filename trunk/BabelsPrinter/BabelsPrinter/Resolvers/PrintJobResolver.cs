@@ -4,20 +4,23 @@ using System;
 using System.Text;
 using BabelsPrinter.Properties;
 using System.Threading;
-using BabelsPrinter.Hasar;
 using BabelsPrinter.Interfaces;
-namespace BabelsPrinter
+using BabelsPrinter.Resolvers;
+
+namespace BabelsPrinter.Resolvers
 {
     public class PrintJobResolver: IJobResolver
     {
         private MySQLConnection Conn;
         private HasarJobResolver HasarResolver;
         private KitchenJobResolver KitchenResolver;
+        private XJobResolver XResolver;
 
         public PrintJobResolver()
         {
             HasarResolver = new HasarJobResolver();
             KitchenResolver = new KitchenJobResolver();
+            XResolver = new XJobResolver();
         }
 
         public void ProcessJob(PrintJob job)
@@ -34,6 +37,13 @@ namespace BabelsPrinter
                     if (job.Printer.Contains(Printers.PRINTER_COCINA))
                     {
                         KitchenResolver.ProcessJob(job);
+                    }
+                    else
+                    {
+                        if (job.Printer == Printers.PRINTER_X)
+                        {
+                            XResolver.ProcessJob(job);
+                        }
                     }
                 }
                 CompleteJob(job, false);
