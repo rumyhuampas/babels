@@ -5,14 +5,17 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Printing;
 using BabelsPrinter.Properties;
+using MySQLDriverCS;
 
 namespace BabelsPrinter.Model
 {
     public class KitchenPrintHelper
     {
+        private MySQLConnection Conn;
         private PrintPageEventArgs Printer;
         private Rectangle RecLogo;
         private Rectangle RecTitle;
+        private Rectangle RecInfo;
         private int LeftMargin;
         private int TopMargin;
         private int PageWidth;
@@ -26,6 +29,7 @@ namespace BabelsPrinter.Model
             PageWidth = Printer.MarginBounds.Width;
             PageHeight = Printer.MarginBounds.Height;
             RecLogo = new Rectangle(LeftMargin, TopMargin, 100, 100);
+            Conn = PrinterService.GetDBConn();
         }
 
         public void DrawLogo()
@@ -44,23 +48,47 @@ namespace BabelsPrinter.Model
         public void DrawJobInfo(PrintJob job)
         {
             Font fontInfo = new Font("Calibri", 11, FontStyle.Regular);
-            RecTitle = new Rectangle(LeftMargin, TopMargin + RecLogo.Height + 5, PageWidth, 20);
+            RecInfo = new Rectangle(LeftMargin, RecLogo.Location.Y + RecLogo.Height + 5, PageWidth, 20);
             string jobInfo = "ID: " + job.Move.Id.ToString() + " - Fecha pedido: " + job.Move.DatePosted.ToString();
-            Printer.Graphics.DrawString(jobInfo, fontInfo, Brushes.Black, RecTitle);
+            Printer.Graphics.DrawString(jobInfo, fontInfo, Brushes.Black, RecInfo);
         }
 
         public void DrawJobItems(PrintJob job)
         {
             Font fontInfo = new Font("Calibri", 11, FontStyle.Regular);
-            RecTitle = new Rectangle(LeftMargin, TopMargin + RecLogo.Height + 5, PageWidth, 20);
+            RecInfo = new Rectangle(LeftMargin, RecInfo.Location.Y + RecInfo.Height + 5, PageWidth, 20);
             int i = 1;
             string jobInfo = "";
+            string kitchenID = job.Printer.Substring(job.Printer.IndexOf("_") + 1, job.Printer.Length - (job.Printer.IndexOf("_") + 1));
             foreach (SaleItem item in job.Move.Items.items)
             {
-                jobInfo = i.ToString() + " - Nombre: " + item.Name + " - Tipo: " + item.Type + " - Cantidad:" + item.Amount;
-                RecTitle.Y = TopMargin + RecLogo.Height + (i * 20);
-                Printer.Graphics.DrawString(jobInfo, fontInfo, Brushes.Black, RecTitle);
-                i++;
+                if (item.Type == "PRODUCT")
+                {
+                    Product prod = new Product(this.Conn);
+                    prod.Load(item.Id);
+                    if (prod.IdKitchen.ToString() == kitchenID)
+                    {
+                        jobInfo = i.ToString() + " - Producto: " + prod.Name + " - Cantidad:" + item.Amount;
+                        RecInfo.Y = RecInfo.Location.Y + RecInfo.Height;
+                        Printer.Graphics.DrawString(jobInfo, fontInfo, Brushes.Black, RecInfo);
+                        i++;
+                    }
+                }
+                else
+                {
+                    Combo combo = new Combo(this.Conn);
+                    combo.Load(item.Id);
+                    foreach (Product prod in combo.Products)
+                    {
+                        if (prod.IdKitchen.ToString() == kitchenID)
+                        {
+                            jobInfo = i.ToString() + " - [Combo: " + combo.Name + "] Producto: " + prod.Name + " - Cantidad:" + item.Amount;
+                            RecInfo.Y = RecInfo.Location.Y + RecInfo.Height;
+                            Printer.Graphics.DrawString(jobInfo, fontInfo, Brushes.Black, RecInfo);
+                            i++;
+                        }
+                    }
+                }
             }
         }
     }

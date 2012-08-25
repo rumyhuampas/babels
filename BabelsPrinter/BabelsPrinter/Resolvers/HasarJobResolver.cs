@@ -5,7 +5,7 @@ using System.Text;
 using BabelsPrinter.Properties;
 using BabelsPrinter.Interfaces;
 
-namespace BabelsPrinter.Hasar
+namespace BabelsPrinter.Resolvers
 {
     public class HasarJobResolver : IJobResolver
     {
