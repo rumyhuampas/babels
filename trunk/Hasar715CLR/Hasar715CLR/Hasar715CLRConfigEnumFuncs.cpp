@@ -95,3 +95,52 @@ ImpresorFiscal::TiposDeResponsabilidadesCliente Hasar715CLRConfigEnumFuncs::Obte
 	else if(*valor == 'V') return ImpresorFiscal::EVENTUAL;
 	else if(*valor == 'W') return ImpresorFiscal::EVENTUAL_SOCIAL;
 }
+
+ImpresorFiscal::DocumentosNoFiscalesHomologados Hasar715CLRConfigEnumFuncs::ObtenerParamDocumentosNoFiscalesHomologados(char *valor){
+	
+	if(*valor == '4') return ImpresorFiscal::TICKET_NOTA_CREDITO_A;
+	else if(*valor == '5') return ImpresorFiscal::TICKET_NOTA_CREDITO_B;
+	else if(*valor == 'R') return ImpresorFiscal::NOTA_CREDITO_A;
+	else if(*valor == 'S') return ImpresorFiscal::NOTA_CREDITO_B;
+	else if(*valor == 'r') return ImpresorFiscal::REMITO;
+	else if(*valor == '6') return ImpresorFiscal::TICKET_RECIBO_X;
+	else if(*valor == 'x') return ImpresorFiscal::RECIBO_X;
+	else if(*valor == 's') return ImpresorFiscal::ORDEN_SALIDA;
+	else if(*valor == 't') return ImpresorFiscal::RESUMEN_CUENTA;
+	else if(*valor == 'U') return ImpresorFiscal::CARGO_HABITACION;
+	else if(*valor == 'u') return ImpresorFiscal::COTIZACION;
+
+	else if(*valor == ':') return ImpresorFiscal::CLAUSULA_CREDITO;
+	else if(*valor == ';') return ImpresorFiscal::CLAUSULA_SEGURO;
+	else if(*valor == '7') return ImpresorFiscal::TICKET_PAGARE;
+	else if(*valor == '<') return ImpresorFiscal::PAGARE;
+	else if(*valor == '=') return ImpresorFiscal::POLIZA_SEGURO;
+	else if(*valor == '>') return ImpresorFiscal::RECORDATORIO;
+	else if(*valor == '?') return ImpresorFiscal::SOLICITUD_CREDITO;
+
+	else if(*valor == '!') return ImpresorFiscal::COMUNICACION_CLIENTE;
+	else if(*valor == '"') return ImpresorFiscal::OFRECIMIENTO_CREDITO;
+	else if(*valor == '#') return ImpresorFiscal::OFRECIMIENTO_TARJETA;
+	else if(*valor == '$') return ImpresorFiscal::MINUTA_CREDITO;
+	else if(*valor == '%') return ImpresorFiscal::OFRECIMIENTO_PASAPORTE;
+	else if(*valor == '&') return ImpresorFiscal::RENOVACION_CREDITO;
+	else if(*valor == '\'') return ImpresorFiscal::ADELANTO_REMUNERACION;
+	else if(*valor == '(') return ImpresorFiscal::SOLICITUD_TARJETA_DEBITO;
+	else if(*valor == ')') return ImpresorFiscal::SOLICITUD_CLAVE_TARJETA;
+	else if(*valor == '*') return ImpresorFiscal::RESCATE_MERCADERIA;
+	else if(*valor == '+') return ImpresorFiscal::INGRESO_EGRESO_SUCURSAL;
+
+	else if(*valor == ',') return ImpresorFiscal::TICKET_PRESUPUESTO;
+	else if(*valor == '-') return ImpresorFiscal::TICKET_ENTREGA;
+	else if(*valor == '.') return ImpresorFiscal::TICKET_ESTACIONAMIENTO;
+	else if(*valor == '/') return ImpresorFiscal::TICKET_COBRO_SERVICIO;
+	else if(*valor == '@') return ImpresorFiscal::TICKET_INGRESO_DINERO;
+	else if(*valor == 'A') return ImpresorFiscal::TICKET_RETIRO_DINERO;
+	else if(*valor == 'B') return ImpresorFiscal::TICKET_TALON_CAMBIO;
+	else if(*valor == 'C') return ImpresorFiscal::TICKET_TALON_REPARTO;
+	else if(*valor == 'D') return ImpresorFiscal::TICKET_TALON_REGALO;
+	else if(*valor == 'E') return ImpresorFiscal::TICKET_TALON_CUENTA_CORRIENTE;
+	else if(*valor == 'F') return ImpresorFiscal::TICKET_AVISO_OPERACION_CREDITO;
+	else if(*valor == 'G') return ImpresorFiscal::TICKET_CUPON_PROMOCION;
+	else if(*valor == 'H') return ImpresorFiscal::TICKET_USO_INTERNO_FARMACIA;
+}
