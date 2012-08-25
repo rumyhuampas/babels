@@ -101,7 +101,7 @@ public class Client {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_NAME + ", " + this.FIELD_DOCNUM + ", "
                 + this.FIELD_DOCTYPE + ", " + this.FIELD_RESP + ", "
-                + this.FIELD_ADDRESS + this.FIELD_PHONE1
+                + this.FIELD_ADDRESS + ", " + this.FIELD_PHONE1 + ", "
                 + this.FIELD_PHONE2
                 + ") VALUES (?,?,?,?,?,?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -163,6 +163,28 @@ public class Client {
                 return true;
             } else {
                 return false;
+            }
+        } finally {
+            qry.close();
+        }
+    }
+    public boolean Exists() throws SQLException {
+        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_NAME + " = ? AND "
+                + this.FIELD_ID + " <> ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setString(1, this.Name);
+            qry.setInt(2, this.Id);
+            ResultSet results = qry.executeQuery();
+            try {
+                if (results.next()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } finally {
+                results.close();
             }
         } finally {
             qry.close();
