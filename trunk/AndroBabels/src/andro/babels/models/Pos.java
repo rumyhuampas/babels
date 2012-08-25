@@ -48,7 +48,7 @@ public class Pos extends andro.babels.models.Base {
             print.Printer = "FISCAL";
         } else {
             if (sale.Type.Name.equals(Sale.TYPE_X)) {
-                print.Printer = "NOFISCAL";
+                print.Printer = "X";
             }
         }
         if (print.Save() == true) {
