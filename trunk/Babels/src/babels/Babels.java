@@ -49,7 +49,7 @@ public class Babels {
     private static void InitDBConn() throws IOException {
         String appPathFinal = "";
         String appPath = Babels.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        JOptionPane.showMessageDialog(null, appPath);
+      //  JOptionPane.showMessageDialog(null, appPath);
         if (appPath.substring(appPath.length() - 3).equalsIgnoreCase("jar")) {
             appPathFinal = appPath.substring(0, appPath.length() - 3);
             appPathFinal = appPathFinal + "ini";
