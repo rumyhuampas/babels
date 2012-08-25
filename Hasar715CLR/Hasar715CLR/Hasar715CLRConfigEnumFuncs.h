@@ -13,4 +13,5 @@ public:
 	static ImpresorFiscal::DocumentosFiscales ObtenerParamDocumentosFiscales(char *valor);
 	static ImpresorFiscal::TiposDeDocumentoCliente ObtenerParamTiposDeDocumentoCliente(char *valor);
 	static ImpresorFiscal::TiposDeResponsabilidadesCliente ObtenerParamTiposDeResponsabilidadesCliente(char *valor);
+	static ImpresorFiscal::DocumentosNoFiscalesHomologados ObtenerParamDocumentosNoFiscalesHomologados(char *valor);
 };

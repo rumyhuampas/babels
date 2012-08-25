@@ -343,12 +343,49 @@ namespace Hasar715CLR {
 		}
 		//************************************************************************
 
+		//********************************* DNFH ***********************************
+		void EspecificarInformacionRemitoComprobanteOriginal(char *numComprobante){
+			try{
+				logger->Logf ("Especificando info remito comprobante original: %s", numComprobante);
+				impresor->EspecificarInformacionRemitoComprobanteOriginal (1, string(numComprobante));
+			}
+			catch(Excepcion &e){
+				logger -> Log(e);
+				throw e;
+			}
+		}
+		
+		void AbrirDNFH(char *TipoDocumentoNoFiscalHomologado){
+			try{
+				logger->Logf ("Abriendo DNFH tipo: %s", TipoDocumentoNoFiscalHomologado);
+				impresor->AbrirDNFH(Hasar715CLRConfigEnumFuncs::ObtenerParamDocumentosNoFiscalesHomologados(TipoDocumentoNoFiscalHomologado));
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+				throw e;
+			}
+		}
+
+		void CerrarDNFH(){
+			try{
+				logger -> Log("Cerrando DNFH");
+				logger -> Logf("Número de DNFH recién cerrado: %lu\n", impresor->CerrarDNFH());
+			}
+			catch(Excepcion &e)
+			{
+				logger -> Log(e);
+			}
+		}
+		//************************************************************************
+
 		//**************************************************************
 		void TratarDeCancelarTodo(){
 			CancelarComprobante();
 			CancelarComprobanteFiscal();
 			CerrarDF();
 			CerrarDNF();
+			CerrarDNFH();
 		}
 		//**************************************************************
 
