@@ -84,7 +84,7 @@ namespace BabelsPrinter
                     {
                         this.Description = reader.GetString(reader.GetOrdinal(FIELD_DESCRIPTION));
                     }
-                    this.Items = GetItems(this.Id);
+                    this.Items = GetItems(this.Type.Name, this.Id);
                 }
             }
             catch (Exception ex) { }
@@ -94,12 +94,19 @@ namespace BabelsPrinter
             }
         }
 
-        private SaleItemList GetItems(int saleId)
+        private SaleItemList GetItems(string jobType, int saleId)
         {
             SaleItemList list = new SaleItemList();
-
+ 
             string sql = "SELECT * FROM " + SaleItem.TABLENAME +
                 " WHERE " + SaleItem.FIELD_IDMOVE + "= " + saleId.ToString();
+            if (jobType == MT_CANCELACION)
+            {
+                Cancelation cancel = new Cancelation(Conn);
+                cancel.Load(saleId);
+                sql = "SELECT * FROM " + SaleItem.TABLENAME +
+                " WHERE " + SaleItem.FIELD_IDMOVE + "= " + cancel.CanceledId.ToString();
+            }
             MySQLCommand comm = new MySQLCommand(sql, Conn);
             try
             {

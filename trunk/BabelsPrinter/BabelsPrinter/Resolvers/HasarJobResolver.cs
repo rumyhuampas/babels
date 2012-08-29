@@ -191,13 +191,13 @@ namespace BabelsPrinter.Resolvers
                         Hasar715.ToSbyte(job.Move.MoveClient.DocType.value),
                         Hasar715.ToSbyte(job.Move.MoveClient.Resp.value),
                         Hasar715.ToSbyte(job.Move.MoveClient.Address));
-                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0000-00000018"));
-                    hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.NOTA_CREDITO_A.value));
+                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0001-12345678"));
+                    hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.TICKET_NOTA_CREDITO_A.value));
                 }
                 else
                 {
-                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0000-00000016"));
-                    hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.NOTA_CREDITO_B.value));
+                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0000-00000018"));
+                    hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.TICKET_NOTA_CREDITO_B.value));
                 }
                 foreach (SaleItem item in job.Move.Items.items)
                 {
