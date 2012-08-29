@@ -17,6 +17,7 @@ namespace BabelsPrinter.Helpers
         private PrintPageEventArgs Printer;
         private Rectangle Rec;
         private Font TextFont;
+        private Font TextFontBold;
         private int LeftMargin;
         private int TopMargin;
         private int PageWidth;
@@ -28,6 +29,7 @@ namespace BabelsPrinter.Helpers
             LeftMargin = Printer.MarginBounds.Left;
             TopMargin = Printer.MarginBounds.Top;
             TextFont = new Font("Courier New", 10, FontStyle.Regular);
+            TextFontBold = new Font("Courier New", 10, FontStyle.Bold);
             SizeF sizeTitle = Printer.Graphics.MeasureString(LINE, TextFont);
             PageWidth = (int)sizeTitle.Width;
             PageHeight = Printer.MarginBounds.Height;
@@ -81,8 +83,8 @@ namespace BabelsPrinter.Helpers
             Rectangle auxRec = new Rectangle(Rec.X, Rec.Y, (Rec.Width / 3) * 2, Rec.Height);
             Rectangle auxRecLast = new Rectangle(auxRec.X + auxRec.Width, auxRec.Y, Rec.Width / 3, Rec.Height);
 
-            Printer.Graphics.DrawString("TOTAL", TextFont, Brushes.Black, auxRec);
-            Printer.Graphics.DrawString("$" + job.Move.Amount.ToString(), TextFont, Brushes.Black, auxRecLast);
+            Printer.Graphics.DrawString("TOTAL", TextFontBold, Brushes.Black, auxRec);
+            Printer.Graphics.DrawString("$" + job.Move.Amount.ToString(), TextFontBold, Brushes.Black, auxRecLast, new StringFormat(StringFormatFlags.DirectionRightToLeft));
             Rec.Y += 20;
             auxRec.Y += 20;
             auxRecLast.Y += 20;

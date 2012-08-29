@@ -62,6 +62,7 @@
     <Compile Include="Hasar\Hasar715.cs" />
     <Compile Include="Helpers\XPrintHelper.cs" />
     <Compile Include="Interfaces\IJobResolver.cs" />
+    <Compile Include="Model\Cancelation.cs" />
     <Compile Include="Model\Combo.cs" />
     <Compile Include="Helpers\KitchenPrintHelper.cs" />
     <Compile Include="Model\Product.cs" />
