@@ -42,5 +42,14 @@ public class CancelSale extends andro.babels.models.Base {
         cancelation.CancellerMove = cancelSale;
         cancelation.CanceledMove = CurrentSale;
         cancelation.Save();
+        
+        SavePrintJob(cancelSale);
+    }
+    
+    private void SavePrintJob(Sale sale) throws SQLException{
+        Print print = new Print(andro.babels.controllers.Welcome.mysql.Conn);
+        print.Sale = sale;
+        print.Printer = "FISCAL";
+        print.Save();
     }
 }
