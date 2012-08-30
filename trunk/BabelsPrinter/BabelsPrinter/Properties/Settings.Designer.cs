@@ -112,5 +112,50 @@ namespace BabelsPrinter.Properties {
                 return ((string)(this["HasarIniPath"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Babels")]
+        public string DefaultClientName {
+            get {
+                return ((string)(this["DefaultClientName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C")]
+        public string DefaultClientDocType {
+            get {
+                return ((string)(this["DefaultClientDocType"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000000")]
+        public string DefaultClientDocNum {
+            get {
+                return ((string)(this["DefaultClientDocNum"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("E")]
+        public string DefaultClientResp {
+            get {
+                return ((string)(this["DefaultClientResp"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("San Martin 600")]
+        public string DefaultClientAddress {
+            get {
+                return ((string)(this["DefaultClientAddress"]));
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MySQLDriverCS;
+using BabelsPrinter.Properties;
 
 namespace BabelsPrinter.Model
 {
@@ -64,6 +65,17 @@ namespace BabelsPrinter.Model
             {
                 comm.Dispose();
             }
+        }
+
+        public static Client GetDefaultClient()
+        {
+            Client def = new Client(null);
+            def.Name = Settings.Default.DefaultClientName;
+            def.DocNum = Settings.Default.DefaultClientDocNum;
+            def.DocType = TiposDeDocumentoCliente.FromValue(Settings.Default.DefaultClientDocType);
+            def.Resp = TiposDeResponsabilidadesCliente.FromValue(Settings.Default.DefaultClientResp);
+            def.Address = Settings.Default.DefaultClientAddress;
+            return def;
         }
     }
 }

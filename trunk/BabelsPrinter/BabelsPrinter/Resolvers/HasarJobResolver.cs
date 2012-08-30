@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using BabelsPrinter.Properties;
 using BabelsPrinter.Interfaces;
+using BabelsPrinter.Model;
 
 namespace BabelsPrinter.Resolvers
 {
@@ -94,6 +95,7 @@ namespace BabelsPrinter.Resolvers
 
         private unsafe void Print_A_Ticket(PrintJob job)
         {
+            Logger.Log(Logger.MT_INFO, "Printing A Ticket", Settings.Default.LogLevel >= 4);
             try
             {
                 hasar715.TratarDeCancelarTodo();
@@ -122,6 +124,7 @@ namespace BabelsPrinter.Resolvers
 
         private unsafe void Print_B_Ticket(PrintJob job)
         {
+            Logger.Log(Logger.MT_INFO, "Printing B Ticket", Settings.Default.LogLevel >= 4);
             try
             {
                 hasar715.TratarDeCancelarTodo();
@@ -144,6 +147,7 @@ namespace BabelsPrinter.Resolvers
 
         private unsafe void Print_Z_Report(PrintJob job)
         {
+            Logger.Log(Logger.MT_INFO, "Printing Z Report", Settings.Default.LogLevel >= 4);
             try
             {
                 hasar715.TratarDeCancelarTodo();
@@ -161,6 +165,7 @@ namespace BabelsPrinter.Resolvers
 
         private unsafe void Print_Open_Report(PrintJob job)
         {
+            Logger.Log(Logger.MT_INFO, "Printing Open Report", Settings.Default.LogLevel >= 4);
             try
             {
                 hasar715.TratarDeCancelarTodo();
@@ -180,6 +185,7 @@ namespace BabelsPrinter.Resolvers
 
         private unsafe void Print_Cancelation_Report(PrintJob job)
         {
+            Logger.Log(Logger.MT_INFO, "Printing Cancelation", Settings.Default.LogLevel >= 4);
             try
             {
                 hasar715.TratarDeCancelarTodo();
@@ -191,12 +197,19 @@ namespace BabelsPrinter.Resolvers
                         Hasar715.ToSbyte(job.Move.MoveClient.DocType.value),
                         Hasar715.ToSbyte(job.Move.MoveClient.Resp.value),
                         Hasar715.ToSbyte(job.Move.MoveClient.Address));
-                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0001-12345678"));
+                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte(job.Move.TicketNumber));
                     hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.TICKET_NOTA_CREDITO_A.value));
                 }
                 else
                 {
-                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte("0000-00000018"));
+                    Client defaultClient = Client.GetDefaultClient();
+                    hasar715.IngresarDatosCliente(
+                        Hasar715.ToSbyte(defaultClient.Name),
+                        Hasar715.ToSbyte(defaultClient.DocNum),
+                        Hasar715.ToSbyte(defaultClient.DocType.value),
+                        Hasar715.ToSbyte(defaultClient.Resp.value),
+                        Hasar715.ToSbyte(defaultClient.Address));
+                    hasar715.EspecificarInformacionRemitoComprobanteOriginal(Hasar715.ToSbyte(job.Move.TicketNumber));
                     hasar715.AbrirDNFH(Hasar715.ToSbyte(DocumentosNoFiscalesHomologados.TICKET_NOTA_CREDITO_B.value));
                 }
                 foreach (SaleItem item in job.Move.Items.items)

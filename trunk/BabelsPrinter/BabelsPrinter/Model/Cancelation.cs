@@ -12,15 +12,18 @@ namespace BabelsPrinter.Model
         public static string FIELD_ID = "Id";
         public static string FIELD_CANCELLERMOVEID = "CancellerMoveId";
         public static string FIELD_CANCELEDMOVEID = "CanceledMoveId";
+        public static string FIELD_TICKETNUMBER = "TicketNumber";
 
         private MySQLConnection Conn;
         private int _Id;
         private int _CancellerId;
         private int _CanceledId;
+        private string _TicketNumber;
 
         public int Id { get { return _Id; } set { _Id = value; } }
         public int CancellerId { get { return _CancellerId; } set { _CancellerId = value; } }
         public int CanceledId { get { return _CanceledId; } set { _CanceledId = value; } }
+        public string TicketNumber { get { return _TicketNumber; } set { _TicketNumber = value; } }
 
         public Cancelation(MySQLConnection conn)
         {
@@ -40,7 +43,8 @@ namespace BabelsPrinter.Model
                     reader.Read();
                     this.Id = reader.GetInt32(reader.GetOrdinal(FIELD_ID));
                     this.CancellerId = cancellerId;
-                    this._CanceledId = reader.GetInt32(reader.GetOrdinal(FIELD_CANCELEDMOVEID));
+                    this.CanceledId = reader.GetInt32(reader.GetOrdinal(FIELD_CANCELEDMOVEID));
+                    this.TicketNumber = reader.GetString(reader.GetOrdinal(FIELD_TICKETNUMBER));
                 }
             }
             catch (Exception ex) { }
