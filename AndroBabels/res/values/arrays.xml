@@ -2,8 +2,8 @@
 <resources>
 
     <string-array name="types">
-        <item>VENTA_A</item>
         <item>VENTA_B</item>
+        <item>VENTA_A</item>
         <item>VENTA_X</item>
     </string-array>
     
