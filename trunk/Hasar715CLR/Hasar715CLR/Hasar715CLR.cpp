@@ -211,7 +211,7 @@ namespace Hasar715CLR {
 
 		void AbrirDNF(char *TipoDeEstacion){
 			try{
-				logger->Logf ("Abriendo DNF tipo: %s", TipoDeEstacion);
+				logger->Logf ("Abriendo DNF tipo: %s", string(TipoDeEstacion));
 				impresor->AbrirDNF(Hasar715CLRConfigEnumFuncs::ObtenerParamTipoEstacion(TipoDeEstacion));
 			}
 			catch(Excepcion &e)
@@ -287,7 +287,7 @@ namespace Hasar715CLR {
 		
 		void AbrirDF(char *TipoDocumentoFiscal){
 			try{
-				logger->Logf ("Abriendo DF tipo: %s", TipoDocumentoFiscal);
+				logger->Logf ("Abriendo DF tipo: %s", string(TipoDocumentoFiscal));
 				impresor->AbrirDF(Hasar715CLRConfigEnumFuncs::ObtenerParamDocumentosFiscales(TipoDocumentoFiscal));
 			}
 			catch(Excepcion &e)
@@ -346,7 +346,7 @@ namespace Hasar715CLR {
 		//********************************* DNFH ***********************************
 		void EspecificarInformacionRemitoComprobanteOriginal(char *numComprobante){
 			try{
-				logger->Logf ("Especificando info remito comprobante original: %s", numComprobante);
+				logger->Logf ("Especificando info remito comprobante original: %s", string(numComprobante));
 				impresor->EspecificarInformacionRemitoComprobanteOriginal (1, string(numComprobante));
 			}
 			catch(Excepcion &e){
@@ -357,7 +357,7 @@ namespace Hasar715CLR {
 		
 		void AbrirDNFH(char *TipoDocumentoNoFiscalHomologado){
 			try{
-				logger->Logf ("Abriendo DNFH tipo: %s", TipoDocumentoNoFiscalHomologado);
+				logger->Logf ("Abriendo DNFH tipo: %s", string(TipoDocumentoNoFiscalHomologado));
 				impresor->AbrirDNFH(Hasar715CLRConfigEnumFuncs::ObtenerParamDocumentosNoFiscalesHomologados(TipoDocumentoNoFiscalHomologado));
 			}
 			catch(Excepcion &e)
