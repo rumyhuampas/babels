@@ -36,6 +36,7 @@ namespace BabelsPrinter
         private int _IdUser;
         private string _Description;
         private SaleItemList _Items;
+        private string _TicketNumber;
 
         public int Id { get { return _Id; } set { _Id = value; } }
         public MovementType Type { get { return _Type; } set { _Type = value; } }
@@ -45,6 +46,7 @@ namespace BabelsPrinter
         public int IdUser { get { return _IdUser; } set { _IdUser = value; } }
         public string Description { get { return _Description; } set { _Description = value; } }
         public SaleItemList Items { get { return _Items; } set { _Items = value; } }
+        public string TicketNumber { get { return _TicketNumber; } set { _TicketNumber = value; } }
 
         public Movement(MySQLConnection conn)
         {
@@ -104,6 +106,7 @@ namespace BabelsPrinter
             {
                 Cancelation cancel = new Cancelation(Conn);
                 cancel.Load(saleId);
+                this.TicketNumber = cancel.TicketNumber;
                 sql = "SELECT * FROM " + SaleItem.TABLENAME +
                 " WHERE " + SaleItem.FIELD_IDMOVE + "= " + cancel.CanceledId.ToString();
             }
