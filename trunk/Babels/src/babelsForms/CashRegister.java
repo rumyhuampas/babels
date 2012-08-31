@@ -79,8 +79,6 @@ public class CashRegister extends javax.swing.JDialog {
         mItemFinalClose = new javax.swing.JMenuItem();
         mItemCashOut = new javax.swing.JMenuItem();
         mItemCashIn = new javax.swing.JMenuItem();
-        MenuReports = new javax.swing.JMenu();
-        mitemPrint = new javax.swing.JMenuItem();
 
         mItemDetalle.setText("Detalle");
         mItemDetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -257,18 +255,6 @@ public class CashRegister extends javax.swing.JDialog {
 
         jMenuBar1.add(MenuOperations);
 
-        MenuReports.setText("Reportes");
-
-        mitemPrint.setText("Imprimir");
-        mitemPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemPrintActionPerformed(evt);
-            }
-        });
-        MenuReports.add(mitemPrint);
-
-        jMenuBar1.add(MenuReports);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -400,14 +386,6 @@ public class CashRegister extends javax.swing.JDialog {
         btnSearch.doClick();
     }//GEN-LAST:event_chbInOutActionPerformed
 
-    private void mitemPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemPrintActionPerformed
-        try {
-            Manager.doPrint();
-        } catch (SQLException ex) {
-            Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_mitemPrintActionPerformed
-
     private void tblMovementsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMovementsMousePressed
         if (evt.getButton() == MouseEvent.BUTTON3) {
             if (evt.getClickCount() == 1) {
@@ -462,7 +440,6 @@ public class CashRegister extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
-    private javax.swing.JMenu MenuReports;
     private org.edisoncor.gui.button.ButtonTask btnExport;
     private javax.swing.JButton btnSearch;
     private javax.swing.JCheckBox chbInOut;
@@ -483,7 +460,6 @@ public class CashRegister extends javax.swing.JDialog {
     private javax.swing.JMenuItem mItemOpenCash;
     private javax.swing.JMenuItem mItemPartialClose;
     private javax.swing.JMenu menuClose;
-    private javax.swing.JMenuItem mitemPrint;
     private org.jdesktop.swingx.JXPanel pnlBusy1;
     private javax.swing.JPopupMenu popUpTableMovement;
     private javax.swing.JTable tblMovements;

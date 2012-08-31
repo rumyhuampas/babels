@@ -45,8 +45,8 @@
                           <Component id="txtPhone2" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
                           <Component id="txtAdress" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
                           <Component id="txtName" min="-2" pref="214" max="-2" attributes="0"/>
-                          <Component id="txtphone1" min="-2" pref="214" max="-2" attributes="0"/>
-                          <Component id="txtCuit" min="-2" pref="214" max="-2" attributes="0"/>
+                          <Component id="txtPhone1" min="-2" pref="214" max="-2" attributes="0"/>
+                          <Component id="txtDocNum" min="-2" pref="214" max="-2" attributes="0"/>
                           <Component id="comboTypeDoc" min="-2" pref="214" max="-2" attributes="0"/>
                           <Component id="comboTypeResp" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
                       </Group>
@@ -73,7 +73,7 @@
               </Group>
               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtphone1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPhone1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -88,7 +88,7 @@
               </Group>
               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtCuit" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDocNum" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
@@ -118,24 +118,15 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtName">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNameActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Telefono:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtphone1">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtphone1ActionPerformed"/>
-      </Events>
+    <Component class="javax.swing.JTextField" name="txtPhone1">
     </Component>
     <Component class="javax.swing.JTextField" name="txtPhone2">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPhone2ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -143,9 +134,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtAdress">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAdressActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -157,10 +145,7 @@
         <Property name="text" type="java.lang.String" value="N&#xb0; Cuit/Cuil/Dni:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCuit">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCuitActionPerformed"/>
-      </Events>
+    <Component class="javax.swing.JTextField" name="txtDocNum">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -178,6 +163,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOk">
       <Properties>
