@@ -12,12 +12,15 @@ import java.awt.Desktop;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
 
 public class ReportManager {
 
@@ -71,14 +74,23 @@ public class ReportManager {
                     jasperReport, null, datasource);
 
            //JasperViewer.viewReport(jasperPrint);
-            String filename = "Reporte Movimientos de Caja" + ".pdf";
-             OutputStream output = new FileOutputStream(new File("C:/Marito/"+filename+"")); 
-            JasperExportManager.exportReportToPdfStream(jasperPrint, output); 
+            JDialog viewer = new JDialog(new JFrame(),"Vista previa del reporte", true); 
+            viewer.setSize(800,600); 
+            viewer.setLocationRelativeTo(null); 
+            JRViewer jrv = new JRViewer(jasperPrint); 
+
+            viewer.getContentPane().add(jrv); 
+            viewer.show(); 
            
-            output.flush();
-            output.close();
-            File path = new File ("C:/Marito/"+filename+"");
-        Desktop.getDesktop().open(path);
+           // String filename = "Reporte Movimientos de Caja" + ".pdf";
+           //  OutputStream output = new FileOutputStream(new File("C:/"+filename+"")); 
+           //  File path = new File ("C:/"+filename+"");
+           // JasperExportManager.exportReportToPdfStream(jasperPrint, output); 
+           
+         //   output.flush();
+          //  output.close();
+          //  File path = new File ("C:/"+filename+"");
+       // Desktop.getDesktop().open(path);
           
     }
 }
