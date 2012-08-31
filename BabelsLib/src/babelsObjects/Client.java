@@ -1,6 +1,7 @@
 package babelsObjects;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Client {
 
@@ -13,7 +14,6 @@ public class Client {
     public static final String FIELD_ADDRESS = "Address";
     public static final String FIELD_PHONE1 = "Phone1";
     public static final String FIELD_PHONE2 = "Phone2";
-    
     private Connection Conn;
     private int Id;
     public String Name;
@@ -59,6 +59,18 @@ public class Client {
     public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_DOCNUM + " = ?";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+            qry.setString(1, name);
+            return SelectClient(qry);
+        } finally {
+            qry.close();
+        }
+    }
+
+    public boolean LoadLike(String name) throws SQLException {
+        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_NAME + " like ?%";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setString(1, name);
@@ -151,7 +163,7 @@ public class Client {
             qry.close();
         }
     }
-    
+
     public boolean Delete() throws SQLException {
         String sql = "DELETE FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_ID + " = ?";
@@ -168,6 +180,7 @@ public class Client {
             qry.close();
         }
     }
+
     public boolean Exists() throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
                 + this.FIELD_NAME + " = ? AND "
@@ -183,6 +196,37 @@ public class Client {
                 } else {
                     return false;
                 }
+            } finally {
+                results.close();
+            }
+        } finally {
+            qry.close();
+        }
+    }
+
+    public Object[] GetClient(String Name) throws SQLException {
+        String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
+                + this.FIELD_NAME + " like '" + Name + "%'";
+        PreparedStatement qry = this.Conn.prepareStatement(sql);
+        try {
+          //  qry.setString(1, Name);
+            ArrayList rows = new ArrayList();
+            ArrayList row = new ArrayList();
+            ResultSet results = qry.executeQuery();
+            try {
+                while (results.next()) {
+                    row.add(results.getInt(FIELD_ID));
+                    row.add(results.getString(FIELD_NAME));
+                    row.add(results.getString(Client.FIELD_DOCTYPE).charAt(0));
+                    row.add(results.getString(Client.FIELD_DOCNUM));
+                    row.add(results.getString(Client.FIELD_RESP).charAt(0));
+                    row.add(results.getString(Client.FIELD_ADDRESS));
+                    row.add(results.getString(Client.FIELD_PHONE1));
+                    row.add(results.getString(Client.FIELD_PHONE2));                 
+                    rows.add(row.toArray());
+                    row.clear();
+                }
+                return rows.toArray();
             } finally {
                 results.close();
             }
