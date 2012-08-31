@@ -13,6 +13,11 @@ public class Clients extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         Manager = new ClientsManager(this.tblClients, this.txtSearchClients);        
+        try {
+            Manager.RefreshTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @SuppressWarnings("unchecked")
