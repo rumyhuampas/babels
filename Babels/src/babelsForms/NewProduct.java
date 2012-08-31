@@ -28,9 +28,9 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
         super(parent, modal);
         initComponents();
         this.Manager = new NewProductManager();
-         this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this.txtCostPrice, this.txtPricePackaging, this.txtIva, this);
+        this.Manager.SetFieldsListeners(this.txtName, this.txtPrice, this.txtaDesc, this.txtCostPrice, this.txtPricePackaging, this.txtIva, this);
         this.txtName.requestFocus();
-         AutoCompleteDecorator.decorate(this.comboKitchen);
+        AutoCompleteDecorator.decorate(this.comboKitchen);
         AutoCompleteDecorator.decorate(this.comboCategories);
         this.txtIva.setText("21");
     }
@@ -202,20 +202,22 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblName)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(lblName)
+                                .addGap(21, 21, 21)
+                                .addComponent(lblDesc))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(spnlDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(21, 21, 21)
-                        .addComponent(lblDesc)
-                        .addGap(103, 103, 103)
-                        .addComponent(lblPrice))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(spnlDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrice))))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -302,8 +304,7 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
                         } else {
                             this.dispose();
                         }
-                    }
-                    else{
+                    } else {
                         this.dispose();
                     }
                 }
@@ -316,7 +317,6 @@ public class NewProduct extends javax.swing.JDialog implements IBabelsDialog {
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;

@@ -1,6 +1,9 @@
 package babelsManagers;
 
 import babels.Babels;
+import babelsInterfaces.IBabelsDialog;
+import babelsListeners.KeyListenerType;
+import babelsListeners.txtFieldListener;
 import babelsObjects.Client;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,8 +14,8 @@ import javax.swing.JTextField;
 
 public class NewClientManager {
 
-    public boolean CheckFields(JTextField txtName, JTextField txtCuit, JTextField txtAdress) {
-        if (!txtName.getText().equals("") && !txtCuit.getText().equals("") && !txtAdress.getText().equals("")) {
+    public boolean CheckFields(JTextField txtName, JTextField txtPhone1, JTextField txtPhone2, JTextField txtAdress, JTextField txtDocNum) {
+        if (!txtName.getText().equals("") && !txtPhone1.getText().equals("") && !txtAdress.getText().equals("") && !txtDocNum.getText().equals("")) {
             //VALIDAR TODOS LOS CAMPOS!!!!!!!!!
             return true;
         } else {
@@ -20,6 +23,13 @@ public class NewClientManager {
                     "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+    }
+     public void SetFieldsListeners(JTextField txtName, JTextField txtPhone1, JTextField txtPhone2, JTextField txtAdress, JTextField txtDocNum, IBabelsDialog dialog) {
+        txtName.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
+        txtPhone1.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
+        txtPhone2.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
+        txtAdress.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
+        txtDocNum.addKeyListener(new txtFieldListener(KeyListenerType.ANY, dialog));
     }
 
     public void setComboTypeDoc(JComboBox comboTypeDoc) {
@@ -95,7 +105,7 @@ public class NewClientManager {
                 if (TypeDoc.equals("Dni")) {
                     return ("2").charAt(0);
                 } else {
-                    if (TypeDoc.equals("Lc"))  {
+                    if (TypeDoc.equals("Lc")) {
                         return ("1").charAt(0);
                     } else {
                         if (TypeDoc.equals("Le")) {
@@ -107,7 +117,7 @@ public class NewClientManager {
                                 if (TypeDoc.equals("Ci")) {
                                     return ("4").charAt(0);
                                 } else {
-                                    return(" ").charAt(0);
+                                    return (" ").charAt(0);
                                 }
                             }
                         }
