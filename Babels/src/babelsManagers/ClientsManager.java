@@ -26,7 +26,7 @@ public class ClientsManager {
     }
       public void RefreshTable() throws SQLException {
         this.RefreshingTable = true;
-        ClearTable();
+        this.ClearTable();
         LoadClient(txtName);
         this.RefreshingTable = false;
     }
@@ -35,7 +35,8 @@ public class ClientsManager {
         try {
             Client client = new Client(Babels.mysql.Conn);
             Object[] rows = client.GetClient(txtName.getText());
-            Object[] row = null;
+            if(rows.length!=0){
+             Object[] row = null;
             DefaultTableModel tm = (DefaultTableModel) this.Model;
             Object[] rowTable= null;
             for (int rowIdx = 0; rowIdx < rows.length; rowIdx++) {
@@ -49,6 +50,12 @@ public class ClientsManager {
                 rowTable[5]=row[5];
                 rowTable[6]=row[6];
                 tm.addRow(rowTable);
+            }
+           
+            }
+            else {
+                DefaultTableModel tm = (DefaultTableModel) this.Model;
+                tm.getDataVector().removeAllElements();
             }
         } finally {
             Babels.mysql.Close();

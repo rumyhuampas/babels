@@ -40,6 +40,7 @@ public class Main extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         mitemCliente = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         mitemProductos = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         mitemAdminProducts = new javax.swing.JMenuItem();
@@ -183,6 +184,9 @@ public class Main extends javax.swing.JFrame {
         });
         mitemCliente.add(jMenuItem2);
 
+        jMenuItem4.setText("jMenuItem4");
+        mitemCliente.add(jMenuItem4);
+
         mbarMain.add(mitemCliente);
 
         mitemProductos.setText("   Productos   ");
@@ -291,6 +295,7 @@ private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jmitemNuevoProd;
     private javax.swing.JMenuBar mbarMain;
     private javax.swing.JMenu mitemAdmin;
