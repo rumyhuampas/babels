@@ -69,10 +69,8 @@ public class CashRegister extends javax.swing.JDialog {
         chbOpenClose = new javax.swing.JCheckBox();
         chbSales = new javax.swing.JCheckBox();
         chbInOut = new javax.swing.JCheckBox();
-        btnExportPdf = new org.edisoncor.gui.button.ButtonIcon();
-        jButton1 = new javax.swing.JButton();
-        pnlBusy2 = new org.jdesktop.swingx.JXPanel();
         pnlBusy1 = new org.jdesktop.swingx.JXPanel();
+        btnExport = new org.edisoncor.gui.button.ButtonTask();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuOperations = new javax.swing.JMenu();
         mItemOpenCash = new javax.swing.JMenuItem();
@@ -191,33 +189,6 @@ public class CashRegister extends javax.swing.JDialog {
             }
         });
 
-        btnExportPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/pdf.png"))); // NOI18N
-        btnExportPdf.setText("buttonIcon1");
-        btnExportPdf.setToolTipText("Generar PDF");
-        btnExportPdf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportPdfActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlBusy2Layout = new javax.swing.GroupLayout(pnlBusy2);
-        pnlBusy2.setLayout(pnlBusy2Layout);
-        pnlBusy2Layout.setHorizontalGroup(
-            pnlBusy2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        pnlBusy2Layout.setVerticalGroup(
-            pnlBusy2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout pnlBusy1Layout = new javax.swing.GroupLayout(pnlBusy1);
         pnlBusy1.setLayout(pnlBusy1Layout);
         pnlBusy1Layout.setHorizontalGroup(
@@ -228,6 +199,15 @@ public class CashRegister extends javax.swing.JDialog {
             pnlBusy1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 37, Short.MAX_VALUE)
         );
+
+        btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/57-download.png"))); // NOI18N
+        btnExport.setText("Exportar");
+        btnExport.setDescription("Exportar Tabla Seleccionada");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
 
         MenuOperations.setText("Operaciones");
 
@@ -315,17 +295,13 @@ public class CashRegister extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(dcTo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(pnlBusy1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(pnlBusy2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(112, 112, 112)
+                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTotalTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -355,16 +331,13 @@ public class CashRegister extends javax.swing.JDialog {
                         .addComponent(pnlBusy1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblTotalTitle))
-                    .addComponent(pnlBusy2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(24, 24, 24))
+                        .addComponent(lblTotalTitle)
+                        .addComponent(btnExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8))
         );
 
         pack();
@@ -382,14 +355,14 @@ public class CashRegister extends javax.swing.JDialog {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
-            busylabel1.setEnabled(true);
-            busylabel1.setBusy(true);    
-            this.pnlBusy1.add(busylabel1, BorderLayout.CENTER);
-            this.pnlBusy1.setAlpha(0.7f);
+            //busylabel1.setEnabled(true);
+            //busylabel1.setBusy(true);    
+            //this.pnlBusy1.add(busylabel1, BorderLayout.CENTER);
+            //this.pnlBusy1.setAlpha(0.7f);
             // JFrameBusy fb = new JFrameBusy(); 
             Manager.RefreshTable(dcFrom.getDate(), dcTo.getDate());
             tblMovements.repaint();
-            GarbageCollector.getSolicitaGarbageColector();   
+            //GarbageCollector.getSolicitaGarbageColector();   
             
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
@@ -464,7 +437,7 @@ public class CashRegister extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mItemDetalleActionPerformed
 
-    private void btnExportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPdfActionPerformed
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
          ReportManager repManager = new ReportManager(this.tblMovements);
         try {
             try {
@@ -476,29 +449,23 @@ public class CashRegister extends javax.swing.JDialog {
             } catch (IOException ex) {
                 Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
             }
-               
-           
+
+
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnExportPdfActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        GarbageCollector.getSolicitaGarbageColector();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnExportActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private javax.swing.JMenu MenuReports;
-    private org.edisoncor.gui.button.ButtonIcon btnExportPdf;
+    private org.edisoncor.gui.button.ButtonTask btnExport;
     private javax.swing.JButton btnSearch;
     private javax.swing.JCheckBox chbInOut;
     private javax.swing.JCheckBox chbOpenClose;
     private javax.swing.JCheckBox chbSales;
     private com.toedter.calendar.JDateChooser dcFrom;
     private com.toedter.calendar.JDateChooser dcTo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -514,7 +481,6 @@ public class CashRegister extends javax.swing.JDialog {
     private javax.swing.JMenu menuClose;
     private javax.swing.JMenuItem mitemPrint;
     private org.jdesktop.swingx.JXPanel pnlBusy1;
-    private org.jdesktop.swingx.JXPanel pnlBusy2;
     private javax.swing.JPopupMenu popUpTableMovement;
     private javax.swing.JTable tblMovements;
     // End of variables declaration//GEN-END:variables
