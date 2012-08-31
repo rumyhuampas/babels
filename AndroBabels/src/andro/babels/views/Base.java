@@ -1,10 +1,7 @@
 package andro.babels.views;
 
 import andro.babels.R;
-import andro.babels.wrappers.dialogs.ComboDialog;
-import andro.babels.wrappers.dialogs.ImageDialog;
-import andro.babels.wrappers.dialogs.LoadingDialog;
-import andro.babels.wrappers.dialogs.YesNoDialog;
+import andro.babels.wrappers.dialogs.*;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -27,5 +24,9 @@ public class Base {
     
     public andro.babels.wrappers.dialogs.ComboDialog CreateComboMessage(Context context, String title, String prompt, int ArrayID){
         return new ComboDialog(context, title, prompt, ArrayID);
+    }
+    
+    public static andro.babels.wrappers.dialogs.TextBoxDialog CreateTextBoxMessage(Context context, String title){
+        return new TextBoxDialog(context, title);
     }
 }
