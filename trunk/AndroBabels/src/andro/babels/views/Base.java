@@ -14,6 +14,10 @@ public class Base {
         return new ImageDialog(context, "Error", msg, R.drawable.error);
     }
     
+    public andro.babels.wrappers.dialogs.ImageDialog CreateInfoMessage(Context context, String msg){
+        return new ImageDialog(context, "Info", msg, R.drawable.info);
+    }
+    
     public static andro.babels.wrappers.dialogs.YesNoDialog CreateYesNoMessage(Context context, String title, String msg){
         return new YesNoDialog(context, title, msg, R.drawable.question);
     }
