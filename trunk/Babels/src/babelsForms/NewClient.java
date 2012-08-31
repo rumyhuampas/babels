@@ -77,7 +77,7 @@ public class NewClient extends javax.swing.JDialog {
 
         jLabel4.setText("Direccion:");
 
-        jLabel5.setText("N° Documento:");
+        jLabel5.setText("N° Cuit/Cuil/Dni:");
 
         txtCuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
