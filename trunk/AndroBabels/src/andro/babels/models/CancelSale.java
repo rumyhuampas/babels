@@ -32,7 +32,7 @@ public class CancelSale extends andro.babels.models.Base {
         }
     }
 
-    public void CancelSale() throws SQLException {
+    public void CancelSale(String ticketNumber) throws SQLException {
         Sale cancelSale = new Sale(andro.babels.controllers.Welcome.mysql.Conn);
         cancelSale.Amount = -CurrentSale.Amount;
         cancelSale.Type = new MovementTypes(andro.babels.controllers.Welcome.mysql.Conn);
@@ -41,6 +41,7 @@ public class CancelSale extends andro.babels.models.Base {
         Cancelation cancelation = new Cancelation(andro.babels.controllers.Welcome.mysql.Conn);
         cancelation.CancellerMove = cancelSale;
         cancelation.CanceledMove = CurrentSale;
+        cancelation.SetTicketNumber(ticketNumber);
         cancelation.Save();
         
         SavePrintJob(cancelSale);

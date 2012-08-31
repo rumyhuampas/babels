@@ -3,10 +3,7 @@ package andro.babels.controllers;
 import andro.babels.R;
 import andro.babels.wrappers.AndroThread;
 import andro.babels.wrappers.SaleList;
-import andro.babels.wrappers.dialogs.ComboDialog;
-import andro.babels.wrappers.dialogs.ImageDialog;
-import andro.babels.wrappers.dialogs.LoadingDialog;
-import andro.babels.wrappers.dialogs.YesNoDialog;
+import andro.babels.wrappers.dialogs.*;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -82,12 +79,27 @@ public class CancelSale extends andro.babels.controllers.Base {
 
                     public void onClick(View v) {
                         if (((Button) v).getText() == YesNoDialog.BUTTON_YES) {
-                            final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Cancelar venta", "Cancelando...");
-                            loadDialog.show();
-                            
-                            AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
-                            model, "CancelSale", null, null, null, loadDialog, CancelSaleHandler, ExceptionHandler);
-                            thread.Start();
+                            final TextBoxDialog textboxDialog = view.CreateTextBoxMessage(Activity, "Ingresar Numero de Ticket");
+                            textboxDialog.SetCallback(new View.OnClickListener(){
+
+                                public void onClick(View v2) {
+                                    String ticketNumber = textboxDialog.GetInsertedText();
+                                    if(!ticketNumber.isEmpty()){
+                                        final LoadingDialog loadDialog = view.CreateLoadingMessage(Activity, "Cancelar venta", "Cancelando...");
+                                        loadDialog.show(); 
+
+                                        AndroThread thread = new AndroThread(andro.babels.controllers.Welcome.mysql,
+                                        model, "CancelSale", new Class[]{String.class}, new Object[]{ticketNumber}, null, loadDialog, CancelSaleHandler, ExceptionHandler);
+                                        thread.Start();
+                                    }
+                                    else{
+                                        ImageDialog imageDialog = view.CreateErrorMessage(Activity, "Debe ingresar el numero de ticket para cancelar la venta");
+                                        imageDialog.show();
+                                    }
+                                    textboxDialog.hide();
+                                }
+                            });
+                            textboxDialog.show();
                         }
                         cancelDialog.hide();
                     }
