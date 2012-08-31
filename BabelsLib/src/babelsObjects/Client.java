@@ -58,7 +58,7 @@ public class Client {
 
     public boolean Load(String name) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_NAME + " = ?";
+                + this.FIELD_DOCNUM + " = ?";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
             qry.setString(1, name);
