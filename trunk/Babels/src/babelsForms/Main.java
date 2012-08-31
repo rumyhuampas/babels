@@ -27,6 +27,7 @@ public class Main extends javax.swing.JFrame {
         panelImage1 = new org.edisoncor.gui.panel.PanelImage();
         panelCurves1 = new org.edisoncor.gui.panel.PanelCurves();
         panelImage2 = new org.edisoncor.gui.panel.PanelImage();
+        jButton1 = new javax.swing.JButton();
         mbarMain = new javax.swing.JMenuBar();
         mitemFile = new javax.swing.JMenu();
         mitemFileExit = new javax.swing.JMenuItem();
@@ -65,19 +66,34 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCurves1Layout = new javax.swing.GroupLayout(panelCurves1);
         panelCurves1.setLayout(panelCurves1Layout);
         panelCurves1Layout.setHorizontalGroup(
             panelCurves1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCurves1Layout.createSequentialGroup()
-                .addContainerGap(701, Short.MAX_VALUE)
-                .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelCurves1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCurves1Layout.createSequentialGroup()
+                        .addContainerGap(701, Short.MAX_VALUE)
+                        .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCurves1Layout.createSequentialGroup()
+                        .addGap(328, 328, 328)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelCurves1Layout.setVerticalGroup(
             panelCurves1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCurves1Layout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addComponent(panelImage2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
@@ -95,7 +111,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.setPreferredSize(new java.awt.Dimension(173, 38));
 
-        mitemFile.setText("Archivo");
+        mitemFile.setText("   Archivo   ");
         mitemFile.setPreferredSize(new java.awt.Dimension(59, 19));
 
         mitemFileExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/power_black (1) - copia.png"))); // NOI18N
@@ -109,7 +125,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemFile);
 
-        mitemAdmin.setText("Administrar");
+        mitemAdmin.setText("   Administrar");
         mitemAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         mitemAdmin.setPreferredSize(new java.awt.Dimension(81, 19));
 
@@ -129,7 +145,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemAdmin);
 
-        mitemUsers.setText("Usuarios");
+        mitemUsers.setText("   Usuarios   ");
         mitemUsers.setPreferredSize(new java.awt.Dimension(63, 19));
 
         mitemUsersAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Users48.png"))); // NOI18N
@@ -143,7 +159,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemUsers);
 
-        mitemCaja.setText("Caja");
+        mitemCaja.setText("   Caja   ");
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/currency_black_dollar (2) - copia.png"))); // NOI18N
         jMenuItem1.setText("Caja");
@@ -156,7 +172,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemCaja);
 
-        mitemCliente.setText("   Cliente");
+        mitemCliente.setText("   Cliente   ");
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Add_user48.png"))); // NOI18N
         jMenuItem2.setText("Nuevo Cliente");
@@ -169,7 +185,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemCliente);
 
-        mitemProductos.setText("   Productos");
+        mitemProductos.setText("   Productos   ");
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Add48.png"))); // NOI18N
         jMenuItem3.setText("   Nuevo Producto");
@@ -191,7 +207,7 @@ public class Main extends javax.swing.JFrame {
 
         mbarMain.add(mitemProductos);
 
-        mitemCombos.setText("   Combos");
+        mitemCombos.setText("   Combos   ");
 
         jmitemNuevoProd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Add48.png"))); // NOI18N
         jmitemNuevoProd.setText("   Nuevo Combo");
@@ -266,7 +282,12 @@ private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//
        FormsFactory.GetDialogForm("babelsForms.NewCombo", true, null, null);
     }//GEN-LAST:event_jmitemNuevoProdActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.Clients", true, null, null);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
