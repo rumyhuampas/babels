@@ -22,7 +22,7 @@ public class ProdPnlMouseListener extends MouseAdapter{
         this.ComboPanel=comboPanel;
         PMenu = new JPopupMenu();
         JMenuItem mi = new JMenuItem("Remover Producto", 
-                new ImageIcon(getClass().getResource("/babelsImages/delete.png")));
+                new ImageIcon(getClass().getResource("/babelsImages/Delete.png")));
         ProdPnlPMenuMouseListener pmenuListener = new ProdPnlPMenuMouseListener(prdPanel, prodList, comboPanel);
         mi.addActionListener(pmenuListener);
         PMenu.add(mi);
