@@ -12,17 +12,20 @@ public class Print {
     private static final String FIELD_DATEPRINTED = "DatePrinted";
     private static final String FIELD_PRINTER = "Printer";
     
-    private static final String ST_PEND = "Pending";
-    private static final String ST_PRIN = "Printing";
-    private static final String ST_COMP = "Completed";
-    private static final String ST_FAIL = "Failed";
+    public static final String ST_PEND = "Pending";
+    public static final String ST_PRIN = "Printing";
+    public static final String ST_COMP = "Completed";
+    public static final String ST_FAIL = "Failed";
+
+    public static final String PR_FIS = "FISCAL";
+    public static final String PR_NOFIS = "NOFISCAL";
     
     private Connection Conn;
     private int Id;
-    public Sale Sale;
-    private Date DatePosted;
-    private Date DatePrinted;
-    private String Status;
+    public Movement Move;
+    public Date DatePosted;
+    public Date DatePrinted;
+    public String Status;
     public String Printer;
 
     public int getId() {
@@ -36,7 +39,7 @@ public class Print {
 
     public void Clear() {
         this.Id = -1;
-        this.Sale = null;
+        this.Move = null;
         this.DatePosted = null;
         this.DatePrinted = null;
         this.Status = this.ST_PEND;
@@ -64,8 +67,8 @@ public class Print {
                 this.DatePrinted = results.getDate(this.FIELD_DATEPRINTED);
                 this.Status = results.getString(this.FIELD_STATUS);
                 this.Printer = results.getString(this.FIELD_PRINTER);
-                this.Sale = new Sale(this.Conn);
-                this.Sale.Load(results.getInt(this.FIELD_IDMOVE));
+                this.Move = new Movement(this.Conn);
+                this.Move.Load(results.getInt(this.FIELD_IDMOVE));
                 return true;
             } else {
                 return false;
@@ -90,7 +93,7 @@ public class Print {
                 + ") VALUES (?,NOW(),?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
-            qry.setInt(1, this.Sale.getId());
+            qry.setInt(1, this.Move.getId());
             qry.setString(2, this.Status);
             qry.setString(3, this.Printer);
             if (qry.executeUpdate() > 0) {
