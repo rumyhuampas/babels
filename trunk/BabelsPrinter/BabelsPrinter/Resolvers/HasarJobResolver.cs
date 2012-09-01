@@ -106,6 +106,7 @@ namespace BabelsPrinter.Resolvers
                     Hasar715.ToSbyte(job.Move.MoveClient.Resp.value), 
                     Hasar715.ToSbyte(job.Move.MoveClient.Address));
                 hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_A.value));
+                hasar715.ConfigurarControlador(Hasar715.ToSbyte(ParametroConfiguracion.PAGO_SALDO.value), Hasar715.ToSbyte("Efectivo"));
                 foreach (SaleItem item in job.Move.Items.items)
                 {
                     hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
@@ -129,6 +130,7 @@ namespace BabelsPrinter.Resolvers
             {
                 hasar715.TratarDeCancelarTodo();
                 hasar715.AbrirDF(Hasar715.ToSbyte(DocumentosFiscales.TICKET_FACTURA_B.value));
+                hasar715.ConfigurarControlador(Hasar715.ToSbyte(ParametroConfiguracion.PAGO_SALDO.value), Hasar715.ToSbyte("Efectivo"));
                 foreach (SaleItem item in job.Move.Items.items)
                 {
                     hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
