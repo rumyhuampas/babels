@@ -87,7 +87,7 @@ public class Clients extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nombre", "Cuit/Cuil/Dni", "Tipo Documento", "Responsabilidad", "Direccion", "Telefono ", "Telefono 2"
+                "Id", "Nombre", "Tipo Documento", "Cuit/Cuil/Dni", "Responsabilidad", "Direccion", "Telefono ", "Telefono 2"
             }
         ) {
             boolean[] canEdit = new boolean [] {
