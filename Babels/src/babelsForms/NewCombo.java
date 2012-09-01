@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
@@ -260,7 +261,23 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
             try {
                 if (this.Manager.SaveCombo(this.ComboId, this.txtName.getText(), this.txtaDesc.getText(),
                         this.txtPrice.getText(),this.lblImg.getToolTipText(), this.Manager.GetComboProducts(), this.ImageChanged) == true) {
-                    this.dispose();
+                    if (ComboId == -1) {    
+                    if (JOptionPane.showConfirmDialog(this, "Desea agregar otro Combo?",
+                                "Nuevo Combo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                            this.txtName.setText("");
+                            this.txtPrice.setText("");
+                            this.txtaDesc.setText("");
+                            this.ImageChanged = false;
+                            this.lblImg.setText("<html>Click para cargar imágen<br>(no superiores a 1 MB)</html>");
+                            this.lblImg.setIcon(null);
+                            this.lblImg.setToolTipText("");
+                    } else {
+                            this.dispose();
+                        }
+                    } else {
+                        this.dispose();
+                    }
+                            
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);

@@ -21,7 +21,7 @@ public class NewClient extends javax.swing.JDialog implements IBabelsDialog {
         Manager.setComboTypeResp(comboTypeResp);
         AutoCompleteDecorator.decorate(comboTypeDoc);
         AutoCompleteDecorator.decorate(comboTypeResp);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -153,27 +153,26 @@ public class NewClient extends javax.swing.JDialog implements IBabelsDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-       if( Manager.CheckFields(txtName, txtPhone1, txtPhone2, txtAdress, txtDocNum) == true){
-        try {
-            if (this.Manager.SaveClient(this.ClientId, this.txtName.getText(), this.txtPhone1.getText(),
-                    this.txtPhone2.getText(), this.txtAdress.getText(), this.txtDocNum.getText(),
-                    this.comboTypeResp.getSelectedItem().toString(), this.comboTypeDoc.getSelectedItem().toString())) {
-                if (this.ClientId == -1) {
-                          }
-
+        if (Manager.CheckFields(txtName, txtPhone1, txtPhone2, txtAdress, txtDocNum) == true) {
+            try {
+                if (this.Manager.SaveClient(this.ClientId, this.txtName.getText(), this.txtPhone1.getText(),
+                        this.txtPhone2.getText(), this.txtAdress.getText(), this.txtDocNum.getText(),
+                        this.comboTypeResp.getSelectedItem().toString(), this.comboTypeDoc.getSelectedItem().toString())) {
+                    if (this.ClientId == -1) {
+                    } else {
+                        this.dispose();
+                    }
+                }
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(NewClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        } catch (SQLException ex) {
-            Logger.getLogger(NewClient.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       }    
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-  
-
- 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOk;

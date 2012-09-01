@@ -151,8 +151,8 @@
                   <Table columnCount="8" rowCount="4">
                     <Column editable="true" title="Id" type="java.lang.Object"/>
                     <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="false" title="Cuit/Cuil/Dni" type="java.lang.Object"/>
                     <Column editable="false" title="Tipo Documento" type="java.lang.Object"/>
+                    <Column editable="false" title="Cuit/Cuil/Dni" type="java.lang.Object"/>
                     <Column editable="false" title="Responsabilidad" type="java.lang.Object"/>
                     <Column editable="false" title="Direccion" type="java.lang.Object"/>
                     <Column editable="false" title="Telefono " type="java.lang.Object"/>
