@@ -6,6 +6,7 @@ import babelsListeners.txtFieldListener;
 import babelsObjects.Movement;
 import babelsObjects.MovementAdmin;
 import babelsObjects.MovementTypes;
+import babelsObjects.Print;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -63,6 +64,13 @@ public class CashRegisterWindowManager {
             move.Amount = amount;
             move.User = babels.Babels.session.CurrentUser;
             if (move.Save()) {
+                if (isParcial == false){
+                Print print = new Print(babels.Babels.mysql.Conn);
+                print.Move = move;
+                print.Printer = Print.PR_FIS;
+                print.Status = Print.ST_PEND;
+                print.Save();
+            }
                 JOptionPane.showMessageDialog(null, "Caja cerrada",
                         "Exito", JOptionPane.INFORMATION_MESSAGE);
                 return true;

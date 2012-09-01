@@ -143,6 +143,7 @@ public class CashRegisterWindow extends javax.swing.JDialog implements IBabelsDi
             }
             if (Type == 3) {
                 CashRegisterWindowManager.doCashClose(Float.parseFloat(txtAmount.getText()), false, this.txtaDescription.getText());
+                
                 this.dispose();
             }
             if (Type == 4) {
