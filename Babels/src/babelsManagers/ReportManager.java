@@ -60,7 +60,12 @@ public class ReportManager {
             datasource.addReportCashRegisterClass(clasesReportes);
         }
 
-        FileInputStream fis = new FileInputStream("reportCashRegister.jasper");
+        String appPath = Babels.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        appPath = appPath.replaceAll("%20", " ");
+        if (appPath.substring(appPath.length() - 3).equalsIgnoreCase("jar")) {
+            appPath = appPath.substring(0, appPath.length() - 11);
+        }
+        FileInputStream fis = new FileInputStream(appPath + "\\reportCashRegister.jasper");
           BufferedInputStream bufferedInputStream = new BufferedInputStream(fis);
                       
         
