@@ -271,6 +271,7 @@ public class NewCombo extends javax.swing.JDialog implements IBabelsDialog {
                             this.lblImg.setText("<html>Click para cargar imágen<br>(no superiores a 1 MB)</html>");
                             this.lblImg.setIcon(null);
                             this.lblImg.setToolTipText("");
+                            this.pnlCombo.removeAll();
                     } else {
                             this.dispose();
                         }
