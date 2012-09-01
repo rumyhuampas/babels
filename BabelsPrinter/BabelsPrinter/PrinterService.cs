@@ -12,6 +12,8 @@ namespace BabelsPrinter
         private static string USER;
         private static string PASS;
 
+        public PrintJobWatcher watcher;
+
         public PrinterService()
         {
             SERVER = Settings.Default.Server;
@@ -27,7 +29,7 @@ namespace BabelsPrinter
                 Logger.Log(Logger.MT_INFO, "Starting service...", Settings.Default.LogLevel >= 1);
 
                 ResetMyJobs();
-                PrintJobWatcher watcher = new PrintJobWatcher();
+                watcher = new PrintJobWatcher();
                 ThreadPool.QueueUserWorkItem(new WaitCallback(watcher.StartWatching), null);
             }
             catch (Exception ex)

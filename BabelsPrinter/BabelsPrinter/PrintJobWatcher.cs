@@ -10,6 +10,8 @@ namespace BabelsPrinter
     {
         private PrintJobResolver JobResolver;
         private MySQLConnection Conn;
+        private Boolean active;
+        private Boolean watching;
 
         public PrintJobWatcher()
         {
@@ -20,8 +22,10 @@ namespace BabelsPrinter
         public void StartWatching(object obj){
             try
             {
+                active = true;
+                watching = true;
                 Logger.Log(Logger.MT_INFO, "Starting job watcher", Settings.Default.LogLevel >= 4);
-                while (true)
+                while (active)
                 {
                     PrintJob job = GetPendingPrintJob();
                     if (job != null)
@@ -34,6 +38,7 @@ namespace BabelsPrinter
                         Thread.Sleep(1000);
                     }
                 }
+                watching = false;
             }
             catch (Exception ex)
             {
@@ -43,6 +48,24 @@ namespace BabelsPrinter
             finally
             {
                 Conn.Close();
+            }
+        }
+
+        public void StopWatching()
+        {
+            active = false;
+            int waiting = 0;
+            while (waiting <= 5)
+            {
+                if (watching == false)
+                {
+                    waiting = 5;
+                }
+                else
+                {
+                    waiting++;
+                    Thread.Sleep(1000);
+                }
             }
         }
 
