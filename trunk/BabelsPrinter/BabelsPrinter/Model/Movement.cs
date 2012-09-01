@@ -69,10 +69,40 @@ namespace BabelsPrinter
                     this.Type.Load(reader.GetInt32(reader.GetOrdinal(FIELD_TYPE)));
                     if (this.Type.Name == MT_VENTAA || this.Type.Name == MT_CANCELACION)
                     {
-                        if (!reader.IsDBNull(reader.GetOrdinal(FIELD_IDCLIENT)))
+                        if (this.Type.Name == MT_CANCELACION)
                         {
-                            this.MoveClient = new Client(Conn);
-                            this.MoveClient.Load(reader.GetInt32(reader.GetOrdinal(FIELD_IDCLIENT)));
+                            Cancelation cancel = new Cancelation(Conn);
+                            cancel.Load(id);
+                            this.TicketNumber = cancel.TicketNumber;
+                            string sqlCancel = "SELECT * FROM " + TABLENAME +
+                            " WHERE " + FIELD_ID + "= " + cancel.CanceledId.ToString();
+                            MySQLCommand commCancel = new MySQLCommand(sqlCancel, Conn);
+                            try
+                            {
+                                MySQLDataReader readerCancel = commCancel.ExecuteReaderEx();
+                                if (readerCancel.HasRows)
+                                {
+                                    readerCancel.Read();
+                                    if (!readerCancel.IsDBNull(readerCancel.GetOrdinal(FIELD_IDCLIENT)))
+                                    {
+                                        this.MoveClient = new Client(Conn);
+                                        this.MoveClient.Load(readerCancel.GetInt32(readerCancel.GetOrdinal(FIELD_IDCLIENT)));
+                                    }
+                                }
+                            }
+                            catch (Exception ex) { }
+                            finally
+                            {
+                                commCancel.Dispose();
+                            }
+                        }
+                        else
+                        {
+                            if (!reader.IsDBNull(reader.GetOrdinal(FIELD_IDCLIENT)))
+                            {
+                                this.MoveClient = new Client(Conn);
+                                this.MoveClient.Load(reader.GetInt32(reader.GetOrdinal(FIELD_IDCLIENT)));
+                            }
                         }
                     }
                     this.DatePosted = reader.GetDateTime(reader.GetOrdinal(FIELD_DATEPOSTED));
@@ -106,7 +136,6 @@ namespace BabelsPrinter
             {
                 Cancelation cancel = new Cancelation(Conn);
                 cancel.Load(saleId);
-                this.TicketNumber = cancel.TicketNumber;
                 sql = "SELECT * FROM " + SaleItem.TABLENAME +
                 " WHERE " + SaleItem.FIELD_IDMOVE + "= " + cancel.CanceledId.ToString();
             }

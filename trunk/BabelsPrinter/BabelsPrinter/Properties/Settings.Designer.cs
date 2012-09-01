@@ -25,7 +25,7 @@ namespace BabelsPrinter.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FISCAL;NOFISCAL;COCINA_1;COCINA_2;X")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FISCAL;NOFISCAL;X")]
         public string Printers {
             get {
                 return ((string)(this["Printers"]));
@@ -155,6 +155,15 @@ namespace BabelsPrinter.Properties {
         public string DefaultClientAddress {
             get {
                 return ((string)(this["DefaultClientAddress"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HP LaserJet 1020")]
+        public string PrinterName {
+            get {
+                return ((string)(this["PrinterName"]));
             }
         }
     }
