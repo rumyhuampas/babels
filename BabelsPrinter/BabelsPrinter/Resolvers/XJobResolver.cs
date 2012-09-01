@@ -37,7 +37,7 @@ namespace BabelsPrinter.Resolvers
             doc.DocumentName = "Babels X Print";
             PrinterSettings PS = new PrinterSettings();
             PS.Copies = 1;
-            PS.PrinterName = "HP LaserJet 1020";
+            PS.PrinterName = Settings.Default.PrinterName;
             doc.PrinterSettings = PS;
             doc.Print();
         }
