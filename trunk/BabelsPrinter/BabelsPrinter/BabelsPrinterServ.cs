@@ -11,6 +11,8 @@ namespace BabelsPrinter
 {
     public partial class BabelsPrinterServ : ServiceBase
     {
+        private PrinterService printer;
+
         public BabelsPrinterServ()
         {
             InitializeComponent();
@@ -18,10 +20,13 @@ namespace BabelsPrinter
 
         protected override void OnStart(string[] args)
         {
+            printer = new PrinterService();
+            printer.Start();
         }
 
         protected override void OnStop()
         {
+            printer.watcher.StopWatching();
         }
     }
 }
