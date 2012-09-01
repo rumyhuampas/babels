@@ -99,8 +99,8 @@ public class Clients extends javax.swing.JDialog {
             }
         });
         tblClients.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClientsMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblClientsMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(tblClients);
@@ -215,9 +215,9 @@ public class Clients extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
     
-    private void tblClientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientsMouseClicked
+    private void tblClientsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientsMousePressed
         this.setDataFromTable();
-    }//GEN-LAST:event_tblClientsMouseClicked
+    }//GEN-LAST:event_tblClientsMousePressed
     private void setDataFromTable() {
         int row = this.tblClients.getSelectedRow();
         this.txtName.setText(this.tblClients.getValueAt(row, 1).toString());
