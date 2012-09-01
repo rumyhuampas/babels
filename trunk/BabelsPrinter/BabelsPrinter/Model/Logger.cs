@@ -10,7 +10,7 @@ namespace BabelsPrinter
     public static class Logger
     {
         private static string TABLENAME = "BabelsPrinterLog";
-        private static string FIELD_ID = "Id";
+        //private static string FIELD_ID = "Id";
         private static string FIELD_SERVICENAME = "ServiceName";
         private static string FIELD_MESSAGETYPE = "MessageType";
         private static string FIELD_MESSAGE = "Message";

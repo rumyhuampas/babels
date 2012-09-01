@@ -33,6 +33,7 @@
             // 
             // serviceProcessInstaller
             // 
+            this.serviceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this.serviceProcessInstaller.Password = null;
             this.serviceProcessInstaller.Username = null;
             // 
@@ -53,7 +54,7 @@
 
         #endregion
 
-        private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller;
         private System.ServiceProcess.ServiceInstaller serviceInstaller;
+        private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller;
     }
 }
