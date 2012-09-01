@@ -214,7 +214,7 @@ void Hasar715CLRConfig::ObtenerConfiguracion(){
 }
 
 void Hasar715CLRConfig::ConfigurarControlador(char *parametro, char *valor){
-	logger -> Logf("Configurando controlador parametro: %s valor: %s", string(parametro), string(valor));
+	logger -> Logf("Configurando controlador parametro: %s valor: %s", parametro, valor);
 	impresor->ConfigurarControlador (Hasar715CLRConfigEnumFuncs::ObtenerParamConfiguracion(parametro), string(valor));
 }
 
