@@ -59,6 +59,7 @@ public class Combos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
+        jmItemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/edit.png.png"))); // NOI18N
         jmItemEdit.setText("Editar");
         jmItemEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +68,7 @@ public class Combos extends javax.swing.JDialog {
         });
         jmMenuTblCombos.add(jmItemEdit);
 
+        jmItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Delete.png"))); // NOI18N
         jmItemDelete.setText("Eliminar");
         jmItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
