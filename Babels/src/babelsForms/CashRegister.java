@@ -35,10 +35,12 @@ public class CashRegister extends javax.swing.JDialog {
         Calendar calfin = new GregorianCalendar();
         cal.setTime(begin);
         calfin.setTime(end);
-        cal.add(Calendar.HOUR, 2);
-        calfin.add(Calendar.HOUR, 2);
+        //cal.add(Calendar.HOUR);
+        //calfin.add(Calendar.HOUR);
         Date Begining = cal.getTime();
         Date Final = calfin.getTime();
+       // JOptionPane.showMessageDialog(null, Begining);
+        //JOptionPane.showMessageDialog(null, Final);
         busylabel1 = createSimpleBusyLabel();
         busylabel1.setEnabled(false);
 
