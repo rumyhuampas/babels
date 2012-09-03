@@ -35,7 +35,7 @@ public class Products extends javax.swing.JDialog {
         pmenuTblProducts.setToolTipText("");
 
         pmitemEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        pmitemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/edit.png"))); // NOI18N
+        pmitemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/edit.png.png"))); // NOI18N
         pmitemEdit.setText("Editar");
         pmitemEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
