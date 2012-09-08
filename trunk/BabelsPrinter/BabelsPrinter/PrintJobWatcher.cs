@@ -64,7 +64,7 @@ namespace BabelsPrinter
                 else
                 {
                     waiting++;
-                    Thread.Sleep(1000);
+                    //Thread.Sleep(1000);
                 }
             }
         }

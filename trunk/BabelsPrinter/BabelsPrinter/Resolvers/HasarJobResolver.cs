@@ -80,6 +80,7 @@ namespace BabelsPrinter.Resolvers
                         Print_Z_Report(job);
                         break;
                     case Movement.MT_CIERREPARCIAL:
+                        Print_X_Report(job);
                         break;
                     case Movement.MT_DEPOSITO:
                         break;
@@ -136,6 +137,24 @@ namespace BabelsPrinter.Resolvers
                     hasar715.ImprimirItem(Hasar715.ToSbyte(item.Name), item.Amount, item.Price, item.IVA, 0, false);
                 }
                 hasar715.CerrarDF();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+        private unsafe void Print_X_Report(PrintJob job)
+        {
+            Logger.Log(Logger.MT_INFO, "Printing X Report", Settings.Default.LogLevel >= 4);
+            try
+            {
+                hasar715.TratarDeCancelarTodo();
+                hasar715.ImprimirReporteX();
             }
             catch (Exception ex)
             {
