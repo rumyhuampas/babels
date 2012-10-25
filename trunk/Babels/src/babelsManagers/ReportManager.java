@@ -79,13 +79,15 @@ public class ReportManager {
                     jasperReport, null, datasource);
 
            //JasperViewer.viewReport(jasperPrint);
-            JDialog viewer = new JDialog(new JFrame(),"Vista previa del reporte", true); 
-            viewer.setSize(800,600); 
-            viewer.setLocationRelativeTo(null); 
+            //JDialog viewer = new JDialog(new JFrame(),"Vista previa del reporte", true); 
+            //viewer.setSize(800,600); 
+           // viewer.setLocationRelativeTo(null); 
             JRViewer jrv = new JRViewer(jasperPrint); 
-
-            viewer.getContentPane().add(jrv); 
-            viewer.show(); 
+            JasperViewer viewer = new JasperViewer(jasperPrint, false);
+            viewer.setVisible(true);
+                        
+            //viewer.getContentPane().add(jrv); 
+            //viewer.show(); 
            
            // String filename = "Reporte Movimientos de Caja" + ".pdf";
            //  OutputStream output = new FileOutputStream(new File("C:/"+filename+"")); 
