@@ -5,6 +5,7 @@ import babelsManagers.LoginManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JDialog implements IBabelsDialog {
 
@@ -127,6 +128,8 @@ public class Login extends javax.swing.JDialog implements IBabelsDialog {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(),
+                "Error " + ex.getErrorCode(), JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnOKActionPerformed
