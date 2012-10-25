@@ -39,21 +39,23 @@ public class CashRegister extends javax.swing.JDialog {
         //calfin.add(Calendar.HOUR);
         Date Begining = cal.getTime();
         Date Final = calfin.getTime();
-       // JOptionPane.showMessageDialog(null, Begining);
+        // JOptionPane.showMessageDialog(null, Begining);
         //JOptionPane.showMessageDialog(null, Final);
         busylabel1 = createSimpleBusyLabel();
         busylabel1.setEnabled(false);
-
+        this.setModalityType(ModalityType.MODELESS);
         dcFrom.setDate(Begining);
         dcTo.setDate(Final);
         this.Refresh = true;
         this.btnSearch.doClick();
     }
+
     public JXBusyLabel createSimpleBusyLabel() {
         JXBusyLabel label = new JXBusyLabel();
         label.setToolTipText("Cargando...");
         return label;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -352,12 +354,12 @@ public class CashRegister extends javax.swing.JDialog {
             Manager.RefreshTable(dcFrom.getDate(), dcTo.getDate());
             tblMovements.repaint();
             //GarbageCollector.getSolicitaGarbageColector();   
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSearchActionPerformed
-       
+
     private void mItemPartialCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemPartialCloseActionPerformed
         Manager.doOperation(2);
         this.Refresh = true;
@@ -390,14 +392,14 @@ public class CashRegister extends javax.swing.JDialog {
             if (evt.getClickCount() == 1) {
                 this.tblMovements.changeSelection(tblMovements.getSelectedRow(), tblMovements.getSelectedColumn(), false, false);
                 this.popUpTableMovement.show(this.tblMovements, evt.getX(), evt.getY());
-            } 
-                }else {
-                if (evt.getClickCount() == 2) {
-                    try {
-                        Manager.getDetail();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            }
+        } else {
+            if (evt.getClickCount() == 2) {
+                try {
+                    Manager.getDetail();
+                } catch (SQLException ex) {
+                    Logger.getLogger(CashRegister.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_tblMovementsMousePressed
@@ -419,26 +421,27 @@ public class CashRegister extends javax.swing.JDialog {
     }//GEN-LAST:event_mItemDetalleActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-         ReportManager repManager = new ReportManager(this.tblMovements);
+        ReportManager repManager = new ReportManager(this.tblMovements);
         try {
             try {
+                this.setModal(false);
                 repManager.print();
+                this.setModal(true);
             } catch (JRException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                        "Error", JOptionPane.ERROR_MESSAGE);
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                        "Error", JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),
                     "Error " + ex.getErrorCode(), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExportActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private org.edisoncor.gui.button.ButtonTask btnExport;
