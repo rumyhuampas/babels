@@ -13,9 +13,6 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="pmitemEdit">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/babelsImages/edit.png.png"/>
             </Property>
@@ -28,7 +25,7 @@
         <MenuItem class="javax.swing.JMenuItem" name="pmitemDelete">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/babelsImages/delete.png"/>
+              <Image iconType="3" name="/babelsImages/Delete.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
