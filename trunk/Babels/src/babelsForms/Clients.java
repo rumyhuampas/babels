@@ -1,6 +1,8 @@
 package babelsForms;
 
 import babelsManagers.ClientsManager;
+import babelsObjects.FormsFactory;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,16 +10,17 @@ import java.util.logging.Logger;
 public class Clients extends javax.swing.JDialog {
     
     private ClientsManager Manager;
+    public boolean Refresh = true;
     
     public Clients(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         Manager = new ClientsManager(this.tblClients, this.txtSearchClients);        
-        try {
+        /*try {
             Manager.RefreshTable();
         } catch (SQLException ex) {
             Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
     
     @SuppressWarnings("unchecked")
@@ -36,15 +39,33 @@ public class Clients extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtDocNum = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtAddress = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtPhone1 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtPhone2 = new javax.swing.JTextField();
+        btnClose = new javax.swing.JButton();
+        btnNew = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Babel´s Oriental Fast Food - Clientes");
+        setPreferredSize(new java.awt.Dimension(800, 550));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         pnlSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
 
         jLabel1.setText("Nombre Cliente:");
+
+        txtSearchClients.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchClientsKeyTyped(evt);
+            }
+        });
 
         btnSearch.setText("Buscar");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -87,11 +108,11 @@ public class Clients extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nombre", "Tipo Documento", "Cuit/Cuil/Dni", "Responsabilidad", "Direccion", "Telefono ", "Telefono 2"
+                "Id", "Nombre", "Tipo de Documento", "Cuit/Cuil/Dni", "Resp", "Direccion", "Telefono ", "Telefono 2"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -104,6 +125,17 @@ public class Clients extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tblClients);
+        if (tblClients.getColumnModel().getColumnCount() > 0) {
+            tblClients.getColumnModel().getColumn(0).setMinWidth(0);
+            tblClients.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblClients.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblClients.getColumnModel().getColumn(2).setMinWidth(0);
+            tblClients.getColumnModel().getColumn(2).setPreferredWidth(0);
+            tblClients.getColumnModel().getColumn(2).setMaxWidth(0);
+            tblClients.getColumnModel().getColumn(4).setMinWidth(0);
+            tblClients.getColumnModel().getColumn(4).setPreferredWidth(0);
+            tblClients.getColumnModel().getColumn(4).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout pnlClientsLayout = new javax.swing.GroupLayout(pnlClients);
         pnlClients.setLayout(pnlClientsLayout);
@@ -111,14 +143,12 @@ public class Clients extends javax.swing.JDialog {
             pnlClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlClientsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlClientsLayout.setVerticalGroup(
             pnlClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlClientsLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
         );
 
         pnlData.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
@@ -127,10 +157,26 @@ public class Clients extends javax.swing.JDialog {
 
         jLabel3.setText("N° Cuit/Cuil/Dni:");
 
+        txtName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         txtName.setEnabled(false);
 
         txtDocNum.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         txtDocNum.setEnabled(false);
+
+        jLabel4.setText("Direccion:");
+
+        txtAddress.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtAddress.setEnabled(false);
+
+        jLabel5.setText("Telefono:");
+
+        txtPhone1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtPhone1.setEnabled(false);
+
+        jLabel6.setText("Telefono 2:");
+
+        txtPhone2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtPhone2.setEnabled(false);
 
         javax.swing.GroupLayout pnlDataLayout = new javax.swing.GroupLayout(pnlData);
         pnlData.setLayout(pnlDataLayout);
@@ -142,11 +188,23 @@ public class Clients extends javax.swing.JDialog {
                     .addGroup(pnlDataLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtName))
+                        .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
                     .addGroup(pnlDataLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtDocNum)))
+                        .addComponent(txtDocNum))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDataLayout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPhone1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPhone2, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlDataLayout.setVerticalGroup(
@@ -159,12 +217,35 @@ public class Clients extends javax.swing.JDialog {
                 .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDocNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)))
         );
 
-        jButton1.setText("Cancelar");
+        btnClose.setText("Cerrar");
+        btnClose.setName("btnClose"); // NOI18N
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Aceptar");
+        btnNew.setText("Nuevo cliente");
+        btnNew.setName("btnClose"); // NOI18N
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,9 +256,9 @@ public class Clients extends javax.swing.JDialog {
             .addComponent(pnlData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnNew)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnClose)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -185,13 +266,13 @@ public class Clients extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlClients, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClose)
+                    .addComponent(btnNew))
                 .addContainerGap())
         );
 
@@ -218,30 +299,70 @@ public class Clients extends javax.swing.JDialog {
     private void tblClientsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientsMousePressed
         this.setDataFromTable();
     }//GEN-LAST:event_tblClientsMousePressed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.NewClient", true, null, null);
+        this.Refresh = true;
+    }//GEN-LAST:event_btnNewActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        if (Refresh == true) {
+            try {
+                this.Manager.RefreshTable();
+                Refresh = false;
+            } catch (SQLException ex) {
+                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtSearchClientsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchClientsKeyTyped
+        if(evt.getKeyChar() == KeyEvent.VK_ENTER){
+            this.btnSearch.doClick();
+        }
+    }//GEN-LAST:event_txtSearchClientsKeyTyped
     private void setDataFromTable() {
-        int row = this.tblClients.getSelectedRow();
-        this.txtName.setText(this.tblClients.getValueAt(row, 1).toString());
-        this.txtDocNum.setText(this.tblClients.getValueAt(row, 3).toString());
+        if(this.tblClients.getRowCount() > 0){
+            int row = this.tblClients.getSelectedRow();
+            this.txtName.setText(this.tblClients.getValueAt(row, 1).toString());
+            this.txtDocNum.setText(this.tblClients.getValueAt(row, 3).toString());
+            this.txtAddress.setText(this.tblClients.getValueAt(row, 5).toString());
+            this.txtPhone1.setText(this.tblClients.getValueAt(row, 6).toString());
+            this.txtPhone2.setText(this.tblClients.getValueAt(row, 7).toString());
+        }
     }
     
     private void clearDataFromTable() {
         this.txtName.setText("");
         this.txtDocNum.setText("");
+        this.txtAddress.setText("");
+        this.txtPhone1.setText("");
+        this.txtPhone2.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlClients;
     private javax.swing.JPanel pnlData;
     private javax.swing.JPanel pnlSearch;
     private javax.swing.JTable tblClients;
+    private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtDocNum;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPhone1;
+    private javax.swing.JTextField txtPhone2;
     private javax.swing.JTextField txtSearchClients;
     // End of variables declaration//GEN-END:variables
 }

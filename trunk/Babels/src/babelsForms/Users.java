@@ -60,15 +60,17 @@ public class Users extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tblUsers);
-        tblUsers.getColumnModel().getColumn(0).setMinWidth(0);
-        tblUsers.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tblUsers.getColumnModel().getColumn(0).setMaxWidth(0);
-        tblUsers.getColumnModel().getColumn(2).setMinWidth(50);
-        tblUsers.getColumnModel().getColumn(2).setPreferredWidth(50);
-        tblUsers.getColumnModel().getColumn(2).setMaxWidth(50);
-        tblUsers.getColumnModel().getColumn(3).setMinWidth(50);
-        tblUsers.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tblUsers.getColumnModel().getColumn(3).setMaxWidth(50);
+        if (tblUsers.getColumnModel().getColumnCount() > 0) {
+            tblUsers.getColumnModel().getColumn(0).setMinWidth(0);
+            tblUsers.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblUsers.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblUsers.getColumnModel().getColumn(2).setMinWidth(50);
+            tblUsers.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tblUsers.getColumnModel().getColumn(2).setMaxWidth(50);
+            tblUsers.getColumnModel().getColumn(3).setMinWidth(50);
+            tblUsers.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tblUsers.getColumnModel().getColumn(3).setMaxWidth(50);
+        }
 
         btnNew.setText("Nuevo usuario");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
