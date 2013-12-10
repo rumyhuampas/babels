@@ -204,9 +204,11 @@ public class Client {
         }
     }
 
-    public Object[] GetClient(String Name) throws SQLException {
+    public Object[] GetClient(String NameOrPhone) throws SQLException {
         String sql = "SELECT * FROM " + this.TABLENAME + " WHERE "
-                + this.FIELD_NAME + " like '" + Name + "%'";
+                + this.FIELD_NAME + " like '%" + NameOrPhone + "%' OR "
+                + this.FIELD_PHONE1 + " like '%" + NameOrPhone + "%' OR "
+                + this.FIELD_PHONE2 + " like '%" + NameOrPhone + "%'";
         PreparedStatement qry = this.Conn.prepareStatement(sql);
         try {
           //  qry.setString(1, Name);

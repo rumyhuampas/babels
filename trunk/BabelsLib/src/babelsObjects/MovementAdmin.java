@@ -20,7 +20,7 @@ public class MovementAdmin {
                     + " FROM " + MovementTypes.TABLENAME + " t,  " + Movement.TABLENAME + " m LEFT JOIN"
                     + " " + Cancelation.TABLENAME + " c ON c." + Cancelation.FIELD_CANCELEDMOVEID + " = m." + Movement.FIELD_ID
                     + " WHERE DATE(m." + Movement.FIELD_DATEPOSTED + ")BETWEEN '" + BeginingDateStr + "' and '" + FinalDateStr + "'"
-              //      + " and m." + Movement.FIELD_TYPE + " IN (" + optionStr + ")"
+                    + " and m." + Movement.FIELD_TYPE + " IN (" + optionStr + ")"
                     + " and t." + MovementTypes.FIELD_ID + " = m." + Movement.FIELD_TYPE
                     + " ORDER BY m." + Movement.FIELD_DATEPOSTED;
 
