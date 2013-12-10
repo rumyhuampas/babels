@@ -2,6 +2,7 @@ package babelsForms;
 
 import babelsManagers.CashRegisterManager;
 import babelsManagers.ReportManager;
+import babelsObjects.FormsFactory;
 import babelsObjects.GarbageCollector;
 import babelsRenderers.JFrameBusy;
 import java.awt.BorderLayout;
@@ -84,6 +85,7 @@ public class CashRegister extends javax.swing.JDialog {
         mItemFinalClose = new javax.swing.JMenuItem();
         mItemCashOut = new javax.swing.JMenuItem();
         mItemCashIn = new javax.swing.JMenuItem();
+        mItemTotals = new javax.swing.JMenuItem();
 
         mItemDetalle.setText("Detalle");
         mItemDetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -147,9 +149,11 @@ public class CashRegister extends javax.swing.JDialog {
             }
         });
         jScrollPane1.setViewportView(tblMovements);
-        tblMovements.getColumnModel().getColumn(4).setMinWidth(0);
-        tblMovements.getColumnModel().getColumn(4).setPreferredWidth(0);
-        tblMovements.getColumnModel().getColumn(4).setMaxWidth(0);
+        if (tblMovements.getColumnModel().getColumnCount() > 0) {
+            tblMovements.getColumnModel().getColumn(4).setMinWidth(0);
+            tblMovements.getColumnModel().getColumn(4).setPreferredWidth(0);
+            tblMovements.getColumnModel().getColumn(4).setMaxWidth(0);
+        }
 
         jLabel1.setText("Hasta:");
 
@@ -257,6 +261,14 @@ public class CashRegister extends javax.swing.JDialog {
             }
         });
         MenuOperations.add(mItemCashIn);
+
+        mItemTotals.setText("Ver Totales");
+        mItemTotals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemTotalsActionPerformed(evt);
+            }
+        });
+        MenuOperations.add(mItemTotals);
 
         jMenuBar1.add(MenuOperations);
 
@@ -442,6 +454,11 @@ public class CashRegister extends javax.swing.JDialog {
                     "Error " + ex.getErrorCode(), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExportActionPerformed
+
+    private void mItemTotalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemTotalsActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.CashRegisterTotals", true, null, null);
+    }//GEN-LAST:event_mItemTotalsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuOperations;
     private org.edisoncor.gui.button.ButtonTask btnExport;
@@ -463,6 +480,7 @@ public class CashRegister extends javax.swing.JDialog {
     private javax.swing.JMenuItem mItemFinalClose;
     private javax.swing.JMenuItem mItemOpenCash;
     private javax.swing.JMenuItem mItemPartialClose;
+    private javax.swing.JMenuItem mItemTotals;
     private javax.swing.JMenu menuClose;
     private org.jdesktop.swingx.JXPanel pnlBusy1;
     private javax.swing.JPopupMenu popUpTableMovement;
