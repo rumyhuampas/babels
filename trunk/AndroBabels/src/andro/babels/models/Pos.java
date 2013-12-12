@@ -43,7 +43,8 @@ public class Pos extends andro.babels.models.Base {
 
     private void SavePrint(Sale sale) throws SQLException {
         Print print = new Print(andro.babels.controllers.Welcome.mysql.Conn);
-        print.Sale = sale;
+        //print.Sale = sale;
+        print.Move = sale;
         if (sale.Type.Name.equals(Sale.TYPE_A) || sale.Type.Name.equals(Sale.TYPE_B)) {
             print.Printer = "FISCAL";
         } else {
@@ -100,7 +101,8 @@ public class Pos extends andro.babels.models.Base {
     
     private void CreateProdPrint(int idKitchen, Sale sale) throws SQLException{
         Print printKitchen = new Print(andro.babels.controllers.Welcome.mysql.Conn);
-        printKitchen.Sale = sale;
+        //printKitchen.Sale = sale;
+        printKitchen.Move = sale;
         printKitchen.Printer = "COCINA_" + idKitchen;
         printKitchen.Save();
     }
