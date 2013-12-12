@@ -22,9 +22,9 @@ public class CashRegisterTotalsManager  {
             babels.Babels.mysql.Open();
 
             ArrayList info = new ArrayList();
-            ArrayList dayInfo = CashRegisterTotalsManager.getDayInfo();
-            ArrayList monthInfo = CashRegisterTotalsManager.getMonthInfo();
-            ArrayList yearInfo = CashRegisterTotalsManager.getYearInfo();
+            Object[] dayInfo = CashRegisterTotalsManager.getDayInfo();
+            Object[] monthInfo = CashRegisterTotalsManager.getMonthInfo();
+            Object[] yearInfo = CashRegisterTotalsManager.getYearInfo();
             info.add(dayInfo);
             info.add(monthInfo);
             info.add(yearInfo);
@@ -36,7 +36,7 @@ public class CashRegisterTotalsManager  {
         }
     }
     
-    private static ArrayList getDayInfo() throws SQLException {            
+    private static Object[] getDayInfo() throws SQLException {            
         Date begin = new Date();
         Date end = new Date();
         Calendar cal = new GregorianCalendar();
@@ -46,16 +46,30 @@ public class CashRegisterTotalsManager  {
         Date Begining = cal.getTime();
         Date Final = calfin.getTime();
 
-        ArrayList res = new ArrayList();
         Object[] absales = CashRegisterTotalsManager.getABSales(Begining, Final);
-        Object[] xsales = CashRegisterTotalsManager.getXSales(Begining, Final);
-        res.add(absales);
-        res.add(xsales);
+        Object[] row = null;
+        float abTotal = 0;
+        for (int rowIdx = 0; rowIdx < absales.length; rowIdx++) {
+            row = (Object[]) absales[rowIdx];
+            abTotal = abTotal + ((Float) row[2]);
+        }
         
-        return res;
+        Object[] xsales = CashRegisterTotalsManager.getXSales(Begining, Final);
+        float xTotal = 0;
+        for (int rowIdx = 0; rowIdx < xsales.length; rowIdx++) {
+            row = (Object[]) xsales[rowIdx];
+            xTotal = xTotal + ((Float) row[2]);
+        }
+        
+        ArrayList res = new ArrayList();
+        res.add(abTotal);
+        res.add(xTotal);
+        res.add(abTotal + xTotal);
+        
+        return res.toArray();
     }
     
-    private static ArrayList getMonthInfo() throws SQLException {            
+    private static Object[] getMonthInfo() throws SQLException {            
         //Date begin = new Date();
         Date end = new Date();
         Calendar cal = new GregorianCalendar();
@@ -66,16 +80,30 @@ public class CashRegisterTotalsManager  {
         Date Begining = cal.getTime();
         Date Final = calfin.getTime();
 
-        ArrayList res = new ArrayList();
         Object[] absales = CashRegisterTotalsManager.getABSales(Begining, Final);
-        Object[] xsales = CashRegisterTotalsManager.getXSales(Begining, Final);
-        res.add(absales);
-        res.add(xsales);
+        Object[] row = null;
+        float abTotal = 0;
+        for (int rowIdx = 0; rowIdx < absales.length; rowIdx++) {
+            row = (Object[]) absales[rowIdx];
+            abTotal = abTotal + ((Float) row[2]);
+        }
         
-        return res;
+        Object[] xsales = CashRegisterTotalsManager.getXSales(Begining, Final);
+        float xTotal = 0;
+        for (int rowIdx = 0; rowIdx < xsales.length; rowIdx++) {
+            row = (Object[]) xsales[rowIdx];
+            xTotal = xTotal + ((Float) row[2]);
+        }
+        
+        ArrayList res = new ArrayList();
+        res.add(abTotal);
+        res.add(xTotal);
+        res.add(abTotal + xTotal);
+        
+        return res.toArray();
     }
     
-    private static ArrayList getYearInfo() throws SQLException {            
+    private static Object[] getYearInfo() throws SQLException {            
         //Date begin = new Date();
         Date end = new Date();
         Calendar cal = new GregorianCalendar();
@@ -86,13 +114,27 @@ public class CashRegisterTotalsManager  {
         Date Begining = cal.getTime();
         Date Final = calfin.getTime();
 
-        ArrayList res = new ArrayList();
         Object[] absales = CashRegisterTotalsManager.getABSales(Begining, Final);
-        Object[] xsales = CashRegisterTotalsManager.getXSales(Begining, Final);
-        res.add(absales);
-        res.add(xsales);
+        Object[] row = null;
+        float abTotal = 0;
+        for (int rowIdx = 0; rowIdx < absales.length; rowIdx++) {
+            row = (Object[]) absales[rowIdx];
+            abTotal = abTotal + ((Float) row[2]);
+        }
         
-        return res;
+        Object[] xsales = CashRegisterTotalsManager.getXSales(Begining, Final);
+        float xTotal = 0;
+        for (int rowIdx = 0; rowIdx < xsales.length; rowIdx++) {
+            row = (Object[]) xsales[rowIdx];
+            xTotal = xTotal + ((Float) row[2]);
+        }
+        
+        ArrayList res = new ArrayList();
+        res.add(abTotal);
+        res.add(xTotal);
+        res.add(abTotal + xTotal);
+        
+        return res.toArray();
     }
     
     private static Object[] getABSales(Date BeginingDate, Date FinalDate) throws SQLException {
