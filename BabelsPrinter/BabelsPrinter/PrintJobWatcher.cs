@@ -94,6 +94,7 @@ namespace BabelsPrinter
                         result.Status = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_STATUS));
                         result.Printer = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_PRINTER));
                         result.Retries = reader.GetInt32(reader.GetOrdinal(PrintJob.FIELD_RETRIES));
+                        result.Data = reader.GetString(reader.GetOrdinal(PrintJob.FIELD_DATA));
                         break;
                     }
                     else

@@ -62,6 +62,7 @@
       <DependentUpon>BabelsPrinterServ.cs</DependentUpon>
     </Compile>
     <Compile Include="Hasar\Hasar715.cs" />
+    <Compile Include="Helpers\ClientPrintHelper.cs" />
     <Compile Include="Helpers\XPrintHelper.cs" />
     <Compile Include="Interfaces\IJobResolver.cs" />
     <Compile Include="Model\Cancelation.cs" />
@@ -79,6 +80,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resolvers\ClientJobResolver.cs" />
     <Compile Include="Resolvers\HasarJobResolver.cs" />
     <Compile Include="Hasar\HasarTypes.cs" />
     <Compile Include="Resolvers\KitchenJobResolver.cs" />

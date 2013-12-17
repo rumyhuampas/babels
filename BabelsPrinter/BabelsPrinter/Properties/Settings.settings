@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="Printers" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">FISCAL;NOFISCAL;X</Value>
+      <Value Profile="(Default)">FISCAL;NOFISCAL;X;CLIENTE</Value>
     </Setting>
     <Setting Name="ServiceName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MainPrinter</Value>

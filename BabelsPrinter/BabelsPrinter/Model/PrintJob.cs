@@ -12,6 +12,7 @@ namespace BabelsPrinter
         public static string FIELD_DATEPRINTED = "DatePrinted";
         public static string FIELD_PRINTER = "Printer";
         public static string FIELD_RETRIES = "Retries";
+        public static string FIELD_DATA = "Data";
 
         public static string ST_PEND = "PENDING";
         public static string ST_PRIN = "PRINTING";
@@ -25,6 +26,7 @@ namespace BabelsPrinter
         private DateTime _DatePrinted;
         private string _Printer;
         private int _Restries;
+        private string _Data;
 
         public int Id { get { return _Id; } set { _Id = value; } }
         public Movement Move { get { return _Move; } set { _Move = value; } }
@@ -33,5 +35,6 @@ namespace BabelsPrinter
         public DateTime DatePrinted { get { return _DatePrinted; } set { _DatePrinted = value; } }
         public string Printer { get { return _Printer; } set { _Printer = value; } }
         public int Retries { get { return _Restries; } set { _Restries = value; } }
+        public string Data { get { return _Data; } set { _Data = value; } }
     }
 }

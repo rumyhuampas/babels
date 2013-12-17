@@ -15,12 +15,14 @@ namespace BabelsPrinter.Resolvers
         private HasarJobResolver HasarResolver;
         private KitchenJobResolver KitchenResolver;
         private XJobResolver XResolver;
+        private ClientJobResolver ClientResolver;
 
         public PrintJobResolver()
         {
             HasarResolver = new HasarJobResolver();
             KitchenResolver = new KitchenJobResolver();
             XResolver = new XJobResolver();
+            ClientResolver = new ClientJobResolver();
         }
 
         public void ProcessJob(PrintJob job)
@@ -43,6 +45,13 @@ namespace BabelsPrinter.Resolvers
                         if (job.Printer == Printers.PRINTER_X)
                         {
                             XResolver.ProcessJob(job);
+                        }
+                        else
+                        {
+                            if (job.Printer == Printers.PRINTER_CLIENTE)
+                            {
+                                ClientResolver.ProcessJob(job);
+                            }
                         }
                     }
                 }
