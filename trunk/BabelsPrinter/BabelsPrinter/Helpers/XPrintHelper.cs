@@ -59,7 +59,7 @@ namespace BabelsPrinter.Helpers
             Rec.Y += 20;
         }
 
-        public void DrawJobItems(PrintJob job)
+        public virtual void DrawJobItems(PrintJob job)
         {
             Rectangle auxRec = new Rectangle(Rec.X, Rec.Y, (Rec.Width / 3) * 2, Rec.Height);
             Rectangle auxRecLast = new Rectangle(auxRec.X + auxRec.Width, auxRec.Y, Rec.Width / 3, Rec.Height);
@@ -78,7 +78,7 @@ namespace BabelsPrinter.Helpers
             }
         }
 
-        public void DrawJobTotal(PrintJob job)
+        public virtual void DrawJobTotal(PrintJob job)
         {
             Rectangle auxRec = new Rectangle(Rec.X, Rec.Y, (Rec.Width / 3) * 2, Rec.Height);
             Rectangle auxRecLast = new Rectangle(auxRec.X + auxRec.Width, auxRec.Y, Rec.Width / 3, Rec.Height);

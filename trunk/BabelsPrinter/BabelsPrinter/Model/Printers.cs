@@ -12,6 +12,7 @@ namespace BabelsPrinter
         public const string PRINTER_NOFISCAL = "NOFISCAL";
         public const string PRINTER_COCINA = "COCINA";
         public const string PRINTER_X = "X";
+        public const string PRINTER_CLIENTE = "CLIENTE";
 
         public static string GetPrinterList(){
             string[] printerList = Settings.Default.Printers.Split(';');
