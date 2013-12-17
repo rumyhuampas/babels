@@ -11,6 +11,7 @@ public class Print {
     private static final String FIELD_STATUS = "Status";
     private static final String FIELD_DATEPRINTED = "DatePrinted";
     private static final String FIELD_PRINTER = "Printer";
+    private static final String FIELD_DATA = "Data";
     
     public static final String ST_PEND = "Pending";
     public static final String ST_PRIN = "Printing";
@@ -19,6 +20,7 @@ public class Print {
 
     public static final String PR_FIS = "FISCAL";
     public static final String PR_NOFIS = "NOFISCAL";
+    public static final String PR_CLIENTE = "CLIENTE";
     
     private Connection Conn;
     private int Id;
@@ -27,6 +29,7 @@ public class Print {
     public Date DatePrinted;
     public String Status;
     public String Printer;
+    public String Data;
 
     public int getId() {
         return this.Id;
@@ -44,6 +47,7 @@ public class Print {
         this.DatePrinted = null;
         this.Status = this.ST_PEND;
         this.Printer = "";
+        this.Data = "";
     }
 
     public boolean Load(Integer id) throws SQLException {
@@ -67,6 +71,7 @@ public class Print {
                 this.DatePrinted = results.getDate(this.FIELD_DATEPRINTED);
                 this.Status = results.getString(this.FIELD_STATUS);
                 this.Printer = results.getString(this.FIELD_PRINTER);
+                this.Data = results.getString(this.FIELD_DATA);
                 this.Move = new Movement(this.Conn);
                 this.Move.Load(results.getInt(this.FIELD_IDMOVE));
                 return true;
@@ -89,13 +94,20 @@ public class Print {
     private boolean InsertPrint() throws SQLException {
         String sql = "INSERT INTO " + this.TABLENAME + " ("
                 + this.FIELD_IDMOVE + "," + this.FIELD_DATEPOSTED + ","
-                + this.FIELD_STATUS + "," + this.FIELD_PRINTER
-                + ") VALUES (?,NOW(),?,?)";
+                + this.FIELD_STATUS + "," + this.FIELD_PRINTER + ","
+                + this.FIELD_DATA
+                + ") VALUES (?,NOW(),?,?,?)";
         PreparedStatement qry = this.Conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         try {
-            qry.setInt(1, this.Move.getId());
+            if(this.Move != null){
+                qry.setInt(1, this.Move.getId());
+            }
+            else{
+                qry.setInt(1, -1);
+            }
             qry.setString(2, this.Status);
             qry.setString(3, this.Printer);
+            qry.setString(4, this.Data);
             if (qry.executeUpdate() > 0) {
                 ResultSet result = qry.getGeneratedKeys();
                 result.next();
