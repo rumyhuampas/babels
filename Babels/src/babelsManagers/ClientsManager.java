@@ -2,7 +2,9 @@ package babelsManagers;
 
 import babels.Babels;
 import babelsObjects.Client;
+import babelsObjects.Print;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -24,13 +26,13 @@ public class ClientsManager {
         DefaultTableModel tm = (DefaultTableModel) this.Model;
         tm.getDataVector().removeAllElements();
     }
-      public void RefreshTable() throws SQLException {
+    public void RefreshTable() throws SQLException {
         this.RefreshingTable = true;
         this.ClearTable();
         LoadClient(txtName);
         this.RefreshingTable = false;
     }
-      private void LoadClient(JTextField txtName) throws SQLException {
+    private void LoadClient(JTextField txtName) throws SQLException {
         Babels.mysql.Open();
         try {
             Client client = new Client(Babels.mysql.Conn);
@@ -56,6 +58,24 @@ public class ClientsManager {
             else {
                 DefaultTableModel tm = (DefaultTableModel) this.Model;
                 tm.getDataVector().removeAllElements();
+            }
+        } finally {
+            Babels.mysql.Close();
+        }
+    }
+      
+    public void PrintClient(int clientId) throws SQLException{
+        Babels.mysql.Open();
+        try {
+            Client client = new Client(Babels.mysql.Conn);
+            client.Load(clientId);
+            Print print = new Print(Babels.mysql.Conn);
+            print.Printer = Print.PR_CLIENTE;
+            print.Status = Print.ST_PEND;
+            print.Data = String.valueOf(clientId);
+            if(print.Save() == true){
+                JOptionPane.showMessageDialog(null, "Impresion guardada exitosamente.",
+                    "Exito", JOptionPane.INFORMATION_MESSAGE);
             }
         } finally {
             Babels.mysql.Close();

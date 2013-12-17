@@ -45,6 +45,7 @@ public class Clients extends javax.swing.JDialog {
         txtPhone1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtPhone2 = new javax.swing.JTextField();
+        btnPrint = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnNew = new javax.swing.JButton();
 
@@ -148,7 +149,7 @@ public class Clients extends javax.swing.JDialog {
         );
         pnlClientsLayout.setVerticalGroup(
             pnlClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
         );
 
         pnlData.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
@@ -178,6 +179,13 @@ public class Clients extends javax.swing.JDialog {
         txtPhone2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtPhone2.setEnabled(false);
 
+        btnPrint.setText("Imprimir");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlDataLayout = new javax.swing.GroupLayout(pnlData);
         pnlData.setLayout(pnlDataLayout);
         pnlDataLayout.setHorizontalGroup(
@@ -188,7 +196,9 @@ public class Clients extends javax.swing.JDialog {
                     .addGroup(pnlDataLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlDataLayout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -210,9 +220,11 @@ public class Clients extends javax.swing.JDialog {
         pnlDataLayout.setVerticalGroup(
             pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDataLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDocNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,6 +337,17 @@ public class Clients extends javax.swing.JDialog {
             this.btnSearch.doClick();
         }
     }//GEN-LAST:event_txtSearchClientsKeyTyped
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        if(this.tblClients.getRowCount() > 0){
+            int row = this.tblClients.getSelectedRow();
+            try {
+                Manager.PrintClient(Integer.parseInt(this.tblClients.getValueAt(row, 0).toString()));
+            } catch (SQLException ex) {
+                Logger.getLogger(Clients.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
     private void setDataFromTable() {
         if(this.tblClients.getRowCount() > 0){
             int row = this.tblClients.getSelectedRow();
@@ -346,6 +369,7 @@ public class Clients extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnNew;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
