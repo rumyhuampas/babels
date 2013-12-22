@@ -1,23 +1,21 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.5.24-log - MySQL Community Server (GPL)
--- Server OS:                    Win32
--- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-08-13 21:00:32
+-- Versión del servidor:         5.6.14 - MySQL Community Server (GPL)
+-- SO del servidor:              Win32
+-- HeidiSQL Versión:             8.2.0.4675
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
-/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dumping database structure for babels
-DROP DATABASE IF EXISTS `babels`;
+-- Volcando estructura de base de datos para babels
 CREATE DATABASE IF NOT EXISTS `babels` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `babels`;
 
 
--- Dumping structure for table babels.babelsprinterlog
-DROP TABLE IF EXISTS `babelsprinterlog`;
+-- Volcando estructura para tabla babels.babelsprinterlog
 CREATE TABLE IF NOT EXISTS `babelsprinterlog` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `ServiceName` varchar(50) NOT NULL,
@@ -27,11 +25,10 @@ CREATE TABLE IF NOT EXISTS `babelsprinterlog` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.cancelations
-DROP TABLE IF EXISTS `cancelations`;
+-- Volcando estructura para tabla babels.cancelations
 CREATE TABLE IF NOT EXISTS `cancelations` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `CancellerMoveId` int(10) NOT NULL DEFAULT '0',
@@ -39,11 +36,10 @@ CREATE TABLE IF NOT EXISTS `cancelations` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.clients
-DROP TABLE IF EXISTS `clients`;
+-- Volcando estructura para tabla babels.clients
 CREATE TABLE IF NOT EXISTS `clients` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) NOT NULL,
@@ -51,14 +47,15 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `DocType` char(1) NOT NULL,
   `Resp` char(1) NOT NULL,
   `Address` varchar(1000) DEFAULT NULL,
+  `Phone1` varchar(50) DEFAULT NULL,
+  `Phone2` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.combos
-DROP TABLE IF EXISTS `combos`;
+-- Volcando estructura para tabla babels.combos
 CREATE TABLE IF NOT EXISTS `combos` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
@@ -68,11 +65,10 @@ CREATE TABLE IF NOT EXISTS `combos` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.combo_products
-DROP TABLE IF EXISTS `combo_products`;
+-- Volcando estructura para tabla babels.combo_products
 CREATE TABLE IF NOT EXISTS `combo_products` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `IdCombo` int(10) NOT NULL,
@@ -80,11 +76,10 @@ CREATE TABLE IF NOT EXISTS `combo_products` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.movements
-DROP TABLE IF EXISTS `movements`;
+-- Volcando estructura para tabla babels.movements
 CREATE TABLE IF NOT EXISTS `movements` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Type` int(3) NOT NULL DEFAULT '0',
@@ -96,22 +91,20 @@ CREATE TABLE IF NOT EXISTS `movements` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.movement_types
-DROP TABLE IF EXISTS `movement_types`;
+-- Volcando estructura para tabla babels.movement_types
 CREATE TABLE IF NOT EXISTS `movement_types` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE latin1_spanish_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.prints
-DROP TABLE IF EXISTS `prints`;
+-- Volcando estructura para tabla babels.prints
 CREATE TABLE IF NOT EXISTS `prints` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `IdMove` int(10) DEFAULT NULL,
@@ -124,11 +117,10 @@ CREATE TABLE IF NOT EXISTS `prints` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.products
-DROP TABLE IF EXISTS `products`;
+-- Volcando estructura para tabla babels.products
 CREATE TABLE IF NOT EXISTS `products` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
@@ -143,11 +135,10 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.sale_details
-DROP TABLE IF EXISTS `sale_details`;
+-- Volcando estructura para tabla babels.sale_details
 CREATE TABLE IF NOT EXISTS `sale_details` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `IdMove` int(10) NOT NULL DEFAULT '0',
@@ -156,11 +147,10 @@ CREATE TABLE IF NOT EXISTS `sale_details` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
 
--- Dumping structure for table babels.users
-DROP TABLE IF EXISTS `users`;
+-- Volcando estructura para tabla babels.users
 CREATE TABLE IF NOT EXISTS `users` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
@@ -170,6 +160,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
--- Data exporting was unselected.
-/*!40014 SET FOREIGN_KEY_CHECKS=1 */;
+-- La exportación de datos fue deseleccionada.
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
