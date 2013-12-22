@@ -37,6 +37,7 @@ public class Main extends javax.swing.JFrame {
         mitemUsersAdmin = new javax.swing.JMenuItem();
         mitemCaja = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        mitemPrints = new javax.swing.JMenuItem();
         mitemCliente = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -154,6 +155,15 @@ public class Main extends javax.swing.JFrame {
             }
         });
         mitemCaja.add(jMenuItem1);
+
+        mitemPrints.setIcon(new javax.swing.ImageIcon(getClass().getResource("/babelsImages/Printer.png"))); // NOI18N
+        mitemPrints.setText("Impresiones");
+        mitemPrints.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemPrintsActionPerformed(evt);
+            }
+        });
+        mitemCaja.add(mitemPrints);
 
         mbarMain.add(mitemCaja);
 
@@ -280,6 +290,10 @@ private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//
         FormsFactory.GetDialogForm("babelsForms.Clients", true, null, null);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void mitemPrintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemPrintsActionPerformed
+        FormsFactory.GetDialogForm("babelsForms.Prints", true, null, null);
+    }//GEN-LAST:event_mitemPrintsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -297,6 +311,7 @@ private void mitemAdminCombosActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JMenu mitemCombos;
     private javax.swing.JMenu mitemFile;
     private javax.swing.JMenuItem mitemFileExit;
+    private javax.swing.JMenuItem mitemPrints;
     private javax.swing.JMenu mitemProductos;
     private javax.swing.JMenu mitemUsers;
     private javax.swing.JMenuItem mitemUsersAdmin;
